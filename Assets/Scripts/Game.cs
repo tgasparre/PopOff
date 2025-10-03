@@ -6,6 +6,7 @@ public class Game : MonoBehaviour
     public PreStartState PreStartState;
     public PauseState PauseState;
     public GameOverState GameOverState;
+    public MiniGameState MiniGameState;
 
 
     private GameState currentState;
@@ -32,6 +33,8 @@ public class Game : MonoBehaviour
     public void StartGame()
     {
         // move to player number select, then start minigame
+        // maybe add another method here to proc player select, then in that method move to minigame state
+        SetGameStateTo(MiniGameState);
     }
 
     public void PauseGame()
