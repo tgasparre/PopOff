@@ -5,16 +5,17 @@ namespace ControllerSystem.Platformer2D
 {
     public class PlatformerHorizontalMovementModule : PlatformerMotorModule
     {
+            
         [Tooltip("Higher values makes changing directions feel less slippery")]
-        [SerializeField] private float _turnAroundSpeedMultiplier = 1.5f;
-        [SerializeField] private float _groundAccelerationTime = 0.1f;
-        [SerializeField] private float _airAccelerationTime = 0.1f;
-        [SerializeField] private float _groundSpeed = 25 / 3f;
-        [SerializeField] private float _airSpeed = 25 / 3f;
+        [SerializeField] private float _turnAroundSpeedMultiplier = MovementParameters.turnAroundSpeedMultiplier;
+        [SerializeField] private float _groundAccelerationTime = MovementParameters.groundAccelerationTime;
+        [SerializeField] private float _airAccelerationTime = MovementParameters.airAccelerationTime;
+        [SerializeField] private float _groundSpeed = MovementParameters.groundSpeed;
+        [SerializeField] private float _airSpeed = MovementParameters.airSpeed;
         [Tooltip("Applies only when not inputting movement")]
-        [SerializeField] private float _groundDrag = 20;
+        [SerializeField] private float _groundDrag = MovementParameters.groundDrag;
         [Tooltip("Applies only when not inputting movement")]
-        [SerializeField] private float _airDrag = 5;
+        [SerializeField] private float _airDrag = MovementParameters.airDrag;
 
         private PlatformerCrouchModule _crouchModule;
         
@@ -51,6 +52,39 @@ namespace ControllerSystem.Platformer2D
 
                 motor.Rb.AddForce(new Vector2(dragForce * Time.fixedDeltaTime, 0), ForceMode2D.Impulse);
             }
+        }
+
+        public void SetMovementTypeToFast()
+        {
+            _turnAroundSpeedMultiplier = MovementParameters.fastTurnAroundSpeedMultiplier;
+            _groundAccelerationTime = MovementParameters.fastGroundAccelerationTime;
+            _airAccelerationTime = MovementParameters.fastAirAccelerationTime;
+            _groundSpeed = MovementParameters.fastGroundSpeed;
+            _airSpeed = MovementParameters.fastAirSpeed;
+            _groundDrag = MovementParameters.fastGroundDrag;
+            _airDrag = MovementParameters.fastAirDrag;
+        }
+        
+        public void SetMovementTypeToSlow()
+        {
+            _turnAroundSpeedMultiplier = MovementParameters.slowTurnAroundSpeedMultiplier;
+            _groundAccelerationTime = MovementParameters.slowGroundAccelerationTime;
+            _airAccelerationTime = MovementParameters.slowAirAccelerationTime;
+            _groundSpeed = MovementParameters.slowGroundSpeed;
+            _airSpeed = MovementParameters.slowAirSpeed;
+            _groundDrag = MovementParameters.slowGroundDrag;
+            _airDrag = MovementParameters.slowAirDrag;
+        }
+
+        public void ResetMovement()
+        {
+            _turnAroundSpeedMultiplier = MovementParameters.turnAroundSpeedMultiplier;
+            _groundAccelerationTime = MovementParameters.groundAccelerationTime;
+            _airAccelerationTime = MovementParameters.airAccelerationTime;
+            _groundSpeed = MovementParameters.groundSpeed;
+            _airSpeed = MovementParameters.airSpeed;
+            _groundDrag = MovementParameters.groundDrag;
+            _airDrag = MovementParameters.airDrag;
         }
     }
 }

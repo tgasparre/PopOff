@@ -31,5 +31,17 @@ public class UIHandler : MonoBehaviour
         
         CanvasGroupDisplayer.Show(PauseScreen);
     }
+
+    public void SwitchToPvPState()
+    {
+        ClearAllMenus();
+    }
+
+    private void ClearAllMenus()
+    {
+        CanvasGroupDisplayer.Hide(StartScreen);
+        CanvasGroupDisplayer.Hide(PauseScreen);
+        CanvasGroupDisplayer.Hide(EndScreen);
+    }
     
 }

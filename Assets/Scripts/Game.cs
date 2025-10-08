@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     public PauseState PauseState;
     public GameOverState GameOverState;
     public MiniGameState MiniGameState;
+    public PVPCombatState PVPCombatState;
 
 
     private GameState currentState;
@@ -34,12 +35,31 @@ public class Game : MonoBehaviour
     {
         // move to player number select, then start minigame
         // maybe add another method here to proc player select, then in that method move to minigame state
-        SetGameStateTo(MiniGameState);
+        SetGameStateTo(PVPCombatState);
     }
 
     public void PauseGame()
     {
         SetGameStateTo(PauseState);
+    }
+
+    public void ResumeGame()
+    {
+        SetGameStateTo(PVPCombatState);
+    }
+
+    public void EndGame()
+    {
+        SetGameStateTo(GameOverState);
+    }
+
+    public void CloseGame()
+    { 
+        Application.Quit();
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        
     }
 
     private void SetGameStateTo(GameState newState)
