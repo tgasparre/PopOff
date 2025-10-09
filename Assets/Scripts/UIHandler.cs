@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIHandler : MonoBehaviour
@@ -5,7 +6,13 @@ public class UIHandler : MonoBehaviour
     public CanvasGroup StartScreen;
     public CanvasGroup EndScreen;
     public CanvasGroup PauseScreen;
+    public CanvasGroup InfoScreen;
 
+    private void Awake()
+    {
+        CanvasGroupDisplayer.Hide(InfoScreen);
+    }
+    
 
     public void SwitchToStartScreen()
     {
@@ -37,11 +44,22 @@ public class UIHandler : MonoBehaviour
         ClearAllMenus();
     }
 
+    public void DisplayPanel(CanvasGroup panel)
+    {
+        CanvasGroupDisplayer.Show(panel);
+    }
+
+    public void HidePanel(CanvasGroup panel)
+    {
+        CanvasGroupDisplayer.Hide(panel);
+    }
+
     private void ClearAllMenus()
     {
         CanvasGroupDisplayer.Hide(StartScreen);
         CanvasGroupDisplayer.Hide(PauseScreen);
         CanvasGroupDisplayer.Hide(EndScreen);
     }
+    
     
 }

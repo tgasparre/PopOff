@@ -101,6 +101,7 @@ namespace ControllerSystem.Platformer2D
             // Normal jump / double jump
             if (CanJump() && Controller.Input.jump.TryUseBuffer())
             {
+                Debug.Log("can jump check passed");
                 Jump();
                 InvokeEvent(Events.Jump);
             }
@@ -145,7 +146,7 @@ namespace ControllerSystem.Platformer2D
             // Check for a head bonk
             if (PerformHeadBonkCheck(motor.Collider, GroundCheck.GroundLayerMask))
             {
-                BonkHead(motor.Rb.linearVelocity.y);
+                //BonkHead(motor.Rb.linearVelocity.y);
             }
 
             // Knockback partially overrides vertical and horizontal velocity. This prevents your jump from getting 'eaten' when in a knockback state
