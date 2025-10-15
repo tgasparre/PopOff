@@ -7052,25 +7052,33 @@ PrefabInstance:
       propertyPath: _jumpSettings.NumDoubleJumps
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 607324285402208986, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: _size.y
+      value: 0.66
+      objectReference: {fileID: 0}
     - target: {fileID: 655279182114636981, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: InputManager
       value: 
       objectReference: {fileID: 1988938977}
     - target: {fileID: 2429633143417092443, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3081307378264225611, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.565
       objectReference: {fileID: 0}
+    - target: {fileID: 3337111365194707579, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4201154347296165777, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.078
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5180016685347396478, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5721891567157199269, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_Layer
@@ -7091,6 +7099,10 @@ PrefabInstance:
     - target: {fileID: 6179691903812469541, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6412992861762507910, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6650671476741911390, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7151,6 +7163,38 @@ PrefabInstance:
     - target: {fileID: 7242459182012552044, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.35750002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: -0.35750002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089045313850625059, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].x
+      value: -0.37
       objectReference: {fileID: 0}
     - target: {fileID: 8354200939775083575, guid: dbfefa11fbc964a41ad02cd29c64b27f, type: 3}
       propertyPath: m_Layer
