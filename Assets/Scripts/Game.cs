@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class Game : MonoBehaviour
     public GameOverState GameOverState;
     public MiniGameState MiniGameState;
     public PVPCombatState PVPCombatState;
+
+    public int numPlayersAlive;
 
 
     private GameState currentState;
@@ -21,7 +25,10 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Keyboard.current.mKey.wasPressedThisFrame)
+        {
+            SetGameStateTo(MiniGameState);
+        }
     }
 
     public void Reset()
@@ -35,6 +42,7 @@ public class Game : MonoBehaviour
     {
         // move to player number select, then start minigame
         // maybe add another method here to proc player select, then in that method move to minigame state
+        //spawn in players into main fighting arena
         SetGameStateTo(PVPCombatState);
     }
 
@@ -68,4 +76,7 @@ public class Game : MonoBehaviour
         Debug.Log(currentState);
         currentState.EnterState();
     }
+
+    
+    
 }

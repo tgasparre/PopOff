@@ -48,8 +48,32 @@ namespace ControllerSystem.Platformer2D
             public float JumpHeight = 16.66667f;
             public float JumpEndEarlyForce = 0.6f;
             public float JumpEndEarlyWindowDuration = 0.2f;
+            
+            //code not from crown starts here
+            public void SetJumpTypeToLight()
+            {
+                NumDoubleJumps = 2;
+                JumpHeight = MovementParameters.lightJumpHeight;
+                JumpEndEarlyForce = MovementParameters.lightJumpEndEarlyForce;
+            }
+
+            public void SetJumpTypeToHeavy()
+            {
+                NumDoubleJumps = 1;
+                JumpHeight = MovementParameters.heavyJumpHeight;
+                JumpEndEarlyForce = MovementParameters.heavyJumpEndEarlyForce;
+            }
+
+            public void ResetJumpType()
+            {
+                NumDoubleJumps = 1;
+                JumpHeight = 16.66667f;
+                JumpEndEarlyForce = 0.6f;
+            }
+            // code not from crown ends here
         }
         [SerializeField] private JumpConfig _jumpSettings;
+        
         
         [Serializable]
         public class CoyoteTimeSettings
