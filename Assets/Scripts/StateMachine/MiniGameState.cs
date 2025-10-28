@@ -15,6 +15,7 @@ public class MiniGameState : GameState
     public override void EnterState()
     {
         StartRandomMiniGame();
+        uiHandler.SwitchToPlayingState();
     }
 
     private void StartRandomMiniGame()
@@ -25,7 +26,8 @@ public class MiniGameState : GameState
 
     private void PopulateMinigameList()
     {
-        //start code from chatgpt, prompt: im making a game that has multiple minigames. every minigame is its own scene. how can i make a list of all the minigame scenes while ignoring the scene of the main game?
+        //start code from chatgpt, prompt: im making a game that has multiple minigames.
+        //every minigame is its own scene. how can i make a list of all the minigame scenes while ignoring the scene of the main game?
         int sceneCount = SceneManager.sceneCountInBuildSettings;
 
         for (int i = 0; i < sceneCount; i++)

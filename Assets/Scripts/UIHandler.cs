@@ -39,8 +39,9 @@ public class UIHandler : MonoBehaviour
         CanvasGroupDisplayer.Show(PauseScreen);
     }
 
-    public void SwitchToPvPState()
+    public void SwitchToPlayingState()
     {
+        Debug.Log("Switched to playing state");
         ClearAllMenus();
     }
 
@@ -59,6 +60,7 @@ public class UIHandler : MonoBehaviour
         CanvasGroupDisplayer.Hide(StartScreen);
         CanvasGroupDisplayer.Hide(PauseScreen);
         CanvasGroupDisplayer.Hide(EndScreen);
+        Debug.Log("clear all menus was called");
     }
     
     

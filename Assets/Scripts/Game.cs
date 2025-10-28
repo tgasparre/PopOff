@@ -27,7 +27,7 @@ public class Game : MonoBehaviour
     {
         if (Keyboard.current.mKey.wasPressedThisFrame)
         {
-            SetGameStateTo(MiniGameState);
+            TriggerMinigame();
         }
     }
 
@@ -70,8 +70,19 @@ public class Game : MonoBehaviour
         
     }
 
+    public void TriggerMinigame()
+    {
+        SetGameStateTo(MiniGameState);
+    }
+
+    public void EndMinigame()
+    {
+        SetGameStateTo(PVPCombatState);
+    }
+
     private void SetGameStateTo(GameState newState)
     {
+        // if pvpcombatstate, stop spawning portals, else does nothing
         currentState = newState;
         Debug.Log(currentState);
         currentState.EnterState();
