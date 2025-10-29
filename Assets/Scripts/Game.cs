@@ -4,22 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    // possibly switch these into a state machine handler class if it gets too messy
-    public PreStartState PreStartState;
-    public PauseState PauseState;
-    public GameOverState GameOverState;
-    public MiniGameState MiniGameState;
-    public PVPCombatState PVPCombatState;
-
     public int numPlayersAlive;
-
-
+    
     private GameState currentState;
+    [SerializeField] private StateMachineManager gameStateManager;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SetGameStateTo(PreStartState);
+        gameStateManager.EnterPreStartState();
     }
 
     // Update is called once per frame
@@ -35,7 +28,7 @@ public class Game : MonoBehaviour
     {
         // go back to title screen or character select screen
         // stop all movement/functions/coroutines happening
-        SetGameStateTo(PreStartState);
+        gameStateManager.EnterPreStartState();
     }
 
     public void StartGame()
@@ -43,22 +36,23 @@ public class Game : MonoBehaviour
         // move to player number select, then start minigame
         // maybe add another method here to proc player select, then in that method move to minigame state
         //spawn in players into main fighting arena
-        SetGameStateTo(PVPCombatState);
+        gameStateManager.EnterPVPCombatState();
     }
 
     public void PauseGame()
     {
-        SetGameStateTo(PauseState);
+        gameStateManager.EnterPauseState();
     }
 
     public void ResumeGame()
     {
-        SetGameStateTo(PVPCombatState);
+        //will have to change this to be able to pause from minigame state
+        gameStateManager.EnterPVPCombatState();
     }
 
     public void EndGame()
     {
-        SetGameStateTo(GameOverState);
+        gameStateManager.EnterGameOverState();
     }
 
     public void CloseGame()
@@ -72,20 +66,12 @@ public class Game : MonoBehaviour
 
     public void TriggerMinigame()
     {
-        SetGameStateTo(MiniGameState);
+        gameStateManager.EnterMiniGameState();
     }
 
     public void EndMinigame()
     {
-        SetGameStateTo(PVPCombatState);
-    }
-
-    private void SetGameStateTo(GameState newState)
-    {
-        // if pvpcombatstate, stop spawning portals, else does nothing
-        currentState = newState;
-        Debug.Log(currentState);
-        currentState.EnterState();
+        gameStateManager.EnterPVPCombatState();
     }
 
     
