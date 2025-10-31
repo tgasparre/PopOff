@@ -578,6 +578,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPDisplayer
   playerStats: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
+--- !u!1 &424683422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1848796045980225218, guid: 52bda041baa3f6e4b8b6fde1988b49e4, type: 3}
+  m_PrefabInstance: {fileID: 2952597335913379932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &733844276 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3590623359352260628, guid: 9e20fc0205e750741a4e30d89cfc6e02, type: 3}
@@ -758,12 +763,36 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8029534946105049782, guid: 52bda041baa3f6e4b8b6fde1988b49e4, type: 3}
   m_PrefabInstance: {fileID: 2952597335913379932}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 424683422}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 609609ae599bc964d999caf794d7d3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIHandler
+--- !u!114 &1019176394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424683422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9415d88c3c851a54f96d068415432a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroy
+--- !u!114 &1019176395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424683422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b18fe6a78c6d18148b098ac012ad14ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoaderListener
 --- !u!114 &1103852305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6610707356447804857, guid: 9e20fc0205e750741a4e30d89cfc6e02, type: 3}
@@ -1256,6 +1285,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1638721156181718267, guid: 9e20fc0205e750741a4e30d89cfc6e02, type: 3}
       insertIndex: -1
       addedObject: {fileID: 645540656792147418}
+    - targetCorrespondingSourceObject: {fileID: 1638721156181718267, guid: 9e20fc0205e750741a4e30d89cfc6e02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 645540656792147421}
   m_SourcePrefab: {fileID: 100100000, guid: 9e20fc0205e750741a4e30d89cfc6e02, type: 3}
 --- !u!1 &645540656792147417 stripped
 GameObject:
@@ -1279,6 +1311,18 @@ MonoBehaviour:
   GameOverState: {fileID: 1265758833}
   MiniGameState: {fileID: 72656301}
   PVPCombatState: {fileID: 1103852305}
+--- !u!114 &645540656792147421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645540656792147417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9415d88c3c851a54f96d068415432a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroy
 --- !u!1001 &1662722585255803636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1494,7 +1538,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7393312530442388484, guid: 52bda041baa3f6e4b8b6fde1988b49e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 896133759}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1848796045980225218, guid: 52bda041baa3f6e4b8b6fde1988b49e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1019176394}
+    - targetCorrespondingSourceObject: {fileID: 1848796045980225218, guid: 52bda041baa3f6e4b8b6fde1988b49e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1019176395}
   m_SourcePrefab: {fileID: 100100000, guid: 52bda041baa3f6e4b8b6fde1988b49e4, type: 3}
 --- !u!1001 &3349275937549232647
 PrefabInstance:
@@ -1548,6 +1598,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3062809853175913679, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
+      propertyPath: playerStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
     - target: {fileID: 8462143577036698616, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: InputManager
       value: 

@@ -1,10 +1,15 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PVPCombatState : GameState
 {
     [SerializeField]
     private MiniGamePortalPlacer minigamePortalPlacer;
+
+    public UnityEvent SceneLoaded;
     public override void EnterState()
     {
         if (sceneLoader.IsInMinigameScene())
@@ -15,14 +20,12 @@ public class PVPCombatState : GameState
         }
         // minigamePortalPlacer.StartPlacing();
         uiHandler.SwitchToPlayingState();
+        SceneLoaded?.Invoke();
     }
-
+    
     public override void EndState()
     {
         minigamePortalPlacer.StopPlacing();
     }
-    
-    
-    
     
 }

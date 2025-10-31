@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class MiniGameState : GameState
 {
     private List<string> minigamesList = new List<string>();
-    private SceneLoader sceneLoader = new SceneLoader();
 
     void Awake()
     {
