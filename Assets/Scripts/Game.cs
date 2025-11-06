@@ -73,7 +73,5 @@ public class Game : MonoBehaviour
     {
         gameStateManager.EnterPVPCombatState();
     }
-
-    
     
 }

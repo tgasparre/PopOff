@@ -39,8 +39,4 @@ public class MiniGameState : GameState
         }
         //end code from chatgpt
     }
-    
-    
-    
-    
 }
