@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
     public int numPlayersAlive;
-    
-    private GameState currentState;
     [SerializeField] private StateMachineManager gameStateManager;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,10 +16,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.mKey.wasPressedThisFrame)
-        {
-            TriggerMinigame();
-        }
+
     }
 
     public void Reset()
@@ -52,6 +47,7 @@ public class Game : MonoBehaviour
 
     public void EndGame()
     {
+        //TODO: edit this to display name of which player won
         gameStateManager.EnterGameOverState();
     }
 
@@ -72,6 +68,20 @@ public class Game : MonoBehaviour
     public void EndMinigame()
     {
         gameStateManager.EnterPVPCombatState();
+    }
+
+    public void SetNumPlayersAlive(int numPlayers)
+    {
+        numPlayersAlive = numPlayers;
+    }
+
+    private void KillPlayer()
+    {
+        numPlayersAlive--;
+        if (numPlayersAlive <= 0)
+        {
+            EndGame();
+        }
     }
     
 }

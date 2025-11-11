@@ -11,7 +11,7 @@ public class GameState : MonoBehaviour
         
     }
 
-    public virtual void EndState()
+    public virtual void ExitState()
     {
         return;
     }

@@ -43,6 +43,8 @@ namespace ControllerSystem.Platformer2D
                 }
 
                 motor.Rb.AddForce(new Vector2(horizontalForce * Time.fixedDeltaTime, 0), ForceMode2D.Impulse);
+                
+                
             }
             else
             {

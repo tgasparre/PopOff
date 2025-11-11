@@ -17,6 +17,11 @@ public class MiniGameState : GameState
         uiHandler.SwitchToPlayingState();
     }
 
+    public override void ExitState()
+    {
+        sceneLoader.LoadScene("SampleScene");
+    }
+
     private void StartRandomMiniGame()
     {
         int i = Random.Range(0, minigamesList.Count);
