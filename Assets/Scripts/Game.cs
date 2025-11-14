@@ -4,15 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
+    
     public int numPlayersAlive;
     [SerializeField] private StateMachineManager gameStateManager;
+    public GameTools gameTools = new GameTools();
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        gameStateManager.EnterPreStartState();
+    { 
+        ShowStartMenus();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -81,6 +83,15 @@ public class Game : MonoBehaviour
         if (numPlayersAlive <= 0)
         {
             EndGame();
+        }
+    }
+
+    private void ShowStartMenus()
+    {
+        if (!gameTools.HasGameStarted())
+        {
+            gameStateManager.EnterPreStartState();
+            gameTools.SetGameStarted(true);
         }
     }
     

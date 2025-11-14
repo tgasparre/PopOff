@@ -7,5 +7,4 @@ public class PreStartState : GameState
         uiHandler.SwitchToStartScreen();
     }
     
-    
 }

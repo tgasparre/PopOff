@@ -19,8 +19,7 @@ public class PVPCombatState : GameState
             sceneLoader.InstantLoadScene("SampleScene");
         }
         // minigamePortalPlacer.StartPlacing();
-        SceneLoaded?.Invoke();
-        uiHandler.SwitchToPlayingState();
+         uiHandler.SwitchToPlayingState();
     }
     
     public override void ExitState()
