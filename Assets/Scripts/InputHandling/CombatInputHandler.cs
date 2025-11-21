@@ -8,30 +8,44 @@ public class CombatInputHandler : MonoBehaviour
     public InputManager InputManager;
     public Sprite CombatSprite;
     public Sprite DefaultSprite;
-    private Command kButton;
+    public AttackHitbox hitbox;
 
     private void Awake()
     {
-        kButton = new BasicAttackCommand();
+        
+    }
+
+    void Update()
+    {
+        
     }
 
     public void HandleInput(GameObject target)
     {
         if (InputManager.Input.primary.TryUseBuffer())
         {
+            Debug.Log("Combat input detected");
+            ExecuteAttack();
             RunAttackSpriteAnimation();
-            kButton.Execute(target);
         }
     }
 
+    private void ExecuteAttack()
+    {
+        hitbox.gameObject.SetActive(true);
+        Debug.Log("Attack Executed");
+    }
+
+    private void DeactivateHitbox()
+    {
+        hitbox.gameObject.SetActive(false);
+    }
     
     //switch to the punching sprite, wait for a small delay then reset the sprite
     private void RunAttackSpriteAnimation()
     {
         ChangeToCombatSprite();
-        StartCoroutine(SpriteDelay());
-        ResetSprite();
-        // StopCoroutine(SpriteDelay());
+        StartCoroutine(SpriteDelayThenReset());
     }
     
     private void ChangeToCombatSprite()
@@ -45,8 +59,10 @@ public class CombatInputHandler : MonoBehaviour
         gameObject.GetComponentInChildren<SpriteRenderer>().sprite = DefaultSprite;
     }
 
-    IEnumerator SpriteDelay()
+    IEnumerator SpriteDelayThenReset()
     {
         yield return new WaitForSeconds(0.2f);
+        ResetSprite();
+        DeactivateHitbox();
     }
 }

@@ -4,6 +4,8 @@ public class BasicAttackCommand : Command
 {
     public override void Execute(GameObject target)
     {
+        // set hitbox to active
+        // deactivate after wait time
         if (target)
         {
             Attack(target);

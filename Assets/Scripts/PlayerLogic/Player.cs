@@ -6,8 +6,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public PlayerStats playerStatsTemplate;
     public PlayerStats playerStats;
     public event Action PlayerDied;
+
+    void Awake()
+    {
+        playerStats = Instantiate(playerStatsTemplate);
+    }
 
     void Update()
     {
@@ -31,6 +37,7 @@ public class Player : MonoBehaviour
         {
             KillPlayer();
         }
+        Debug.Log("TakeDamage was called");
     }
     
     public void HealHP(int heal)
@@ -60,7 +67,11 @@ public class Player : MonoBehaviour
     {
         gameObject.GetComponent<FighterController>().InputManager = inputManager;
     }
-    
+
+    void OnDestroy()
+    {
+        Destroy(playerStats);
+    }
     
 }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DamageSystem;
 using InputManagement;
 using UnityEngine;
 
@@ -52,14 +53,12 @@ public class ActivePlayersTracker : MonoBehaviour
         //also adds player to our player list and makes sure they have the correct input manager
     private void RegisterPlayer(Player player)
     {
-        //InputManager inputManager = FindAnyObjectByType<InputManager>();
 
         players.Add(player);
         player.PlayerDied += OnPlayerDied;
-        //player.SetInputManager(inputManager);
     }
 
-        //unsubscribe to PlayerDied for each player to prevent memory leaks
+    //unsubscribe to PlayerDied for each player to prevent memory leaks
     private void OnDestroy()
     { 
         foreach (Player player in players) 

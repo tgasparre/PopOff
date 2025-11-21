@@ -11,7 +11,7 @@ namespace InputManagement
     /// 
     /// When Creating A New Input:
     /// - Add mapping in inputActions
-    /// - Add corresponding variable in FrameInput
+    /// - Add corresponding variable in InputState
     /// - Add new inputAction function in the InputActions region of this script
     /// - Add C# Event from PlayerInput component to the new function in the scenne view
     /// 
