@@ -1,29 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
+    private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Player player = other.GetComponent<Player>();
+        Debug.Log("Collision with player entered");
+        AttackHurtbox hitPlayer = other.GetComponent<AttackHurtbox>();
 
-        if (player != null)
+        if (hitPlayer != null && !hitPlayers.Contains(hitPlayer))
         {
-            player.TakeDamage(10);
-            Debug.Log("Player " + player.name + "took damage");
+            hitPlayer.TakeDamage(20);
+            hitPlayers.Add(hitPlayer);
         }
+
+        ResetHitPlayers();
     }
     
-    // start code by claude to visualize hitbox
-    private void OnDrawGizmos()
+    private void ResetHitPlayers()
     {
-        PolygonCollider2D col = GetComponent<PolygonCollider2D>();
-        if (col != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(transform.position + (Vector3)col.offset, col.bounds.size);
-        }
+        hitPlayers.Clear();
     }
-    // end code by claude
+    
     
 }

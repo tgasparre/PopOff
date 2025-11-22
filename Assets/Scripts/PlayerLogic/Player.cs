@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public PlayerStats playerStatsTemplate;
     public PlayerStats playerStats;
+    private float movementSpeed;
     public event Action PlayerDied;
 
     void Awake()
@@ -51,16 +52,13 @@ public class Player : MonoBehaviour
     
     public void FreezePlayerMovement()
     {
-        // make the player object stay at its current coordinates
-        // ensure that they don't fall out of the air (freeze gravity?)
-        // block input if needed
-        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        movementSpeed = gameObject.GetComponent<PlatformerHorizontalMovementModule>().GetMovementSpeed();
+        gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(0f);
     }
 
     public void UnfreezePlayerMovement()
     {
-        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+        gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(movementSpeed);
     }
 
     public void SetInputManager(InputManager inputManager)

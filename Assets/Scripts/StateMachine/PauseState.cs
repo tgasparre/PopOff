@@ -1,10 +1,15 @@
 
 public class PauseState : GameState
 {
+    public ActivePlayersTracker activePlayersTracker;
     public override void EnterState()
     {
-        //freeze movement
-        //change screen/panel to pause panel 
+        activePlayersTracker.BlockPlayerMovement();
         uiHandler.SwitchToPauseScreen();
+    }
+
+    public override void ExitState()
+    {
+        activePlayersTracker.UnblockPlayerMovement();
     }
 }

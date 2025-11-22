@@ -88,5 +88,15 @@ namespace ControllerSystem.Platformer2D
             _groundDrag = MovementParameters.groundDrag;
             _airDrag = MovementParameters.airDrag;
         }
+
+        public void SetMovementSpeed(float speed)
+        {
+            _groundSpeed = speed;
+        }
+
+        public float GetMovementSpeed()
+        {
+            return _groundSpeed;
+        }
     }
 }
