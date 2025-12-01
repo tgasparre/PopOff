@@ -10,6 +10,7 @@ public class UIHandler : MonoBehaviour
     public CanvasGroup PauseScreen;
     public CanvasGroup InfoScreen;
     public CanvasGroup PlayerSelectScreen;
+    public CanvasGroup ControlsScreen;
     public static UIHandler Instance;
 
     private void Awake()
@@ -24,6 +25,7 @@ public class UIHandler : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         CanvasGroupDisplayer.Hide(InfoScreen);
         CanvasGroupDisplayer.Hide(PlayerSelectScreen);
+        CanvasGroupDisplayer.Hide(ControlsScreen);
     }
     
 
@@ -76,6 +78,7 @@ public class UIHandler : MonoBehaviour
         CanvasGroupDisplayer.Hide(EndScreen);
         CanvasGroupDisplayer.Hide(InfoScreen);
         CanvasGroupDisplayer.Hide(PlayerSelectScreen);
+        CanvasGroupDisplayer.Hide(ControlsScreen);
         Debug.Log("clear all menus was called in " + SceneManager.GetActiveScene().name);
     }
     
