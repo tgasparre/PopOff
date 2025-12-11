@@ -1,30 +1,56 @@
 using System;
 using System.Collections.Generic;
-using DamageSystem;
-using InputManagement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ActivePlayersTracker : MonoBehaviour
 {
     public event Action playerWon;
     
-    public Transform healthBarContainer;
-
+    [SerializeField] private GameObject playerUIPrefab;
+    [SerializeField] private Transform uiLayoutGroup;
+    
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject healthBarPrefab;
     private int numPlayersAlive;
     private Player winningPlayer;
     private List<Player> players = new List<Player>();
+    
+    [SerializeField] private PlayerInputManager inputManager;
 
-    public void SpawnPlayers(int numPlayers)
-    {
-        Debug.Log("Spawnplayers called with num players: " + numPlayers);
-        for (int i = 0; i < numPlayers; ++i)
+    private void Awake() {
+        // Subscribe to the player joined event
+        inputManager.onPlayerJoined += OnPlayerJoined;
+    }
+
+    private void OnPlayerJoined(PlayerInput playerInput) 
+	{
+        Debug.Log("OnPlayerJoined was called");
+        
+        Player playerScript = playerInput.GetComponent<Player>();
+        RegisterPlayer(playerScript);
+        
+        // Spawn UI
+        GameObject uiInstance = Instantiate(playerUIPrefab, uiLayoutGroup);
+        PlayerUIDisplayer playerUIDisplayer = uiInstance.GetComponent<PlayerUIDisplayer>();
+        
+        // Connect hurtbox to UI
+        playerUIDisplayer.InitializePlayerUI(playerInput.GetComponentInChildren<AttackHurtbox>());
+        
+        // Connect tracker to player
+        UltimateAttackTracker tracker = playerInput.GetComponent<UltimateAttackTracker>();
+        
+        if (tracker != null && playerUIDisplayer != null)
         {
-            GameObject player = Instantiate(playerPrefab, spawnPoints[i].position, spawnPoints[i].rotation);
-            RegisterPlayer(player.GetComponent<Player>());
-        //    CreatePlayerHealthBar(player.GetComponent<PlayerStats>());
+			//connect tracker to UI 
+            tracker.SetPlayerUI(playerUIDisplayer);
+            //let the UI know when the ultimate attack is unlocked
+            playerUIDisplayer.SubscribeToTracker(tracker);
+            Debug.Log("Successfully connected tracker to UI");
+        }
+        else
+        {
+            Debug.LogError("Failed to find tracker or UI displayer");
         }
     }
 
@@ -59,6 +85,14 @@ public class ActivePlayersTracker : MonoBehaviour
         }
     }
 
+    public void ResetAllPlayerTrackers()
+    {
+        foreach (Player player in players)
+        {
+            player.gameObject.GetComponent<UltimateAttackTracker>().ResetTracker();
+        }
+    }
+    
     private void OnPlayerDied()
     {
         --numPlayersAlive;
@@ -68,18 +102,13 @@ public class ActivePlayersTracker : MonoBehaviour
         }
     }
 
-        //subscribes to PlayerDied event so the player will tell us when it drops to 0 hp
-        //also adds player to our player list and makes sure they have the correct input manager
+    //subscribes to PlayerDied event so the player will tell us when it drops to 0 hp
+    //also adds player to our player list and makes sure they have the correct input manager
     private void RegisterPlayer(Player player)
     {
         players.Add(player);
         player.PlayerDied += OnPlayerDied;
-    }
-
-    private void CreatePlayerHealthBar(PlayerStats playerStats)
-    {
-        GameObject hpBar = Instantiate(healthBarPrefab, healthBarContainer);
-        hpBar.GetComponent<HPDisplayer>().Initalize(playerStats);
+        
     }
 
     //unsubscribe to PlayerDied for each player to prevent memory leaks
@@ -91,6 +120,10 @@ public class ActivePlayersTracker : MonoBehaviour
             {
                 player.PlayerDied -= OnPlayerDied;
             }
+        }
+        
+        if (inputManager != null) {
+            inputManager.onPlayerJoined -= OnPlayerJoined;
         }
     }
 }

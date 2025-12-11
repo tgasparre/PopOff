@@ -5,7 +5,7 @@ public class HPDisplayer : MonoBehaviour
 {
     public RectTransform hpBar;
     private float fullSize;
-    private PlayerStats playerStats;
+    private AttackHurtbox hurtbox;
 
     private void Awake()
     {
@@ -13,16 +13,16 @@ public class HPDisplayer : MonoBehaviour
         
     }
 
-    public void Initalize(PlayerStats connectedPlayer)
+    public void Initialize(AttackHurtbox hb)
     {
-        playerStats = connectedPlayer;
+        hurtbox = hb;
     }
 
     void Update()
     {
-        if (playerStats == null) return;
+        if (hurtbox == null) return;
 
-        float pct = playerStats.HP / 200;
+        float pct = hurtbox.HP / 200f;
 
         // Update width
         hpBar.sizeDelta = new Vector2(fullSize * pct, hpBar.sizeDelta.y);

@@ -104,6 +104,7 @@ public class Game : MonoBehaviour
 
     private void OnPlayerWon()
     {
+        activePlayersTracker.ResetAllPlayerTrackers();
         gameStateManager.EnterGameOverState();
         //display name of player thats remaining
     }

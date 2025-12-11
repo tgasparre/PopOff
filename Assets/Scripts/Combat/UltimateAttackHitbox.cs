@@ -1,37 +1,24 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackHitbox : MonoBehaviour
+public class UltimateAttackHitbox : MonoBehaviour
 {
     public Player thisPlayer;
-    private bool hitSuccessful = false;
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
-
-    public bool IsSuccessfulHit()
-    {
-        return hitSuccessful;
-    }
-
-    public void ResetSuccessfulHit()
-    {
-        hitSuccessful = false;
-    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collision with player entered");
         AttackHurtbox hitPlayer = other.GetComponent<AttackHurtbox>();
-        
-        //dont hit yourself
-        if (hitPlayer.player == thisPlayer)
+
+        if (hitPlayer == thisPlayer.hurtbox)
+        {
             return;
-        
+        }
+
         if (hitPlayer != null && !hitPlayers.Contains(hitPlayer))
         {
-            hitPlayer.TakeDamage(20);
+            hitPlayer.TakeDamage(50);
             hitPlayers.Add(hitPlayer);
-            hitSuccessful = true;
         }
 
         ResetHitPlayers();
@@ -41,6 +28,5 @@ public class AttackHitbox : MonoBehaviour
     {
         hitPlayers.Clear();
     }
-    
-    
+
 }

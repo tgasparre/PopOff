@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using InputManagement;
 using UnityEngine;
@@ -5,15 +6,36 @@ using UnityEngine.InputSystem;
 
 public class CombatInputHandler : MonoBehaviour
 {
+    public event Action OnSuccessfulHit;
+    
     public InputManager InputManager;
     public Sprite CombatSprite;
     public Sprite DefaultSprite;
     public GameObject hitbox;
+    public GameObject ultimateHitbox;
+    
+    private bool UltimateAttackEnabled = false;
+    [SerializeField] private UltimateAttackTracker tracker;
     
     void Awake()
     {
         if (hitbox != null)
             hitbox.SetActive(false);
+    }
+
+    void Start()
+    {
+        tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
+    }
+
+    public void OnUltimateAttack(InputAction.CallbackContext context)
+    {
+        if (UltimateAttackEnabled)
+        {
+            PreformUltimate();
+            tracker.ResetTracker();
+            ResetUltimateAttack();
+        }
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -22,9 +44,47 @@ public class CombatInputHandler : MonoBehaviour
             PreformAttack();
     }
 
-    public void PreformAttack()
+    private void PreformAttack()
     {
         StartCoroutine(AttackRoutine());
+    }
+
+    private void PreformUltimate()
+    {
+        StartCoroutine(UltimateAttackRoutine());
+    }
+    
+    IEnumerator AttackRoutine()
+    {
+        hitbox.SetActive(true);
+        
+        AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
+        hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
+        
+        ChangeToCombatSprite();
+        
+        yield return new WaitForSeconds(0.2f);
+        
+        //check to see if the hit was successful to increment ultimate attack meter
+        if (hitboxScript.IsSuccessfulHit())
+        {
+            OnSuccessfulHit?.Invoke();
+            hitboxScript.ResetSuccessfulHit();
+        }
+        
+        hitbox.SetActive(false);
+        ResetSprite();
+    }
+
+    IEnumerator UltimateAttackRoutine()
+    {
+        ultimateHitbox.SetActive(true);
+        ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = gameObject.GetComponent<Player>();
+        
+        ChangeToCombatSprite();
+        yield return new WaitForSeconds(0.2f);
+        ultimateHitbox.SetActive(false);
+        ResetSprite();
     }
     
     private void ChangeToCombatSprite()
@@ -38,14 +98,21 @@ public class CombatInputHandler : MonoBehaviour
         gameObject.GetComponentInChildren<SpriteRenderer>().sprite = DefaultSprite;
     }
 
-    IEnumerator AttackRoutine()
+    private void OnUltimateAttackUnlocked()
     {
-        hitbox.SetActive(true);
-        ChangeToCombatSprite();
-        
-        yield return new WaitForSeconds(0.2f);
-        
-        hitbox.SetActive(false);
-        ResetSprite();
+        UltimateAttackEnabled = true;
+        Debug.Log("Ultimate attack unlocked!");
     }
+
+    private void ResetUltimateAttack()
+    {
+        UltimateAttackEnabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        tracker.OnUltimateAttackUnlocked -= OnUltimateAttackUnlocked;
+    }
+
+    
 }

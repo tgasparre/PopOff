@@ -8,12 +8,14 @@ public class Player : MonoBehaviour
 {
     public PlayerStats playerStatsTemplate;
     public PlayerStats playerStats;
+    public AttackHurtbox hurtbox;
     private float movementSpeed;
     public event Action PlayerDied;
 
     void Awake()
     {
         playerStats = Instantiate(playerStatsTemplate);
+        hurtbox = GetComponentInChildren<AttackHurtbox>();
     }
 
     void Update()
@@ -27,14 +29,15 @@ public class Player : MonoBehaviour
 
     public void KillPlayer()
     {
+        gameObject.GetComponent<UltimateAttackTracker>().playerUI.DeletePlayerUI();
         Destroy(this.GameObject());
         PlayerDied?.Invoke();
     }
     
     public void TakeDamage(int damage)
     {
-        playerStats.HP -= damage;
-        if (playerStats.HP <= 0)
+        hurtbox.HP -= damage;
+        if (hurtbox.HP <= 0)
         {
             KillPlayer();
         }
@@ -43,10 +46,10 @@ public class Player : MonoBehaviour
     
     public void HealHP(int heal)
     {
-        playerStats.HP += heal;
-        if (playerStats.HP > 200)
+        hurtbox.HP += heal;
+        if (hurtbox.HP > 200)
         {
-            playerStats.HP = 200;
+            hurtbox.HP = 200;
         }
     }
     
