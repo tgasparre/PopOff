@@ -1062,8 +1062,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3089476732324562709}
   - component: {fileID: 8213209621650403145}
-  - component: {fileID: 3702418898481732897}
   - component: {fileID: 4763321074408537508}
+  - component: {fileID: 3702418898481732897}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -1144,6 +1144,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4763321074408537508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2931757044777290727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b684361dfeb7188aa9731d9d19e62763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Field
+  debug_force: 100
 --- !u!58 &3702418898481732897
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1180,19 +1193,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.49999997
---- !u!114 &4763321074408537508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2931757044777290727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b684361dfeb7188aa9731d9d19e62763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Field
-  debug_force: 100
 --- !u!1 &3683848143951345384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,7 +1820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5056850062023203573
 Transform:
   m_ObjectHideFlags: 0

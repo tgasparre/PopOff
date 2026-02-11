@@ -60,7 +60,6 @@ public class PlayerPowerups : MonoBehaviour
         }
         RemovePower();
     }
-
     public void SetRadialTimer(float percent)
     {
         _radialTimer.fillAmount = percent;
@@ -70,9 +69,8 @@ public class PlayerPowerups : MonoBehaviour
 
     public void Dash(DashStats stats)
     {
-        float facingDir = _player.FacingLeftValue;
-        float xDirection = _rigidbody2D.linearVelocity.normalized.x * facingDir;
-        if (xDirection == 0) xDirection = facingDir * 0.75f;
+        float xDirection = _rigidbody2D.linearVelocity.normalized.x;
+        if (xDirection == 0) xDirection =  _player.FacingLeftValue * 0.75f;
         Vector2 direction = new Vector2(xDirection * stats.dashForce * 100f, stats.yForce * 50f);
         _rigidbody2D.AddForce(direction);
     }
@@ -93,6 +91,18 @@ public class PlayerPowerups : MonoBehaviour
     {
         _field.SetActive(false);
     }
-    
+
+    public void Trap(GameObject prefab, float lifetime, int damage)
+    {
+        GameObject o = Instantiate(prefab, transform.position, Quaternion.identity);
+        Trap trap = o.GetComponent<Trap>();
+        trap.Throw(gameObject, lifetime, damage, _player.FacingLeftValue);
+    }
+
+    public void SpawnExplosion(GameObject explosion, Transform pos)
+    {
+        Debug.Log("spawn");
+        Instantiate(explosion, pos.position, Quaternion.identity);
+    }
     #endregion
 }

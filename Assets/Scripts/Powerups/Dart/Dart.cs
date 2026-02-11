@@ -7,17 +7,21 @@ public class Dart : MonoBehaviour
     [SerializeField] private float _rotateSpeed = 4f;
     [SerializeField] private float _lifetime = 2f;
     
+    [Header("Optional")]
+    [SerializeField] private Explode _explode;
+    
     private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider;
     private int _facingDirection;
     private float _speed;
     private GameObject _throwingPlayer;
-
-
+    private SpriteRenderer _renderer;
+    
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _boxCollider = GetComponent<BoxCollider2D>();
+        _renderer = GetComponentInChildren<SpriteRenderer>();
     }
     
     public void Fire(GameObject throwingPlayer, DartStats stats, int facing)
@@ -45,10 +49,23 @@ public class Dart : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject == _throwingPlayer) return;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            //TODO
+            //damage
+            return;
+        }
         
         _rigidbody2D.simulated = false;
         _boxCollider.enabled = false;
-        Invoke(nameof(Despawn), _lifetime);
+        if (_explode.CanExplode) StartCoroutine(_explode.TriggerExplode(_lifetime, _renderer, SpawnExplosion));
+        else Invoke(nameof(Despawn), _lifetime);
+    }
+
+    private void SpawnExplosion()
+    {
+        _throwingPlayer.GetComponent<PlayerPowerups>().SpawnExplosion(_explode.Explosion, transform);
+        Despawn();
     }
 
     private void Despawn()

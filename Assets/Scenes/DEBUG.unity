@@ -593,11 +593,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2322863684025631763, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.58
+      value: -7.72
       objectReference: {fileID: 0}
     - target: {fileID: 2322863684025631763, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 2.44
       objectReference: {fileID: 0}
     - target: {fileID: 2322863684025631763, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -637,7 +637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3702418898481732897, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8742255771148851007, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: m_Material
@@ -666,7 +666,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!58 &1579790875
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6cb34667457754baaf84791ad9fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerupCollectable
-  powerup: {fileID: 11400000, guid: 7a7bce0048ff08ed49567496fccf994b, type: 2}
+  powerup: {fileID: 11400000, guid: 3af36c234fbdac1138db4a237a44559e, type: 2}
 --- !u!212 &1579790877
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -799,7 +799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1592306800}
   - component: {fileID: 1592306801}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: box
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -821,8 +821,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 378393980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1592306801
-BoxCollider2D:
+--- !u!60 &1592306801
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -865,8 +865,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.08548123, y: 0.49375844}
+      - {x: -0.46760118, y: 0.30248347}
+      - {x: -0.46620095, y: -0.4342987}
+      - {x: 0.48524776, y: -0.5049216}
+      - {x: 0.48917764, y: 0.3044011}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1805334876
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,60 +884,14 @@ GameObject:
   - component: {fileID: 1805334880}
   - component: {fileID: 1805334879}
   - component: {fileID: 1805334878}
-  - component: {fileID: 1805334877}
+  - component: {fileID: 1805334881}
   m_Layer: 0
   m_Name: FieldTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &1805334877
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805334876}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_IsActive: 0
 --- !u!114 &1805334878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,6 +978,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1805334881
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805334876}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5
 --- !u!61 &137686297242262477
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2731,7 +2727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &7677020358129501732
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -14,10 +14,7 @@ public class DartPowerup : Powerup
 
     public override void Expire(PlayerPowerups powerups)
     {
-        if (_stats.doesExplode)
-        {
-            //TODO explode
-        }
+
     }
 }
 
@@ -32,5 +29,4 @@ public struct DartStats
     public float FalloffSpeed => (falloffSpeed == 0) ? 1f : falloffSpeed;
     
     public float extraDamage;
-    public bool doesExplode;
 }
