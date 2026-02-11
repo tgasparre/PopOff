@@ -12,9 +12,12 @@ public class DartPowerup : Powerup
         powerups.Dart(_dartPrefab, _stats);
     }
 
-    public override void Expire()
+    public override void Expire(PlayerPowerups powerups)
     {
-        // throw new System.NotImplementedException();
+        if (_stats.doesExplode)
+        {
+            //TODO explode
+        }
     }
 }
 
@@ -22,8 +25,12 @@ public class DartPowerup : Powerup
 public struct DartStats
 {
     public float speed;
-    public float size;
-    public float falloffSpeed;
-    public float damage;
+    [SerializeField] private float size;
+    public float Size => (size == 0) ? 1f : size;
+    
+    [SerializeField] [Range(0f, 1.6f)] private float falloffSpeed;
+    public float FalloffSpeed => (falloffSpeed == 0) ? 1f : falloffSpeed;
+    
+    public float extraDamage;
     public bool doesExplode;
 }

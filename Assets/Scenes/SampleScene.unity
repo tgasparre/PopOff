@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6cb34667457754baaf84791ad9fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerupCollectable
-  powerup: {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
+  powerup: {fileID: 11400000, guid: 7a7bce0048ff08ed49567496fccf994b, type: 2}
 --- !u!212 &390071987
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1470,7 +1470,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 483989963127657756, guid: d498bc4b97237eb47acb80c8cdb8fcaf, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 980605480538043232, guid: d498bc4b97237eb47acb80c8cdb8fcaf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1518,7 +1518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3974451010800030276, guid: d498bc4b97237eb47acb80c8cdb8fcaf, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

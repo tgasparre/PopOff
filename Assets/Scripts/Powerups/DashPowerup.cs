@@ -11,7 +11,7 @@ public class DashPowerup : Powerup
         powerups.Dash(_dashStats);
     }
 
-    public override void Expire()
+    public override void Expire(PlayerPowerups powerups)
     {
         // throw new System.NotImplementedException();
     }

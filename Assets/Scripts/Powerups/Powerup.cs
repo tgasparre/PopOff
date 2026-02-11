@@ -11,7 +11,7 @@ public abstract class Powerup : ScriptableObject
     [SerializeField] protected Sprite _icon;
 
     public abstract void UsePowerup(PlayerPowerups powerups);
-    public abstract void Expire();
+    public abstract void Expire(PlayerPowerups powerups);
     
     public Sprite GetIcon() { return _icon; }
     public float GetExpireTime() {return _timeToExpire;}

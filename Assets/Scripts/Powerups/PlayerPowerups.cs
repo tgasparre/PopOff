@@ -11,10 +11,10 @@ public class PlayerPowerups : MonoBehaviour
     [SerializeField] private Image _powerupIcon; 
     
     private Powerup _currentPower = null;
-    public bool HasPower() { return _currentPower == null; }
+    public bool HasPower => _currentPower == null;
     
     [Header("Powerup References")]
-    [SerializeField] private GameObject _dartPrefab;
+    [SerializeField] private GameObject _field;
     private Rigidbody2D _rigidbody2D;
     private Player _player;
     
@@ -23,6 +23,7 @@ public class PlayerPowerups : MonoBehaviour
         _powerupUI.alpha = 0;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
+        _field.SetActive(false);
     }
 
     public void ApplyPower(Powerup p)
@@ -34,14 +35,14 @@ public class PlayerPowerups : MonoBehaviour
     }
     public void RemovePower()
     {
-        _currentPower.Expire();
+        _currentPower.Expire(this);
         _currentPower = null;
         _powerupUI.alpha = 0f;
     }
     
     public void UsePower()
     {
-        if (HasPower()) return;
+        if (HasPower) return;
         _currentPower.UsePowerup(this);
         if (!_currentPower.IsInfinite) StartCoroutine(AwaitTimeExpire());
         else RemovePower();
@@ -80,7 +81,17 @@ public class PlayerPowerups : MonoBehaviour
     {
         GameObject o = Instantiate(prefab, transform.position, Quaternion.identity);
         Dart dart = o.GetComponent<Dart>();
-        dart.Fire(stats, _player.FacingLeftValue);
+        dart.Fire(gameObject, stats, _player.FacingLeftValue);
+    }
+
+    public void Field(FieldStats stats)
+    {
+        _field.GetComponent<Field>().StartField(stats.Force);
+        _field.SetActive(true);
+    }
+    public void DisableField()
+    {
+        _field.SetActive(false);
     }
     
     #endregion
