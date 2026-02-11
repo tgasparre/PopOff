@@ -178,5 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7805054bf6638358aa5cb4e6aaec927d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trap
+  _lifetime: 10
+  _bouncyMat: {fileID: 0}
+  _explode:
+    _explodePrefab: {fileID: 0}
+    _flashTimePercent: 0
+    _idleTimePercent: 0
   _throwForce: 4
-  style: 0
+  _style: 0

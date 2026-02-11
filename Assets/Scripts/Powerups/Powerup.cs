@@ -19,4 +19,12 @@ public abstract class Powerup : ScriptableObject
     public bool IsInfinite => _timeToExpire == -1;
 }
 
+[System.Serializable]
+public class PowerupStats
+{
+    public float speed = 1f;
+    public float size = 1f;
+    public int damage;
+}
+
 

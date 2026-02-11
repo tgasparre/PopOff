@@ -75,11 +75,11 @@ public class PlayerPowerups : MonoBehaviour
         _rigidbody2D.AddForce(direction);
     }
 
-    public void Dart(GameObject prefab, DartStats stats)
+    public void Dart(GameObject prefab, DartStats dartStats)
     {
         GameObject o = Instantiate(prefab, transform.position, Quaternion.identity);
         Dart dart = o.GetComponent<Dart>();
-        dart.Fire(gameObject, stats, _player.FacingLeftValue);
+        dart.Throw(gameObject, dartStats, _player.FacingLeftValue);
     }
 
     public void Field(FieldStats stats)
@@ -92,11 +92,11 @@ public class PlayerPowerups : MonoBehaviour
         _field.SetActive(false);
     }
 
-    public void Trap(GameObject prefab, float lifetime, int damage)
+    public void Trap(GameObject prefab, TrapStats trapStats)
     {
         GameObject o = Instantiate(prefab, transform.position, Quaternion.identity);
         Trap trap = o.GetComponent<Trap>();
-        trap.Throw(gameObject, lifetime, damage, _player.FacingLeftValue);
+        trap.Throw(gameObject, trapStats, _player.FacingLeftValue);
     }
 
     public void SpawnExplosion(GameObject explosion, Transform pos)

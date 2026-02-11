@@ -5,11 +5,11 @@ public class DartPowerup : Powerup
 {
     [Header("Dart Settings")]
     [SerializeField] private GameObject _dartPrefab;
-    [SerializeField] private DartStats _stats;
+    [SerializeField] private DartStats _dartStats;
     
     public override void UsePowerup(PlayerPowerups powerups)
     {
-        powerups.Dart(_dartPrefab, _stats);
+        powerups.Dart(_dartPrefab, _dartStats);
     }
 
     public override void Expire(PlayerPowerups powerups)
@@ -19,14 +19,7 @@ public class DartPowerup : Powerup
 }
 
 [System.Serializable]
-public struct DartStats
+public class DartStats : PowerupStats
 {
-    public float speed;
-    [SerializeField] private float size;
-    public float Size => (size == 0) ? 1f : size;
-    
-    [SerializeField] [Range(0f, 1.6f)] private float falloffSpeed;
-    public float FalloffSpeed => (falloffSpeed == 0) ? 1f : falloffSpeed;
-    
-    public float extraDamage;
+    [Range(0f, 1.6f)] public float falloffSpeed = 1f;
 }

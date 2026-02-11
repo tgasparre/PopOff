@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
     #region Powerup
     public void UsePower(InputAction.CallbackContext context)
     {
-        powerups.UsePower();
+        if (context.performed) powerups.UsePower();
     }
     #endregion
     

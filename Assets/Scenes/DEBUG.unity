@@ -715,7 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6cb34667457754baaf84791ad9fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerupCollectable
-  powerup: {fileID: 11400000, guid: 3af36c234fbdac1138db4a237a44559e, type: 2}
+  powerup: {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
 --- !u!212 &1579790877
 SpriteRenderer:
   m_ObjectHideFlags: 0

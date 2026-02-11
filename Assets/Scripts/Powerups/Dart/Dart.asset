@@ -16,9 +16,8 @@ MonoBehaviour:
   _useCooldown: 0.5
   _icon: {fileID: 21300000, guid: c0ced59eb0176454886bbc0407e71090, type: 3}
   _dartPrefab: {fileID: 4107434090579478935, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
-  _stats:
+  _dartStats:
     speed: 5
-    size: 0
-    falloffSpeed: 0
-    extraDamage: 0
-    doesExplode: 0
+    size: 1
+    damage: 0
+    falloffSpeed: 1

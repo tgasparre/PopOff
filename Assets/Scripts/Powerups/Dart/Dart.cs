@@ -1,36 +1,26 @@
 using System;
 using UnityEngine;
 
-public class Dart : MonoBehaviour
+public class Dart : Throwable
 {
     [Header("Dart Settings")]
     [SerializeField] private float _rotateSpeed = 4f;
-    [SerializeField] private float _lifetime = 2f;
     
-    [Header("Optional")]
-    [SerializeField] private Explode _explode;
-    
-    private Rigidbody2D _rigidbody2D;
     private BoxCollider2D _boxCollider;
-    private int _facingDirection;
     private float _speed;
-    private GameObject _throwingPlayer;
-    private SpriteRenderer _renderer;
     
-    private void Awake()
+    protected new void Awake()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        base.Awake();
         _boxCollider = GetComponent<BoxCollider2D>();
-        _renderer = GetComponentInChildren<SpriteRenderer>();
     }
-    
-    public void Fire(GameObject throwingPlayer, DartStats stats, int facing)
-    {
-        _throwingPlayer = throwingPlayer;
-        _facingDirection = facing;
 
-        transform.localScale = Vector3.one * stats.Size;
-        _rigidbody2D.gravityScale = stats.FalloffSpeed;
+    public override void Throw(GameObject throwingPlayer, PowerupStats powerupStats, int direction)
+    {
+        DartStats stats = (DartStats)powerupStats;
+        base.Throw(throwingPlayer, powerupStats, direction);
+        
+        _rigidbody2D.gravityScale = stats.falloffSpeed;
         _speed = stats.speed;
     }
 
@@ -43,33 +33,14 @@ public class Dart : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody2D.linearVelocityX = _facingDirection * _speed * 200 * Time.fixedDeltaTime;
+        _rigidbody2D.linearVelocityX = _direction * _speed * 200 * Time.fixedDeltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    protected override void HitGround()
     {
-        if (other.gameObject == _throwingPlayer) return;
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //TODO
-            //damage
-            return;
-        }
-        
         _rigidbody2D.simulated = false;
         _boxCollider.enabled = false;
-        if (_explode.CanExplode) StartCoroutine(_explode.TriggerExplode(_lifetime, _renderer, SpawnExplosion));
-        else Invoke(nameof(Despawn), _lifetime);
-    }
-
-    private void SpawnExplosion()
-    {
-        _throwingPlayer.GetComponent<PlayerPowerups>().SpawnExplosion(_explode.Explosion, transform);
-        Despawn();
-    }
-
-    private void Despawn()
-    {
-        Destroy(gameObject);
+       
+        base.HitGround();
     }
 }
