@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6e540204d8202fbbc246c9fdac759e, type: 3}
+  m_Name: ExplodeDart
+  m_EditorClassIdentifier: Assembly-CSharp::DartPowerup
+  _timeToExpire: -1
+  _useCooldown: 0.5
+  _icon: {fileID: 21300000, guid: a4623f353a010632fd19e0299992bdb9, type: 3}
+  _dartPrefab: {fileID: 5622783779703553384, guid: ae238b7e57f1fc04c82e3b913819beda, type: 3}
+  _dartStats:
+    speed: 5
+    size: 1
+    damage: 0
+    falloffSpeed: 1

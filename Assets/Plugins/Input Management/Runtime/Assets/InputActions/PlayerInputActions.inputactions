@@ -104,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Powerup",
+                    "type": "Button",
+                    "id": "26b4c2d3-8cf9-4931-99e6-814a5c5e47d7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -665,6 +674,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "UltimateAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9723a05e-dd38-4e66-a732-dda1f9b37778",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Powerup",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -89,7 +89,7 @@ public class ActivePlayersTracker : MonoBehaviour
     {
         foreach (Player player in players)
         {
-            player.gameObject.GetComponent<UltimateAttackTracker>().ResetTracker();
+            player?.gameObject.GetComponent<UltimateAttackTracker>().ResetTracker();
         }
     }
     
