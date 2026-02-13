@@ -38,7 +38,7 @@ public class CombatInputHandler : MonoBehaviour
         }
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnPrimaryAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
             PreformAttack();
@@ -54,6 +54,11 @@ public class CombatInputHandler : MonoBehaviour
         StartCoroutine(UltimateAttackRoutine());
     }
     
+    //TODO: decide how to pass in damage for primary/secondary attack
+    //possibly make separate coroutines?
+    //use method SetAttackDamage somewhere here to pass in damage parameters (from combat parameters)
+    
+    //will likely need changes once we get actual attack animations
     IEnumerator AttackRoutine()
     {
         hitbox.SetActive(true);

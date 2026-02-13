@@ -88,7 +88,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "PrimaryAttack",
                     "type": "Button",
                     "id": "399bdc60-3af2-4fea-88f9-cd64fe5ad1b4",
                     "expectedControlType": "",
@@ -100,6 +100,15 @@
                     "name": "UltimateAttack",
                     "type": "Button",
                     "id": "bb6e3abf-2f38-46dc-83d1-7cda13939df0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SecondaryAttack",
+                    "type": "Button",
+                    "id": "e7c5e73f-360f-44fc-af38-7cb9c0ae6d6d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -631,7 +640,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "PrimaryAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -642,7 +651,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Attack",
+                    "action": "PrimaryAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -665,6 +674,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "UltimateAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e260c11-1060-4a54-8f91-d878872c1d55",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -5,6 +5,9 @@ namespace ControllerSystem.Platformer2D
 {
     public class PlatformerJumpModule : PlatformerMotorModule
     {
+        [SerializeField] private JumpConfig jumpConfig = new JumpConfig();
+        public JumpConfig Config => jumpConfig;
+        
         public override void HandleMovement()
         {
             HandleHeadBonk();
@@ -12,6 +15,7 @@ namespace ControllerSystem.Platformer2D
             HandleGravity();
             HandleCornerNudge();
         }
+        
         
         #region Double Jump Counter
 

@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         PlayerDied?.Invoke();
     }
     
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         hurtbox.HP -= damage;
         if (hurtbox.HP <= 0)
@@ -50,6 +50,30 @@ public class Player : MonoBehaviour
         if (hurtbox.HP > 200)
         {
             hurtbox.HP = 200;
+        }
+    }
+
+    //may need testing to ensure movement feels good
+    public void AssignWeightClass(String wClass)
+    {
+        playerStats.WeightClass.ChangeWeightClass(wClass);
+        PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
+        PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
+        if (wClass == "light")
+        {
+            jumpModule.Config.SetJumpTypeToLight();
+            movementModule.SetMovementTypeToFast();
+        }
+        else if (wClass == "heavy")
+        {
+            jumpModule.Config.SetJumpTypeToHeavy();
+            movementModule.SetMovementTypeToSlow();
+        }
+        else
+        {
+            //reset to regular stats if not light or heavy
+            jumpModule.Config.ResetJumpType();
+            movementModule.ResetMovement();
         }
     }
     

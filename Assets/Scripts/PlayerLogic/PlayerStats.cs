@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject
 {
     public string PlayerName;
-    public float DamageMultiplier = 1;
     public Vector3 LastPosition;
+    public WeightClass WeightClass;
+
 }

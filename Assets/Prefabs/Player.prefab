@@ -442,6 +442,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b506f5ebf308a42bae9f85b3a39177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpConfig:
+    NumDoubleJumps: 1
+    JumpHeight: 16.66667
+    JumpEndEarlyForce: 0.6
+    JumpEndEarlyWindowDuration: 0.2
   _jumpSettings:
     NumDoubleJumps: 1
     JumpHeight: 16.66667
@@ -684,7 +689,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4562915021269651356}
         m_TargetAssemblyTypeName: CombatInputHandler, Assembly-CSharp
-        m_MethodName: OnAttack
+        m_MethodName: OnPrimaryAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

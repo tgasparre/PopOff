@@ -8,6 +8,9 @@ public class AttackHitbox : MonoBehaviour
     private bool hitSuccessful = false;
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
+    //placeholder value, overwritten in CombatInputHandler 
+    private float attackDamage = 20;
+
     public bool IsSuccessfulHit()
     {
         return hitSuccessful;
@@ -16,6 +19,12 @@ public class AttackHitbox : MonoBehaviour
     public void ResetSuccessfulHit()
     {
         hitSuccessful = false;
+    }
+
+    //apply this player's damage multiplier depending on their weightclass
+    public void SetAttackDamage(float damage)
+    {
+        attackDamage =  damage * thisPlayer.playerStats.WeightClass.damageMultiplier;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -29,7 +38,7 @@ public class AttackHitbox : MonoBehaviour
         
         if (hitPlayer != null && !hitPlayers.Contains(hitPlayer))
         {
-            hitPlayer.TakeDamage(20);
+            hitPlayer.TakeDamage(attackDamage);
             hitPlayers.Add(hitPlayer);
             hitSuccessful = true;
         }
