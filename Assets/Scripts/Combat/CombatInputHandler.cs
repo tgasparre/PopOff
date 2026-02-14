@@ -14,6 +14,12 @@ public class CombatInputHandler : MonoBehaviour
     public GameObject hitbox;
     public GameObject ultimateHitbox;
     
+    //check if joystick pushed up/down for vertical attacks
+    private float upInputThreshold = 0.5f;
+    private float downInputThreshold = -0.5f;
+
+    private Vector2 moveInput;
+    
     private bool UltimateAttackEnabled = false;
     [SerializeField] private UltimateAttackTracker tracker;
     
@@ -26,6 +32,11 @@ public class CombatInputHandler : MonoBehaviour
     void Start()
     {
         tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
     }
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
@@ -41,7 +52,23 @@ public class CombatInputHandler : MonoBehaviour
     public void OnPrimaryAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
-            PreformAttack();
+        {
+            if (moveInput.y >= upInputThreshold)
+            {
+                //preform up attack 
+                //spawn hitbox at up offset vector
+            }
+            else if (moveInput.y <= downInputThreshold)
+            {
+                //preform down attack
+            }
+            else
+            {
+                //do a horizontal attack depending on which way the player is facing
+                PreformAttack();
+            }
+        }
+            
     }
 
     private void PreformAttack()

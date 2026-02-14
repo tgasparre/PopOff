@@ -311,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 2195127259503755186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.09925, y: 2.07933, z: 0.06984}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -757,6 +757,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bb6e3abf-2f38-46dc-83d1-7cda13939df0
     m_ActionName: 'Player/UltimateAttack[/Keyboard/j]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e7c5e73f-360f-44fc-af38-7cb9c0ae6d6d
+    m_ActionName: Player/SecondaryAttack
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -861,7 +865,7 @@ Transform:
   m_GameObject: {fileID: 4055801822573141031}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.472, y: -1.9, z: -38.6}
+  m_LocalPosition: {x: -0.43, y: 0.15, z: -38.6}
   m_LocalScale: {x: 1.67, y: 1.55, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -938,7 +942,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 19.97197, y: 10.306187}
+  m_Size: {x: 2, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &7916595363357222259
 MonoBehaviour:
@@ -1215,7 +1219,7 @@ GameObject:
   - component: {fileID: 3181075613544992945}
   - component: {fileID: 2192485985011356734}
   m_Layer: 7
-  m_Name: Hitbox
+  m_Name: HorizontalHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1229,13 +1233,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8857274906467675912}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.472, y: -1.9, z: -38.6}
+  m_LocalRotation: {x: -0, y: 0.0015821978, z: -0, w: 0.9999988}
+  m_LocalPosition: {x: -1.45, y: -1.78, z: 0.01}
   m_LocalScale: {x: 1.67, y: 1.55, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2322863684025631763}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.181, z: 0}
 --- !u!114 &1567234716875176514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,15 +1314,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.24008799, y: -0.17033672}
+  m_Offset: {x: 1.3180709, y: 1.0296632}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 19.97197, y: 10.306187}
+  m_Size: {x: 0.4, y: 0.29999995}
   m_EdgeRadius: 0
