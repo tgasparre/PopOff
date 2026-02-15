@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
     public Player thisPlayer;
+    
     private bool hitSuccessful = false;
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
@@ -30,16 +32,19 @@ public class AttackHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision with player entered");
-        AttackHurtbox hitPlayer = other.GetComponent<AttackHurtbox>();
+        AttackHurtbox otherHurtbox = other.GetComponent<AttackHurtbox>();
+        Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
+        Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
         
         //dont hit yourself
-        if (hitPlayer.player == thisPlayer)
+        if (otherHurtbox.player == thisPlayer)
             return;
         
-        if (hitPlayer != null && !hitPlayers.Contains(hitPlayer))
+        if (otherHurtbox != null && !hitPlayers.Contains(otherHurtbox))
         {
-            hitPlayer.TakeDamage(attackDamage);
-            hitPlayers.Add(hitPlayer);
+            otherHurtbox.TakeDamage(attackDamage);
+            hitPlayer.ApplyKnockback(knockbackDirection, hitPlayer.playerStats.WeightClass.knockbackMultiplier);
+            hitPlayers.Add(otherHurtbox);
             hitSuccessful = true;
         }
 

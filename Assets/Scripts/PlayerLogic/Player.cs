@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using ControllerSystem.Platformer2D;
 using InputManagement;
 using Unity.VisualScripting;
@@ -53,6 +54,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier)
+    {
+        StartCoroutine(AddKnockback(direction, knockbackMultiplier));
+    }
+
     //may need testing to ensure movement feels good
     public void AssignWeightClass(String wClass)
     {
@@ -91,6 +97,26 @@ public class Player : MonoBehaviour
     public void SetInputManager(InputManager inputManager)
     {
         gameObject.GetComponent<FighterController>().InputManager = inputManager;
+    }
+    
+    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier)
+    {
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        float elapsedTime = 0f;
+            
+        while (elapsedTime < CombatParameters.knockbackDuration)
+        {
+            float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
+            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) 
+                                     * (CombatParameters.knockbackForce * knockbackMultiplier);
+            
+            rb.velocity = direction * currentForce;
+            
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        rb.velocity = Vector2.zero;
     }
 
     void OnDestroy()

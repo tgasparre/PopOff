@@ -11,32 +11,19 @@ public class CombatInputHandler : MonoBehaviour
     public InputManager InputManager;
     public Sprite CombatSprite;
     public Sprite DefaultSprite;
-    public GameObject hitbox;
     public GameObject ultimateHitbox;
-    
-    //check if joystick pushed up/down for vertical attacks
-    private float upInputThreshold = 0.5f;
-    private float downInputThreshold = -0.5f;
+
+    public GameObject hitboxPrefab;
 
     private Vector2 moveInput;
+    private bool facingRight = true;
     
     private bool UltimateAttackEnabled = false;
     [SerializeField] private UltimateAttackTracker tracker;
-    
-    void Awake()
-    {
-        if (hitbox != null)
-            hitbox.SetActive(false);
-    }
 
     void Start()
     {
         tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
     }
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
@@ -53,27 +40,43 @@ public class CombatInputHandler : MonoBehaviour
     {
         if (context.performed)
         {
-            if (moveInput.y >= upInputThreshold)
+            moveInput = InputManager.GetMoveInput();
+            Debug.Log(moveInput);
+            if (moveInput.y > 0)
             {
-                //preform up attack 
-                //spawn hitbox at up offset vector
+                Debug.Log("Up detected");
+                PreformAttack(new Vector3(0,0.5f,0));
             }
-            else if (moveInput.y <= downInputThreshold)
+            else if (moveInput.y < 0)
             {
-                //preform down attack
+                Debug.Log("Down detected");
+                PreformAttack(new Vector3(0,-0.5f,0));
             }
-            else
+            else 
             {
                 //do a horizontal attack depending on which way the player is facing
-                PreformAttack();
+                if (facingRight)
+                {
+                    PreformAttack(new Vector3(-0.5f,0,0));
+                }
+                else 
+                {
+                    PreformAttack(new Vector3(0.5f,0,0));
+                }
+               
             }
         }
             
     }
 
-    private void PreformAttack()
+    public void OnSecondaryAttack()
     {
-        StartCoroutine(AttackRoutine());
+        
+    }
+
+    private void PreformAttack(Vector3 offset)
+    {
+        StartCoroutine(AttackRoutine(offset));
     }
 
     private void PreformUltimate()
@@ -81,14 +84,14 @@ public class CombatInputHandler : MonoBehaviour
         StartCoroutine(UltimateAttackRoutine());
     }
     
-    //TODO: decide how to pass in damage for primary/secondary attack
-    //possibly make separate coroutines?
-    //use method SetAttackDamage somewhere here to pass in damage parameters (from combat parameters)
-    
     //will likely need changes once we get actual attack animations
-    IEnumerator AttackRoutine()
+    //TODO: must destroy hitbox after certain time (once done with position testing)
+    IEnumerator AttackRoutine(Vector3 offset)
     {
-        hitbox.SetActive(true);
+        GameObject hitbox = Instantiate(hitboxPrefab, 
+            transform.position + offset, 
+            Quaternion.identity, 
+            transform);
         
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
         hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
@@ -104,7 +107,7 @@ public class CombatInputHandler : MonoBehaviour
             hitboxScript.ResetSuccessfulHit();
         }
         
-        hitbox.SetActive(false);
+        Destroy(hitbox, 2f);
         ResetSprite();
     }
 

@@ -23,6 +23,13 @@ namespace InputManagement
         public InputState Input => inputEnabled ? input : null;
         private InputState input = new InputState();
 
+        private Vector2 moveInput;
+
+        public Vector2 GetMoveInput()
+        {
+            return moveInput;
+        }
+
         #region PlayerInput
 
         [SerializeField] private PlayerInput playerInput;
@@ -92,10 +99,12 @@ namespace InputManagement
             if (context.performed)
             {
                 input.move.SetValue(context.ReadValue<Vector2>());
+                moveInput = context.ReadValue<Vector2>();
             }
             else if (context.canceled)
             {
                 input.move.SetValue(Vector2.zero);
+                moveInput = Vector2.zero;
             }
         }
         public void Aim(InputAction.CallbackContext context)
