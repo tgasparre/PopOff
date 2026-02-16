@@ -29,17 +29,17 @@ public class RemoveXInputGamepads : MonoBehaviour
     /// </summary>
     private void PlayerInput_onControlsChanged(PlayerInput obj)
     {
-        // Gamepad gamepad = obj.GetDevice<Gamepad>();
-        // if (gamepad is UnityEngine.InputSystem.Switch.SwitchProControllerHID)
-        // {
-        //     foreach (var item in Gamepad.all)
-        //     {
-        //         if ((item is UnityEngine.InputSystem.XInput.XInputController) && (Math.Abs(item.lastUpdateTime - gamepad.lastUpdateTime) < 0.1))
-        //         {
-        //             Debug.Log($"Switch Pro controller detected and a copy of XInput was active at almost the same time. Disabling XInput device. `{gamepad}`; `{item}`");
-        //             InputSystem.DisableDevice(item);
-        //         }
-        //     }
-        // }
+        Gamepad gamepad = obj.GetDevice<Gamepad>();
+        if (gamepad is UnityEngine.InputSystem.Switch.SwitchProControllerHID)
+        {
+            foreach (var item in Gamepad.all)
+            {
+                if ((item is UnityEngine.InputSystem.XInput.XInputController) && (Math.Abs(item.lastUpdateTime - gamepad.lastUpdateTime) < 0.1))
+                {
+                    Debug.Log($"Switch Pro controller detected and a copy of XInput was active at almost the same time. Disabling XInput device. `{gamepad}`; `{item}`");
+                    InputSystem.DisableDevice(item);
+                }
+            }
+        }
     }
 }
