@@ -45,9 +45,13 @@ public class CombatInputHandler : MonoBehaviour
             
     }
 
-    public void OnSecondaryAttack()
+    public void OnSecondaryAttack(InputAction.CallbackContext context)
     {
-        
+        if (context.performed)
+        {
+            Vector3 attackDirection = GetAttackDirection();
+            PreformSecondaryAttack(attackDirection);
+        }
     }
 
     private Vector3 GetAttackDirection()
@@ -86,6 +90,11 @@ public class CombatInputHandler : MonoBehaviour
     {
         StartCoroutine(UltimateAttackRoutine());
     }
+
+    private void PreformSecondaryAttack(Vector3 offset)
+    {
+        StartCoroutine(SecondaryAttackRoutine(offset));
+    }
     
     //will likely need changes once we get actual attack animations
     IEnumerator AttackRoutine(Vector3 offset)
@@ -96,9 +105,11 @@ public class CombatInputHandler : MonoBehaviour
             transform);
         
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
-        hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
         
-        ChangeToCombatSprite();
+        hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
+        hitboxScript.SetAttackDamage(10);
+        
+        ChangeToCombatSprite(); // <- change once art is in
         
         yield return new WaitForSeconds(0.2f);
         
@@ -126,6 +137,35 @@ public class CombatInputHandler : MonoBehaviour
         Destroy(ultimateHitbox, 2f);
         ResetSprite();
         
+    }
+
+    //I know this is mostly repeat code, but the animations will need to be different than the primary attack
+    //so it will be useful to have its own coroutine
+    IEnumerator SecondaryAttackRoutine(Vector3 offset)
+    {
+        GameObject hitbox = Instantiate(hitboxPrefab, 
+            transform.position + offset, 
+            Quaternion.identity, 
+            transform);
+        
+        AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
+        
+        hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
+        hitboxScript.SetAttackDamage(25);
+        
+        ChangeToCombatSprite();
+        
+        yield return new WaitForSeconds(0.2f);
+        
+        //check to see if the hit was successful to increment ultimate attack meter
+        if (hitboxScript.IsSuccessfulHit())
+        {
+            OnSuccessfulHit?.Invoke();
+            hitboxScript.ResetSuccessfulHit();
+        }
+        //TODO: adjust time once done with testing, 2 seconds is too long for a real hitbox
+        Destroy(hitbox, 2f);
+        ResetSprite();
     }
     
     private void ChangeToCombatSprite()

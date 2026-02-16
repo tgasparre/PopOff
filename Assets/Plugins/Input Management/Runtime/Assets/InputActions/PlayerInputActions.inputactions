@@ -658,7 +658,7 @@
                 {
                     "name": "",
                     "id": "7a6ededf-8304-4824-aa00-acae541b8fb2",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -669,7 +669,18 @@
                 {
                     "name": "",
                     "id": "1e260c11-1060-4a54-8f91-d878872c1d55",
-                    "path": "",
+                    "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27965c2c-8012-4773-9902-cc897c1768c1",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
