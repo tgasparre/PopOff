@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8577296279709627647
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.8547
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.45278
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107434090579478935, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: m_Name
+      value: ExplodeDart Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680269983971091878, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: _explode._explodePrefab
+      value: 
+      objectReference: {fileID: 5216513343874438164, guid: f8ff553c5ce019467b3fdcb367c56db6, type: 3}
+    - target: {fileID: 6680269983971091878, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: _explode._idleTimePercent
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680269983971091878, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: _explode._flashTimePercent
+      value: 0.8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}

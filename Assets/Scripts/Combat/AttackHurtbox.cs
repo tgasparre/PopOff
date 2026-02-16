@@ -7,8 +7,8 @@ public class AttackHurtbox : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (player != null)
-            player.TakeDamage(damage);
+        // if (player != null)
+        //     player.TakeDamage(damage);
     }
     
 }

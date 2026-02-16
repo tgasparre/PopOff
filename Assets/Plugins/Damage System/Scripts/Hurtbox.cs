@@ -28,7 +28,7 @@ namespace DamageSystem
 
         private void Awake()
         {
-            gameObject.layer = Layers.Hurtbox;
+            gameObject.layer = Layers.HurtBox;
             _collision = GetComponent<Collider2D>();
             CurrentHealth = _startingHealth;
         }
