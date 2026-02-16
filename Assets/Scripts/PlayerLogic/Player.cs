@@ -110,13 +110,13 @@ public class Player : MonoBehaviour
             float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) 
                                      * (CombatParameters.knockbackForce * knockbackMultiplier);
             
-            rb.velocity = direction * currentForce;
+            rb.linearVelocity = direction * currentForce;
             
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
     }
 
     void OnDestroy()

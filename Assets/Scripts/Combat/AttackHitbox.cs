@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using InputManagement;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
     public Player thisPlayer;
-    
     private bool hitSuccessful = false;
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
@@ -32,19 +32,22 @@ public class AttackHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision with player entered");
-        AttackHurtbox otherHurtbox = other.GetComponent<AttackHurtbox>();
+        AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
         Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
-        Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
         
         //dont hit yourself
-        if (otherHurtbox.player == thisPlayer)
+        if (otherHb.player == thisPlayer)
             return;
         
-        if (otherHurtbox != null && !hitPlayers.Contains(otherHurtbox))
+        InputManager attackerInput = GetComponentInParent<InputManager>();
+        
+        if (otherHb != null && !hitPlayers.Contains(otherHb))
         {
-            otherHurtbox.TakeDamage(attackDamage);
-            hitPlayer.ApplyKnockback(knockbackDirection, hitPlayer.playerStats.WeightClass.knockbackMultiplier);
-            hitPlayers.Add(otherHurtbox);
+            otherHb.TakeDamage(attackDamage);
+            hitPlayers.Add(otherHb);
+            hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),
+                1f);
+            
             hitSuccessful = true;
         }
 

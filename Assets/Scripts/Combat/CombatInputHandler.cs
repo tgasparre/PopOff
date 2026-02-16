@@ -16,7 +16,6 @@ public class CombatInputHandler : MonoBehaviour
     public GameObject hitboxPrefab;
 
     private Vector2 moveInput;
-    private bool facingRight = true;
     
     private bool UltimateAttackEnabled = false;
     [SerializeField] private UltimateAttackTracker tracker;
@@ -44,24 +43,28 @@ public class CombatInputHandler : MonoBehaviour
             Debug.Log(moveInput);
             if (moveInput.y > 0)
             {
-                Debug.Log("Up detected");
+                //Debug.Log("Up detected");
                 PreformAttack(new Vector3(0,0.5f,0));
             }
             else if (moveInput.y < 0)
             {
-                Debug.Log("Down detected");
+                //Debug.Log("Down detected");
                 PreformAttack(new Vector3(0,-0.5f,0));
             }
             else 
-            {
-                //do a horizontal attack depending on which way the player is facing
-                if (facingRight)
+            { 
+                //TODO: if the player isnt moving, moveinput defaults to 0, need 2 find proper way to tell which direction player is facing
+                if (moveInput.x > 0)
+                {
+                    PreformAttack(new Vector3(0.5f,0,0));
+                }
+                else if (moveInput.x < 0)
                 {
                     PreformAttack(new Vector3(-0.5f,0,0));
                 }
-                else 
+                else //if not moving, use last facing direction
                 {
-                    PreformAttack(new Vector3(0.5f,0,0));
+                    
                 }
                
             }
@@ -85,7 +88,6 @@ public class CombatInputHandler : MonoBehaviour
     }
     
     //will likely need changes once we get actual attack animations
-    //TODO: must destroy hitbox after certain time (once done with position testing)
     IEnumerator AttackRoutine(Vector3 offset)
     {
         GameObject hitbox = Instantiate(hitboxPrefab, 
@@ -106,7 +108,7 @@ public class CombatInputHandler : MonoBehaviour
             OnSuccessfulHit?.Invoke();
             hitboxScript.ResetSuccessfulHit();
         }
-        
+        //TODO: adjust time once done with testing, 2 seconds is too long for a real hitbox
         Destroy(hitbox, 2f);
         ResetSprite();
     }
