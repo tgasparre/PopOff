@@ -106,7 +106,8 @@ public class CombatInputHandler : MonoBehaviour
         
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
         
-        hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
+        hitboxScript.thisPlayer = gameObject.GetComponentInParent<Player>();
+        
         hitboxScript.SetAttackDamage(10);
         
         ChangeToCombatSprite(); // <- change once art is in
