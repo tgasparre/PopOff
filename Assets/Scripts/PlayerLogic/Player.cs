@@ -31,8 +31,8 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        AssignWeightClass("regular");
         playerStats = Instantiate(playerStatsTemplate);
+        AssignWeightClass("regular");
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponent<PlayerAnimation>();

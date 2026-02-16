@@ -473,6 +473,8 @@ GameObject:
   - component: {fileID: -3513391965951973333}
   - component: {fileID: 1766012394733150405}
   - component: {fileID: 3998949220849115704}
+  - component: {fileID: 7882340438549033884}
+  - component: {fileID: 9099353319199650860}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -497,7 +499,6 @@ Transform:
   - {fileID: 2869412791927196247}
   - {fileID: 5782402836819168251}
   - {fileID: 5056850062023203573}
-  - {fileID: 7451363302162200053}
   - {fileID: 3647581902596054749}
   - {fileID: 1633021388694705717}
   m_Father: {fileID: 0}
@@ -699,9 +700,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   playerStatsTemplate: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
-  playerStats: {fileID: 0}
-  hurtbox: {fileID: 0}
-  playerStateMachine: {fileID: 3998949220849115704}
 --- !u!114 &6056498423530927706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1027,6 +1025,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e738f25b4d8d08898fa00a33a83c001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
+--- !u!114 &9099353319199650860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2195127259503755186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6c8cf255e99324da73261b038ce438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
 --- !u!1 &2324649287004563521
 GameObject:
   m_ObjectHideFlags: 0
