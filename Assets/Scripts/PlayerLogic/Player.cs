@@ -1,54 +1,71 @@
 using System;
 using System.Collections;
 using ControllerSystem.Platformer2D;
-using InputManagement;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     public PlayerStats playerStatsTemplate;
-    public PlayerStats playerStats;
-    public AttackHurtbox hurtbox;
+
+    // ===== References =====
+    public PlayerPowerups powerups { private set; get; }
+    public AttackHurtbox hurtbox { private set; get; }
+    public PlayerStats playerStats { private set; get; }
+
+    public bool CanRespawn { private set; get; } = true;
+    public bool IsFacingLeft => _fighterController.FacingLeft;
+    public int FacingLeftValue => IsFacingLeft ? -1 : 1;
     
-    private float movementSpeed;
-    [SerializeField]
+
+    // ===== Internal References =====
     private PlayerStateMachine  playerStateMachine;
-    public event Action PlayerDied;
+    private PlayerAnimation _animation;
+    private Powerup attachedPowerup;
+    private float movementSpeed;
+    private UltimateAttackTracker _ultimateAttackTracker;
+    private PlatformerHorizontalMovementModule _horizontalMovementModule;
+    private FighterController _fighterController;
+    private Rigidbody2D _rigidbody2D;
+
 
     void Awake()
     {
+        AssignWeightClass("regular");
         playerStats = Instantiate(playerStatsTemplate);
         hurtbox = GetComponentInChildren<AttackHurtbox>();
-        AssignWeightClass("regular");
+        powerups = GetComponent<PlayerPowerups>();
+        _animation = GetComponent<PlayerAnimation>();
+        playerStateMachine = GetComponent<PlayerStateMachine>();
+        _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
+        _fighterController = GetComponent<FighterController>();
+        _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    #region Inputs
+
+    public void UsePower(InputAction.CallbackContext context)
     {
-        //if a player is offscreen, kill them (like in smash)
-        if (SpriteTools.IsOffScreen(gameObject.GetComponentInChildren<SpriteRenderer>()))
-        {
-            KillPlayer();
-        }
+        if (context.performed) powerups.UsePower();
     }
 
-    public void KillPlayer()
+    public void Pause(InputAction.CallbackContext context)
     {
-        gameObject.GetComponent<UltimateAttackTracker>().playerUI.DeletePlayerUI();
-        Destroy(this.GameObject());
-        PlayerDied?.Invoke();
+        if (context.performed) Game.currentState = GameStates.Pause;
     }
+
+    #endregion
     
     public void TakeDamage(float damage)
     {
         hurtbox.HP -= damage;
         if (hurtbox.HP <= 0)
         {
-            KillPlayer();
+            CanRespawn = Game.Instance.OnPlayerDied(this);
         }
-        Debug.Log("TakeDamage was called");
     }
-    
+
     public void HealHP(int heal)
     {
         hurtbox.HP += heal;
@@ -104,9 +121,9 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(movementSpeed);
     }
 
-    public void SetInputManager(InputManager inputManager)
+    public void FreezePlayer()
     {
-        gameObject.GetComponent<FighterController>().InputManager = inputManager;
+        _rigidbody2D.bodyType = RigidbodyType2D.Static;
     }
     
     IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
@@ -138,10 +155,66 @@ public class Player : MonoBehaviour
         playerStateMachine.ResetState();
     }
 
-    void OnDestroy()
+    public void UnfreezePlayer()
     {
-        Destroy(playerStats);
+        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
     }
-    
 }
+
+
+// void Update()
+// {
+//     //TODO change so there is a buffer zone, so they don't die right away 
+//     //if a player is offscreen, kill them (like in smash)
+//     if (SpriteTools.IsOffScreen(GetComponentInChildren<SpriteRenderer>()))
+//     {
+//         KillPlayer();
+//     }
+// }
+
+// public void KillPlayer()
+// {
+//     _ultimateAttackTracker.playerUI.DeletePlayerUI();
+//     Destroy(gameObject);
+//     PlayerDied?.Invoke();
+// }
+//     
+// public void TakeDamage(int damage)
+// {
+//     hurtbox.HP -= damage;
+//     if (hurtbox.HP <= 0)
+//     {
+//         KillPlayer();
+//     }
+//     Debug.Log("TakeDamage was called");
+// }
+//     
+// public void HealHP(int heal)
+// {
+//     hurtbox.HP += heal;
+//     if (hurtbox.HP > 200)
+//     {
+//         hurtbox.HP = 200;
+//     }
+// }
+//     
+// public void FreezePlayerMovement()
+// {
+//     movementSpeed = _horizontalMovementModule.GetMovementSpeed();
+//     _horizontalMovementModule.SetMovementSpeed(0f);
+// }
+//
+// public void UnfreezePlayerMovement()
+// {
+//     _horizontalMovementModule.SetMovementSpeed(movementSpeed);
+// }
+// void OnDestroy()
+// {
+//     Destroy(playerStats);
+// }
+// public void SetInputManager(InputManager inputManager)
+// {
+//     _fighterController.InputManager = inputManager;
+// }
+
 

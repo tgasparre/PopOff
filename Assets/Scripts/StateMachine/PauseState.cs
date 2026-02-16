@@ -1,15 +1,21 @@
+using UnityEngine;
 
 public class PauseState : GameState
 {
-    public ActivePlayersTracker activePlayersTracker;
     public override void EnterState()
     {
-        activePlayersTracker.BlockPlayerMovement();
-        uiHandler.SwitchToPauseScreen();
+        Time.timeScale = 0f;
+        CanvasGroupDisplayer.Show(GameCanvas.Instance.PauseScreen);
     }
 
     public override void ExitState()
     {
-        activePlayersTracker.UnblockPlayerMovement();
+        Time.timeScale = 1f;
+        CanvasGroupDisplayer.Hide(GameCanvas.Instance.PauseScreen);
+    }
+
+    public override bool IsStateSwitchable(GameStates test)
+    {
+        return test is GameStates.Playing or GameStates.Menu;
     }
 }

@@ -129,7 +129,6 @@ namespace ControllerSystem.Platformer2D
             // Normal jump / double jump
             if (CanJump() && Controller.Input.jump.TryUseBuffer())
             {
-                Debug.Log("can jump check passed");
                 Jump();
                 InvokeEvent(Events.Jump);
             }

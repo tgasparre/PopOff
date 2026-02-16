@@ -131,7 +131,6 @@ namespace InputManagement
         {
             if (context.performed)
             {
-                Debug.Log("jump button pressed");
                 input.jump.OnPress();
             }
             else if (context.canceled)
@@ -243,7 +242,6 @@ namespace InputManagement
         }
 
         #endregion
-
     }
 
 }
