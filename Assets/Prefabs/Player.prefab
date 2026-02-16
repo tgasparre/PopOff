@@ -472,8 +472,7 @@ GameObject:
   - component: {fileID: 2788728200083980781}
   - component: {fileID: -3513391965951973333}
   - component: {fileID: 1766012394733150405}
-  - component: {fileID: 5811464681592468147}
-  - component: {fileID: 7882340438549033884}
+  - component: {fileID: 3998949220849115704}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -490,7 +489,7 @@ Transform:
   m_GameObject: {fileID: 2195127259503755186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.09925, y: 2.07933, z: 0.06984}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -623,6 +622,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b506f5ebf308a42bae9f85b3a39177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpConfig:
+    NumDoubleJumps: 1
+    JumpHeight: 16.66667
+    JumpEndEarlyForce: 0.6
+    JumpEndEarlyWindowDuration: 0.2
   _jumpSettings:
     NumDoubleJumps: 1
     JumpHeight: 16.66667
@@ -695,6 +699,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   playerStatsTemplate: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
+  playerStats: {fileID: 0}
+  hurtbox: {fileID: 0}
+  playerStateMachine: {fileID: 3998949220849115704}
 --- !u!114 &6056498423530927706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,8 +730,8 @@ MonoBehaviour:
   InputManager: {fileID: -3513391965951973333}
   CombatSprite: {fileID: 5513914976837039818, guid: 10f3cacccb0c4c547be76836eba20664, type: 3}
   DefaultSprite: {fileID: -6447722072507503168, guid: 10f3cacccb0c4c547be76836eba20664, type: 3}
-  hitbox: {fileID: 8857274906467675912}
-  ultimateHitbox: {fileID: 4055801822573141031}
+  hitboxPrefab: {fileID: 3381663754871476220, guid: f268201e5cabb914b9379ef257aa1b9e, type: 3}
+  ultimateHitboxPrefab: {fileID: 4727914425852663025, guid: f8c66bb8d2e722d4bac823d693804aff, type: 3}
   tracker: {fileID: 1766012394733150405}
 --- !u!114 &7758172281604579164
 MonoBehaviour:
@@ -863,7 +870,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4562915021269651356}
         m_TargetAssemblyTypeName: CombatInputHandler, Assembly-CSharp
-        m_MethodName: OnAttack
+        m_MethodName: OnPrimaryAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -933,9 +940,9 @@ MonoBehaviour:
     m_ActionName: 'Player/UltimateAttack[/Keyboard/j]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3062809853175913679}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: UsePower
+      - m_Target: {fileID: 4562915021269651356}
+        m_TargetAssemblyTypeName: CombatInputHandler, Assembly-CSharp
+        m_MethodName: OnSecondaryAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -945,8 +952,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 26b4c2d3-8cf9-4931-99e6-814a5c5e47d7
-    m_ActionName: 'Player/Powerup[/Keyboard/p]'
+    m_ActionId: e7c5e73f-360f-44fc-af38-7cb9c0ae6d6d
+    m_ActionName: Player/SecondaryAttack
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -992,7 +999,7 @@ MonoBehaviour:
   playerUI: {fileID: 0}
   AttacksNeededForUltimate: 5
   combatInputHandler: {fileID: 4562915021269651356}
---- !u!114 &5811464681592468147
+--- !u!114 &3998949220849115704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1218,132 +1225,12 @@ Transform:
   m_GameObject: {fileID: 3683848143951345384}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4375, z: 0}
+  m_LocalPosition: {x: 0, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1477628170119084408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4055801822573141031
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7451363302162200053}
-  - component: {fileID: 6599829987339334973}
-  - component: {fileID: 8567817914343386203}
-  - component: {fileID: 7916595363357222259}
-  m_Layer: 7
-  m_Name: UltimateHitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &7451363302162200053
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4055801822573141031}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.472, y: -1.9, z: -38.6}
-  m_LocalScale: {x: 1.67, y: 1.55, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2322863684025631763}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &6599829987339334973
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4055801822573141031}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &8567817914343386203
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4055801822573141031}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.24008799, y: -0.17033672}
-  m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 19.97197, y: 10.306187}
-  m_EdgeRadius: 0
---- !u!114 &7916595363357222259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4055801822573141031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 578082580dc592b428c397be675a40b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UltimateAttackHitbox
-  thisPlayer: {fileID: 0}
 --- !u!1 &4293210229069098035
 GameObject:
   m_ObjectHideFlags: 0
