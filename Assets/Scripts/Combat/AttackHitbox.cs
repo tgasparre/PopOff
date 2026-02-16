@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using InputManagement;
 using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
@@ -7,6 +9,9 @@ public class AttackHitbox : MonoBehaviour
     public Player thisPlayer;
     private bool hitSuccessful = false;
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
+
+    //placeholder value, overwritten in CombatInputHandler 
+    private float attackDamage = 10;
 
     public bool IsSuccessfulHit()
     {
@@ -17,20 +22,33 @@ public class AttackHitbox : MonoBehaviour
     {
         hitSuccessful = false;
     }
+
+    //apply this player's damage multiplier depending on their weightclass
+    public void SetAttackDamage(float damage)
+    {
+        attackDamage =  damage * thisPlayer.playerStats.WeightClass.damageMultiplier;
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision with player entered");
-        AttackHurtbox hitPlayer = other.GetComponent<AttackHurtbox>();
+        AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
+        Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
         
         //dont hit yourself
-        if (hitPlayer.player == thisPlayer)
+        if (otherHb.player == thisPlayer)
             return;
         
-        if (hitPlayer != null && !hitPlayers.Contains(hitPlayer))
+        InputManager attackerInput = GetComponentInParent<InputManager>();
+        
+        if (otherHb != null && !hitPlayers.Contains(otherHb))
         {
-            hitPlayer.TakeDamage(20);
-            hitPlayers.Add(hitPlayer);
+            hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
+            otherHb.TakeDamage(attackDamage);
+            hitPlayers.Add(otherHb);
+            hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),
+                hitPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
+            
             hitSuccessful = true;
         }
 
