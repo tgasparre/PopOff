@@ -43,6 +43,7 @@ public class AttackHitbox : MonoBehaviour
         
         if (otherHb != null && !hitPlayers.Contains(otherHb))
         {
+            hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
             otherHb.TakeDamage(attackDamage);
             hitPlayers.Add(otherHb);
             hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),

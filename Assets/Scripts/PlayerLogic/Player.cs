@@ -10,7 +10,10 @@ public class Player : MonoBehaviour
     public PlayerStats playerStatsTemplate;
     public PlayerStats playerStats;
     public AttackHurtbox hurtbox;
+    
     private float movementSpeed;
+    [SerializeField]
+    private PlayerStateMachine  playerStateMachine;
     public event Action PlayerDied;
 
     void Awake()
@@ -54,6 +57,12 @@ public class Player : MonoBehaviour
             hurtbox.HP = 200;
         }
     }
+
+    public void ApplyHitStun(float duration)
+    {
+        StartCoroutine(AddHitStun(duration));
+    }
+
 
     public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
     {
@@ -118,6 +127,15 @@ public class Player : MonoBehaviour
         }
         
         rb.linearVelocity = Vector2.zero;
+    }
+
+    IEnumerator AddHitStun(float duration)
+    {
+        playerStateMachine.EnterHitStun();
+        FreezePlayerMovement();
+        yield return new WaitForSeconds(duration);
+        UnfreezePlayerMovement();
+        playerStateMachine.ResetState();
     }
 
     void OnDestroy()

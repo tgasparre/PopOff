@@ -20,6 +20,7 @@ public class UltimateAttackHitbox : MonoBehaviour
         InputManager attackerInput = GetComponentInParent<InputManager>();
         if (otherHurtbox != null && !hitPlayers.Contains(otherHurtbox))
         {
+            hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
             hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),
                 hitPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.ultimateKnockbackForce);
             otherHurtbox.TakeDamage(50);
