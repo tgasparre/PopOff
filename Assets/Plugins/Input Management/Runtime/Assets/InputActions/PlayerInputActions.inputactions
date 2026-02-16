@@ -55,7 +55,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "0cce30ec-d84d-43fa-a917-43b88b13e186",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -549,17 +549,6 @@
                     "name": "",
                     "id": "3de83c20-2332-4c70-8f4d-b6fbb16504d3",
                     "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "32180605-e699-43d8-88a4-3de89a8b87eb",
-                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

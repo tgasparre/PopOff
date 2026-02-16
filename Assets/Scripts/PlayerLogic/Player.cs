@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     {
         playerStats = Instantiate(playerStatsTemplate);
         hurtbox = GetComponentInChildren<AttackHurtbox>();
+        AssignWeightClass("regular");
     }
 
     void Update()
@@ -54,9 +55,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier)
+    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
     {
-        StartCoroutine(AddKnockback(direction, knockbackMultiplier));
+        StartCoroutine(AddKnockback(direction, knockbackMultiplier, knockbackForce));
     }
 
     //may need testing to ensure movement feels good
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<FighterController>().InputManager = inputManager;
     }
     
-    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier)
+    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
     {
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         float elapsedTime = 0f;
@@ -108,7 +109,7 @@ public class Player : MonoBehaviour
         {
             float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
             float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) 
-                                     * (CombatParameters.knockbackForce * knockbackMultiplier);
+                                     * (knockbackForce * knockbackMultiplier);
             
             rb.linearVelocity = direction * currentForce;
             

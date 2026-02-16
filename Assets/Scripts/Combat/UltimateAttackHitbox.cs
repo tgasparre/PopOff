@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InputManagement;
 using UnityEngine;
 
 public class UltimateAttackHitbox : MonoBehaviour
@@ -8,17 +9,21 @@ public class UltimateAttackHitbox : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        AttackHurtbox hitPlayer = other.GetComponent<AttackHurtbox>();
+        AttackHurtbox otherHurtbox = other.GetComponent<AttackHurtbox>();
+        Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
 
-        if (hitPlayer == thisPlayer.hurtbox)
+        if (otherHurtbox == thisPlayer.hurtbox)
         {
             return;
         }
-
-        if (hitPlayer != null && !hitPlayers.Contains(hitPlayer))
+        
+        InputManager attackerInput = GetComponentInParent<InputManager>();
+        if (otherHurtbox != null && !hitPlayers.Contains(otherHurtbox))
         {
-            hitPlayer.TakeDamage(50);
-            hitPlayers.Add(hitPlayer);
+            hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),
+                hitPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.ultimateKnockbackForce);
+            otherHurtbox.TakeDamage(50);
+            hitPlayers.Add(otherHurtbox);
         }
 
         ResetHitPlayers();

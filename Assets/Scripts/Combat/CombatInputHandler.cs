@@ -11,9 +11,9 @@ public class CombatInputHandler : MonoBehaviour
     public InputManager InputManager;
     public Sprite CombatSprite;
     public Sprite DefaultSprite;
-    public GameObject ultimateHitbox;
 
     public GameObject hitboxPrefab;
+    public GameObject ultimateHitboxPrefab;
 
     private Vector2 moveInput;
     
@@ -39,35 +39,8 @@ public class CombatInputHandler : MonoBehaviour
     {
         if (context.performed)
         {
-            moveInput = InputManager.GetMoveInput();
-            Debug.Log(moveInput);
-            if (moveInput.y > 0)
-            {
-                //Debug.Log("Up detected");
-                PreformAttack(new Vector3(0,0.5f,0));
-            }
-            else if (moveInput.y < 0)
-            {
-                //Debug.Log("Down detected");
-                PreformAttack(new Vector3(0,-0.5f,0));
-            }
-            else 
-            { 
-                //TODO: if the player isnt moving, moveinput defaults to 0, need 2 find proper way to tell which direction player is facing
-                if (moveInput.x > 0)
-                {
-                    PreformAttack(new Vector3(0.5f,0,0));
-                }
-                else if (moveInput.x < 0)
-                {
-                    PreformAttack(new Vector3(-0.5f,0,0));
-                }
-                else //if not moving, use last facing direction
-                {
-                    
-                }
-               
-            }
+            Vector3 attackDirection = GetAttackDirection();
+            PreformAttack(attackDirection);
         }
             
     }
@@ -75,6 +48,33 @@ public class CombatInputHandler : MonoBehaviour
     public void OnSecondaryAttack()
     {
         
+    }
+
+    private Vector3 GetAttackDirection()
+    {
+        moveInput = InputManager.GetMoveInput();
+        Debug.Log(moveInput);
+        switch (moveInput.y)
+        {
+            case > 0:
+                //Debug.Log("Up detected");
+                return new Vector3(0, 0.5f, 0);
+            case < 0:
+                //Debug.Log("Down detected");
+                return new Vector3(0,-0.5f,0);
+        }
+        switch (moveInput.x)
+        {
+            //TODO: if the player isnt moving, moveinput defaults to 0, need 2 find proper way to tell which direction player is facing
+            case > 0:
+                return new Vector3(0.5f,0,0);
+            case < 0:
+                return new Vector3(-1f,0,0);
+            //if not moving, use last facing direction
+            default:
+                break;
+        }
+        return Vector3.zero;   
     }
 
     private void PreformAttack(Vector3 offset)
@@ -115,13 +115,17 @@ public class CombatInputHandler : MonoBehaviour
 
     IEnumerator UltimateAttackRoutine()
     {
-        ultimateHitbox.SetActive(true);
-        ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = gameObject.GetComponent<Player>();
+        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, 
+            transform.position, 
+            Quaternion.identity, 
+            transform);
+        ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = gameObject.GetComponentInParent<Player>();
         
         ChangeToCombatSprite();
         yield return new WaitForSeconds(0.2f);
-        ultimateHitbox.SetActive(false);
+        Destroy(ultimateHitbox, 2f);
         ResetSprite();
+        
     }
     
     private void ChangeToCombatSprite()

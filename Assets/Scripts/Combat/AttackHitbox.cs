@@ -11,7 +11,7 @@ public class AttackHitbox : MonoBehaviour
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
     //placeholder value, overwritten in CombatInputHandler 
-    private float attackDamage = 20;
+    private float attackDamage = 10;
 
     public bool IsSuccessfulHit()
     {
@@ -46,7 +46,7 @@ public class AttackHitbox : MonoBehaviour
             otherHb.TakeDamage(attackDamage);
             hitPlayers.Add(otherHb);
             hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),
-                1f);
+                hitPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
             
             hitSuccessful = true;
         }
