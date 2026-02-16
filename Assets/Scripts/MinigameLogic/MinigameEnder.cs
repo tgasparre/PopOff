@@ -10,7 +10,7 @@ public class MinigameEnder : MonoBehaviour
     {
         if (isPlayerInRange && Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            game.EndMinigame();
+            // game.EndMinigame();
         }
     }
     

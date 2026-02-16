@@ -1,50 +1,74 @@
+using System;
 using UnityEngine;
 
-public class StateMachineManager : MonoBehaviour
+public static class StateMachineManager
 {
-    public PreStartState PreStartState;
-    public PauseState PauseState;
-    public GameOverState GameOverState;
-    public MiniGameState MiniGameState;
-    public PVPCombatState PVPCombatState;
+    public static readonly MenuState menuState = new MenuState();
+    public static readonly PauseState pauseState = new PauseState();
+    public static readonly PlayingState playingState = new PlayingState();
+    public static readonly GameOverState gameOverState = new GameOverState();
+
+    public static GameStates currentState { private set; get; }
+    private static GameState _activeState = menuState;
     
-    private GameState currentState;
-
-    public void EnterPreStartState()
+    public static void SwitchState(GameStates state)
     {
-        SetGameStateTo(PreStartState);
-    }
-
-    public void EnterPauseState()
-    {
-        SetGameStateTo(PauseState);
-    }
-
-    public void EnterGameOverState()
-    {
-        SetGameStateTo(GameOverState);
-    }
-
-    public void EnterMiniGameState()
-    {
-        SetGameStateTo(MiniGameState);
-    }
-
-    public void EnterPVPCombatState()
-    {
-        SetGameStateTo(PVPCombatState);
-    }
-    
-    
-    private void SetGameStateTo(GameState newState)
-    {
-        if (currentState != null)
+        if (!_activeState.IsStateSwitchable(state))
         {
-            currentState.ExitState();
+            Debug.LogWarning("State could not switch: " + _activeState + " and " + state);
+            return;
         }
-        currentState = newState;
-        Debug.Log(currentState);
         
-        currentState.EnterState();
+        switch (state)
+        {
+            case GameStates.Menu:
+                SetGameStateTo(menuState);
+                break;
+            case GameStates.Pause:
+                SetGameStateTo(pauseState);
+                break;
+            case GameStates.Playing:
+                SetGameStateTo(playingState);
+                break;
+            case GameStates.GameOver:
+                SetGameStateTo(gameOverState);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        }
+        currentState = state;
     }
+
+    private static void SetGameStateTo(GameState state)
+    {
+        if (state != _activeState) _activeState?.ExitState();
+        
+        _activeState = state;
+        _activeState.EnterState();
+    }
+    
+    /// <summary>
+    /// DEBUG method -- sets the state of the game without calling the ExitState or EnterState methods.
+    /// </summary>
+    /// <param name="state"></param>
+    public static void DEBUG_SetGameState(GameStates state)
+    {
+        _activeState = state switch
+        {
+            GameStates.Menu => menuState,
+            GameStates.Playing => playingState,
+            GameStates.Pause => pauseState,
+            GameStates.GameOver => gameOverState,
+            _ => _activeState
+        };
+        currentState = state;
+    }
+}
+
+public enum GameStates
+{
+    Menu,
+    Pause, 
+    Playing,
+    GameOver
 }

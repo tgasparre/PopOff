@@ -10,7 +10,7 @@ public class MinigamePortal : MonoBehaviour
     {
         if (isPlayerInRange && Keyboard.current.enterKey.wasPressedThisFrame)
         {
-            game.TriggerMinigame();
+            // game.TriggerMinigame();
         }
     }
     

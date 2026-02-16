@@ -845,8 +845,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Sprint[/Keyboard/shift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputManagement.InputManager, com.shellter.input-management
+      - m_Target: {fileID: 3062809853175913679}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 0
         m_Arguments:
