@@ -1,19 +1,16 @@
 using UnityEngine;
 
-public class GameState : MonoBehaviour
+public abstract class GameState
 {
-    [SerializeField]
-    protected UIHandler uiHandler;
-    protected SceneLoader sceneLoader = new SceneLoader();
+    protected static ISceneLoader Loader => Game.Instance.SceneLoader;
     
-    public virtual void EnterState()
-    {
-        
-    }
+    public abstract void EnterState();
+    public abstract void ExitState();
 
-    public virtual void ExitState()
-    {
-        return;
-    }
-    
+    /// <summary>
+    /// Test to see if the state can be switched into
+    /// </summary>
+    /// <param name="test">State to test</param>
+    /// <returns></returns>
+    public abstract bool IsStateSwitchable(GameStates test);
 }
