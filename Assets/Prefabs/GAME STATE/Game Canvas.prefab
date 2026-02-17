@@ -1303,6 +1303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverController
   _winnerNameText: {fileID: 5725995950630893877}
+  _playerNames: []
 --- !u!1 &6737003740796991746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,7 +1733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersistantCanvas
   _pauseScreen: {fileID: 480465536594174171}
-  _gameOverScreen: {fileID: 3646738155492177129}
+  _gameOverScreen: {fileID: 2486939840827976615}
 --- !u!1 &8724839186505333492
 GameObject:
   m_ObjectHideFlags: 0
