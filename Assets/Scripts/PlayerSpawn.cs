@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private SpawnType _type;
-    public SpawnType Type { get; private set; }
+    public SpawnType Type { get => _type; private set => _type = value; }
 
     public void Spawn(GameObject player)
     {

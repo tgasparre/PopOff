@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ActivePlayersTracker : MonoBehaviour
 {
-	// [SerializeField] private Transform _playerUIGroup;
-	// [SerializeField] private GameObject _playerUIPrefab;
+	public const int MAX_PLAYER = 4; 
+	
 	private PlayerInputManager _inputManager;
-	private List<PlayerInput> _players = new List<PlayerInput>();
 	private Transform _playerJail;
 	
 	private Coroutine _joinCoroutine;
@@ -23,10 +23,24 @@ public class ActivePlayersTracker : MonoBehaviour
 			if (value) WaitForPlayerJoined();
 		}
 	}
-	
-	public int activePlayers => _players.Count;
-	public int alivePlayers { get; private set; }
 
+	private struct PlayerTrack
+	{
+		public Player player;
+		public bool isAlive;
+
+		public PlayerTrack(Player p)
+		{
+			player = p;
+			isAlive = true;
+		}
+	}
+	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER];
+	public int activePlayers => _players.Count(t => t.player != null);
+	private List<PlayerTrack> alivePlayers => _players.Where(t => t.isAlive).ToList();
+
+	public int winningPlayerIndex { get; private set; } = -1;
+	
 	private void Awake()
 	{
 		_inputManager = GetComponent<PlayerInputManager>();
@@ -43,6 +57,7 @@ public class ActivePlayersTracker : MonoBehaviour
 	private void WaitForPlayerJoined()
 	{
 		if (_joinCoroutine != null) return;
+		DestroyPlayers();
 
 		_joinCoroutine = StartCoroutine(WaitForJoin());
 		return;
@@ -56,12 +71,9 @@ public class ActivePlayersTracker : MonoBehaviour
 					TryJoinPlayer(Keyboard.current);
 				}
 
-				foreach (Gamepad gamepad in Gamepad.all)
+				foreach (var gamepad in Gamepad.all.Where(gamepad => gamepad.buttonSouth.wasPressedThisFrame))
 				{
-					if (gamepad.buttonSouth.wasPressedThisFrame)
-					{
-						TryJoinPlayer(gamepad);
-					}
+					TryJoinPlayer(gamepad);
 				}
 				yield return null;
 			}
@@ -71,23 +83,18 @@ public class ActivePlayersTracker : MonoBehaviour
 
 	private void TryJoinPlayer(InputDevice device)
 	{
-		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return;
+		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return; ;
 		_inputManager.JoinPlayer(
-			playerIndex: -1,
-			splitScreenIndex: -1,
-			controlScheme: null,
+			playerIndex: activePlayers,
 			pairWithDevice: device
 		);
 	}
 	
-	public void OnPlayerJoined(PlayerInput playerInput) 
+	public void OnPlayerJoined(PlayerInput playerInput)
 	{
-		_players.Add(playerInput);
-		DontDestroyOnLoad(playerInput.gameObject);
-		LookForPlayerSpawn(playerInput);
-		
-		// RegisterPlayer(playerScript);
-		// CreatePlayerUI(playerInput);
+		Player player = playerInput.GetComponent<Player>();
+		_players[playerInput.playerIndex] = new PlayerTrack(player);
+		player.Register(playerInput);
 	}
 	
 	#endregion
@@ -96,31 +103,37 @@ public class ActivePlayersTracker : MonoBehaviour
 	
 	public void SpawnPlayers()
 	{
-		foreach (PlayerInput player in _players)
+		foreach (PlayerTrack tracker in _players)
 		{
-			LookForPlayerSpawn(player);
+			if (tracker.player == null || !tracker.isAlive) continue;
+			LookForPlayerSpawn(tracker.player);
 		}
 	}
 	
-	private void LookForPlayerSpawn(PlayerInput player)
+	public static void LookForPlayerSpawn(Player player)
 	{
 		PlayerSpawn[] spawns = FindObjectsByType<PlayerSpawn>(FindObjectsSortMode.None);
 		foreach (PlayerSpawn spawn in spawns)
 		{
-			Player p = player.GetComponent<Player>();
-			if (p.CanRespawn && player.playerIndex == (int)spawn.Type)
+			if (player.PlayerIndex == (int)spawn.Type)
 			{
-				spawn.Spawn(player.gameObject); //todo -- doesn't work as expected
+				spawn.Spawn(player.gameObject);
 			}
 		}
 	}
 	#endregion
 	
-	public bool OnPlayerDied(Player player)
+	public void OnPlayerDied(Player player)
 	{
 		player.FreezePlayer();
 		player.transform.position = _playerJail.position;
-		return PlayingState.CurrentGameplayState == GameplayStates.Combat;
+		if (PlayingState.CurrentGameplayState == GameplayStates.Combat)
+		{
+			_players[player.PlayerIndex].isAlive = false;
+		}
+		
+		if (alivePlayers.Count == 1) winningPlayerIndex = alivePlayers[0].player.PlayerIndex;
+		else if (alivePlayers.Count == 0) Debug.LogError("zero players left should only happen if DEBUG");
 	}
 
 	public void SetPlayerMenu()
@@ -130,12 +143,17 @@ public class ActivePlayersTracker : MonoBehaviour
 	
 	public void DestroyPlayers()
 	{
-		foreach (PlayerInput p in _players)
+		winningPlayerIndex = -1;
+		foreach (PlayerTrack tracker in _players)
 		{
-			Destroy(p.gameObject);
+			Destroy(tracker.player.gameObject);
 		}
-		_players.Clear();
+		_players = new PlayerTrack[MAX_PLAYER];
 	}
+	
+}
+
+
 
 	//subscribes to PlayerDied event so the player will tell us when it drops to 0 hp
 	//also adds player to our player list and makes sure they have the correct input manager
@@ -161,8 +179,8 @@ public class ActivePlayersTracker : MonoBehaviour
 	// }
 
 	//TODO
-	private void CreatePlayerUI(PlayerInput playerInput)
-	{
+	// private void CreatePlayerUI(PlayerInput playerInput)
+	// {
 		// GameObject uiInstance = Instantiate(_playerUIPrefab, _playerUIGroup);
 		// PlayerUIDisplayer playerUIDisplayer = uiInstance.GetComponent<PlayerUIDisplayer>();
 	 //   
@@ -184,7 +202,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		// {
 		// 	Debug.LogError("Failed to find tracker or UI displayer");
 		// }
-	}
+	// }
 	
 	//    public event Action playerWon;
 	//    
@@ -307,4 +325,3 @@ public class ActivePlayersTracker : MonoBehaviour
 	//            inputManager.onPlayerJoined -= OnPlayerJoined;
 	//        }
 	//    }
-}

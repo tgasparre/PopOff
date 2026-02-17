@@ -1,0 +1,34 @@
+using System;
+using TMPro;
+using UnityEngine;
+
+public class GameOverController : MonoBehaviour
+{
+    [SerializeField] private TextMeshProUGUI _winnerNameText;
+    [Space]
+    [SerializeField] private string[] _playerNames;
+
+    public CanvasGroup canvasGroup { get; private set; }
+    private void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    public void SetWinnerName()
+    {
+        int winningIndex = Game.Instance.WinningIndex;
+        if (winningIndex == -1) Debug.LogError("Error! Winning Index = -1, shouldn't happen!");
+        _winnerNameText.text = _playerNames[winningIndex];
+    }
+    
+    public void RestartGame()
+    {
+        //TODO
+        //play the game from the beginning without the need to have players join again or go to the main menu
+    }
+
+    public void ReturnToMenu()
+    {
+        Game.currentState = GameStates.Menu;
+    }
+}

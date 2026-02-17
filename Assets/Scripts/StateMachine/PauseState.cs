@@ -5,13 +5,13 @@ public class PauseState : GameState
     public override void EnterState()
     {
         Time.timeScale = 0f;
-        CanvasGroupDisplayer.Show(GameCanvas.Instance.PauseScreen);
+        GameCanvas.Instance.ShowPauseScreen();
     }
 
     public override void ExitState()
     {
         Time.timeScale = 1f;
-        CanvasGroupDisplayer.Hide(GameCanvas.Instance.PauseScreen);
+        GameCanvas.Instance.HideAllScreens();
     }
 
     public override bool IsStateSwitchable(GameStates test)

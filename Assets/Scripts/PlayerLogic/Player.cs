@@ -13,10 +13,8 @@ public class Player : MonoBehaviour
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
 
-    public bool CanRespawn { private set; get; } = true;
     public bool IsFacingLeft => _fighterController.FacingLeft;
     public int FacingLeftValue => IsFacingLeft ? -1 : 1;
-    
 
     // ===== Internal References =====
     private PlayerStateMachine  playerStateMachine;
@@ -27,6 +25,15 @@ public class Player : MonoBehaviour
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private FighterController _fighterController;
     private Rigidbody2D _rigidbody2D;
+
+    private PlayerInput _playerInput;
+    public void Register(PlayerInput input)
+    {
+        _playerInput = input;
+        ActivePlayersTracker.LookForPlayerSpawn(this);
+        DontDestroyOnLoad(gameObject);
+    }
+    public int PlayerIndex => _playerInput.playerIndex;
 
 
     void Awake()
@@ -62,7 +69,7 @@ public class Player : MonoBehaviour
         hurtbox.HP -= damage;
         if (hurtbox.HP <= 0)
         {
-            CanRespawn = Game.Instance.OnPlayerDied(this);
+            Game.Instance.OnPlayerDied(this);
         }
     }
 

@@ -9,12 +9,15 @@ public class GameCanvas : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
         _transitionController = GetComponentInChildren<TransitionController>();
-        
-        CanvasGroupDisplayer.Hide(_pauseScreen);
+    }
+
+    private void Start()
+    {
+        HideAllScreens();
     }
 
     [SerializeField] private CanvasGroup _pauseScreen;
-    public CanvasGroup PauseScreen => _pauseScreen;
+    [SerializeField] private GameOverController _gameOverScreen;
     private TransitionController _transitionController;
 
     public void Unpause()
@@ -30,5 +33,24 @@ public class GameCanvas : MonoBehaviour
     public void Transition(TransitionType transitionType = TransitionType.Menu, Action completed = null)
     {
         _transitionController.Transition(transitionType, completed);
+    }
+
+    public void ShowPauseScreen()
+    {
+        HideAllScreens();
+        CanvasGroupDisplayer.Show(_pauseScreen);
+    }
+
+    public void ShowGameOverScreen()
+    {
+        HideAllScreens();
+        _gameOverScreen.SetWinnerName();
+        CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
+    }
+
+    public void HideAllScreens()
+    {
+        CanvasGroupDisplayer.Hide(_pauseScreen);
+        CanvasGroupDisplayer.Hide(_gameOverScreen.canvasGroup);
     }
 }

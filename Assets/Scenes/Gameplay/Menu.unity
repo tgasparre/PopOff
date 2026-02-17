@@ -3803,6 +3803,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425633544}
   m_CullTransparentMesh: 1
+--- !u!114 &1443155142 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+  m_PrefabInstance: {fileID: 1951611364233530164}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf69a0da62498f8f7b06d1c417440eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverController
 --- !u!1 &1466377187
 GameObject:
   m_ObjectHideFlags: 0
@@ -6828,6 +6839,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: _playerNames.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: '_playerNames.Array.data[0]'
+      value: Player One
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: '_playerNames.Array.data[1]'
+      value: Player Two
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: '_playerNames.Array.data[2]'
+      value: Player Three
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: '_playerNames.Array.data[3]'
+      value: Player Four
+      objectReference: {fileID: 0}
+    - target: {fileID: 3590417453883960142, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: _gameOverScreen
+      value: 
+      objectReference: {fileID: 1443155142}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
       value: Game Canvas
