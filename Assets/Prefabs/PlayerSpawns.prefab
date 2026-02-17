@@ -44,7 +44,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2369528086836662498}
-  - component: {fileID: 1082126796055724579}
+  - component: {fileID: 4975871641610116170}
   m_Layer: 0
   m_Name: PlayerSpawn (1)
   m_TagString: Untagged
@@ -67,7 +67,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8009291134886158140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1082126796055724579
+--- !u!114 &4975871641610116170
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4162853064641917380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb79a8c8356e97d8b92d719757cabb5, type: 3}
+  m_Script: {fileID: 11500000, guid: 86261d3466cff9a34b795488e7981c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 0
@@ -89,7 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6719747387954283380}
-  - component: {fileID: 2667481543667480382}
+  - component: {fileID: 2288351612295744104}
   m_Layer: 0
   m_Name: PlayerSpawn (2)
   m_TagString: Untagged
@@ -112,7 +112,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8009291134886158140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2667481543667480382
+--- !u!114 &2288351612295744104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4759195044320998606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb79a8c8356e97d8b92d719757cabb5, type: 3}
+  m_Script: {fileID: 11500000, guid: 86261d3466cff9a34b795488e7981c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 1
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1319070952995340667}
-  - component: {fileID: 6435491381454517535}
+  - component: {fileID: 7455051673202284375}
   m_Layer: 0
   m_Name: PlayerSpawn (3)
   m_TagString: Untagged
@@ -157,7 +157,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8009291134886158140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6435491381454517535
+--- !u!114 &7455051673202284375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7536327590012473350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb79a8c8356e97d8b92d719757cabb5, type: 3}
+  m_Script: {fileID: 11500000, guid: 86261d3466cff9a34b795488e7981c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 2
@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4921303131341928772}
-  - component: {fileID: 6077491493942170638}
+  - component: {fileID: 1903563706181439477}
   m_Layer: 0
   m_Name: PlayerSpawn (4)
   m_TagString: Untagged
@@ -202,7 +202,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8009291134886158140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6077491493942170638
+--- !u!114 &1903563706181439477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8268953412604585835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb79a8c8356e97d8b92d719757cabb5, type: 3}
+  m_Script: {fileID: 11500000, guid: 86261d3466cff9a34b795488e7981c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 3

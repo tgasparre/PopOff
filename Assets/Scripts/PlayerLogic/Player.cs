@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using ControllerSystem.Platformer2D;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     public int FacingLeftValue => IsFacingLeft ? -1 : 1;
 
     // ===== Internal References =====
+    private PlayerStateMachine  playerStateMachine;
     private PlayerAnimation _animation;
     private Powerup attachedPowerup;
     private float movementSpeed;
@@ -37,9 +39,11 @@ public class Player : MonoBehaviour
     void Awake()
     {
         playerStats = Instantiate(playerStatsTemplate);
+        AssignWeightClass("regular");
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponent<PlayerAnimation>();
+        playerStateMachine = GetComponent<PlayerStateMachine>();
         _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _fighterController = GetComponent<FighterController>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
@@ -60,7 +64,7 @@ public class Player : MonoBehaviour
 
     #endregion
     
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         hurtbox.HP -= damage;
         if (hurtbox.HP <= 0)
@@ -78,9 +82,84 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ApplyHitStun(float duration)
+    {
+        StartCoroutine(AddHitStun(duration));
+    }
+
+
+    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    {
+        StartCoroutine(AddKnockback(direction, knockbackMultiplier, knockbackForce));
+    }
+
+    //may need testing to ensure movement feels good
+    public void AssignWeightClass(String wClass)
+    {
+        playerStats.WeightClass.ChangeWeightClass(wClass);
+        PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
+        PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
+        if (wClass == "light")
+        {
+            jumpModule.Config.SetJumpTypeToLight();
+            movementModule.SetMovementTypeToFast();
+        }
+        else if (wClass == "heavy")
+        {
+            jumpModule.Config.SetJumpTypeToHeavy();
+            movementModule.SetMovementTypeToSlow();
+        }
+        else
+        {
+            //reset to regular stats if not light or heavy
+            jumpModule.Config.ResetJumpType();
+            movementModule.ResetMovement();
+        }
+    }
+    
+    public void FreezePlayerMovement()
+    {
+        movementSpeed = gameObject.GetComponent<PlatformerHorizontalMovementModule>().GetMovementSpeed();
+        gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(0f);
+    }
+
+    public void UnfreezePlayerMovement()
+    {
+        gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(movementSpeed);
+    }
+
     public void FreezePlayer()
     {
         _rigidbody2D.bodyType = RigidbodyType2D.Static;
+    }
+    
+    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    {
+        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+        float elapsedTime = 0f;
+            
+        while (elapsedTime < CombatParameters.knockbackDuration)
+        {
+            float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
+            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) 
+                                     * (knockbackForce * knockbackMultiplier);
+            
+            rb.linearVelocity = direction * currentForce;
+            
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    IEnumerator AddHitStun(float duration)
+    {
+        playerStateMachine.EnterHitStun();
+        FreezePlayerMovement();
+        yield return new WaitForSeconds(duration);
+        UnfreezePlayerMovement();
+        playerStateMachine.ResetState();
     }
 
     public void UnfreezePlayer()
