@@ -146,6 +146,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		winningPlayerIndex = -1;
 		foreach (PlayerTrack tracker in _players)
 		{
+			if (tracker.player == null) continue;
 			Destroy(tracker.player.gameObject);
 		}
 		_players = new PlayerTrack[MAX_PLAYER];
