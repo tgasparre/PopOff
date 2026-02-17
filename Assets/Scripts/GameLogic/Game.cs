@@ -30,6 +30,7 @@ public class Game : MonoBehaviour
     }
     public bool CanLoadScene => _sceneLoader.canLoadScene;
     public int PlayerCount => _activePlayersTracker.activePlayers;
+    public int WinningIndex => _activePlayersTracker.winningPlayerIndex;
     
     public static void ExitGame()
     {
@@ -45,9 +46,9 @@ public class Game : MonoBehaviour
         _activePlayersTracker.DestroyPlayers();
     }
 
-    public bool OnPlayerDied(Player player)
+    public void OnPlayerDied(Player player)
     {
-        return _activePlayersTracker.OnPlayerDied(player);
+        _activePlayersTracker.OnPlayerDied(player);
     }
     
     // public GameTools gameTools = new GameTools();

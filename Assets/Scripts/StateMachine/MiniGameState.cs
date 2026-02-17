@@ -3,14 +3,13 @@ public class MiniGameState : GameState
 {
     public override void EnterState()
     {
-        Debug.Log("enter mini game state");
         Time.timeScale = 0f;
         if (PlayingState.IsStarting) //intro minigame
         {
             //TODO -- play introduction animation
             Loader.LoadStartingMiniGameScene();
         } 
-        else //all other mini games
+        else //all other minigames
         {
             //TODO -- Play little animation
             Loader.LoadMiniGameScene();
