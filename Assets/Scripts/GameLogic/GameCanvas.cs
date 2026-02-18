@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameCanvas : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class GameCanvas : MonoBehaviour
     [SerializeField] private CanvasGroup _pauseScreen;
     [SerializeField] private GameOverController _gameOverScreen;
     private TransitionController _transitionController;
+    
+    [Space]
+    [SerializeField] private Button _unpauseButton;
+    [SerializeField] private Button _playAgainButton;
 
     public void Unpause()
     {
@@ -38,12 +43,14 @@ public class GameCanvas : MonoBehaviour
     public void ShowPauseScreen()
     {
         HideAllScreens();
+        _unpauseButton.Select();
         CanvasGroupDisplayer.Show(_pauseScreen);
     }
 
     public void ShowGameOverScreen()
     {
         HideAllScreens();
+        _playAgainButton.Select();
         _gameOverScreen.SetWinnerName();
         CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
     }

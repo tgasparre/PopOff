@@ -9,16 +9,21 @@ public class CombatInputHandler : MonoBehaviour
     public event Action OnSuccessfulHit;
     
     public InputManager InputManager;
-    public Sprite CombatSprite;
-    public Sprite DefaultSprite;
-
     public GameObject hitboxPrefab;
     public GameObject ultimateHitboxPrefab;
 
     private Vector2 moveInput;
+    [Header("Attack Settings")]
+    [SerializeField] private float _hitboxLifetime = 0.5f;
+    [Header("Attack Locations")]
+    [SerializeField] [Range(0,90)] private float _angleSectorValue = 45;
+    [SerializeField] private Transform _upAttack;
+    [SerializeField] private Transform _downAttack;
+    [SerializeField] private Transform _leftAttack;
+    [SerializeField] private Transform _rightAttack;
     
     private bool UltimateAttackEnabled = false;
-    [SerializeField] private UltimateAttackTracker tracker;
+    [Space] [SerializeField] private UltimateAttackTracker tracker;
 
     void Start()
     {
@@ -57,28 +62,27 @@ public class CombatInputHandler : MonoBehaviour
     private Vector3 GetAttackDirection()
     {
         moveInput = InputManager.GetMoveInput();
-        Debug.Log(moveInput);
-        switch (moveInput.y)
+        float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg;
+        if (angle == 0)
         {
-            case > 0:
-                //Debug.Log("Up detected");
-                return new Vector3(0, 0.5f, 0);
-            case < 0:
-                //Debug.Log("Down detected");
-                return new Vector3(0,-0.5f,0);
+            return InputManager.GetFacingDirection() switch
+            {
+                -1 => _leftAttack.position,
+                1 => _rightAttack.position,
+                _ => Vector3.zero
+            };
         }
-        switch (moveInput.x)
+        
+        float normalized = Mathf.Repeat(Mathf.Repeat(angle, 360) + _angleSectorValue, 360f);
+        int direction = Mathf.FloorToInt(normalized / 90f);
+        return direction switch
         {
-            //TODO: if the player isnt moving, moveinput defaults to 0, need 2 find proper way to tell which direction player is facing
-            case > 0:
-                return new Vector3(0.5f,0,0);
-            case < 0:
-                return new Vector3(-1f,0,0);
-            //if not moving, use last facing direction
-            default:
-                break;
-        }
-        return Vector3.zero;   
+            0 => _rightAttack.position,
+            1 => _upAttack.position,
+            2 => _leftAttack.position,
+            3 => _downAttack.position,
+            _ => Vector3.zero
+        };
     }
 
     private void PreformAttack(Vector3 offset)
@@ -97,10 +101,10 @@ public class CombatInputHandler : MonoBehaviour
     }
     
     //will likely need changes once we get actual attack animations
-    IEnumerator AttackRoutine(Vector3 offset)
+    IEnumerator AttackRoutine(Vector3 attackPos)
     {
         GameObject hitbox = Instantiate(hitboxPrefab, 
-            transform.position + offset, 
+            attackPos, 
             Quaternion.identity, 
             transform);
         
@@ -110,7 +114,7 @@ public class CombatInputHandler : MonoBehaviour
         
         hitboxScript.SetAttackDamage(10);
         
-        ChangeToCombatSprite(); // <- change once art is in
+        // ChangeToCombatSprite(); // <- change once art is in
         
         yield return new WaitForSeconds(0.2f);
         
@@ -121,8 +125,8 @@ public class CombatInputHandler : MonoBehaviour
             hitboxScript.ResetSuccessfulHit();
         }
         //TODO: adjust time once done with testing, 2 seconds is too long for a real hitbox
-        Destroy(hitbox, 2f);
-        ResetSprite();
+        Destroy(hitbox, _hitboxLifetime);
+        // ResetSprite();
     }
 
     IEnumerator UltimateAttackRoutine()
@@ -133,19 +137,19 @@ public class CombatInputHandler : MonoBehaviour
             transform);
         ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = gameObject.GetComponentInParent<Player>();
         
-        ChangeToCombatSprite();
+        // ChangeToCombatSprite();
         yield return new WaitForSeconds(0.2f);
         Destroy(ultimateHitbox, 2f);
-        ResetSprite();
+        // ResetSprite();
         
     }
 
     //I know this is mostly repeat code, but the animations will need to be different than the primary attack
     //so it will be useful to have its own coroutine
-    IEnumerator SecondaryAttackRoutine(Vector3 offset)
+    IEnumerator SecondaryAttackRoutine(Vector3 attackPos)
     {
         GameObject hitbox = Instantiate(hitboxPrefab, 
-            transform.position + offset, 
+            attackPos, 
             Quaternion.identity, 
             transform);
         
@@ -154,7 +158,7 @@ public class CombatInputHandler : MonoBehaviour
         hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
         hitboxScript.SetAttackDamage(25);
         
-        ChangeToCombatSprite();
+        // ChangeToCombatSprite();
         
         yield return new WaitForSeconds(0.2f);
         
@@ -165,21 +169,10 @@ public class CombatInputHandler : MonoBehaviour
             hitboxScript.ResetSuccessfulHit();
         }
         //TODO: adjust time once done with testing, 2 seconds is too long for a real hitbox
-        Destroy(hitbox, 2f);
-        ResetSprite();
+        Destroy(hitbox, _hitboxLifetime);
+        // ResetSprite();
     }
     
-    private void ChangeToCombatSprite()
-    {
-        //the sprite renderer exists in the player's child object "Sprite"
-        gameObject.GetComponentInChildren<SpriteRenderer>().sprite = CombatSprite;
-    }
-    
-    private void ResetSprite()
-    {
-        gameObject.GetComponentInChildren<SpriteRenderer>().sprite = DefaultSprite;
-    }
-
     private void OnUltimateAttackUnlocked()
     {
         UltimateAttackEnabled = true;

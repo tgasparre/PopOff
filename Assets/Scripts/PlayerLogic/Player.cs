@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using ControllerSystem.Platformer2D;
+using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,8 +14,8 @@ public class Player : MonoBehaviour
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
 
-    public bool IsFacingLeft => _fighterController.FacingLeft;
-    public int FacingLeftValue => IsFacingLeft ? -1 : 1;
+    public bool IsFacingLeft => FacingLeftValue == -1;
+    public int FacingLeftValue => _playerInputManager.GetFacingDirection();
 
     // ===== Internal References =====
     private PlayerStateMachine  playerStateMachine;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     private UltimateAttackTracker _ultimateAttackTracker;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private FighterController _fighterController;
+    private InputManager _playerInputManager;
     private Rigidbody2D _rigidbody2D;
 
     private PlayerInput _playerInput;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour
     }
     public int PlayerIndex => _playerInput.playerIndex;
 
+    private Coroutine _damangeCoroutine;
 
     void Awake()
     {
@@ -42,12 +45,13 @@ public class Player : MonoBehaviour
         AssignWeightClass("regular");
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
-        _animation = GetComponent<PlayerAnimation>();
+        _animation = GetComponentInChildren<PlayerAnimation>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
         _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _fighterController = GetComponent<FighterController>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _playerInputManager = GetComponent<InputManager>();
     }
 
     #region Inputs
@@ -67,6 +71,8 @@ public class Player : MonoBehaviour
     public void TakeDamage(float damage)
     {
         hurtbox.HP -= damage;
+        _animation.DamageFlash();
+        
         if (hurtbox.HP <= 0)
         {
             Game.Instance.OnPlayerDied(this);
