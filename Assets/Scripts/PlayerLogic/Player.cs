@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     private PlayerInput _playerInput;
+    private Coroutine hitStunCoroutine;
     public void Register(PlayerInput input)
     {
         _playerInput = input;
@@ -84,7 +85,9 @@ public class Player : MonoBehaviour
 
     public void ApplyHitStun(float duration)
     {
-        StartCoroutine(AddHitStun(duration));
+        if (hitStunCoroutine != null)
+            StopCoroutine(hitStunCoroutine);
+        hitStunCoroutine = StartCoroutine(AddHitStun(duration));
     }
 
 
