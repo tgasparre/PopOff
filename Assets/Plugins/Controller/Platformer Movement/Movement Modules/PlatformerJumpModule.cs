@@ -53,6 +53,9 @@ namespace ControllerSystem.Platformer2D
             public float JumpEndEarlyForce = 0.6f;
             public float JumpEndEarlyWindowDuration = 0.2f;
             
+            private int prevNumDoubleJumps;
+            private float prevJumpHeight;
+            
             //code not from crown starts here
             public void SetJumpTypeToLight()
             {
@@ -74,6 +77,21 @@ namespace ControllerSystem.Platformer2D
                 JumpHeight = 16.66667f;
                 JumpEndEarlyForce = 0.6f;
             }
+
+            public void DisableJump()
+            {
+                prevJumpHeight = JumpHeight;
+                prevNumDoubleJumps = NumDoubleJumps;
+                JumpHeight = 0;
+                NumDoubleJumps = 0;
+            }
+
+            public void ReEnableJump()
+            {
+                JumpHeight = prevJumpHeight;
+                NumDoubleJumps = prevNumDoubleJumps;
+            }
+            
             // code not from crown ends here
         }
         [SerializeField] private JumpConfig _jumpSettings;

@@ -24,11 +24,13 @@ public class Player : MonoBehaviour
     private float movementSpeed;
     private UltimateAttackTracker _ultimateAttackTracker;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
+    private PlatformerJumpModule _jumpModule;
     private FighterController _fighterController;
     private InputManager _playerInputManager;
     private Rigidbody2D _rigidbody2D;
 
     private PlayerInput _playerInput;
+    private Coroutine hitStunCoroutine;
     public void Register(PlayerInput input)
     {
         _playerInput = input;
@@ -37,21 +39,21 @@ public class Player : MonoBehaviour
     }
     public int PlayerIndex => _playerInput.playerIndex;
 
-    private Coroutine _damangeCoroutine;
 
     void Awake()
     {
         playerStats = Instantiate(playerStatsTemplate);
-        AssignWeightClass("regular");
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponentInChildren<PlayerAnimation>();
         playerStateMachine = GetComponent<PlayerStateMachine>();
         _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _fighterController = GetComponent<FighterController>();
+        _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerInputManager = GetComponent<InputManager>();
+        AssignWeightClass("regular");
     }
 
     #region Inputs
@@ -89,8 +91,9 @@ public class Player : MonoBehaviour
     }
 
     public void ApplyHitStun(float duration)
-    {
-        StartCoroutine(AddHitStun(duration));
+    { 
+        //if null starts hitstun, else do nothing which is what we want 
+        hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
     }
 
 
@@ -103,35 +106,37 @@ public class Player : MonoBehaviour
     public void AssignWeightClass(String wClass)
     {
         playerStats.WeightClass.ChangeWeightClass(wClass);
-        PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
-        PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
+        //PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
+        //PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
         if (wClass == "light")
         {
-            jumpModule.Config.SetJumpTypeToLight();
-            movementModule.SetMovementTypeToFast();
+            _jumpModule.Config.SetJumpTypeToLight();
+            _horizontalMovementModule.SetMovementTypeToFast();
         }
         else if (wClass == "heavy")
         {
-            jumpModule.Config.SetJumpTypeToHeavy();
-            movementModule.SetMovementTypeToSlow();
+            _jumpModule.Config.SetJumpTypeToHeavy();
+            _horizontalMovementModule.SetMovementTypeToSlow();
         }
         else
         {
             //reset to regular stats if not light or heavy
-            jumpModule.Config.ResetJumpType();
-            movementModule.ResetMovement();
+            _jumpModule.Config.ResetJumpType();
+            _horizontalMovementModule.ResetMovement();
         }
     }
     
     public void FreezePlayerMovement()
     {
-        movementSpeed = gameObject.GetComponent<PlatformerHorizontalMovementModule>().GetMovementSpeed();
-        gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(0f);
+        movementSpeed = _horizontalMovementModule.GetMovementSpeed();
+        _horizontalMovementModule.SetMovementSpeed(0f);
+        _jumpModule.Config.DisableJump();
     }
 
     public void UnfreezePlayerMovement()
     {
-        gameObject.GetComponent<PlatformerHorizontalMovementModule>().SetMovementSpeed(movementSpeed);
+        _horizontalMovementModule.SetMovementSpeed(movementSpeed);
+        _jumpModule.Config.ReEnableJump();
     }
 
     public void FreezePlayer()
