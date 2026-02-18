@@ -37,7 +37,7 @@ public class ActivePlayersTracker : MonoBehaviour
 	}
 	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER];
 	public int activePlayers => _players.Count(t => t.player != null);
-	private List<PlayerTrack> alivePlayers => _players.Where(t => t.isAlive).ToList();
+	private List<PlayerTrack> alivePlayers => _players.Where(t => t.player != null && t.isAlive).ToList();
 
 	public int winningPlayerIndex { get; private set; } = -1;
 	
@@ -131,9 +131,17 @@ public class ActivePlayersTracker : MonoBehaviour
 		{
 			_players[player.PlayerIndex].isAlive = false;
 		}
-		
-		if (alivePlayers.Count == 1) winningPlayerIndex = alivePlayers[0].player.PlayerIndex;
-		else if (alivePlayers.Count == 0) Debug.LogError("zero players left should only happen if DEBUG");
+
+		switch (alivePlayers.Count)
+		{
+			case 1:
+				winningPlayerIndex = alivePlayers[0].player.PlayerIndex;
+				Game.currentState = GameStates.GameOver;
+				break;
+			case 0:
+				Debug.LogError("zero players left should only happen if DEBUG");
+				break;
+		}
 	}
 
 	public void SetPlayerMenu()
