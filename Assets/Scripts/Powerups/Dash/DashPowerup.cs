@@ -4,11 +4,11 @@ using UnityEngine;
 public class DashPowerup : Powerup
 {
     [Header("Dash Settings")]
-    [SerializeField] private DashStats _dashStats ;
+    [SerializeField] private DashStats _dashStats;
     
     public override void UsePowerup(PlayerPowerups powerups)
     {
-        powerups.Dash(_dashStats);
+        powerups.Dash(_dashStats, _useCooldown);
     }
 
     public override void Expire(PlayerPowerups powerups)

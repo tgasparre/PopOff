@@ -26,7 +26,7 @@ public class Dart : Throwable
 
     private void Update()
     {
-        if (!_rigidbody2D.simulated) return; 
+        if (!_rigidbody2D.simulated || _rigidbody2D.gravityScale == 0) return;
         Quaternion rot = Quaternion.LookRotation(Vector3.forward, _rigidbody2D.linearVelocity);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, _rotateSpeed * Time.deltaTime);
     }

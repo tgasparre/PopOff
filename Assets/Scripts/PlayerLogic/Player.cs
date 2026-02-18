@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     private PlayerInput _playerInput;
-    private Coroutine hitStunCoroutine;
     public void Register(PlayerInput input)
     {
         _playerInput = input;
@@ -39,7 +38,9 @@ public class Player : MonoBehaviour
     }
     public int PlayerIndex => _playerInput.playerIndex;
 
-
+    private Coroutine _hitStunCoroutine;
+    private Coroutine _damageCoroutine;
+    
     void Awake()
     {
         playerStats = Instantiate(playerStatsTemplate);
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerInputManager = GetComponent<InputManager>();
-        AssignWeightClass("regular");
+        AssignWeightClass();
     }
 
     #region Inputs
@@ -93,27 +94,52 @@ public class Player : MonoBehaviour
     public void ApplyHitStun(float duration)
     { 
         //if null starts hitstun, else do nothing which is what we want 
-        hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
+        _hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
+    }
+    
+    public void ApplyKnockback(Vector2 direction, float knockbackForce)
+    {
+        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, playerStats.WeightClass.knockbackMultiplier, knockbackForce));
+    }
+    
+    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < CombatParameters.knockbackDuration)
+        {
+            float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
+            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * (knockbackForce * knockbackMultiplier);
+
+            _rigidbody2D.AddForce(direction * currentForce * 18);
+            
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        _damageCoroutine = null;
     }
 
-
-    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    IEnumerator AddHitStun(float duration)
     {
-        StartCoroutine(AddKnockback(direction, knockbackMultiplier, knockbackForce));
+        playerStateMachine.EnterHitStun();
+        FreezePlayerMovement();
+        yield return new WaitForSeconds(duration);
+        UnfreezePlayerMovement();
+        playerStateMachine.ResetState();
+        _hitStunCoroutine = null;
     }
 
     //may need testing to ensure movement feels good
-    public void AssignWeightClass(String wClass)
+    public void AssignWeightClass(WeightClassType wClass = WeightClassType.Default)
     {
         playerStats.WeightClass.ChangeWeightClass(wClass);
         //PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
         //PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
-        if (wClass == "light")
+        if (wClass == WeightClassType.Light)
         {
             _jumpModule.Config.SetJumpTypeToLight();
             _horizontalMovementModule.SetMovementTypeToFast();
         }
-        else if (wClass == "heavy")
+        else if (wClass == WeightClassType.Heavy)
         {
             _jumpModule.Config.SetJumpTypeToHeavy();
             _horizontalMovementModule.SetMovementTypeToSlow();
@@ -142,35 +168,6 @@ public class Player : MonoBehaviour
     public void FreezePlayer()
     {
         _rigidbody2D.bodyType = RigidbodyType2D.Static;
-    }
-    
-    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
-    {
-        Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-        float elapsedTime = 0f;
-            
-        while (elapsedTime < CombatParameters.knockbackDuration)
-        {
-            float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
-            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) 
-                                     * (knockbackForce * knockbackMultiplier);
-            
-            rb.linearVelocity = direction * currentForce;
-            
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        
-        rb.linearVelocity = Vector2.zero;
-    }
-
-    IEnumerator AddHitStun(float duration)
-    {
-        playerStateMachine.EnterHitStun();
-        FreezePlayerMovement();
-        yield return new WaitForSeconds(duration);
-        UnfreezePlayerMovement();
-        playerStateMachine.ResetState();
     }
 
     public void UnfreezePlayer()

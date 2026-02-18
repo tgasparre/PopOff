@@ -184,5 +184,5 @@ MonoBehaviour:
     _explodePrefab: {fileID: 0}
     _flashTimePercent: 0
     _idleTimePercent: 0
-  _throwForce: 4
+  _throwForce: 6
   _style: 0

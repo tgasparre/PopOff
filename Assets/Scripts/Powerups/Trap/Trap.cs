@@ -32,6 +32,8 @@ public class Trap : Throwable
             case TrapStyle.Bouncy:
                 _rigidbody2D.sharedMaterial = _bouncyMat;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 }
