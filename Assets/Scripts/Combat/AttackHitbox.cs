@@ -33,6 +33,8 @@ public class AttackHitbox : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!other.CompareTag("Player")) return;
+        
         AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
         Player hitPlayer = other.GetComponentInParent<Player>();
         
@@ -51,7 +53,7 @@ public class AttackHitbox : MonoBehaviour
 
             Vector2 direction = (hitPlayer.transform.position - thisPlayer.transform.position).normalized;
             direction += Vector2.up * attackerInput.GetMoveInput().y;
-            hitPlayer.ApplyKnockback(direction, CombatParameters.knockbackForce);
+            hitPlayer.ApplyKnockback(direction, thisPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
             
             hitSuccessful = true;
         }

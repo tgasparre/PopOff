@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0718f9b13da495cb9e11770f40eefdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
-  _playersToSpawn: 1
+  _playersToSpawn: 2
   _enteringState: 2
   _playingState: 0
 --- !u!1001 &1251484911

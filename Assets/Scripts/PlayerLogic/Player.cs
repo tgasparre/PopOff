@@ -91,15 +91,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ResetHealth()
+    {
+        hurtbox.ResetHealth();
+    }
+
     public void ApplyHitStun(float duration)
     { 
         //if null starts hitstun, else do nothing which is what we want 
         _hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
     }
     
-    public void ApplyKnockback(Vector2 direction, float knockbackForce)
+    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
     {
-        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, playerStats.WeightClass.knockbackMultiplier, knockbackForce));
+        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, knockbackMultiplier, knockbackForce));
     }
     
     IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
@@ -110,7 +115,7 @@ public class Player : MonoBehaviour
             float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
             float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * (knockbackForce * knockbackMultiplier);
 
-            _rigidbody2D.AddForce(direction * currentForce * 18);
+            _rigidbody2D.AddForce(direction * currentForce * 10);
             
             elapsedTime += Time.deltaTime;
             yield return null;

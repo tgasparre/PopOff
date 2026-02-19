@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 2507154442635209}
   m_Layer: 6
   m_Name: Hurtbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackHurtbox
   player: {fileID: 3062809853175913679}
-  HP: 200
+  _startingHealth: 1
 --- !u!1 &2180963283915113946
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ Rigidbody2D:
   m_Mass: 1.4
   m_LinearDamping: 1
   m_AngularDamping: 0.05
-  m_GravityScale: 1.75
+  m_GravityScale: 1.65
   m_Material: {fileID: 6200000, guid: d5947bf1e409a7c4aa94d71b9e5e04b7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
