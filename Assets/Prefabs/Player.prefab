@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackHurtbox
   player: {fileID: 3062809853175913679}
-  _startingHealth: 1
+  _startingHealth: 200
 --- !u!1 &2180963283915113946
 GameObject:
   m_ObjectHideFlags: 0
