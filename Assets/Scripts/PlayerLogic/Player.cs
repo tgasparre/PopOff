@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     public bool IsFacingLeft => FacingLeftValue == -1;
     public int FacingLeftValue => _playerInputManager.GetFacingDirection();
 
+    public float Movement => _playerInputManager.GetMoveInput().x;
+    public bool InAir => Mathf.Abs(_rigidbody2D.linearVelocityY) > 0;
+    public void TriggerAttack() { _animation.TriggerAttack(); }
+
     // ===== Internal References =====
     private PlayerStateMachine  playerStateMachine;
     private PlayerAnimation _animation;

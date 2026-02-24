@@ -25,6 +25,13 @@ public class CombatInputHandler : MonoBehaviour
     private bool UltimateAttackEnabled = false;
     [Space] [SerializeField] private UltimateAttackTracker tracker;
 
+    private Player _player;
+
+    private void Awake()
+    {
+        _player = GetComponent<Player>();
+    }
+
     void Start()
     {
         tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
@@ -87,6 +94,7 @@ public class CombatInputHandler : MonoBehaviour
 
     private void PreformAttack(Vector3 offset)
     {
+        _player.TriggerAttack();
         StartCoroutine(AttackRoutine(offset));
     }
 
@@ -109,8 +117,8 @@ public class CombatInputHandler : MonoBehaviour
             transform);
         
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
-        
-        hitboxScript.thisPlayer = gameObject.GetComponentInParent<Player>();
+
+        hitboxScript.thisPlayer = _player;
         
         hitboxScript.SetAttackDamage(10);
         
@@ -135,7 +143,7 @@ public class CombatInputHandler : MonoBehaviour
             transform.position, 
             Quaternion.identity, 
             transform);
-        ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = gameObject.GetComponentInParent<Player>();
+        ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = _player;
         
         // ChangeToCombatSprite();
         yield return new WaitForSeconds(0.2f);
@@ -154,8 +162,8 @@ public class CombatInputHandler : MonoBehaviour
             transform);
         
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
-        
-        hitboxScript.thisPlayer = gameObject.GetComponent<Player>();
+
+        hitboxScript.thisPlayer = _player;
         hitboxScript.SetAttackDamage(25);
         
         // ChangeToCombatSprite();

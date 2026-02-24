@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    private static readonly int Movement = Animator.StringToHash("movement");
+    private static readonly int InAir = Animator.StringToHash("inAir");
+    private static readonly int Attack = Animator.StringToHash("attack");
+
     [SerializeField] private SpriteRenderer _render;
+    [SerializeField] private Animator _animator;
     private Player _player;
 
     private Coroutine _damageCoroutine;
@@ -37,5 +42,13 @@ public class PlayerAnimation : MonoBehaviour
     private void LateUpdate()
     {
         _render.flipX = !_player.IsFacingLeft;
+        
+        _animator.SetFloat(Movement, _player.Movement);
+        _animator.SetBool(InAir, _player.InAir);
+    }
+
+    public void TriggerAttack()
+    {
+        _animator.SetTrigger(Attack);
     }
 }
