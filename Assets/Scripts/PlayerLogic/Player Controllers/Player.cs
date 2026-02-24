@@ -5,7 +5,7 @@ using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : PlayerBase
 {
     public PlayerStats playerStatsTemplate;
 
@@ -13,34 +13,19 @@ public class Player : MonoBehaviour
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
-
-    public bool IsFacingLeft => FacingLeftValue == -1;
-    public int FacingLeftValue => _playerInputManager.GetFacingDirection();
-
+    
     public float Movement => _playerInputManager.GetMoveInput().x;
     public bool InAir => Mathf.Abs(_rigidbody2D.linearVelocityY) > 0;
     public void TriggerAttack() { _animation.TriggerAttack(); }
 
     // ===== Internal References =====
-    private PlayerStateMachine  playerStateMachine;
+    private PlayerStateMachine  _playerStateMachine;
     private PlayerAnimation _animation;
-    private Powerup attachedPowerup;
-    private float movementSpeed;
+    private Powerup _attachedPowerup;
+    private float _movementSpeed;
     private UltimateAttackTracker _ultimateAttackTracker;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
-    private FighterController _fighterController;
-    private InputManager _playerInputManager;
-    private Rigidbody2D _rigidbody2D;
-
-    private PlayerInput _playerInput;
-    public void Register(PlayerInput input)
-    {
-        _playerInput = input;
-        ActivePlayersTracker.LookForPlayerSpawn(this);
-        DontDestroyOnLoad(gameObject);
-    }
-    public int PlayerIndex => _playerInput.playerIndex;
 
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
@@ -51,13 +36,10 @@ public class Player : MonoBehaviour
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponentInChildren<PlayerAnimation>();
-        playerStateMachine = GetComponent<PlayerStateMachine>();
+        _playerStateMachine = GetComponent<PlayerStateMachine>();
         _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
-        _fighterController = GetComponent<FighterController>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _playerInputManager = GetComponent<InputManager>();
         AssignWeightClass();
     }
 
@@ -129,11 +111,11 @@ public class Player : MonoBehaviour
 
     IEnumerator AddHitStun(float duration)
     {
-        playerStateMachine.EnterHitStun();
+        _playerStateMachine.EnterHitStun();
         FreezePlayerMovement();
         yield return new WaitForSeconds(duration);
         UnfreezePlayerMovement();
-        playerStateMachine.ResetState();
+        _playerStateMachine.ResetState();
         _hitStunCoroutine = null;
     }
 
@@ -141,8 +123,6 @@ public class Player : MonoBehaviour
     public void AssignWeightClass(WeightClassType wClass = WeightClassType.Default)
     {
         playerStats.WeightClass.ChangeWeightClass(wClass);
-        //PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
-        //PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
         if (wClass == WeightClassType.Light)
         {
             _jumpModule.Config.SetJumpTypeToLight();
@@ -163,14 +143,14 @@ public class Player : MonoBehaviour
     
     public void FreezePlayerMovement()
     {
-        movementSpeed = _horizontalMovementModule.GetMovementSpeed();
+        _movementSpeed = _horizontalMovementModule.GetMovementSpeed();
         _horizontalMovementModule.SetMovementSpeed(0f);
         _jumpModule.Config.DisableJump();
     }
 
     public void UnfreezePlayerMovement()
     {
-        _horizontalMovementModule.SetMovementSpeed(movementSpeed);
+        _horizontalMovementModule.SetMovementSpeed(_movementSpeed);
         _jumpModule.Config.ReEnableJump();
     }
 
@@ -184,61 +164,4 @@ public class Player : MonoBehaviour
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
     }
 }
-
-
-// void Update()
-// {
-//     //TODO change so there is a buffer zone, so they don't die right away 
-//     //if a player is offscreen, kill them (like in smash)
-//     if (SpriteTools.IsOffScreen(GetComponentInChildren<SpriteRenderer>()))
-//     {
-//         KillPlayer();
-//     }
-// }
-
-// public void KillPlayer()
-// {
-//     _ultimateAttackTracker.playerUI.DeletePlayerUI();
-//     Destroy(gameObject);
-//     PlayerDied?.Invoke();
-// }
-//     
-// public void TakeDamage(int damage)
-// {
-//     hurtbox.HP -= damage;
-//     if (hurtbox.HP <= 0)
-//     {
-//         KillPlayer();
-//     }
-//     Debug.Log("TakeDamage was called");
-// }
-//     
-// public void HealHP(int heal)
-// {
-//     hurtbox.HP += heal;
-//     if (hurtbox.HP > 200)
-//     {
-//         hurtbox.HP = 200;
-//     }
-// }
-//     
-// public void FreezePlayerMovement()
-// {
-//     movementSpeed = _horizontalMovementModule.GetMovementSpeed();
-//     _horizontalMovementModule.SetMovementSpeed(0f);
-// }
-//
-// public void UnfreezePlayerMovement()
-// {
-//     _horizontalMovementModule.SetMovementSpeed(movementSpeed);
-// }
-// void OnDestroy()
-// {
-//     Destroy(playerStats);
-// }
-// public void SetInputManager(InputManager inputManager)
-// {
-//     _fighterController.InputManager = inputManager;
-// }
-
 

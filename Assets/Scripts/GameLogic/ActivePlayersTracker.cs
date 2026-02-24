@@ -83,7 +83,8 @@ public class ActivePlayersTracker : MonoBehaviour
 
 	private void TryJoinPlayer(InputDevice device)
 	{
-		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return; ;
+		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return;
+		// _inputManager.playerPrefab = Game.Instance.PlayerPrefab;
 		_inputManager.JoinPlayer(
 			playerIndex: activePlayers,
 			pairWithDevice: device
@@ -92,8 +93,12 @@ public class ActivePlayersTracker : MonoBehaviour
 	
 	public void OnPlayerJoined(PlayerInput playerInput)
 	{
-		Player player = playerInput.GetComponent<Player>();
-		_players[playerInput.playerIndex] = new PlayerTrack(player);
+		// Player player = playerInput.GetComponent<Player>();
+		// _players[playerInput.playerIndex] = new PlayerTrack(player);
+		// player.Register(playerInput);
+
+		PlayerStart player = playerInput.GetComponent<PlayerStart>();
+		_players[playerInput.playerIndex] = new PlayerTrack();
 		player.Register(playerInput);
 	}
 	
@@ -110,7 +115,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		}
 	}
 	
-	public static void LookForPlayerSpawn(Player player)
+	public static void LookForPlayerSpawn(PlayerBase player)
 	{
 		PlayerSpawn[] spawns = FindObjectsByType<PlayerSpawn>(FindObjectsSortMode.None);
 		foreach (PlayerSpawn spawn in spawns)

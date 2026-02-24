@@ -13,6 +13,12 @@ public class Game : MonoBehaviour
         _activePlayersTracker = GetComponentInChildren<ActivePlayersTracker>();
         currentState = GameStates.Menu;
     }
+    
+    [Header("Player Prefabs")]
+    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject _startingPrefab;
+    public bool useStartingPlayers = true;
+    public GameObject PlayerPrefab => (useStartingPlayers) ? _startingPrefab : _playerPrefab;
 
     public static GameStates currentState
     {
