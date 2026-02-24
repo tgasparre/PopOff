@@ -24,10 +24,16 @@ namespace InputManagement
         private InputState input = new InputState();
 
         private Vector2 moveInput;
+        private int facingDirection = -1;
 
         public Vector2 GetMoveInput()
         {
             return moveInput;
+        }
+
+        public int GetFacingDirection()
+        {
+            return facingDirection;
         }
         
         
@@ -102,6 +108,12 @@ namespace InputManagement
             {
                 input.move.SetValue(context.ReadValue<Vector2>());
                 moveInput = context.ReadValue<Vector2>();
+                facingDirection = moveInput.x switch
+                {
+                    > 0 => 1,
+                    < 0 => -1,
+                    _ => facingDirection
+                };
             }
             else if (context.canceled)
             {

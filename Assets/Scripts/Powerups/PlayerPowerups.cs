@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using InputManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +12,17 @@ public class PlayerPowerups : MonoBehaviour
     [SerializeField] private Image _powerupIcon; 
     
     private Powerup _currentPower = null;
-    public bool HasPower => _currentPower == null;
+    public bool HasPower => _currentPower != null;
     
     [Header("Powerup References")]
     [SerializeField] private GameObject _field;
     private Rigidbody2D _rigidbody2D;
     private Player _player;
+    private bool _canUsePowerup = true;
+    private Coroutine _powerupCoroutine;
+    private InputManager _inputManager;
+
+    private Vector2 SpawnPosition => transform.position + (Vector3.right * _player.FacingLeftValue);
     
     private void Awake()
     {
@@ -24,6 +30,7 @@ public class PlayerPowerups : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
         _field.SetActive(false);
+        _inputManager = GetComponent<InputManager>();
     }
 
     public void ApplyPower(Powerup p)
@@ -31,6 +38,7 @@ public class PlayerPowerups : MonoBehaviour
         _powerupUI.alpha = 1f;
         _currentPower = p;
         _powerupIcon.sprite = p.GetIcon();
+        _canUsePowerup = true;
         SetRadialTimer(1f);
     }
     public void RemovePower()
@@ -42,10 +50,13 @@ public class PlayerPowerups : MonoBehaviour
     
     public void UsePower()
     {
-        if (HasPower) return;
-        _currentPower.UsePowerup(this);
-        if (!_currentPower.IsInfinite) StartCoroutine(AwaitTimeExpire());
-        else RemovePower();
+        if (HasPower && _canUsePowerup)
+        {
+            _currentPower.UsePowerup(this);
+            
+            if (!_currentPower.IsInfinite) _powerupCoroutine ??= StartCoroutine(AwaitTimeExpire());
+            else RemovePower();
+        }
     }
     
     private IEnumerator AwaitTimeExpire()
@@ -58,6 +69,7 @@ public class PlayerPowerups : MonoBehaviour
             SetRadialTimer(1f - (elapsed / timeToExpire));
             yield return null;
         }
+        _powerupCoroutine = null;
         RemovePower();
     }
     public void SetRadialTimer(float percent)
@@ -67,17 +79,20 @@ public class PlayerPowerups : MonoBehaviour
     
     #region Powerup Actions
 
-    public void Dash(DashStats stats)
+    public void Dash(DashStats stats, float useCooldown)
     {
-        float xDirection = _rigidbody2D.linearVelocity.normalized.x;
-        if (xDirection == 0) xDirection =  _player.FacingLeftValue * 0.75f;
-        Vector2 direction = new Vector2(xDirection * stats.dashForce * 100f, stats.yForce * 50f);
-        _rigidbody2D.AddForce(direction);
+        StartCoroutine(PowerupTimer(useCooldown));
+
+        Vector2 direction = _inputManager.GetMoveInput().normalized;
+        if (direction.x == 0) direction.x = _player.FacingLeftValue;
+        Vector2 force = direction * stats.dashForce; //new Vector2(direction.x * stats.dashForce, direction.y * stats.yForce);
+        Debug.Log(force);
+        _rigidbody2D.AddForce(force, ForceMode2D.Impulse);
     }
 
     public void Dart(GameObject prefab, DartStats dartStats)
     {
-        GameObject o = Instantiate(prefab, transform.position, Quaternion.identity);
+        GameObject o = Instantiate(prefab, SpawnPosition, Quaternion.identity);
         Dart dart = o.GetComponent<Dart>();
         dart.Throw(gameObject, dartStats, _player.FacingLeftValue);
     }
@@ -94,7 +109,7 @@ public class PlayerPowerups : MonoBehaviour
 
     public void Trap(GameObject prefab, TrapStats trapStats)
     {
-        GameObject o = Instantiate(prefab, transform.position, Quaternion.identity);
+        GameObject o = Instantiate(prefab, SpawnPosition, Quaternion.identity);
         Trap trap = o.GetComponent<Trap>();
         trap.Throw(gameObject, trapStats, _player.FacingLeftValue);
     }
@@ -103,6 +118,13 @@ public class PlayerPowerups : MonoBehaviour
     {
         Debug.Log("spawn");
         Instantiate(explosion, pos.position, Quaternion.identity);
+    }
+
+    private IEnumerator PowerupTimer(float duration)
+    {
+        _canUsePowerup = false;
+        yield return new WaitForSeconds(duration);
+        _canUsePowerup = true;
     }
     #endregion
 }

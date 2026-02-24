@@ -137,8 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f825c6785e53c394b75a094b3e5da01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dart
-  _rotateSpeed: 50
   _lifetime: 5
+  _bouncyMat: {fileID: 0}
+  _explode:
+    _explodePrefab: {fileID: 0}
+    _flashTimePercent: 0
+    _idleTimePercent: 0
+  _rotateSpeed: 50
 --- !u!50 &6212190296778516481
 Rigidbody2D:
   serializedVersion: 5
@@ -164,7 +169,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6309153321454582035
 BoxCollider2D:

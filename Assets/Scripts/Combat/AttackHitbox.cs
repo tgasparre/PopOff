@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using InputManagement;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 
 public class AttackHitbox : MonoBehaviour
 {
@@ -31,14 +33,16 @@ public class AttackHitbox : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collision with player entered");
+        if (!other.CompareTag("Player")) return;
+        
         AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
-        Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
+        Player hitPlayer = other.GetComponentInParent<Player>();
         
         //dont hit yourself
         if (otherHb.player == thisPlayer)
             return;
         
+        Debug.Log("Collision with player entered");
         InputManager attackerInput = GetComponentInParent<InputManager>();
         
         if (otherHb != null && !hitPlayers.Contains(otherHb))
@@ -46,8 +50,10 @@ public class AttackHitbox : MonoBehaviour
             hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
             otherHb.TakeDamage(attackDamage);
             hitPlayers.Add(otherHb);
-            hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(),
-                hitPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
+
+            Vector2 direction = (hitPlayer.transform.position - thisPlayer.transform.position).normalized;
+            direction += Vector2.up * attackerInput.GetMoveInput().y;
+            hitPlayer.ApplyKnockback(direction, thisPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
             
             hitSuccessful = true;
         }

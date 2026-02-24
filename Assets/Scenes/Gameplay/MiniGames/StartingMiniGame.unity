@@ -1277,7 +1277,7 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 0
+  m_UseDelaunayMesh: 1
 --- !u!1001 &1829301192229468811
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PowerupCollectable : MonoBehaviour
         {
             Player p = other.gameObject.transform.parent.GetComponent<Player>();
             p.powerups.ApplyPower(powerup);
+            gameObject.SetActive(false);
         }
     }
 }
