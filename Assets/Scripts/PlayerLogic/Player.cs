@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
     public bool IsFacingLeft => FacingLeftValue == -1;
     public int FacingLeftValue => _playerInputManager.GetFacingDirection();
 
-    public float Movement => _playerInputManager.GetMoveInput().x;
-    public bool InAir => Mathf.Abs(_rigidbody2D.linearVelocityY) > 0.5;
+    public float Movement => Mathf.Abs(_playerInputManager.GetMoveInput().x);
+    public bool InAir => _jumpModule.Falling || _jumpModule.Rising;
     public void TriggerAttack() { _animation.TriggerAttack(); }
 
     // ===== Internal References =====
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    
+
     public void TakeDamage(float damage)
     {
         hurtbox.HP -= damage;
