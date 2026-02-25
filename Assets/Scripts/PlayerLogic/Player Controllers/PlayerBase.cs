@@ -4,27 +4,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(InputManager))]
-public class PlayerBase : MonoBehaviour
+public abstract class PlayerBase : MonoBehaviour
 {
-    protected PlayerInput _playerInput;
+    protected PlayerController _controller;
     protected InputManager _playerInputManager;
-    public void Register(PlayerInput input)
-    {
-        _playerInput = input;
-        ActivePlayersTracker.LookForPlayerSpawn(this);
-        DontDestroyOnLoad(gameObject);
-    }
-    public int PlayerIndex => _playerInput.playerIndex;
     
     public bool IsFacingLeft => FacingLeftValue == -1;
     public int FacingLeftValue => _playerInputManager.GetFacingDirection();
+    public int PlayerIndex => _controller.PlayerIndex;
     
     protected Rigidbody2D _rigidbody2D;
 
     protected void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _controller = GetComponentInParent<PlayerController>();
         _playerInputManager = GetComponent<InputManager>();
-        _playerInput = _playerInputManager.PlayerInput;
     }
 }

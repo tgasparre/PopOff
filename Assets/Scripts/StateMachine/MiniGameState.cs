@@ -7,7 +7,10 @@ public class MiniGameState : GameState
         if (PlayingState.IsStarting) //intro minigame
         {
             //TODO -- play introduction animation
-            Loader.LoadStartingMiniGameScene();
+            Loader.LoadStartingMiniGameScene(() =>
+            {
+                Game.Instance.SetPlayerStates(PlayerState.CharacterMiniGame);
+            });
         } 
         else //all other minigames
         {

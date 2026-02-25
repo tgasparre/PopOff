@@ -26,18 +26,33 @@ public class ActivePlayersTracker : MonoBehaviour
 
 	private struct PlayerTrack
 	{
-		public Player player;
-		public bool isAlive;
+		public PlayerController controller;
+		public bool isDead;
 
-		public PlayerTrack(Player p)
+		public PlayerTrack(PlayerController c)
 		{
-			player = p;
-			isAlive = true;
+			controller = c;
+			isDead = false;
 		}
 	}
 	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER];
-	public int activePlayers => _players.Count(t => t.player != null);
-	private List<PlayerTrack> alivePlayers => _players.Where(t => t.player != null && t.isAlive).ToList();
+	public PlayerController[] Players
+	{
+		get
+		{
+			int index = 0;
+			PlayerController[] p = new PlayerController[alivePlayers.Count];
+			foreach (PlayerTrack player in alivePlayers)
+			{
+				p[index] = player.controller;
+				index++;
+			}
+			return p;
+		}
+	}
+	private List<PlayerTrack> activePlayers => _players.Where(t => t.controller != null).ToList();
+	public int activePlayerCount => activePlayers.Count;
+	private List<PlayerTrack> alivePlayers => _players.Where(t => t.controller != null && !t.isDead).ToList();
 
 	public int winningPlayerIndex { get; private set; } = -1;
 	
@@ -47,6 +62,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		_inputManager.onPlayerJoined += OnPlayerJoined;
 		_playerJail = transform.GetChild(0);
 	}
+
 	private void OnDestroy()
 	{
 		_inputManager.onPlayerJoined -= OnPlayerJoined;
@@ -84,21 +100,17 @@ public class ActivePlayersTracker : MonoBehaviour
 	private void TryJoinPlayer(InputDevice device)
 	{
 		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return;
-		// _inputManager.playerPrefab = Game.Instance.PlayerPrefab;
+		_inputManager.playerPrefab = Game.Instance.PlayerPrefab;
 		_inputManager.JoinPlayer(
-			playerIndex: activePlayers,
+			playerIndex: activePlayerCount,
 			pairWithDevice: device
 		);
 	}
 	
 	public void OnPlayerJoined(PlayerInput playerInput)
 	{
-		// Player player = playerInput.GetComponent<Player>();
-		// _players[playerInput.playerIndex] = new PlayerTrack(player);
-		// player.Register(playerInput);
-
-		PlayerStart player = playerInput.GetComponent<PlayerStart>();
-		_players[playerInput.playerIndex] = new PlayerTrack();
+		PlayerController player = playerInput.GetComponent<PlayerController>();
+		_players[playerInput.playerIndex] = new PlayerTrack(player);
 		player.Register(playerInput);
 	}
 	
@@ -108,10 +120,10 @@ public class ActivePlayersTracker : MonoBehaviour
 	
 	public void SpawnPlayers()
 	{
-		foreach (PlayerTrack tracker in _players)
+		foreach (PlayerTrack tracker in alivePlayers)
 		{
-			if (tracker.player == null || !tracker.isAlive) continue;
-			LookForPlayerSpawn(tracker.player);
+			// if (tracker.controller == null || tracker.isDead) continue;
+			LookForPlayerSpawn(tracker.controller.ActivePlayer);
 		}
 	}
 	
@@ -134,13 +146,13 @@ public class ActivePlayersTracker : MonoBehaviour
 		player.transform.position = _playerJail.position;
 		if (PlayingState.CurrentGameplayState == GameplayStates.Combat)
 		{
-			_players[player.PlayerIndex].isAlive = false;
+			_players[player.PlayerIndex].isDead = true;
 		}
 
 		switch (alivePlayers.Count)
 		{
 			case 1:
-				winningPlayerIndex = alivePlayers[0].player.PlayerIndex;
+				winningPlayerIndex = alivePlayers[0].controller.PlayerIndex;
 				Game.currentState = GameStates.GameOver;
 				break;
 			case 0:
@@ -149,18 +161,20 @@ public class ActivePlayersTracker : MonoBehaviour
 		}
 	}
 
-	public void SetPlayerMenu()
+	public void SetPlayerStates(PlayerState state)
 	{
-		
+		foreach (PlayerTrack track in activePlayers)
+		{
+			track.controller.CurrentState = state;
+		}
 	}
 	
 	public void DestroyPlayers()
 	{
 		winningPlayerIndex = -1;
-		foreach (PlayerTrack tracker in _players)
+		foreach (PlayerTrack tracker in activePlayers)
 		{
-			if (tracker.player == null) continue;
-			Destroy(tracker.player.gameObject);
+			Destroy(tracker.controller.gameObject);
 		}
 		_players = new PlayerTrack[MAX_PLAYER];
 	}

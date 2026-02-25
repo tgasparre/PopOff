@@ -41,7 +41,7 @@ public class DEBUGController : MonoBehaviour
 
     private IEnumerator HandleDEBUGJoin()
     {
-        Game.Instance.useStartingPlayers = useStartingPlayers; 
+        // Game.Instance.useStartingPlayers = useStartingPlayers; 
         Game.Instance.CanJoin = true;
         yield return new WaitUntil(() => Game.Instance.PlayerCount == _playersToSpawn);
         Game.Instance.CanJoin = false;

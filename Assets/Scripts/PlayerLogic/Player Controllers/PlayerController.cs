@@ -3,6 +3,7 @@ using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerState _playerState;
@@ -11,38 +12,49 @@ public class PlayerController : MonoBehaviour
         get => _playerState;
         set => SwitchState(value);
     }
+
+    private PlayerInput _playerInput;
+    public void Register(PlayerInput input)
+    {
+        _playerInput = input;
+        CurrentState = _playerState;
+        ActivePlayersTracker.LookForPlayerSpawn(ActivePlayer);
+        DontDestroyOnLoad(gameObject);
+    }
+    public int PlayerIndex => _playerInput.playerIndex;
+    public PlayerBase ActivePlayer => (CurrentState == PlayerState.Starting) ? _startingPlayer : _defaultPlayer;
     
     [Header("Player Objects")]
-    [SerializeField] private GameObject _startingPlayer;
-    [SerializeField] private GameObject _defaultPlayer;
+    [SerializeField] private PlayerBase _startingPlayer;
+    [SerializeField] private PlayerBase _defaultPlayer;
     
     [Header("Input Handlers")]
     [SerializeField] private InputManager _startingInputManager;
     [SerializeField] private InputManager _defaultInputManager;
 
     private Action<InputAction.CallbackContext> OnMove;
-    private Action<InputAction.CallbackContext> OnJump;
-
-    private void Awake()
-    {
-        CurrentState = _playerState;
-    }
+    public Action<InputAction.CallbackContext> OnJump;
 
     private void SwitchState(PlayerState state)
     {
-        _defaultPlayer.SetActive(false);
-        _startingPlayer.SetActive(false);
+        _defaultPlayer.gameObject.SetActive(false);
+        _startingPlayer.gameObject.SetActive(false);
         switch (state)
         {
             case PlayerState.Starting:
                 OnMove = _startingInputManager.Move;
                 OnJump = _startingInputManager.Jump;
-                _startingPlayer.SetActive(true);
+                _startingPlayer.gameObject.SetActive(true);
                 break;
             case PlayerState.Fighting:
                 OnMove = _defaultInputManager.Move;
                 OnJump = _defaultInputManager.Jump;
-                _defaultPlayer.SetActive(true);
+                _defaultPlayer.gameObject.SetActive(true);
+                break;
+            case PlayerState.CharacterMiniGame:
+                OnMove = null;
+                //OnJump assigned by AirFillBoard
+                _startingPlayer.gameObject.SetActive(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -52,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        OnMove.Invoke(context);
+        OnMove?.Invoke(context);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -75,5 +87,6 @@ public class PlayerController : MonoBehaviour
 public enum PlayerState
 {
     Starting,
+    CharacterMiniGame,
     Fighting
 }

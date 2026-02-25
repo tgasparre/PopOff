@@ -10,7 +10,7 @@ public class MenuState : GameState
 
     public override void ExitState()
     {
-        
+        Game.Instance.CanJoin = false;
     }
 
     public override bool IsStateSwitchable(GameStates test)

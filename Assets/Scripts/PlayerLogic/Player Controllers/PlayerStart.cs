@@ -16,7 +16,7 @@ public class PlayerStart : PlayerBase
     private Vector2 _moveDirection => _playerInputManager.GetMoveInput();
     
     public bool InputtingHorizontalMovement => Mathf.Abs(_moveDirection.x) > 0.5f;
-
+    
     // private static readonly Vector2 BoostFactor = new Vector2(.8f, 1.2f);
     public Vector2 BoostFactor;
 
