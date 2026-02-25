@@ -2615,6 +2615,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902451417}
   m_CullTransparentMesh: 1
+--- !u!114 &949251903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+  m_PrefabInstance: {fileID: 1951611364233530164}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf69a0da62498f8f7b06d1c417440eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverController
 --- !u!1 &986961056
 GameObject:
   m_ObjectHideFlags: 0
@@ -7071,9 +7082,77 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4969960521249762624, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: _menuHiddenOffset
+      value: 3100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969960521249762624, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: _sceneHiddeOffset
+      value: 3100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969960521249762624, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: _miniGameHiddenOffset
+      value: 3100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085214427055869611, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085214427055869611, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3275
+      objectReference: {fileID: 0}
+    - target: {fileID: 5085214427055869611, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -49
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656924183632539206, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2600
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656924183632539206, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1880
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656924183632539206, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 393
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989385560647883379, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Interactable
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 949251903}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameOverController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
@@ -7092,6 +7171,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.data[0].scenePath
+      value: Assets/Scenes/Minigame_Test.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.data[1].scenePath
+      value: Assets/Scenes/Minigame_Test.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.data[0].sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.data[1].sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
     - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_Name
       value: Game
