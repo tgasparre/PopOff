@@ -12,8 +12,8 @@ public class PlayerStart : PlayerBase
     [SerializeField] private GameObject _playerPrefab;
 
     private GroundCheck _groundCheck;
-    private Vector2 _moveDirection;
     private Coroutine _jumpCoroutine = null;
+    private Vector2 _moveDirection => _playerInputManager.GetMoveInput();
     
     public bool InputtingHorizontalMovement => Mathf.Abs(_moveDirection.x) > 0.5f;
 
@@ -26,17 +26,6 @@ public class PlayerStart : PlayerBase
         _groundCheck = GetComponentInChildren<GroundCheck>();
     }
 
-    public void Move(InputAction.CallbackContext context)
-    {
-        if (context.performed) _moveDirection = context.ReadValue<Vector2>();
-        else if (context.canceled) _moveDirection = Vector2.zero;
-    }
-
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if (context.performed) _jumpCoroutine ??= StartCoroutine(LaunchJump());
-    }
-
     private IEnumerator LaunchJump()
     {
         float timer = 0f;
@@ -45,7 +34,8 @@ public class PlayerStart : PlayerBase
             timer += Time.fixedDeltaTime;
             _rigidbody2D.linearVelocity = Vector2.zero;
             yield return null;
-        } while (timer < 0.23f);
+        } 
+        while (timer < 0.23f);
 
         _rigidbody2D.AddForce(new Vector2(BoostFactor.x * FacingLeftValue, BoostFactor.y) * _boostForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(_boostInterval);
@@ -53,6 +43,20 @@ public class PlayerStart : PlayerBase
     }
 
     private void FixedUpdate()
+    {
+        HandleMovement();
+        HandleJump();
+    }
+
+    private void HandleJump()
+    {
+        if (_groundCheck.Grounded && _playerInputManager.Input.jump.TryUseBuffer())
+        {
+            _jumpCoroutine ??= StartCoroutine(LaunchJump());
+        }    
+    }
+    
+    private void HandleMovement()
     {
         if (_groundCheck.Grounded)
         {
@@ -80,20 +84,8 @@ public class PlayerStart : PlayerBase
         }
     }
 
-    //TODO
-    //the idea here is to have a new player spawn in and get assigned to the same controller index 
-    //don't know if it's possible, maybe talk to the AI overlords 
-    
-    // public void DEBUG_ChangePlayer(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         //TODO switch control to the other player
-    //         Game.Instance.useStartingPlayers = false;
-    //         GameObject player = Instantiate(Game.Instance.PlayerPrefab, transform.position, Quaternion.identity);
-    //         Player p = player.GetComponent<Player>();
-    //         p.Register(_playerInput);
-    //         PlayerInput pi = player.GetComponent<PlayerInput>();
-    //     }
-    // }
+    private void OnDisable()
+    {
+        _jumpCoroutine = null;
+    }
 }

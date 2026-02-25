@@ -30,8 +30,9 @@ public class Player : PlayerBase
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
     
-    void Awake()
+    new void Awake()
     {
+        base.Awake();
         playerStats = Instantiate(playerStatsTemplate);
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();

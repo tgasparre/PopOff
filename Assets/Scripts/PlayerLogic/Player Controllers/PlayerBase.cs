@@ -3,7 +3,7 @@ using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(InputManager), typeof(PlayerInput))]
+[RequireComponent(typeof(InputManager))]
 public class PlayerBase : MonoBehaviour
 {
     protected PlayerInput _playerInput;
@@ -25,5 +25,6 @@ public class PlayerBase : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerInputManager = GetComponent<InputManager>();
+        _playerInput = _playerInputManager.PlayerInput;
     }
 }

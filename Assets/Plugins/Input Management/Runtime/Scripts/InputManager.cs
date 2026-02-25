@@ -16,7 +16,7 @@ namespace InputManagement
     /// - Add C# Event from PlayerInput component to the new function in the scenne view
     /// 
     /// </summary>
-    [RequireComponent(typeof(PlayerInput))]
+    // [RequireComponent(typeof(PlayerInput))]
     [DefaultExecutionOrder(-100)]
     public class InputManager : MonoBehaviour
     {
@@ -40,12 +40,13 @@ namespace InputManagement
 
         #region PlayerInput
 
-        [SerializeField] private PlayerInput playerInput;
-        public PlayerInput PlayerInput => playerInput;
+        [SerializeField] private PlayerInput _playerInput;
+        public PlayerInput PlayerInput => _playerInput;
 
         private void OnValidate()
         {
-            GetComponent<PlayerInput>().notificationBehavior = PlayerNotifications.InvokeUnityEvents;
+            if (_playerInput == null) return;
+            _playerInput.notificationBehavior = PlayerNotifications.InvokeUnityEvents;
         }
 
         #endregion

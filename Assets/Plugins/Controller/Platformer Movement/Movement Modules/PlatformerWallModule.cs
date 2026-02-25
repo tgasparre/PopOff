@@ -25,8 +25,8 @@ public class PlatformerWallModule : PlatformerMotorModule
 
     private void OnFighterUpdateState(FighterController.StateUpdateInfo obj)
     {
-        print(obj.OldState);
-        print(obj.NewState);
+        // print(obj.OldState);
+        // print(obj.NewState);
         _state = WallState.None;
     }
 
