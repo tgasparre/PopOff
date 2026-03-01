@@ -81,8 +81,8 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: cdf843863a235ce458a1a86748ebebd2, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/MiniGame1.unity
+  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    scenePath: Assets/Scenes/Minigame_Test.unity
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0

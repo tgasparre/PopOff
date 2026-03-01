@@ -57,6 +57,14 @@ public class Player : MonoBehaviour
         AssignWeightClass();
     }
 
+    void Update()
+    {
+        if (SpriteTools.IsOffScreen(GetComponentInChildren<SpriteRenderer>()))
+        { 
+            Game.Instance.OnPlayerDied(this);
+        }
+    }
+
     #region Inputs
 
     public void UsePower(InputAction.CallbackContext context)
