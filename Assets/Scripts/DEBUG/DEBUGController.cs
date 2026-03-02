@@ -22,29 +22,31 @@ public class DEBUGController : MonoBehaviour
     }
 
     [SerializeField] private int _playersToSpawn = 1;
+    private int _playerCount;
     
+    [Space] [SerializeField] private PlayerState _playerState = PlayerState.Fighting;
     [SerializeField] private GameStates _enteringState = GameStates.Playing; 
     public GameStates EnteringState => _enteringState;
-
     [SerializeField] [HideInInspector] private GameplayStates _playingState = GameplayStates.Combat;
-    public GameplayStates EnteringPlayingState => _playingState;
-
-    [Space] [SerializeField] private bool useStartingPlayers = false;
     
-    private void Start()
+    private IEnumerator Start()
     {
+        _playerCount = 0;
         StateMachineManager.DEBUG_SetGameState(_enteringState); 
         if (_enteringState == GameStates.Playing) PlayingState.DEBUG_SetGamePlayState(_playingState);
+        ActivePlayersTracker.JoinEnded += JoinEnded;        
+        ActivePlayersTracker.Joined += Joined;        
         Debug.Log("== Started DEBUG State: " + Game.currentState + " ==");
-        StartCoroutine(HandleDEBUGJoin());
+        
+        Game.CanJoin = true;
+        yield return new WaitUntil(() => _playerCount == _playersToSpawn);
+        Game.CanJoin = false;
     }
 
-    private IEnumerator HandleDEBUGJoin()
+    private void OnDestroy()
     {
-        // Game.Instance.useStartingPlayers = useStartingPlayers; 
-        Game.Instance.CanJoin = true;
-        yield return new WaitUntil(() => Game.Instance.PlayerCount == _playersToSpawn);
-        Game.Instance.CanJoin = false;
+        ActivePlayersTracker.JoinEnded -= JoinEnded;
+        ActivePlayersTracker.Joined -= Joined;
     }
 
     private void OnValidate()
@@ -71,6 +73,19 @@ public class DEBUGController : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void JoinEnded()
+    {
+        _playerCount = 0;
+        PlayingState.DEBUG_StartMiniGame();
+    }
+
+    private void Joined(PlayerController player)
+    {
+        _playerCount++;
+        player.CurrentState = _playerState;
+        ActivePlayersTracker.LookForPlayerSpawn(player.ActivePlayer);
     }
 }
 

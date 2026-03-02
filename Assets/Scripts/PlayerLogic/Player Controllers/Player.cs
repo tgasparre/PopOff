@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 
 public class Player : PlayerBase
 {
-    public PlayerStats playerStatsTemplate;
+    [Space]
+    public PlayerStats DEBUG_playerStatsTemplate;
 
     // ===== References =====
     public PlayerPowerups powerups { private set; get; }
@@ -30,10 +31,11 @@ public class Player : PlayerBase
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
     
+    public Action<Player> OnDeath;
+    
     new void Awake()
     {
         base.Awake();
-        playerStats = Instantiate(playerStatsTemplate);
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponentInChildren<PlayerAnimation>();
@@ -41,18 +43,20 @@ public class Player : PlayerBase
         _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
-        AssignWeightClass();
+        AssignWeightClass(DEBUG_playerStatsTemplate);
     }
 
     #region Inputs
 
     public void UsePower(InputAction.CallbackContext context)
     {
+        if (!_playerInputManager.isInputEnabled) return;
         if (context.performed) powerups.UsePower();
     }
 
     public void Pause(InputAction.CallbackContext context)
     {
+        if (!_playerInputManager.isInputEnabled) return;
         if (context.performed) Game.currentState = GameStates.Pause;
     }
 
@@ -65,7 +69,7 @@ public class Player : PlayerBase
         
         if (hurtbox.HP <= 0)
         {
-            Game.Instance.OnPlayerDied(this);
+            OnDeath(this);
         }
     }
 
@@ -121,24 +125,26 @@ public class Player : PlayerBase
     }
 
     //may need testing to ensure movement feels good
-    public void AssignWeightClass(WeightClassType wClass = WeightClassType.Default)
+    public void AssignWeightClass(PlayerStats stats)
     {
-        playerStats.WeightClass.ChangeWeightClass(wClass);
-        if (wClass == WeightClassType.Light)
+        playerStats = stats;
+        switch (stats.WeightClass.type)
         {
-            _jumpModule.Config.SetJumpTypeToLight();
-            _horizontalMovementModule.SetMovementTypeToFast();
-        }
-        else if (wClass == WeightClassType.Heavy)
-        {
-            _jumpModule.Config.SetJumpTypeToHeavy();
-            _horizontalMovementModule.SetMovementTypeToSlow();
-        }
-        else
-        {
-            //reset to regular stats if not light or heavy
-            _jumpModule.Config.ResetJumpType();
-            _horizontalMovementModule.ResetMovement();
+            case WeightClassType.Light:
+                _jumpModule.Config.SetJumpTypeToLight();
+                _horizontalMovementModule.SetMovementTypeToFast();
+                break;
+            case WeightClassType.Heavy:
+                _jumpModule.Config.SetJumpTypeToHeavy();
+                _horizontalMovementModule.SetMovementTypeToSlow();
+                break;
+            case WeightClassType.Default:
+                //reset to regular stats if not light or heavy
+                _jumpModule.Config.ResetJumpType();
+                _horizontalMovementModule.ResetMovement();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
     
@@ -163,6 +169,11 @@ public class Player : PlayerBase
     public void UnfreezePlayer()
     {
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    private void OnDestroy()
+    {
+        OnDeath = null;
     }
 }
 

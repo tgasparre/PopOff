@@ -8,8 +8,8 @@ public interface ISceneLoader
 {
     public void LoadCombatScene(Action sceneLoaded = null);
     public void LoadMenuScene(Action sceneLoaded = null);
-    public void LoadStartingMiniGameScene(Action sceneLoaded = null);
-    public void LoadMiniGameScene(Action sceneLoaded = null);
+    public void LoadStartingMiniGameScene(Action sceneLoaded = null, Action transitionCompleted = null);
+    public void LoadMiniGameScene(Action sceneLoaded = null, Action transitionCompleted = null);
 }
 public class SceneLoader : MonoBehaviour, ISceneLoader 
 {
@@ -20,9 +20,9 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     [SerializeField] private SceneReference[] _miniGameScenes;
 
     public bool canLoadScene { get; private set; }  = true;
-
     private void LoadSceneTransition(SceneReference scene, Action sceneLoaded = null, Action transitionCompleted = null, TransitionType transitionType = TransitionType.Scene)
     {
+        Game.IsFrozen = true;
         canLoadScene = false;
         StartCoroutine(LoadScene(scene, () =>
         {
@@ -35,16 +35,18 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
             canLoadScene = true;
             transitionCompleted?.Invoke();
         });
-    }
-    private IEnumerator LoadScene(string n, Action completed = null)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(n);
-        asyncLoad.allowSceneActivation = false;
-        yield return new WaitUntil(() => canLoadScene);
-        asyncLoad.allowSceneActivation = true;
-        yield return new WaitUntil(() => asyncLoad.isDone);
+        return;
         
-        completed?.Invoke();
+        IEnumerator LoadScene(string n, Action completed = null)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(n);
+            asyncLoad.allowSceneActivation = false;
+            yield return new WaitUntil(() => canLoadScene);
+            asyncLoad.allowSceneActivation = true;
+            yield return new WaitUntil(() => asyncLoad.isDone);
+        
+            completed?.Invoke();
+        }
     }
 
     public void LoadCombatScene(Action sceneLoaded = null)
@@ -57,70 +59,26 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
         LoadSceneTransition(_menuScene, sceneLoaded);
     }
 
-    public void LoadStartingMiniGameScene(Action sceneLoaded = null)
+    public void LoadStartingMiniGameScene(Action sceneLoaded = null, Action transitionCompleted = null)
     {
-        LoadSceneTransition(_startingMiniGame, sceneLoaded);
+        LoadSceneTransition(_startingMiniGame, sceneLoaded, transitionCompleted);
     }
 
-    public void LoadMiniGameScene(Action sceneLoaded = null)
+    public void LoadMiniGameScene(Action sceneLoaded = null, Action transitionCompleted = null)
     {
-        LoadSceneTransition(PickMiniGame(), sceneLoaded, transitionType: TransitionType.MiniGame);
+        LoadSceneTransition(PickMiniGame(), sceneLoaded, transitionCompleted, transitionType: TransitionType.MiniGame);
     }
 
     private static void SetSceneSettings()
     {
-        Time.timeScale = 1f;
-        Game.Instance.SpawnPlayers();
+        Game.IsFrozen = false;
+        Game.ActivePlayerTracker.SpawnPlayers();
     }
 
     private SceneReference PickMiniGame()
     {
         return _miniGameScenes[0];
     }
-    
-    private void InstantLoadScene(string n)
-    {
-        SceneManager.LoadScene(n);
-    }
-    
-    // private bool gameHasStarted = false;
-    //
-    // public bool HasGameStarted()
-    // {
-    //     return gameHasStarted;
-    // }
-    //
-    // public void SetGameStarted(bool hasStarted)
-    // {
-    //     gameHasStarted = hasStarted;
-    // }
-    //
-    // //start code from chatgpt, prompt: how do you switch between scenes in unity using code?
-    // public IEnumerator LoadScene(string scene)
-    // {
-    //     Debug.Log("Loading scene " + scene);
-    //     AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene);
-    //     while (!asyncLoad.isDone)
-    //     {
-    //         yield return null;
-    //     }
-    // }
-    // //end code from chatgpt
-    //
-    // //checks if the active scene is a minigame
-    // public bool IsInMinigameScene()
-    // {
-    //     if (SceneManager.GetActiveScene().name.StartsWith("Minigame_"))
-    //     {
-    //         return true; 
-    //     }
-    //     return false;
-    // }
-    //
-    // public void InstantLoadScene(string scene)
-    // {
-    //     SceneManager.LoadScene(scene);
-    // }
 }
 
 public enum SceneType

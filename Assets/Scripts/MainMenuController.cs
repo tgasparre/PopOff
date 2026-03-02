@@ -14,7 +14,7 @@ public class MainMenuController : MonoBehaviour
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
-            Game.Instance.CanJoin = true;
+            Game.CanJoin = true;
         });
     }
 

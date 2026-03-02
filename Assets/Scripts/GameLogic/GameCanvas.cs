@@ -18,12 +18,15 @@ public class GameCanvas : MonoBehaviour
     }
 
     [SerializeField] private CanvasGroup _pauseScreen;
+    [SerializeField] private MiniGameUI _miniGameScreen;
     [SerializeField] private GameOverController _gameOverScreen;
     private TransitionController _transitionController;
     
     [Space]
     [SerializeField] private Button _unpauseButton;
     [SerializeField] private Button _playAgainButton;
+
+    public static IMiniGameUI MiniGameUI => Instance._miniGameScreen;
 
     public void Unpause()
     {
@@ -54,6 +57,12 @@ public class GameCanvas : MonoBehaviour
         _gameOverScreen.SetWinnerName();
         CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
     }
+    
+    public void UpdateMiniGameCountdown(string time)
+    {
+        _miniGameScreen.UpdateCountdown(time);
+    }
+    
 
     public void HideAllScreens()
     {

@@ -5,7 +5,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ActivePlayersTracker : MonoBehaviour
+public interface IActivePlayerTracker
+{
+	public void SpawnPlayers();
+	public void DestroyPlayers();
+	public void SetPlayerStates(PlayerState state);
+	public PlayerController[] GetPlayers();
+}
+public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 {
 	public const int MAX_PLAYER = 4; 
 	
@@ -28,6 +35,7 @@ public class ActivePlayersTracker : MonoBehaviour
 	{
 		public PlayerController controller;
 		public bool isDead;
+		public int PlayerIndex => controller.PlayerIndex;
 
 		public PlayerTrack(PlayerController c)
 		{
@@ -35,26 +43,32 @@ public class ActivePlayersTracker : MonoBehaviour
 			isDead = false;
 		}
 	}
+
 	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER];
-	public PlayerController[] Players
+	private PlayerTrack[] _activePlayers = Array.Empty<PlayerTrack>();
+	private PlayerTrack[] _alivePlayers => _activePlayers.Where(t => !t.isDead).ToArray();
+	public PlayerController[] GetPlayers()
 	{
-		get
+		return _activePlayers.Select(tracker => tracker.controller).ToArray(); 
+	}
+	public int WinningPlayerIndex { get; private set; } = -1;
+	
+	private bool isFrozen = false;
+	public bool IsPlayersFrozen
+	{
+		get => isFrozen;
+		set
 		{
-			int index = 0;
-			PlayerController[] p = new PlayerController[alivePlayers.Count];
-			foreach (PlayerTrack player in alivePlayers)
+			foreach (PlayerTrack tracker in _activePlayers)
 			{
-				p[index] = player.controller;
-				index++;
+				tracker.controller.SetInputEnabled(!value);
 			}
-			return p;
+			isFrozen = value;
 		}
 	}
-	private List<PlayerTrack> activePlayers => _players.Where(t => t.controller != null).ToList();
-	public int activePlayerCount => activePlayers.Count;
-	private List<PlayerTrack> alivePlayers => _players.Where(t => t.controller != null && !t.isDead).ToList();
 
-	public int winningPlayerIndex { get; private set; } = -1;
+	public static Action JoinEnded;
+	public static Action<PlayerController> Joined;
 	
 	private void Awake()
 	{
@@ -102,7 +116,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return;
 		_inputManager.playerPrefab = Game.Instance.PlayerPrefab;
 		_inputManager.JoinPlayer(
-			playerIndex: activePlayerCount,
+			playerIndex: _activePlayers.Length,
 			pairWithDevice: device
 		);
 	}
@@ -110,8 +124,20 @@ public class ActivePlayersTracker : MonoBehaviour
 	public void OnPlayerJoined(PlayerInput playerInput)
 	{
 		PlayerController player = playerInput.GetComponent<PlayerController>();
+		player.Register(playerInput, OnPlayerDied);
 		_players[playerInput.playerIndex] = new PlayerTrack(player);
-		player.Register(playerInput);
+		Joined?.Invoke(player);
+	}
+
+	public void OnEndJoin()
+	{
+		int totalPlayers = _players.Count(t => t.controller != null);
+		_activePlayers = new PlayerTrack[totalPlayers];
+		for (int i = 0; i < totalPlayers; i++)
+		{
+			_activePlayers[i] = _players[i];
+		}
+		JoinEnded?.Invoke();
 	}
 	
 	#endregion
@@ -120,9 +146,9 @@ public class ActivePlayersTracker : MonoBehaviour
 	
 	public void SpawnPlayers()
 	{
-		foreach (PlayerTrack tracker in alivePlayers)
+		foreach (PlayerTrack tracker in _activePlayers)
 		{
-			// if (tracker.controller == null || tracker.isDead) continue;
+			if (tracker.isDead) continue;
 			LookForPlayerSpawn(tracker.controller.ActivePlayer);
 		}
 	}
@@ -134,7 +160,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		{
 			if (player.PlayerIndex == (int)spawn.Type)
 			{
-				spawn.Spawn(player.gameObject);
+				spawn.Spawn(player);
 			}
 		}
 	}
@@ -149,36 +175,45 @@ public class ActivePlayersTracker : MonoBehaviour
 			_players[player.PlayerIndex].isDead = true;
 		}
 
-		switch (alivePlayers.Count)
+		PlayerTrack[] alive = _alivePlayers;
+		switch (alive.Length)
 		{
 			case 1:
-				winningPlayerIndex = alivePlayers[0].controller.PlayerIndex;
+				WinningPlayerIndex = alive[0].PlayerIndex;
 				Game.currentState = GameStates.GameOver;
 				break;
 			case 0:
-				Debug.LogError("zero players left should only happen if DEBUG");
+				Debug.LogError("zero players left should only happen if DEBUG!");
 				break;
 		}
 	}
 
 	public void SetPlayerStates(PlayerState state)
 	{
-		foreach (PlayerTrack track in activePlayers)
+		foreach (PlayerTrack tracker in _activePlayers)
 		{
-			track.controller.CurrentState = state;
+			tracker.controller.CurrentState = state;
 		}
 	}
 	
 	public void DestroyPlayers()
 	{
-		winningPlayerIndex = -1;
-		foreach (PlayerTrack tracker in activePlayers)
+		WinningPlayerIndex = -1;
+		foreach (PlayerTrack tracker in _activePlayers)
 		{
 			Destroy(tracker.controller.gameObject);
 		}
 		_players = new PlayerTrack[MAX_PLAYER];
+		_activePlayers = Array.Empty<PlayerTrack>();
 	}
-	
+
+	public static void DEBUG_SetPlayerStates(PlayerState state)
+	{
+		foreach (PlayerController controller in Game.GetPlayers())
+		{
+			controller.CurrentState = state;
+		}
+	}
 }
 
 

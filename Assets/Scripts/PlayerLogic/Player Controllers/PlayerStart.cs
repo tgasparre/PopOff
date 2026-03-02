@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerStart : PlayerBase
 {
+    [Space]
     [SerializeField] private float _movementSpeed = 8f;
     [SerializeField] private float _boostForce = 5f;
     [SerializeField] private float _boostInterval = 4f;
@@ -43,7 +44,8 @@ public class PlayerStart : PlayerBase
     }
 
     private void FixedUpdate()
-    {
+    { 
+        if (!_playerInputManager.isInputEnabled) return;
         HandleMovement();
         HandleJump();
     }

@@ -20,8 +20,10 @@ namespace InputManagement
     [DefaultExecutionOrder(-100)]
     public class InputManager : MonoBehaviour
     {
-        public InputState Input => inputEnabled ? input : null;
+        public InputState Input => input;
+        // public InputState Input => inputEnabled ? input : null;
         private InputState input = new InputState();
+        public bool isInputEnabled => inputEnabled;
 
         private Vector2 moveInput;
         private int facingDirection = -1;
@@ -59,6 +61,8 @@ namespace InputManagement
         public void SetEnabled(bool enabled)
         {
             inputEnabled = enabled;
+            input.move.SetValue(Vector2.zero);
+            moveInput = Vector2.zero;
         }
 
         #endregion
@@ -105,6 +109,7 @@ namespace InputManagement
         /// <param name="context"></param>
         public void Move(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.move.SetValue(context.ReadValue<Vector2>());
@@ -124,6 +129,7 @@ namespace InputManagement
         }
         public void Aim(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.aim.SetValue(context.ReadValue<Vector2>());
@@ -142,6 +148,7 @@ namespace InputManagement
 
         public void Jump(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.jump.OnPress();
@@ -154,6 +161,7 @@ namespace InputManagement
 
         public void Primary(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.primary.OnPress();
@@ -166,6 +174,7 @@ namespace InputManagement
 
         public void Secondary(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.secondary.OnPress();
@@ -178,6 +187,7 @@ namespace InputManagement
 
         public void Interact(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.interact.OnPress();
@@ -190,6 +200,7 @@ namespace InputManagement
 
         public void Crouch(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.crouch.OnPress();
@@ -202,6 +213,7 @@ namespace InputManagement
 
         public void Sprint(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.sprint.OnPress();
@@ -214,6 +226,7 @@ namespace InputManagement
 
         public void Pause(InputAction.CallbackContext context)
         {
+            if (!inputEnabled) return;
             if (context.performed)
             {
                 input.pause.OnPress();

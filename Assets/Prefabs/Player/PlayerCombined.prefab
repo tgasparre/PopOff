@@ -305,6 +305,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0c4672cc-413e-4ec8-9a2c-4d150119f314
     m_ActionName: 'Player/DEBUG[/Keyboard/slash]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3061942408519478907}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: DEBUG_DisableInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79a6ea53-920f-4a8a-b0b5-feedadc4940e
+    m_ActionName: 'Player/DEBUG2[/Keyboard/quote]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -375,9 +391,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3062809853175913679, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 3061942408519478907}
+    - target: {fileID: 3062809853175913679, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
       propertyPath: _playerInput
       value: 
       objectReference: {fileID: 1761293061041685436}
+    - target: {fileID: 3062809853175913679, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
+      propertyPath: DEBUG_playerStatsTemplate
+      value: 
+      objectReference: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
     m_RemovedComponents:
     - {fileID: 2315592879679995551, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
     - {fileID: 7758172281604579164, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
@@ -487,6 +511,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7934700583049031135, guid: 98e1129d324a7e9a5b657a1ba8a9cb77, type: 3}
+      propertyPath: _controller
+      value: 
+      objectReference: {fileID: 3061942408519478907}
     - target: {fileID: 7934700583049031135, guid: 98e1129d324a7e9a5b657a1ba8a9cb77, type: 3}
       propertyPath: _playerInput
       value: 

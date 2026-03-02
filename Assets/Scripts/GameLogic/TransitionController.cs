@@ -77,7 +77,7 @@ public class TransitionController : MonoBehaviour
             IEnumerator OutLoader()
             {
                 inCompleted?.Invoke();
-                yield return new WaitUntil(() => Game.Instance.CanLoadScene);
+                yield return new WaitUntil(() => Game.CanLoadScene);
                 StartCoroutine(ApplyTransition(0, -_activeHiddenOffset, time, () =>
                 {
                     outCompleted?.Invoke();

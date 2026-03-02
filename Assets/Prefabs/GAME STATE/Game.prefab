@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
   _playerPrefab: {fileID: 2774913894424997013, guid: 51be7ce37a2e38d0a9cfbff8ed085ca2, type: 3}
-  useStartingPlayers: 1
 --- !u!114 &1538154858333272104
 MonoBehaviour:
   m_ObjectHideFlags: 0

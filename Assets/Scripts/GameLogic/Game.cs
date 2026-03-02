@@ -19,51 +19,52 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject _playerPrefab;
     public GameObject PlayerPrefab => _playerPrefab;
 
+    private SceneLoader _sceneLoader;
+    private ActivePlayersTracker _activePlayersTracker;
+    
     public static GameStates currentState
     {
         get => StateMachineManager.currentState;
         set => StateMachineManager.SwitchState(value);
     }
-
-    private SceneLoader _sceneLoader;
-    public ISceneLoader SceneLoader => _sceneLoader;
-    private ActivePlayersTracker _activePlayersTracker;
-    public bool CanJoin
+    
+    public static bool CanJoin
     {
-        get => _activePlayersTracker.CanJoin;
-        set => _activePlayersTracker.CanJoin = value;
+        get => Instance._activePlayersTracker.CanJoin;
+        set
+        {
+            Instance._activePlayersTracker.CanJoin = value;
+            if (!value) Instance._activePlayersTracker.OnEndJoin();
+        }
     }
-    public bool CanLoadScene => _sceneLoader.canLoadScene;
-    public int PlayerCount => _activePlayersTracker.activePlayerCount;
-    public int WinningIndex => _activePlayersTracker.winningPlayerIndex;
-    public PlayerController[] GetPlayers() {return _activePlayersTracker.Players;}
+
+    public static bool IsFrozen
+    {
+        get => Time.timeScale == 0f;
+        set
+        {
+            Time.timeScale = value ? 0f : 1f;
+            IsPlayersFrozen = value;
+        }
+    }
+
+    public static bool IsPlayersFrozen
+    {
+        get => Instance._activePlayersTracker.IsPlayersFrozen;
+        set => Instance._activePlayersTracker.IsPlayersFrozen = value;
+    }
+    
+    public static bool CanLoadScene => Instance._sceneLoader.canLoadScene;
+    public static int WinningIndex => Instance._activePlayersTracker.WinningPlayerIndex;
+    public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();}
+
+    public static ISceneLoader SceneLoader => Instance._sceneLoader;
+    public static IActivePlayerTracker ActivePlayerTracker => Instance._activePlayersTracker;
+    
     
     public static void ExitGame()
     {
         Application.Quit();
     }
-
-    public void SpawnPlayers()
-    {
-        _activePlayersTracker.SpawnPlayers();
-    }
-    public void DestroyPlayers()
-    {
-        _activePlayersTracker.DestroyPlayers();
-    }
-
-    public void SetPlayerStates(PlayerState state)
-    {
-        _activePlayersTracker.SetPlayerStates(state);
-    }
     
-    public void OnPlayerDied(Player player)
-    {
-        _activePlayersTracker.OnPlayerDied(player);
-    }
-
-    public static T GetFirstObjectFromType<T>() where T : Object
-    {
-        return FindFirstObjectByType<T>();
-    }
 }

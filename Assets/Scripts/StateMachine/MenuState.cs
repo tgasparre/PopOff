@@ -4,13 +4,13 @@ public class MenuState : GameState
     public override void EnterState()
     {
        Loader.LoadMenuScene();
-       Game.Instance.DestroyPlayers();
-       Game.Instance.CanJoin = false;
+       ActivePlayerTracker.DestroyPlayers();
+       Game.CanJoin = false;
     }
 
     public override void ExitState()
     {
-        Game.Instance.CanJoin = false;
+        Game.CanJoin = false;
     }
 
     public override bool IsStateSwitchable(GameStates test)

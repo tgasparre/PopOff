@@ -1,27 +1,71 @@
 using UnityEngine;
 public class MiniGameState : GameState
 {
+    private MiniGameInfo _currentMiniGame;
+    private static IMiniGameUI GameUI => GameCanvas.MiniGameUI;
+    
     public override void EnterState()
     {
-        Time.timeScale = 0f;
+        _currentMiniGame = null;
         if (PlayingState.IsStarting) //intro minigame
         {
             //TODO -- play introduction animation
-            Loader.LoadStartingMiniGameScene(() =>
-            {
-                Game.Instance.SetPlayerStates(PlayerState.CharacterMiniGame);
-            });
+            Loader.LoadStartingMiniGameScene(StartingMiniGameLoaded);
         } 
         else //all other minigames
         {
             //TODO -- Play little animation
             Loader.LoadMiniGameScene();
         }
+
+        return;
+        
+        void StartingMiniGameLoaded()
+        {
+            ActivePlayerTracker.SetPlayerStates(PlayerState.StartingMiniGame);
+            StartMiniGame();
+            
+        }
+    }
+
+    public void StartMiniGame()
+    {
+        //check scene for minigame object
+        _currentMiniGame = MiniGameInfo.Instance;
+        if (!_currentMiniGame)
+        {
+            Debug.LogError("MiniGameInfo not found! Please add a MiniGameInfo object to the scene!");
+            return;
+        }
+
+        Game.IsPlayersFrozen = true;
+        GameUI.SetValues(_currentMiniGame);
+        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished);
+        return;
+        
+        void OnIntroFinished()
+        {
+            Game.IsPlayersFrozen = false;
+            GameUI.CurrentState = MiniGameUI.UIState.MiniGame;
+            _currentMiniGame.Begin(ActivePlayerTracker.GetPlayers());
+        }
+        
+        void OnGameFinished()
+        {
+            Game.IsPlayersFrozen = true;
+            GameUI.CurrentState = MiniGameUI.UIState.Finished;
+            _currentMiniGame.ShowResults(GameUI.DisableAll, () =>
+            {
+                _currentMiniGame.End();
+            });
+        }
     }
 
     public override void ExitState()
     {
-
+        Debug.Log("running this");
+        Game.IsPlayersFrozen = false;
+        _currentMiniGame = null;
     }
 
     public override bool IsStateSwitchable(GameStates test)
@@ -29,52 +73,3 @@ public class MiniGameState : GameState
         throw new System.NotSupportedException();
     }
 }
-
-/*
-private List<string> minigamesList = new List<string>();
-
-   void Awake()
-   {
-       PopulateMinigameList();
-   }
-   
-   public override void EnterState()
-   {
-       StartRandomMiniGame();
-       // uiHandler.SwitchToPlayingState();
-   }
-
-   public override void ExitState()
-   {
-       // sceneLoader.LoadScene("SampleScene");
-   }
-
-   private void StartRandomMiniGame()
-   {
-       int i = Random.Range(0, minigamesList.Count);
-       // StartCoroutine(sceneLoader.LoadScene(minigamesList[i]));
-   }
-
-   private void PopulateMinigameList()
-   {
-       //start code from chatgpt, prompt: im making a game that has multiple minigames.
-       //every minigame is its own scene. how can i make a list of all the minigame scenes while ignoring the scene of the main game?
-       int sceneCount = SceneManager.sceneCountInBuildSettings;
-
-       for (int i = 0; i < sceneCount; i++)
-       {
-           string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
-           string sceneName = Path.GetFileNameWithoutExtension(scenePath);
-           
-           if (sceneName.StartsWith("Minigame_"))
-               minigamesList.Add(sceneName);
-       }
-       //end code from chatgpt
-   }
-
-   public override bool IsStateSwitchable(GameStates test)
-   {
-       return false;
-       // return test is GameStates.Game or GameStates.Pause;
-   }
-*/

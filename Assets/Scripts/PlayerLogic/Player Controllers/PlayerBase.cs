@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(InputManager))]
 public abstract class PlayerBase : MonoBehaviour
 {
-    protected PlayerController _controller;
+    [SerializeField] protected PlayerController _controller;
     protected InputManager _playerInputManager;
     
     public bool IsFacingLeft => FacingLeftValue == -1;
@@ -18,7 +18,12 @@ public abstract class PlayerBase : MonoBehaviour
     protected void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _controller = GetComponentInParent<PlayerController>();
         _playerInputManager = GetComponent<InputManager>();
+    }
+
+    public void Spawn(Vector2 pos)
+    {
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        transform.position = pos;
     }
 }
