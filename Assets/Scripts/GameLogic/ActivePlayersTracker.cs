@@ -7,7 +7,9 @@ using UnityEngine.InputSystem;
 
 public class ActivePlayersTracker : MonoBehaviour
 {
-	public const int MAX_PLAYER = 4; 
+	public const int MAX_PLAYER = 4;
+
+	public event Action playerDiedInMinigame;
 	
 	private PlayerInputManager _inputManager;
 	private Transform _playerJail;
@@ -131,6 +133,10 @@ public class ActivePlayersTracker : MonoBehaviour
 		{
 			_players[player.PlayerIndex].isAlive = false;
 		}
+		else if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
+		{
+			playerDiedInMinigame?.Invoke();
+		}
 
 		switch (alivePlayers.Count)
 		{
@@ -147,6 +153,18 @@ public class ActivePlayersTracker : MonoBehaviour
 	public void SetPlayerMenu()
 	{
 		
+	}
+
+	//used for unfreezing all players after minigame
+	public void UnfreezeAllPlayers()
+	{
+		foreach (PlayerTrack tracker in _players)
+		{
+			if (tracker.isAlive)
+			{
+				tracker.player.UnfreezePlayer();
+			}
+		}
 	}
 	
 	public void DestroyPlayers()

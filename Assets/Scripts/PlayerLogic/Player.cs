@@ -57,14 +57,6 @@ public class Player : MonoBehaviour
         AssignWeightClass();
     }
 
-    void Update()
-    {
-        if (SpriteTools.IsOffScreen(GetComponentInChildren<SpriteRenderer>()))
-        { 
-            Game.Instance.OnPlayerDied(this);
-        }
-    }
-
     #region Inputs
 
     public void UsePower(InputAction.CallbackContext context)
@@ -145,8 +137,7 @@ public class Player : MonoBehaviour
     public void AssignWeightClass(WeightClassType wClass = WeightClassType.Default)
     {
         playerStats.WeightClass.ChangeWeightClass(wClass);
-        //PlatformerJumpModule jumpModule = gameObject.GetComponent<PlatformerJumpModule>();
-        //PlatformerHorizontalMovementModule movementModule = gameObject.GetComponent<PlatformerHorizontalMovementModule>();
+        
         if (wClass == WeightClassType.Light)
         {
             _jumpModule.Config.SetJumpTypeToLight();
@@ -185,6 +176,7 @@ public class Player : MonoBehaviour
 
     public void UnfreezePlayer()
     {
+        Debug.Log("Unfreeze Player called");
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
     }
 }

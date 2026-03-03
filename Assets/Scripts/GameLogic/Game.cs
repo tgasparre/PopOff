@@ -50,6 +50,11 @@ public class Game : MonoBehaviour
     {
         _activePlayersTracker.OnPlayerDied(player);
     }
+
+    public ActivePlayersTracker GetActivePlayersTracker()
+    {
+        return _activePlayersTracker;
+    }
     
     // public GameTools gameTools = new GameTools();
     //

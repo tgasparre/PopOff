@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class FallingPlatform : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     private bool hasBeenSteppedOn = false;

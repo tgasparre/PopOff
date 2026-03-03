@@ -18,7 +18,7 @@ public class MiniGameState : GameState
 
     public override void ExitState()
     {
-
+        
     }
 
     public override bool IsStateSwitchable(GameStates test)
