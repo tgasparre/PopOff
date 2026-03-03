@@ -5,12 +5,14 @@ public class FallingPlatform : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     private bool hasBeenSteppedOn = false;
+    [SerializeField] private SpriteRenderer _render;
     
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (!hasBeenSteppedOn && other.gameObject.CompareTag("Player"))
         {
             hasBeenSteppedOn = true;
+            StartCoroutine(WarningFlash(1.9f));
             StartCoroutine(FallAfterTime(2f));
         }
     }
@@ -23,5 +25,18 @@ public class FallingPlatform : MonoBehaviour
         //slight delay so player doesn't fall through platform
         yield return new WaitForSeconds(0.2f); 
         GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    IEnumerator WarningFlash(float flashTime)
+    {
+        float elapsed = 0f;
+        Color _defaultColor = _render.color;
+        while (elapsed < flashTime)
+        {
+            elapsed += Time.deltaTime;
+            _render.color = (Mathf.FloorToInt(elapsed * 5) % 2 == 0) ? Color.white : Color.red;
+            yield return null;
+        }
+        _render.color = _defaultColor;
     }
 }

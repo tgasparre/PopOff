@@ -210,6 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea845d0c4e2dc6244803b027874ceb5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GenericMinigameEnder
+  powerups:
+  - {fileID: 11400000, guid: c0085b096de7407d5ab428484e672d8d, type: 2}
+  - {fileID: 11400000, guid: 3af36c234fbdac1138db4a237a44559e, type: 2}
+  - {fileID: 11400000, guid: 4a5b3e06393778474aaafdb3046e82a1, type: 2}
+  - {fileID: 11400000, guid: 7a7bce0048ff08ed49567496fccf994b, type: 2}
 --- !u!4 &124343129
 Transform:
   m_ObjectHideFlags: 0

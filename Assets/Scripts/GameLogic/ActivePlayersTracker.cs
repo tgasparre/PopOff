@@ -9,7 +9,7 @@ public class ActivePlayersTracker : MonoBehaviour
 {
 	public const int MAX_PLAYER = 4;
 
-	public event Action playerDiedInMinigame;
+	public event Action<Player> playerDiedInMinigame;
 	
 	private PlayerInputManager _inputManager;
 	private Transform _playerJail;
@@ -135,7 +135,7 @@ public class ActivePlayersTracker : MonoBehaviour
 		}
 		else if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
 		{
-			playerDiedInMinigame?.Invoke();
+			playerDiedInMinigame?.Invoke(player);
 		}
 
 		switch (alivePlayers.Count)

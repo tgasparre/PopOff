@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Platform
   rb: {fileID: 4568482447720769662}
+  _render: {fileID: 5739260250932886217}
 --- !u!50 &4568482447720769662
 Rigidbody2D:
   serializedVersion: 5
