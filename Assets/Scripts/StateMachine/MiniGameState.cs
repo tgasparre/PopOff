@@ -63,7 +63,6 @@ public class MiniGameState : GameState
 
     public override void ExitState()
     {
-        Debug.Log("running this");
         Game.IsPlayersFrozen = false;
         _currentMiniGame = null;
     }

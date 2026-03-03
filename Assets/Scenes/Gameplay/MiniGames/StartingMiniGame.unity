@@ -3047,7 +3047,7 @@ MonoBehaviour:
   - {fileID: 989957837}
   - {fileID: 1297207771}
   _fillRate: 0.1
-  _deflateRate: 0.1
+  _deflateRate: 0.22
   _lightClass: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
   _defaultClass: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _heavyClass: {fileID: 11400000, guid: d8b2f865a56e88240b8b3034b5e7ef57, type: 2}

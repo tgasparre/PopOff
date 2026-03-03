@@ -34,11 +34,15 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected PlayerController[] _players;
     private float _resultsTime = 1.3f;
 
+    private Action _onGameComplete;
+    private Coroutine _countdownCoroutine;
+
     /// <summary>
     /// Play the intro animation (display title, countdown to start)
     /// </summary>
     public void Intro(Action onIntroComplete, Action onGameComplete)
     {
+        _onGameComplete = onGameComplete;
         StartCoroutine(IntroCountdown());
         return;
         
@@ -52,7 +56,7 @@ public abstract class MiniGameInfo : MonoBehaviour
             if (!HasTimer) yield break;
             
             //being minigame timer
-            StartCoroutine(Countdown(_miniGameTime, onGameComplete));
+            _countdownCoroutine = StartCoroutine(Countdown(_miniGameTime, _onGameComplete));
         }
     }
 
@@ -78,6 +82,11 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void ShowResults(Action onDelayOver, Action onFinished)
     {
         _isPlayingMiniGame = false;
+        if (_countdownCoroutine != null)
+        {
+            StopCoroutine(_countdownCoroutine);
+            _countdownCoroutine = null;
+        }
         StartCoroutine(SmallDelay());
         return;
 
@@ -101,6 +110,14 @@ public abstract class MiniGameInfo : MonoBehaviour
             yield return new WaitForSeconds(_waitBeforeSceneLoad);
             PlayingState.CurrentGameplayState = GameplayStates.Combat;
         }
+    }
+
+    /// <summary>
+    /// calls the end mini-game section early, before the timer expires 
+    /// </summary>
+    public void TriggerEndMiniGame()
+    {
+        _onGameComplete.Invoke();
     }
 
     protected abstract void StartMiniGame();

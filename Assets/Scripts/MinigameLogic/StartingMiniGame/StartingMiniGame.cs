@@ -6,7 +6,7 @@ public class StartingMiniGame : MiniGameInfo
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private float _fillRate = 0.1f;
-    [SerializeField] private float _deflateRate = 0.1f;
+    [SerializeField] private float _deflateRate = 0.2f;
     [Space]
     [SerializeField] private PlayerStats _lightClass;
     [SerializeField] private PlayerStats _defaultClass;
