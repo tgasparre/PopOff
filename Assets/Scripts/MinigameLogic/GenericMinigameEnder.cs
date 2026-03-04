@@ -4,7 +4,6 @@ using UnityEngine;
 public class GenericMinigameEnder : MonoBehaviour
 {
     [SerializeField] private Powerup[] powerups;
-    private int numPlayersAlive = Game.Instance.PlayerCount;
     private ActivePlayersTracker activePlayersTracker;
 
     void Awake()
@@ -12,19 +11,14 @@ public class GenericMinigameEnder : MonoBehaviour
         activePlayersTracker = Game.Instance.GetActivePlayersTracker();
         if (activePlayersTracker != null)
         {
-            activePlayersTracker.playerDiedInMinigame += OnPlayerDiedInMinigame;
+            activePlayersTracker.playerWonMinigame += OnPlayerWonMinigame;
         }
     }
 
-    private void OnPlayerDiedInMinigame(Player player)
+    private void OnPlayerWonMinigame(Player player)
     {
-        Debug.Log("Player died in minigame");
-        --numPlayersAlive;
-        if (numPlayersAlive <= 1)
-        {
-            PlayingState.CurrentGameplayState = GameplayStates.Combat;
-            player.powerups.ApplyPower(GetRandomPowerup());
-        }
+        PlayingState.CurrentGameplayState = GameplayStates.Combat;
+        player.powerups.ApplyPower(GetRandomPowerup());
     }
 
     private Powerup GetRandomPowerup()
@@ -36,7 +30,7 @@ public class GenericMinigameEnder : MonoBehaviour
     {
         if (activePlayersTracker != null)
         { 
-            activePlayersTracker.playerDiedInMinigame -= OnPlayerDiedInMinigame;
+            activePlayersTracker.playerWonMinigame -= OnPlayerWonMinigame;
         }
     }
 }

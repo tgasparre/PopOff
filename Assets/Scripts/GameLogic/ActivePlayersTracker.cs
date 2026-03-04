@@ -9,13 +9,13 @@ public class ActivePlayersTracker : MonoBehaviour
 {
 	public const int MAX_PLAYER = 4;
 
-	public event Action<Player> playerDiedInMinigame;
+	public event Action<Player> playerWonMinigame;
 	
 	private PlayerInputManager _inputManager;
 	private Transform _playerJail;
 	
 	private Coroutine _joinCoroutine;
-	private bool _canJoin = false;
+	private bool _canJoin = false; 
 	public bool CanJoin
 	{
 		get => _canJoin;
@@ -30,17 +30,19 @@ public class ActivePlayersTracker : MonoBehaviour
 	{
 		public Player player;
 		public bool isAlive;
+		public bool isAliveInMinigame;
 
 		public PlayerTrack(Player p)
 		{
 			player = p;
 			isAlive = true;
+			isAliveInMinigame = true;
 		}
 	}
 	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER];
 	public int activePlayers => _players.Count(t => t.player != null);
 	private List<PlayerTrack> alivePlayers => _players.Where(t => t.player != null && t.isAlive).ToList();
-
+	private List<PlayerTrack> aliveInMinigame => _players.Where(t => t.player != null && t.isAliveInMinigame).ToList();
 	public int winningPlayerIndex { get; private set; } = -1;
 	
 	private void Awake()
@@ -135,8 +137,15 @@ public class ActivePlayersTracker : MonoBehaviour
 		}
 		else if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
 		{
-			playerDiedInMinigame?.Invoke(player);
+			_players[player.PlayerIndex].isAliveInMinigame = false;
+			if (aliveInMinigame.Count == 1)
+			{
+				playerWonMinigame?.Invoke(aliveInMinigame[0].player);
+				ResetPlayersAfterMinigame();
+			}
 		}
+		
+		
 
 		switch (alivePlayers.Count)
 		{
@@ -153,6 +162,17 @@ public class ActivePlayersTracker : MonoBehaviour
 	public void SetPlayerMenu()
 	{
 		
+	}
+
+	public void ResetPlayersAfterMinigame()
+	{
+		foreach (PlayerTrack tracker in _players)
+		{
+			if (tracker.isAlive)
+			{
+				ResetPlayerAfterMinigame(tracker.player);
+			}
+		}
 	}
 
 	//used for unfreezing all players after minigame
@@ -176,6 +196,11 @@ public class ActivePlayersTracker : MonoBehaviour
 			Destroy(tracker.player.gameObject);
 		}
 		_players = new PlayerTrack[MAX_PLAYER];
+	}
+
+	private void ResetPlayerAfterMinigame(Player player)
+	{
+		_players[player.PlayerIndex].isAliveInMinigame = true;
 	}
 	
 }

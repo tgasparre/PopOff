@@ -30,7 +30,7 @@ public class PlayingState : GameState
 
             static void SetState(GameState state)
             {
-                if (state != _activeState) state?.ExitState();
+                if (state != _activeState) _activeState?.ExitState();
 
                 _activeState = state;
                 _activeState.EnterState();

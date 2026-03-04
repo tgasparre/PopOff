@@ -18,7 +18,8 @@ public class MiniGameState : GameState
 
     public override void ExitState()
     {
-        
+        //unfreeze all player movement after minigame
+        Game.Instance.GetActivePlayersTracker().UnfreezeAllPlayers();
     }
 
     public override bool IsStateSwitchable(GameStates test)
