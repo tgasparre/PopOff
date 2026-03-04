@@ -23,7 +23,7 @@ public class StartButton : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (_runningTimer != null) return;
+        if (_runningTimer != null || (Game.PlayerCount > 1 || !Game.Instance.bypassOnePlayerBlock)) return;
         _startGameText.gameObject.SetActive(true);
         _runningTimer = StartCoroutine(StartGameTimer());
     }

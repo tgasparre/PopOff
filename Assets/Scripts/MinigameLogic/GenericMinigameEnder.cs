@@ -4,14 +4,15 @@ using UnityEngine;
 public class GenericMinigameEnder : MonoBehaviour
 {
     [SerializeField] private Powerup[] powerups;
+    private int numPlayersAlive = Game.PlayerCount;
     private ActivePlayersTracker activePlayersTracker;
 
     void Awake()
     {
-        activePlayersTracker = Game.Instance.GetActivePlayersTracker();
+        //activePlayersTracker = Game.Instance.ActivePlayerTracker;
         if (activePlayersTracker != null)
         {
-            activePlayersTracker.playerWonMinigame += OnPlayerWonMinigame;
+            //activePlayersTracker.playerWonMinigame += OnPlayerWonMinigame;
         }
     }
 
@@ -30,7 +31,7 @@ public class GenericMinigameEnder : MonoBehaviour
     {
         if (activePlayersTracker != null)
         { 
-            activePlayersTracker.playerWonMinigame -= OnPlayerWonMinigame;
+            //activePlayersTracker.playerWonMinigame -= OnPlayerWonMinigame;
         }
     }
 }

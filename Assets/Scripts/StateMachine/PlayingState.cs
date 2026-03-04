@@ -77,6 +77,14 @@ public class PlayingState : GameState
         _currentState = state;
         IsStarting = false;
     }
+
+    /// <summary>
+    /// DEBUG method -- starts the minigame, provided there is one present in the scene
+    /// </summary>
+    public static void DEBUG_StartMiniGame()
+    {
+        miniGameState.StartMiniGame();
+    }
 }
 
 public enum GameplayStates

@@ -7,13 +7,14 @@ public class PlayerStateMachine : MonoBehaviour
     {
         hitStun,
         regular,
-        minigame
+        minigame,
+        gameStart
     }
     private PlayerState currentState;
 
-    void Start()
+    void Awake()
     {
-        currentState = PlayerState.regular;
+        currentState = PlayerState.gameStart;
     }
 
     public PlayerState GetCurrentState()

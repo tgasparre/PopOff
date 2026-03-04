@@ -15,4 +15,15 @@ public static class CanvasGroupDisplayer
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
     }
+
+    /// <summary>
+    /// Toggles the canvas group based on the alpha
+    /// 0 alpha = show, 1 alpha = hide
+    /// </summary>
+    /// <param name="canvasGroup"></param>
+    public static void Toggle(CanvasGroup canvasGroup)
+    {
+        if (canvasGroup.alpha == 0) Show(canvasGroup);
+        else Hide(canvasGroup);
+    }
 }
