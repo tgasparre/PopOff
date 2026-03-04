@@ -6,6 +6,9 @@ public class CombatState : GameState
         Time.timeScale = 0f;
         //TODO -- Play little animation
         Loader.LoadCombatScene();
+        
+        //unfreeze all player movement after minigame
+        Game.Instance.GetActivePlayersTracker().UnfreezeAllPlayers();
     }
     
     public override void ExitState()
