@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _mainMenu;
-    [SerializeField] private CanvasGroup _playerSelectionMenu;
     [SerializeField] private CanvasGroup _controlsMenu;
     [SerializeField] private CanvasGroup _creditsMenu;
     
@@ -18,20 +18,22 @@ public class MainMenuController : MonoBehaviour
         });
     }
 
-    public void OnControlsClicked()
+    public void OnControlsClicked(Button selectionHandler)
     {
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
+            selectionHandler.Select();
             CanvasGroupDisplayer.Show(_controlsMenu);
         });
     }
 
-    public void OnCreditsClicked()
+    public void OnCreditsClicked(Button selectionHandler)
     {
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
+            selectionHandler.Select();
             CanvasGroupDisplayer.Show(_creditsMenu);
         });
     }
@@ -41,11 +43,12 @@ public class MainMenuController : MonoBehaviour
         GameCanvas.Instance.Transition(completed: Game.ExitGame);
     }
 
-    public void ReturnToMainMenu()
+    public void ReturnToMainMenu(Button selectionHandler)
     {
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
+            selectionHandler.Select();
             CanvasGroupDisplayer.Show(_mainMenu);
         });
     }
@@ -55,6 +58,5 @@ public class MainMenuController : MonoBehaviour
          CanvasGroupDisplayer.Hide(_mainMenu);
          CanvasGroupDisplayer.Hide(_controlsMenu);
          CanvasGroupDisplayer.Hide(_creditsMenu);
-         CanvasGroupDisplayer.Hide(_playerSelectionMenu);
     }
 }

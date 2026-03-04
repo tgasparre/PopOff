@@ -56,14 +56,17 @@ public class Game : MonoBehaviour
     public static bool CanLoadScene => Instance._sceneLoader.canLoadScene;
     public static int WinningIndex => Instance._activePlayersTracker.WinningPlayerIndex;
     public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();}
+    public static int PlayerCount => Instance._activePlayersTracker.joinedPlayerCount;
 
     public static ISceneLoader SceneLoader => Instance._sceneLoader;
     public static IActivePlayerTracker ActivePlayerTracker => Instance._activePlayersTracker;
-    
     
     public static void ExitGame()
     {
         Application.Quit();
     }
+    
+    [Header("DEBUG Controls")]
+    [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
     
 }

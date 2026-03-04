@@ -54,6 +54,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		return _activePlayers.Select(tracker => tracker.controller).ToArray(); 
 	}
 	public int WinningPlayerIndex { get; private set; } = -1;
+	public int joinedPlayerCount { get; private set; }
 	
 	private bool isFrozen = false;
 	public bool IsPlayersFrozen
@@ -129,6 +130,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		player.Register(playerInput, OnPlayerDied);
 		_players[playerInput.playerIndex] = new PlayerTrack(player);
 		Joined?.Invoke(player);
+		joinedPlayerCount++;
 	}
 
 	public void OnEndJoin()
@@ -219,6 +221,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	
 	public void DestroyPlayers()
 	{
+		joinedPlayerCount = 0;
 		WinningPlayerIndex = -1;
 		foreach (PlayerTrack tracker in _activePlayers)
 		{

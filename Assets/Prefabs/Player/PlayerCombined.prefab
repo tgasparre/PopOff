@@ -171,8 +171,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Sprint[/Keyboard/shift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1909307872167797691}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 3061942408519478907}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 0
         m_Arguments:

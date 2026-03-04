@@ -15,6 +15,6 @@ public class MenuState : GameState
 
     public override bool IsStateSwitchable(GameStates test)
     {
-        return test == GameStates.Playing;
+        return test is GameStates.Playing or GameStates.Pause;
     }
 }

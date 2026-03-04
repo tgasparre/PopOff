@@ -22,7 +22,6 @@ public class DEBUGController : MonoBehaviour
     }
 
     [SerializeField] private int _playersToSpawn = 1;
-    private int _playerCount;
     
     [Space] [SerializeField] private PlayerState _playerState = PlayerState.Fighting;
     [SerializeField] private GameStates _enteringState = GameStates.Playing; 
@@ -31,7 +30,6 @@ public class DEBUGController : MonoBehaviour
     
     private IEnumerator Start()
     {
-        _playerCount = 0;
         StateMachineManager.DEBUG_SetGameState(_enteringState); 
         if (_enteringState == GameStates.Playing) PlayingState.DEBUG_SetGamePlayState(_playingState);
         ActivePlayersTracker.JoinEnded += JoinEnded;        
@@ -39,7 +37,7 @@ public class DEBUGController : MonoBehaviour
         Debug.Log("== Started DEBUG State: " + Game.currentState + " ==");
         
         Game.CanJoin = true;
-        yield return new WaitUntil(() => _playerCount == _playersToSpawn);
+        yield return new WaitUntil(() => Game.PlayerCount == _playersToSpawn);
         Game.CanJoin = false;
     }
 
@@ -77,13 +75,11 @@ public class DEBUGController : MonoBehaviour
 
     private void JoinEnded()
     {
-        _playerCount = 0;
         PlayingState.DEBUG_StartMiniGame();
     }
 
     private void Joined(PlayerController player)
     {
-        _playerCount++;
         player.CurrentState = _playerState;
         ActivePlayersTracker.LookForPlayerSpawn(player.ActivePlayer);
     }

@@ -88,6 +88,12 @@ public class PlayerController : MonoBehaviour
         OnJump.Invoke(context);
     }
     
+    public void Pause(InputAction.CallbackContext context)
+    {
+        if (!_inputEnabled) return;
+        if (context.performed) Game.currentState = GameStates.Pause;
+    }
+    
     public void DEBUG_ChangePlayer(InputAction.CallbackContext context)
     {
         if (context.performed)

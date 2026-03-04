@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameCanvas : MonoBehaviour
@@ -35,6 +36,7 @@ public class GameCanvas : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         Game.currentState = GameStates.Menu;
     }
 
