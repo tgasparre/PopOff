@@ -23,10 +23,6 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
     
-    [Space]
-    [SerializeField] private float _waitAfterLoadingTime = 1f;
-    [SerializeField] private float _waitBeforeStartingTime = 0.5f;
-    
     //===== State =====
     private UIState _currentState;
     private TextMeshProUGUI _currentCountdown;

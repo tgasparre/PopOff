@@ -54,12 +54,6 @@ public class Player : PlayerBase
         if (context.performed) powerups.UsePower();
     }
 
-    public void Pause(InputAction.CallbackContext context)
-    {
-        if (!_playerInputManager.isInputEnabled) return;
-        if (context.performed) Game.currentState = GameStates.Pause;
-    }
-
     #endregion
     
     public void TakeDamage(float damage)
