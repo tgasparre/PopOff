@@ -1,0 +1,45 @@
+using System;
+using InputManagement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+[RequireComponent(typeof(InputManager))]
+public abstract class PlayerBase : MonoBehaviour
+{
+    [SerializeField] protected PlayerController _controller;
+    protected InputManager _playerInputManager;
+    
+    public bool IsFacingLeft => FacingLeftValue == -1;
+    public int FacingLeftValue => _playerInputManager.GetFacingDirection();
+    public int PlayerIndex => _controller.PlayerIndex;
+    
+    protected Rigidbody2D _rigidbody2D;
+
+    protected void Awake()
+    {
+        Register();
+    }
+
+    public void Register()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _playerInputManager = GetComponent<InputManager>();
+    }
+    
+    public void FreezePlayer()
+    {
+        _rigidbody2D.bodyType = RigidbodyType2D.Static;
+    }
+
+    public void UnfreezePlayer()
+    {
+        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+    public void Spawn(Vector2 pos)
+    {
+        UnfreezePlayer();
+        _rigidbody2D.linearVelocity = Vector2.zero;
+        transform.position = pos;
+    }
+}

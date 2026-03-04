@@ -131,6 +131,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DEBUG2",
+                    "type": "Button",
+                    "id": "79a6ea53-920f-4a8a-b0b5-feedadc4940e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -736,6 +745,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "DEBUG",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6feec25c-95ec-4ea4-84c6-f2292dd99b81",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DEBUG2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c7cf97a-df8b-496e-b0d1-ceaeeb04da16",
+                    "path": "<Keyboard>/quote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DEBUG2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
