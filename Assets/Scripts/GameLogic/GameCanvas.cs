@@ -64,6 +64,11 @@ public class GameCanvas : MonoBehaviour
     {
         _miniGameScreen.UpdateCountdown(time);
     }
+
+    public void HideMiniGameDescription()
+    {
+        _miniGameScreen.HideDescription();
+    }
     
 
     public void HideAllScreens()

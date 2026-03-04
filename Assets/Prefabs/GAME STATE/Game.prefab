@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
   _playerPrefab: {fileID: 2774913894424997013, guid: 51be7ce37a2e38d0a9cfbff8ed085ca2, type: 3}
+  bypassOnePlayerBlock: 1
 --- !u!114 &1538154858333272104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,8 +83,8 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: cdf843863a235ce458a1a86748ebebd2, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/MiniGame1.unity
+  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/MiniGame2.unity
   - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
     scenePath: Assets/Scenes/Minigame_Test.unity
 --- !u!1 &2681183732840789442

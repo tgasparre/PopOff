@@ -7,8 +7,8 @@ public class CombatState : GameState
         //TODO -- Play little animation
         Loader.LoadCombatScene();
         
-        //unfreeze all player movement after minigame
-        Game.Instance.GetActivePlayersTracker().UnfreezeAllPlayers();
+        // //unfreeze all player movement after minigame
+        // Game.Instance.GetActivePlayersTracker().UnfreezeAllPlayers();
     }
     
     public override void ExitState()

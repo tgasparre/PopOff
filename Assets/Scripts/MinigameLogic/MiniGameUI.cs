@@ -14,6 +14,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [Header("Introduction State")]
     [SerializeField] private CanvasGroup _introCanvasGroup;
     [SerializeField] private TextMeshProUGUI _miniGameName;
+    [SerializeField] private TextMeshProUGUI _miniGameDescription;
     [SerializeField] private TextMeshProUGUI _introCountdownTimer;
     
     [Header("MiniGame State")]
@@ -37,6 +38,8 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
             {
                 case UIState.Introduction:
                     _currentCountdown = _introCountdownTimer;
+                    _miniGameDescription.gameObject.SetActive(true);
+                    _introCountdownTimer.gameObject.SetActive(false);
                     CanvasGroupDisplayer.Show(_introCanvasGroup);
                     break;
                 case UIState.MiniGame:
@@ -64,10 +67,17 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         _currentCountdown.text = time;
     }
 
+    public void HideDescription()
+    {
+        _miniGameDescription.gameObject.SetActive(false);
+        _introCountdownTimer.gameObject.SetActive(true);
+    }
+
     public void SetValues(MiniGameInfo info)
     {
         CurrentState = UIState.Introduction;
         _miniGameName.text = info.MiniGameName;
+        _miniGameDescription.text = info.MiniGameInstructions;
         _introCountdownTimer.text = info.CountdownTimer.ToString();
         _miniGameCountdownTimer.text = info.MiniGameTime.ToString();
     }

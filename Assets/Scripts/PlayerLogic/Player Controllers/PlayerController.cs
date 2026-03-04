@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
         _playerInput = input;
         _defaultPlayer.OnDeath = deathCallback;
         CurrentState = _playerState;
+        
+        _startingPlayer.Register();
+        _defaultPlayer.Register();
+        
         ActivePlayersTracker.LookForPlayerSpawn(ActivePlayer);
         DontDestroyOnLoad(gameObject);
     }

@@ -4,16 +4,16 @@ using UnityEngine;
 public class GenericMinigameEnder : MonoBehaviour
 {
     [SerializeField] private Powerup[] powerups;
-    private int numPlayersAlive = Game.Instance.PlayerCount;
+    private int numPlayersAlive = Game.PlayerCount;
     private ActivePlayersTracker activePlayersTracker;
 
     void Awake()
     {
-        activePlayersTracker = Game.Instance.GetActivePlayersTracker();
-        if (activePlayersTracker != null)
-        {
-            activePlayersTracker.playerDiedInMinigame += OnPlayerDiedInMinigame;
-        }
+        // activePlayersTracker = Game.Instance.GetActivePlayersTracker();
+        // if (activePlayersTracker != null)
+        // {
+        //     activePlayersTracker.playerDiedInMinigame += OnPlayerDiedInMinigame;
+        // }
     }
 
     private void OnPlayerDiedInMinigame(Player player)
@@ -34,9 +34,9 @@ public class GenericMinigameEnder : MonoBehaviour
 
     void OnDestroy()
     {
-        if (activePlayersTracker != null)
-        { 
-            activePlayersTracker.playerDiedInMinigame -= OnPlayerDiedInMinigame;
-        }
+        // if (activePlayersTracker != null)
+        // { 
+        //     activePlayersTracker.playerDiedInMinigame -= OnPlayerDiedInMinigame;
+        // }
     }
 }

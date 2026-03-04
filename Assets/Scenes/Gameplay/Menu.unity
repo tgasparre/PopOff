@@ -183,17 +183,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &241617661 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-  m_PrefabInstance: {fileID: 1951611364233530164}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &252591445
 GameObject:
   m_ObjectHideFlags: 0
@@ -5884,33 +5873,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 241617661}
-    - target: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PersistantCanvas, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
       value: Game Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5925,14 +5890,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
-      propertyPath: _miniGameScenes.Array.data[0].scenePath
-      value: Assets/Scenes/Gameplay/MiniGames/MiniGame2.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
-      propertyPath: _miniGameScenes.Array.data[0].sceneAsset
-      value: 
-      objectReference: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
     - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_Name
       value: Game

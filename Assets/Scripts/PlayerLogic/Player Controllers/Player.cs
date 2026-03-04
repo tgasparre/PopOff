@@ -155,16 +155,6 @@ public class Player : PlayerBase
         _jumpModule.Config.ReEnableJump();
     }
 
-    public void FreezePlayer()
-    {
-        _rigidbody2D.bodyType = RigidbodyType2D.Static;
-    }
-
-    public void UnfreezePlayer()
-    {
-        _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-    }
-
     private void OnDestroy()
     {
         OnDeath = null;

@@ -40,6 +40,7 @@ public class MiniGameState : GameState
 
         Game.IsPlayersFrozen = true;
         GameUI.SetValues(_currentMiniGame);
+        ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameLose);
         _currentMiniGame.Intro(OnIntroFinished, OnGameFinished);
         return;
         
@@ -58,6 +59,7 @@ public class MiniGameState : GameState
             {
                 _currentMiniGame.End();
             });
+            ActivePlayerTracker.SubscribeMiniGameDeath(null);
         }
     }
 

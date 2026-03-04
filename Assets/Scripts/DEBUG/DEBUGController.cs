@@ -75,7 +75,7 @@ public class DEBUGController : MonoBehaviour
 
     private void JoinEnded()
     {
-        PlayingState.DEBUG_StartMiniGame();
+        if (_playingState == GameplayStates.MiniGame) PlayingState.DEBUG_StartMiniGame();
     }
 
     private void Joined(PlayerController player)

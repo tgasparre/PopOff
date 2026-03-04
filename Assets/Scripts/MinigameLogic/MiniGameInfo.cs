@@ -19,7 +19,9 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     [SerializeField] private string _miniGameName = "default name";
     public string MiniGameName => _miniGameName;
-    [SerializeField] private int _countdownTimer = 3;
+    [SerializeField] [TextArea] private string _miniGameInstructions = "default description";
+    public string MiniGameInstructions => _miniGameInstructions;
+    [Space(2)] [SerializeField] private int _countdownTimer = 3;
     public int CountdownTimer => _countdownTimer;
     [SerializeField] private int _miniGameTime = 15;
     public int MiniGameTime => _miniGameTime;
@@ -27,6 +29,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     
     [Space]
     [Tooltip("Time to wait before starting the countdown after loading the scene")] [SerializeField] private float _waitAfterLoadingTime = 0.8f;
+    [Tooltip("Time to read the instructions of the minigame before starting the countdown")] [SerializeField] private float _waitForInstructionTime = 4f;
     [Tooltip("Time to wait before actually beginning the minigame")] [SerializeField] private float _waitBeforeStartingTime = 0.5f;
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
@@ -44,7 +47,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// </summary>
     public void Intro(Action onIntroComplete, Action onGameComplete)
     {
-        // _alivePlayers 
+        _alivePlayers = Game.PlayerCount; 
         _onGameComplete = onGameComplete;
         StartCoroutine(IntroCountdown());
         return;
@@ -52,6 +55,9 @@ public abstract class MiniGameInfo : MonoBehaviour
         IEnumerator IntroCountdown()
         {
             yield return new WaitForSeconds(_waitAfterLoadingTime);
+            yield return new WaitForSeconds(_waitForInstructionTime);
+            GameCanvas.Instance.HideMiniGameDescription();
+            yield return new WaitForSeconds(0.6f);
             yield return StartCoroutine(Countdown(_countdownTimer));
             yield return new WaitForSeconds(_waitBeforeStartingTime);
             
@@ -121,6 +127,16 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void TriggerEndMiniGame()
     {
         _onGameComplete.Invoke();
+    }
+
+    /// <summary>
+    /// called when a player dies in a mini-game, run TriggerEndMiniGame() if only one player is left 
+    /// </summary>
+    /// <param name="player">player who lost</param>
+    public void OnPlayerMiniGameLose(Player player)
+    {
+        _alivePlayers--;
+        if (_alivePlayers <= 1) TriggerEndMiniGame();
     }
 
     protected abstract void StartMiniGame();

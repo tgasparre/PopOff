@@ -11,12 +11,11 @@ public interface IActivePlayerTracker
 	public void DestroyPlayers();
 	public void SetPlayerStates(PlayerState state);
 	public PlayerController[] GetPlayers();
+	public void SubscribeMiniGameDeath(Action<Player> onPlayerDiedInMinigame);
 }
 public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 {
 	public const int MAX_PLAYER = 4;
-
-	public event Action<Player> playerDiedInMinigame;
 	
 	private PlayerInputManager _inputManager;
 	private Transform _playerJail;
@@ -73,6 +72,12 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	public static event Action JoinEnded;
 	public static event Action<PlayerController> Joined;
 	
+	private Action<Player> _onPlayerDiedInMinigame;
+	public void SubscribeMiniGameDeath(Action<Player> onPlayerDiedInMinigame)
+	{
+		_onPlayerDiedInMinigame = onPlayerDiedInMinigame;
+	}
+
 	private void Awake()
 	{
 		_inputManager = GetComponent<PlayerInputManager>();
@@ -174,28 +179,37 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	{
 		player.FreezePlayer();
 		player.transform.position = _playerJail.position;
+
 		switch (PlayingState.CurrentGameplayState)
 		{
 			case GameplayStates.Combat:
+			{
 				_players[player.PlayerIndex].isDead = true;
+			
+				PlayerTrack[] alive = _alivePlayers;
+				switch (alive.Length)
+				{
+					case 1:
+						WinningPlayerIndex = alive[0].PlayerIndex;
+						Game.currentState = GameStates.GameOver;
+						break;
+					case 0:
+						Debug.LogError("zero players left should only happen if DEBUG!");
+						break;
+				}
+
 				break;
+			}
 			case GameplayStates.MiniGame:
-				playerDiedInMinigame?.Invoke(player);
+				try { _onPlayerDiedInMinigame.Invoke(player); }
+				catch (NullReferenceException e) 
+				{
+					//the code doesn't know what to do when a player dies
+					Debug.LogError("No Mini-Game death event attached! Make sure there is a MiniGameInfo object in the scene");
+				}
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
-		}
-
-		PlayerTrack[] alive = _alivePlayers;
-		switch (alive.Length)
-		{
-			case 1:
-				WinningPlayerIndex = alive[0].PlayerIndex;
-				Game.currentState = GameStates.GameOver;
-				break;
-			case 0:
-				Debug.LogError("zero players left should only happen if DEBUG!");
-				break;
 		}
 	}
 
@@ -207,17 +221,17 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		}
 	}
 
-	//used for unfreezing all players after minigame
-	public void UnfreezeAllPlayers()
-	{
-		foreach (PlayerTrack tracker in _players)
-		{
-			if (tracker.isAlive)
-			{
-				tracker.player.UnfreezePlayer();
-			}
-		}
-	}
+	// //used for unfreezing all players after minigame
+	// public void UnfreezeAllPlayers()
+	// {
+	// 	foreach (PlayerTrack tracker in _players)
+	// 	{
+	// 		if (tracker.isAlive)
+	// 		{
+	// 			tracker.player.UnfreezePlayer();
+	// 		}
+	// 	}
+	// }
 	
 	public void DestroyPlayers()
 	{

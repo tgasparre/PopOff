@@ -164,9 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
   _playersToSpawn: 1
-  _playerState: 1
+  _playerState: 2
   _enteringState: 2
-  _playingState: 1
+  _playingState: 0
 --- !u!1001 &1251484911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -311,6 +311,18 @@ PrefabInstance:
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077957277769949083, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429970532632745178, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7681459030104856670, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
