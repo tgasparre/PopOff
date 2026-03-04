@@ -34,6 +34,8 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected PlayerController[] _players;
     private float _resultsTime = 1.3f;
 
+    private int _alivePlayers;
+
     private Action _onGameComplete;
     private Coroutine _countdownCoroutine;
 
@@ -42,6 +44,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// </summary>
     public void Intro(Action onIntroComplete, Action onGameComplete)
     {
+        // _alivePlayers 
         _onGameComplete = onGameComplete;
         StartCoroutine(IntroCountdown());
         return;
