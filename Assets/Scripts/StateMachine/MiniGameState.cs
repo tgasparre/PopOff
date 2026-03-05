@@ -10,21 +10,20 @@ public class MiniGameState : GameState
         if (PlayingState.IsStarting) //intro minigame
         {
             //TODO -- play introduction animation
-            Loader.LoadStartingMiniGameScene(StartingMiniGameLoaded);
+            Loader.LoadStartingMiniGameScene(StartingLoaded);
         } 
         else //all other minigames
         {
             //TODO -- Play little animation
-            Loader.LoadMiniGameScene();
+            Loader.LoadMiniGameScene(StartMiniGame);
         }
 
         return;
         
-        void StartingMiniGameLoaded()
+        void StartingLoaded()
         {
             ActivePlayerTracker.SetPlayerStates(PlayerState.StartingMiniGame);
             StartMiniGame();
-            
         }
     }
 
@@ -65,6 +64,7 @@ public class MiniGameState : GameState
 
     public override void ExitState()
     {
+        GameUI.DisableAll();
         Game.IsPlayersFrozen = false;
         _currentMiniGame = null;
     }

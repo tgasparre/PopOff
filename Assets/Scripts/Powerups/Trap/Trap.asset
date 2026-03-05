@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e7a3bde689c6699acb6c5f3efdcada, type: 3}
   m_Name: Trap
   m_EditorClassIdentifier: Assembly-CSharp::TrapPowerup
+  _name: Box
   _timeToExpire: -1
   _useCooldown: 0.5
   _icon: {fileID: 1982798753367972342, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}

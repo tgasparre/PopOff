@@ -133,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d52aeb868e9a6a4f9fe446825ff3ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActivePlayersTracker
+  _playerUIPrefab: {fileID: 5617749648678310699, guid: d040843edefa5b193af34c1507a731e6, type: 3}
+  _playerUITransform: {fileID: 0}
 --- !u!114 &3294327333653256999
 MonoBehaviour:
   m_ObjectHideFlags: 0

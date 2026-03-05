@@ -129,6 +129,7 @@ public class TransitionController : MonoBehaviour
             float t = Mathf.SmoothStep(0f, 1f, elapsed / time);
 
             float x = Mathf.Lerp(start, end, t);
+            if (_activeTransition == null) yield break;
             _activeTransition.anchoredPosition = new Vector2(x, _activeTransition.anchoredPosition.y);
             
             yield return null;

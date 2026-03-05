@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class FallingPlatform : MonoBehaviour
     private bool hasBeenSteppedOn = false;
     [SerializeField] private SpriteRenderer _render;
     
+    private const float startInterval = 0.4f;
+    private const float endInterval = 0.05f;
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (!hasBeenSteppedOn && other.gameObject.CompareTag("Player"))
@@ -29,14 +33,24 @@ public class FallingPlatform : MonoBehaviour
 
     IEnumerator WarningFlash(float flashTime)
     {
+        float idleTime = 0.2f; 
+        Color defaultColor = _render.color;
+        yield return new WaitForSeconds(idleTime);
+        
         float elapsed = 0f;
-        Color _defaultColor = _render.color;
+        bool isRed = false;
         while (elapsed < flashTime)
         {
-            elapsed += Time.deltaTime;
-            _render.color = (Mathf.FloorToInt(elapsed * 5) % 2 == 0) ? Color.white : Color.red;
-            yield return null;
+            float percentage = elapsed / flashTime;
+            float currentInterval = Mathf.Lerp(startInterval, endInterval, percentage);
+
+            isRed = !isRed;
+            _render.color = isRed ? Color.white : Color.red;
+
+            yield return new WaitForSeconds(currentInterval);
+            elapsed += currentInterval;
         }
-        _render.color = _defaultColor;
+
+        _render.color = defaultColor;
     }
 }

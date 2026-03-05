@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6e540204d8202fbbc246c9fdac759e, type: 3}
   m_Name: Dart
   m_EditorClassIdentifier: Assembly-CSharp::DartPowerup
+  _name: Dart
   _timeToExpire: -1
   _useCooldown: 0.5
   _icon: {fileID: 21300000, guid: c0ced59eb0176454886bbc0407e71090, type: 3}

@@ -21,6 +21,7 @@ public class GameCanvas : MonoBehaviour
     [SerializeField] private CanvasGroup _pauseScreen;
     [SerializeField] private MiniGameUI _miniGameScreen;
     [SerializeField] private GameOverController _gameOverScreen;
+    [SerializeField] private PlayerUIController _playerUIController;
     private TransitionController _transitionController;
     
     [Space]
@@ -65,11 +66,25 @@ public class GameCanvas : MonoBehaviour
         _miniGameScreen.UpdateCountdown(time);
     }
 
+    public void OnWinMiniGame(string player, string reward)
+    {
+        _miniGameScreen.OnWinMiniGame(player, reward);
+    }
+
     public void HideMiniGameDescription()
     {
         _miniGameScreen.HideDescription();
     }
-    
+
+    public void CreatePlayerUI(PlayerController playerController)
+    {
+        _playerUIController.CreatePlayerUI(playerController);
+    }
+
+    public void DestoryUI()
+    {
+        _playerUIController.DestroyUI();
+    }
 
     public void HideAllScreens()
     {

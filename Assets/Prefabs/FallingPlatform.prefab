@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4568482447720769662}
   m_Layer: 0
   m_Name: FallingPlatform
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4696397071795699393}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f70dfec1aa8fec64cb2b3fc97ae3a8f3, type: 3}
   m_Name: 
