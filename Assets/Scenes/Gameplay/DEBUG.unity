@@ -171,7 +171,7 @@ MonoBehaviour:
   _playersToSpawn: 1
   _playerState: 2
   _enteringState: 2
-  _playingState: 1
+  _playingState: 0
 --- !u!1001 &1251484911
 PrefabInstance:
   m_ObjectHideFlags: 0

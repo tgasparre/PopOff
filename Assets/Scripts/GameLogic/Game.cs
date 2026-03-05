@@ -17,6 +17,21 @@ public class Game : MonoBehaviour
     [Header("Player Prefabs")]
     [SerializeField] private GameObject _playerPrefab;
     public GameObject PlayerPrefab => _playerPrefab;
+    
+    [Header("Player Animations")]
+    [SerializeField] private RuntimeAnimatorController _mouseAnimation;
+    [SerializeField] private RuntimeAnimatorController _dogAnimation;
+    public RuntimeAnimatorController GetPlayerAnimation(int index)
+    {
+        return index switch
+        {
+            0 => _mouseAnimation,
+            1 => _dogAnimation,
+            2 => _mouseAnimation,
+            3 => _dogAnimation,
+            _ => null
+        };
+    }
 
     private SceneLoader _sceneLoader;
     private ActivePlayersTracker _activePlayersTracker;
@@ -68,5 +83,5 @@ public class Game : MonoBehaviour
     
     [Header("DEBUG Controls")]
     [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
-    
+     
 }
