@@ -13,156 +13,60 @@ public class Game : MonoBehaviour
         _activePlayersTracker = GetComponentInChildren<ActivePlayersTracker>();
         currentState = GameStates.Menu;
     }
+    
+    [Header("Player Prefabs")]
+    [SerializeField] private GameObject _playerPrefab;
+    public GameObject PlayerPrefab => _playerPrefab;
 
+    private SceneLoader _sceneLoader;
+    private ActivePlayersTracker _activePlayersTracker;
+    
     public static GameStates currentState
     {
         get => StateMachineManager.currentState;
         set => StateMachineManager.SwitchState(value);
     }
-
-    private SceneLoader _sceneLoader;
-    public ISceneLoader SceneLoader => _sceneLoader;
-    private ActivePlayersTracker _activePlayersTracker;
-    public bool CanJoin
+    
+    public static bool CanJoin
     {
-        get => _activePlayersTracker.CanJoin;
-        set => _activePlayersTracker.CanJoin = value;
+        get => Instance._activePlayersTracker.CanJoin;
+        set
+        {
+            Instance._activePlayersTracker.CanJoin = value;
+            if (!value) Instance._activePlayersTracker.OnEndJoin();
+        }
     }
-    public bool CanLoadScene => _sceneLoader.canLoadScene;
-    public int PlayerCount => _activePlayersTracker.activePlayers;
-    public int WinningIndex => _activePlayersTracker.winningPlayerIndex;
+
+    public static bool IsFrozen
+    {
+        get => Time.timeScale == 0f;
+        set
+        {
+            Time.timeScale = value ? 0f : 1f;
+            IsPlayersFrozen = value;
+        }
+    }
+
+    public static bool IsPlayersFrozen
+    {
+        get => Instance._activePlayersTracker.IsPlayersFrozen;
+        set => Instance._activePlayersTracker.IsPlayersFrozen = value;
+    }
+    
+    public static bool CanLoadScene => Instance._sceneLoader.canLoadScene;
+    public static int WinningIndex => Instance._activePlayersTracker.WinningPlayerIndex;
+    public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();}
+    public static int PlayerCount => Instance._activePlayersTracker.joinedPlayerCount;
+
+    public static ISceneLoader SceneLoader => Instance._sceneLoader;
+    public static IActivePlayerTracker ActivePlayerTracker => Instance._activePlayersTracker;
     
     public static void ExitGame()
     {
         Application.Quit();
     }
-
-    public void SpawnPlayers()
-    {
-        _activePlayersTracker.SpawnPlayers();
-    }
-    public void DestroyPlayers()
-    {
-        _activePlayersTracker.DestroyPlayers();
-    }
-
-    public void OnPlayerDied(Player player)
-    {
-        _activePlayersTracker.OnPlayerDied(player);
-    }
     
-    // public GameTools gameTools = new GameTools();
-    //
-    // [SerializeField] private StateMachineManager gameStateManager;
-    // [SerializeField] private ActivePlayersTracker activePlayersTracker;
-    //
-    //
-    // public static Game Instance { get; private set; }
-    //
-    // private void Awake() 
-    // { 
-    //     if (Instance != null && Instance != this) 
-    //     { 
-    //         Destroy(this); 
-    //     } 
-    //     else 
-    //     { 
-    //         Instance = this; 
-    //     }
-    //     
-    //     //subscribes to PlayerWon event (player tracker tells game when one player is left alive)
-    //     if (activePlayersTracker != null)
-    //     {
-    //         activePlayersTracker.playerWon += OnPlayerWon;
-    //     }
-    // }
-    //
-    // // Start is called once before the first execution of Update after the MonoBehaviour is created
-    // void Start()
-    // { 
-    //     ShowStartMenus();
-    // }
-    //
-    // // Update is called once per frame
-    // void Update()
-    // {
-    //
-    // }
-    //
-    // public void Reset()
-    // {
-    //     // go back to title screen or character select screen
-    //     // stop all movement/functions/coroutines happening
-    //     gameStateManager.EnterPreStartState();
-    // }
-    //
-    // public void StartGame()
-    // {
-    //     // move to player number select, then start minigame
-    //     // maybe add another method here to proc player select, then in that method move to minigame state
-    //     //spawn in players into main fighting arena
-    //     gameStateManager.EnterPVPCombatState();
-    // }
-    //
-    // public void PauseGame()
-    // {
-    //     gameStateManager.EnterPauseState();
-    // }
-    //
-    // public void ResumeGame()
-    // {
-    //     //will have to change this to be able to pause from minigame state
-    //     gameStateManager.EnterPVPCombatState();
-    // }
-    //
-    // public void EndGame()
-    // {
-    //     //TODO: edit this to display name of which player won
-    //     gameStateManager.EnterGameOverState();
-    // }
-    //
-    // public void CloseGame()
-    // { 
-    //     Application.Quit();
-    //     #if UNITY_EDITOR
-    //         UnityEditor.EditorApplication.isPlaying = false;
-    //     #endif
-    //     
-    // }
-    //
-    // public void TriggerMinigame()
-    // {
-    //     gameStateManager.EnterMiniGameState();
-    // }
-    //
-    // public void EndMinigame()
-    // {
-    //     gameStateManager.EnterPVPCombatState();
-    // }
-    //
-    // private void ShowStartMenus()
-    // {
-    //     if (!gameTools.HasGameStarted())
-    //     {
-    //         gameStateManager.EnterPreStartState();
-    //         gameTools.SetGameStarted(true);
-    //     }
-    // }
-    //
-    // private void OnPlayerWon()
-    // {
-    //     activePlayersTracker.ResetAllPlayerTrackers();
-    //     gameStateManager.EnterGameOverState();
-    //     //display name of player thats remaining
-    // }
-    //
-    // private void OnDestroy()
-    // {
-    //     //unsubscribe from playerWon to prevent memory leaks
-    //     if (activePlayersTracker != null)
-    //     {
-    //         activePlayersTracker.playerWon -= OnPlayerWon;
-    //     }
-    // }
-
+    [Header("DEBUG Controls")]
+    [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
+    
 }

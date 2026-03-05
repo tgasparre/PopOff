@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6e540204d8202fbbc246c9fdac759e, type: 3}
   m_Name: ExplodeDart
   m_EditorClassIdentifier: Assembly-CSharp::DartPowerup
+  _name: Exploding Dart
   _timeToExpire: -1
   _useCooldown: 0.5
   _icon: {fileID: 21300000, guid: a4623f353a010632fd19e0299992bdb9, type: 3}

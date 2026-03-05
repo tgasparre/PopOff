@@ -4,13 +4,13 @@ public class PauseState : GameState
 {
     public override void EnterState()
     {
-        Time.timeScale = 0f;
+        Game.IsFrozen = true;
         GameCanvas.Instance.ShowPauseScreen();
     }
 
     public override void ExitState()
     {
-        Time.timeScale = 1f;
+        Game.IsFrozen = false;
         GameCanvas.Instance.HideAllScreens();
     }
 

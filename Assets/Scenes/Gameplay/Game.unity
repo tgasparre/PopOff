@@ -874,13 +874,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1477122653629096574, guid: aeb47f54c076aced182522ac390c0195, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5806683983664184314, guid: aeb47f54c076aced182522ac390c0195, type: 3}
       propertyPath: m_Name
       value: ToMiniGame
       objectReference: {fileID: 0}
     - target: {fileID: 5806683983664184314, guid: aeb47f54c076aced182522ac390c0195, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

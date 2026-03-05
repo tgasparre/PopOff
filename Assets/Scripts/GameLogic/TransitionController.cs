@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TransitionController : MonoBehaviour
@@ -24,7 +25,24 @@ public class TransitionController : MonoBehaviour
 
     private RectTransform _activeTransition;
     private float _activeHiddenOffset;
-    private Coroutine _transitionCoroutine;
+    
+    // private delegate void TransitionDelegate(TransitionData data);
+    // private struct TransitionData
+    // {
+    //     public TransitionType type;
+    //     public Action onCompleted;
+    //     public float timeOverride;
+    //
+    //     public TransitionData(TransitionType t, Action c, float time)
+    //     {
+    //         type = t;
+    //         onCompleted = c;
+    //         timeOverride = time;
+    //     }
+    // }
+    //
+    // private Queue<TransitionDelegate> _transitionCoroutine = new Queue<TransitionDelegate>();
+    // private Coroutine _queueCoroutine; 
     
     private void Awake()
     {
@@ -33,7 +51,23 @@ public class TransitionController : MonoBehaviour
         _miniGameRect = _miniGameTransition.GetComponent<RectTransform>();
     }
 
-    public void Transition(TransitionType type = TransitionType.Menu, Action completed = null, float timeOverride = -1)
+    // public void StartTransition(TransitionType type = TransitionType.Menu, Action onCompleted = null, float timeOverride = -1)
+    // {
+    //     TransitionData data = new TransitionData(type, onCompleted, timeOverride);
+    //     _transitionCoroutine.Enqueue(Transition);
+    //     _queueCoroutine ??= StartCoroutine(TransitionQueue());
+    // }
+    
+    // private IEnumerator TransitionQueue()
+    // {
+    //     while (_transitionCoroutine.Count > 0)
+    //     {
+    //         yield return StartCoroutine(_transitionCoroutine.Dequeue().Invoke());
+    //     }
+    //     _queueCoroutine = null;
+    // }
+
+    public void Transition(TransitionType type = TransitionType.Menu, Action onCompleted = null, float timeOverride = -1)
     {
         float animationTime;
         switch (type)
@@ -56,14 +90,13 @@ public class TransitionController : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
-        TransitionInOut(animationTime, completed);
+        TransitionInOut(animationTime, onCompleted);
     }
 
 
     private void TransitionInOut(float time, Action inCompleted = null, Action outCompleted = null)
     {
-        if (_transitionCoroutine != null) { Debug.LogWarning("Two transitions were run at once"); return;}
-        _transitionCoroutine = StartCoroutine(InOut());
+        StartCoroutine(InOut());
         return;
 
         IEnumerator InOut()
@@ -77,13 +110,12 @@ public class TransitionController : MonoBehaviour
             IEnumerator OutLoader()
             {
                 inCompleted?.Invoke();
-                yield return new WaitUntil(() => Game.Instance.CanLoadScene);
+                yield return new WaitUntil(() => Game.CanLoadScene);
                 StartCoroutine(ApplyTransition(0, -_activeHiddenOffset, time, () =>
                 {
                     outCompleted?.Invoke();
                     _activeHiddenOffset = 0;
                     _activeTransition = null;
-                    _transitionCoroutine = null;
                 })); 
             }
         }
@@ -97,6 +129,7 @@ public class TransitionController : MonoBehaviour
             float t = Mathf.SmoothStep(0f, 1f, elapsed / time);
 
             float x = Mathf.Lerp(start, end, t);
+            if (_activeTransition == null) yield break;
             _activeTransition.anchoredPosition = new Vector2(x, _activeTransition.anchoredPosition.y);
             
             yield return null;

@@ -16,7 +16,7 @@ public class GameOverController : MonoBehaviour
 
     public void SetWinnerName()
     {
-        int winningIndex = Game.Instance.WinningIndex;
+        int winningIndex = Game.WinningIndex;
         if (winningIndex == -1) Debug.LogError("Error! Winning Index = -1, shouldn't happen!");
         _winnerNameText.text = _playerNames[winningIndex];
     }

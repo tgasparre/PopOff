@@ -30,7 +30,7 @@ public class PlayingState : GameState
 
             static void SetState(GameState state)
             {
-                if (state != _activeState) state?.ExitState();
+                if (state != _activeState) _activeState?.ExitState();
 
                 _activeState = state;
                 _activeState.EnterState();
@@ -76,6 +76,14 @@ public class PlayingState : GameState
         };
         _currentState = state;
         IsStarting = false;
+    }
+
+    /// <summary>
+    /// DEBUG method -- starts the minigame, provided there is one present in the scene
+    /// </summary>
+    public static void DEBUG_StartMiniGame()
+    {
+        miniGameState.StartMiniGame();
     }
 }
 
