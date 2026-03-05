@@ -6,7 +6,7 @@ public class MapBoundry : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponentInChildren<AttackHurtbox>().TakeDamage(9999);
+            collision.gameObject.GetComponentInChildren<AttackHurtbox>().InstantDeath();
         }
     }
 }

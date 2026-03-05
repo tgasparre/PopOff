@@ -260,6 +260,11 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
     {
         //_players[player.PlayerIndex].isAliveInMinigame = true;
     }
+
+    public void ResetPlayerHealth()
+    {
+	    
+    }
 }
 
 

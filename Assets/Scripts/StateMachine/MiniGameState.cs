@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 public class MiniGameState : GameState
 {
     private MiniGameInfo _currentMiniGame;
     private static IMiniGameUI GameUI => GameCanvas.MiniGameUI;
+    
+    private List<int> _playerHealthBeforeMinigame = new List<int>();
     
     public override void EnterState()
     {
@@ -48,6 +51,7 @@ public class MiniGameState : GameState
             Game.IsPlayersFrozen = false;
             GameUI.CurrentState = MiniGameUI.UIState.MiniGame;
             _currentMiniGame.Begin(ActivePlayerTracker.GetPlayers());
+            
         }
         
         void OnGameFinished()
@@ -67,10 +71,12 @@ public class MiniGameState : GameState
         GameUI.DisableAll();
         Game.IsPlayersFrozen = false;
         _currentMiniGame = null;
+        
     }
 
     public override bool IsStateSwitchable(GameStates test)
     {
         throw new System.NotSupportedException();
     }
+    
 }
