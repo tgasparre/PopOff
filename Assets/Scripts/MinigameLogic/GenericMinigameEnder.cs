@@ -9,22 +9,17 @@ public class GenericMinigameEnder : MonoBehaviour
 
     void Awake()
     {
-        // activePlayersTracker = Game.Instance.GetActivePlayersTracker();
-        // if (activePlayersTracker != null)
-        // {
-        //     activePlayersTracker.playerDiedInMinigame += OnPlayerDiedInMinigame;
-        // }
+        //activePlayersTracker = Game.Instance.ActivePlayerTracker;
+        if (activePlayersTracker != null)
+        {
+            //activePlayersTracker.playerWonMinigame += OnPlayerWonMinigame;
+        }
     }
 
-    private void OnPlayerDiedInMinigame(Player player)
+    private void OnPlayerWonMinigame(Player player)
     {
-        Debug.Log("Player died in minigame");
-        --numPlayersAlive;
-        if (numPlayersAlive <= 1)
-        {
-            PlayingState.CurrentGameplayState = GameplayStates.Combat;
-            player.powerups.ApplyPower(GetRandomPowerup());
-        }
+        PlayingState.CurrentGameplayState = GameplayStates.Combat;
+        player.powerups.ApplyPower(GetRandomPowerup());
     }
 
     private Powerup GetRandomPowerup()
@@ -34,9 +29,9 @@ public class GenericMinigameEnder : MonoBehaviour
 
     void OnDestroy()
     {
-        // if (activePlayersTracker != null)
-        // { 
-        //     activePlayersTracker.playerDiedInMinigame -= OnPlayerDiedInMinigame;
-        // }
+        if (activePlayersTracker != null)
+        { 
+            //activePlayersTracker.playerWonMinigame -= OnPlayerWonMinigame;
+        }
     }
 }

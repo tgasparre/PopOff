@@ -221,17 +221,17 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		}
 	}
 
-	// //used for unfreezing all players after minigame
-	// public void UnfreezeAllPlayers()
-	// {
-	// 	foreach (PlayerTrack tracker in _players)
-	// 	{
-	// 		if (tracker.isAlive)
-	// 		{
-	// 			tracker.player.UnfreezePlayer();
-	// 		}
-	// 	}
-	// }
+    //used for unfreezing all players after minigame
+    public void UnfreezeAllPlayers()
+    {
+        foreach (PlayerTrack tracker in _players)
+        {
+            if (!tracker.isDead)
+            {
+                //tracker.player.UnfreezePlayer();
+            }
+        }
+    }
 	
 	public void DestroyPlayers()
 	{
@@ -252,6 +252,11 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 			controller.CurrentState = state;
 		}
 	}
+    
+    private void ResetPlayerAfterMinigame(Player player)
+    {
+        //_players[player.PlayerIndex].isAliveInMinigame = true;
+    }
 }
 
 
