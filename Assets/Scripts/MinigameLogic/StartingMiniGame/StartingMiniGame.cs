@@ -32,7 +32,7 @@ public class StartingMiniGame : MiniGameInfo
         for (int i = 0; i < _playerControllers.Length; i++)
         {
             _airFillBoards[i].IsVisible = true;
-            _playerControllers[i].OnJump += _airFillBoards[i].Fill;
+            _playerControllers[i].OnJump = _airFillBoards[i].Fill;
         }
     }
 

@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
         
         _startingPlayer.Register();
         _defaultPlayer.Register();
+
+        _animator.runtimeAnimatorController = Game.Instance.GetPlayerAnimation(PlayerIndex);
         
         ActivePlayersTracker.LookForPlayerSpawn(ActivePlayer);
         DontDestroyOnLoad(gameObject);
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public PlayerBase ActivePlayer => (CurrentState == PlayerState.Starting) ? _startingPlayer : _defaultPlayer;
     
     [Header("Player Objects")]
+    [SerializeField] private Animator _animator;
     [SerializeField] private PlayerStart _startingPlayer;
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
@@ -40,7 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private InputManager _defaultInputManager;
 
     private Action<InputAction.CallbackContext> OnMove;
-    public event Action<InputAction.CallbackContext> OnJump;
+    public Action<InputAction.CallbackContext> OnJump;
     private bool _inputEnabled = true;
 
     private void SwitchState(PlayerState state)
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case PlayerState.StartingMiniGame:
                 OnMove = null;
-                //OnJump assigned by AirFillBoard
+                //OnJump assigned by StartingMiniGame
                 _startingPlayer.gameObject.SetActive(true);
                 break;
             default:

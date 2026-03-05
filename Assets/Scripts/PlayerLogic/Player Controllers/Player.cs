@@ -16,7 +16,7 @@ public class Player : PlayerBase
     public PlayerStats playerStats { private set; get; }
     
     public float Movement => _playerInputManager.GetMoveInput().x;
-    public bool InAir => Mathf.Abs(_rigidbody2D.linearVelocityY) > 0;
+    public bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack() { _animation.TriggerAttack(); }
 
     // ===== Internal References =====

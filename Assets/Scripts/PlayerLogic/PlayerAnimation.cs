@@ -27,14 +27,14 @@ public class PlayerAnimation : MonoBehaviour
         IEnumerator Flash(float flashTime)
         {
             float elapsed = 0f;
-            Color _defaultColor = _render.color;
+            Color defaultColor = _render.color;
             while (elapsed < flashTime)
             {
                 elapsed += Time.deltaTime;
                 _render.color = (Mathf.FloorToInt(elapsed * 20) % 2 == 0) ? Color.white : Color.red;
                 yield return null;
             }
-            _render.color = _defaultColor;
+            _render.color = defaultColor;
             _damageCoroutine = null;
         }   
     }
@@ -43,7 +43,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         _render.flipX = !_player.IsFacingLeft;
         
-        _animator.SetFloat(Movement, _player.Movement);
+        _animator.SetFloat(Movement, Mathf.Abs(_player.Movement));
         _animator.SetBool(InAir, _player.InAir);
     }
 
