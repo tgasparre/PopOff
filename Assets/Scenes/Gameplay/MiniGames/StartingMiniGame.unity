@@ -1492,8 +1492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartingMiniGame
   _miniGameName: Pick your weight
-  _miniGameInstructions: Press <color=red>A</color> as fast as possible to fill up
-    your balloon
+  _miniGameInstructions: Press <color=red>South Button/Space</color> as fast as possible
+    to fill up your balloon
   _countdownTimer: 3
   _miniGameTime: 8
   _powerupReward: []
@@ -1501,7 +1501,6 @@ MonoBehaviour:
   _waitForInstructionTime: 4
   _waitBeforeStartingTime: 0.6
   _waitBeforeSceneLoad: 1
-  _hasResultsScreen: 1
   _airFillBoards:
   - {fileID: 411353083}
   - {fileID: 727906943}
@@ -3127,63 +3126,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1001 &7740073409188017189
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2215960948171261615, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_Name
-      value: ToFight
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.21000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848568076412327518, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
 --- !u!483693784 &8833722264551968054
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -3247,7 +3189,6 @@ SceneRoots:
   - {fileID: 1701583171}
   - {fileID: 1829301192229468811}
   - {fileID: 5367181741255019951}
-  - {fileID: 7740073409188017189}
   - {fileID: 1650432351}
   - {fileID: 130872691}
   - {fileID: 753912080}
