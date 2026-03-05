@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e7a3bde689c6699acb6c5f3efdcada, type: 3}
   m_Name: ExplodeTrap
   m_EditorClassIdentifier: Assembly-CSharp::TrapPowerup
+  _name: Exploding Box
   _timeToExpire: -1
   _useCooldown: 0.5
   _icon: {fileID: 1756182814, guid: 8abf467a916582a419afb0b1433280d0, type: 3}

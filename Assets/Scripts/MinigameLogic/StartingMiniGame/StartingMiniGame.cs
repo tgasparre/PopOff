@@ -29,25 +29,25 @@ public class StartingMiniGame : MiniGameInfo
     protected override void StartMiniGame()
     {
         //assign jump input to fill 
-        for (int i = 0; i < _players.Length; i++)
+        for (int i = 0; i < _playerControllers.Length; i++)
         {
             _airFillBoards[i].IsVisible = true;
-            _players[i].OnJump = _airFillBoards[i].Fill;
+            _playerControllers[i].OnJump += _airFillBoards[i].Fill;
         }
     }
 
-    protected override void ShowMiniGameResults(Action onFinished)
+    protected override void ShowMiniGameResults(Action onFinished, string reward)
     {
         //TODO fun animation
-        for (int i = 0; i < _players.Length; i++)
+        for (int i = 0; i < _playerControllers.Length; i++)
         {
             float fillAmount = _airFillBoards[i].FillAmount;
             PlayerStats weightClass = _lightClass;
             if (fillAmount < 0.66f) weightClass = _defaultClass;
             if (fillAmount < 0.33f) weightClass = _heavyClass;
-            _players[i].CurrentState = PlayerState.Fighting;
-            ActivePlayersTracker.LookForPlayerSpawn(_players[i].ActivePlayer);
-            _players[i].AssignWeightClass(weightClass);
+            _playerControllers[i].CurrentState = PlayerState.Fighting;
+            ActivePlayersTracker.LookForPlayerSpawn(_playerControllers[i].ActivePlayer);
+            _playerControllers[i].AssignWeightClass(weightClass);
         }
         onFinished.Invoke();
     }

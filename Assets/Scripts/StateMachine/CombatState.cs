@@ -3,7 +3,7 @@ public class CombatState : GameState
 {
     public override void EnterState()
     {
-        Time.timeScale = 0f;
+        Game.IsFrozen = false;
         //TODO -- Play little animation
         Loader.LoadCombatScene();
         

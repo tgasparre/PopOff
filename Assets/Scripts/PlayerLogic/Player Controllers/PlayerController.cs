@@ -32,13 +32,15 @@ public class PlayerController : MonoBehaviour
     [Header("Player Objects")]
     [SerializeField] private PlayerStart _startingPlayer;
     [SerializeField] private Player _defaultPlayer;
+    public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
+    public void ApplyPowerup(Powerup p) { _defaultPlayer.powerups.ApplyPower(p); }
     
     [Header("Input Handlers")]
     [SerializeField] private InputManager _startingInputManager;
     [SerializeField] private InputManager _defaultInputManager;
 
     private Action<InputAction.CallbackContext> OnMove;
-    public Action<InputAction.CallbackContext> OnJump;
+    public event Action<InputAction.CallbackContext> OnJump;
     private bool _inputEnabled = true;
 
     private void SwitchState(PlayerState state)

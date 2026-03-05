@@ -62,6 +62,7 @@ public class DEBUGController : MonoBehaviour
             case "StartingMiniGame":
                 _enteringState = GameStates.Playing;
                 _playingState = GameplayStates.MiniGame;
+                _playerState = PlayerState.StartingMiniGame;
                 break;
             default:
                 if (activeName.Contains("minigame", StringComparison.CurrentCultureIgnoreCase))

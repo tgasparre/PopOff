@@ -24,6 +24,11 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
     
+    [Header("Results State")]
+    [SerializeField] private CanvasGroup _resultsCanvasGroup;
+    [SerializeField] private TextMeshProUGUI _playerName;
+    [SerializeField] private TextMeshProUGUI _rewardText;
+    
     //===== State =====
     private UIState _currentState;
     private TextMeshProUGUI _currentCountdown;
@@ -48,6 +53,9 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
                     break;
                 case UIState.Finished:
                     CanvasGroupDisplayer.Show(_finishedCanvasGroup);
+                    break;
+                case UIState.Results:
+                    CanvasGroupDisplayer.Show(_resultsCanvasGroup);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -82,17 +90,26 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         _miniGameCountdownTimer.text = info.MiniGameTime.ToString();
     }
 
+    public void OnWinMiniGame(string player, string reward)
+    {
+        _playerName.text = player;
+        _rewardText.text = reward;
+        CurrentState = UIState.Results;
+    }
+
     public void DisableAll()
     {
         CanvasGroupDisplayer.Hide(_finishedCanvasGroup);
         CanvasGroupDisplayer.Hide(_introCanvasGroup);
         CanvasGroupDisplayer.Hide(_miniGameCanvasGroup);
+        CanvasGroupDisplayer.Hide(_resultsCanvasGroup);
     }
 
     public enum UIState
     {
         Introduction,
         MiniGame,
-        Finished
+        Finished,
+        Results
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Tymski;
+using Random = UnityEngine.Random;
 
 public interface ISceneLoader
 {
@@ -77,7 +78,7 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
 
     private SceneReference PickMiniGame()
     {
-        return _miniGameScenes[0];
+        return _miniGameScenes[Random.Range(0,_miniGameScenes.Length)];
     }
 }
 

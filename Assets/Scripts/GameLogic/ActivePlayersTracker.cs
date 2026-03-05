@@ -53,7 +53,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		return _activePlayers.Select(tracker => tracker.controller).ToArray(); 
 	}
 	public int WinningPlayerIndex { get; private set; } = -1;
-	public int joinedPlayerCount { get; private set; }
+	public int joinedPlayerCount { get; private set; } = 0;
 	
 	private bool isFrozen = false;
 	public bool IsPlayersFrozen
@@ -124,7 +124,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		if (PlayerInput.FindFirstPairedToDevice(device) != null)  return;
 		_inputManager.playerPrefab = Game.Instance.PlayerPrefab;
 		_inputManager.JoinPlayer(
-			playerIndex: _activePlayers.Length,
+			playerIndex: joinedPlayerCount,
 			pairWithDevice: device
 		);
 	}
@@ -136,6 +136,8 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		_players[playerInput.playerIndex] = new PlayerTrack(player);
 		Joined?.Invoke(player);
 		joinedPlayerCount++;
+		
+		GameCanvas.Instance.CreatePlayerUI(player);
 	}
 
 	public void OnEndJoin()
@@ -187,7 +189,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 				_players[player.PlayerIndex].isDead = true;
 			
 				PlayerTrack[] alive = _alivePlayers;
-				switch (alive.Length)
+				switch (alive.Length - 1)
 				{
 					case 1:
 						WinningPlayerIndex = alive[0].PlayerIndex;
@@ -243,6 +245,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		}
 		_players = new PlayerTrack[MAX_PLAYER];
 		_activePlayers = Array.Empty<PlayerTrack>();
+		GameCanvas.Instance.DestoryUI();
 	}
 
 	public static void DEBUG_SetPlayerStates(PlayerState state)
