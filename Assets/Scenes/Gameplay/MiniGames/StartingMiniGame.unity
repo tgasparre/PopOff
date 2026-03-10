@@ -1497,6 +1497,7 @@ MonoBehaviour:
   _countdownTimer: 3
   _miniGameTime: 8
   _powerupReward: []
+  _minigameStats: {fileID: 0}
   _waitAfterLoadingTime: 0.8
   _waitForInstructionTime: 4
   _waitBeforeStartingTime: 0.6

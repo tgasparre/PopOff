@@ -7,9 +7,8 @@ using UnityEngine.InputSystem;
 
 public class Player : PlayerBase
 {
-    [Space]
-    public PlayerStats DEBUG_playerStatsTemplate;
-
+    [SerializeField] private PlayerStats _defaultStats;
+    
     // ===== References =====
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
@@ -43,7 +42,7 @@ public class Player : PlayerBase
         _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
-        AssignWeightClass(DEBUG_playerStatsTemplate);
+        ResetWeightClass();
     }
 
     #region Inputs
@@ -118,11 +117,16 @@ public class Player : PlayerBase
         _hitStunCoroutine = null;
     }
 
-    //may need testing to ensure movement feels good
+    public void ResetWeightClass()
+    {
+        if (_defaultStats == null) Debug.LogError("Default Stats should not be null!");
+        AssignWeightClass(_defaultStats);
+    }
+    
     public void AssignWeightClass(PlayerStats stats)
     {
         playerStats = stats;
-        switch (stats.WeightClass.type)
+        switch (stats.Type)
         {
             case WeightClassType.Light:
                 _jumpModule.Config.SetJumpTypeToLight();
@@ -136,6 +140,10 @@ public class Player : PlayerBase
                 //reset to regular stats if not light or heavy
                 _jumpModule.Config.ResetJumpType();
                 _horizontalMovementModule.ResetMovement();
+                break;
+            case WeightClassType.Custom:
+                _jumpModule.Config.SetParameters(stats.PlayerParameters);
+                _horizontalMovementModule.SetParameters(stats.PlayerParameters);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

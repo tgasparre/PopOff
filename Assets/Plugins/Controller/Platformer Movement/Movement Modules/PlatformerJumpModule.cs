@@ -58,6 +58,13 @@ namespace ControllerSystem.Platformer2D
             private float prevJumpHeight;
             
             //code not from crown starts here
+            public void SetParameters(CustomPlayerParameters parameters)
+            {
+                NumDoubleJumps = parameters.numDoubleJump;
+                JumpHeight = parameters.jumpHeight;
+                JumpEndEarlyForce = parameters.jumpEndEarlyForce;
+            }
+            
             public void SetJumpTypeToLight()
             {
                 NumDoubleJumps = 2;

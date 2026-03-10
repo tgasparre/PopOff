@@ -30,6 +30,8 @@ public abstract class MiniGameInfo : MonoBehaviour
     public bool HasTimer => _miniGameTime > 0;
     [SerializeField] private Powerup[] _powerupReward = Array.Empty<Powerup>();
     private Powerup _chosenPowerup;
+    [SerializeField] private PlayerStats _minigameStats;
+    public PlayerStats MiniGameStats => _minigameStats;
     
     [Space]
     [Tooltip("Time to wait before starting the countdown after loading the scene")] [SerializeField] private float _waitAfterLoadingTime = 0.8f;
@@ -99,6 +101,7 @@ public abstract class MiniGameInfo : MonoBehaviour
             _players[controller.PlayerIndex] = new PlayerTrack(controller);
         }
         _playerControllers = _players.Select(t => t.controller).ToArray();
+        AssignWeightClasses(_minigameStats);
         
         _isPlayingMiniGame = true;
         StartMiniGame();
@@ -132,7 +135,8 @@ public abstract class MiniGameInfo : MonoBehaviour
         {
             _players[_winningPlayerIndex].controller.ApplyPowerup(_chosenPowerup);
         }
-        
+
+        ResetWeightClasses();
         _players = null;
         _playerControllers = null;
         _winningPlayerIndex = -1;
@@ -150,6 +154,29 @@ public abstract class MiniGameInfo : MonoBehaviour
     private Powerup GetRandomPowerup()
     {
         return _powerupReward.Length == 0 ? null : _powerupReward[Random.Range(0, _powerupReward.Length)];
+    }
+
+    private void AssignWeightClasses(PlayerStats stats)
+    {
+        if (stats == null) return;
+        foreach (PlayerController controller in _playerControllers)
+        {
+            if (controller.ActivePlayer is Player player)
+            {
+                player.AssignWeightClass(stats);
+            }
+        }
+    }
+
+    private void ResetWeightClasses()
+    {
+        foreach (PlayerController controller in _playerControllers)
+        {
+            if (controller.ActivePlayer is Player player)
+            {
+                player.ResetWeightClass();
+            }
+        }
     }
 
     /// <summary>

@@ -28,7 +28,7 @@ public class AttackHitbox : MonoBehaviour
     //apply this player's damage multiplier depending on their weightclass
     public void SetAttackDamage(float damage)
     {
-        attackDamage =  damage * thisPlayer.playerStats.WeightClass.damageMultiplier;
+        // attackDamage =  damage * thisPlayer.playerStats.WeightClass.damageMultiplier;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -53,7 +53,7 @@ public class AttackHitbox : MonoBehaviour
 
             Vector2 direction = (hitPlayer.transform.position - thisPlayer.transform.position).normalized;
             direction += Vector2.up * attackerInput.GetMoveInput().y;
-            hitPlayer.ApplyKnockback(direction, thisPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
+            hitPlayer.ApplyKnockback(direction, thisPlayer.playerStats.KnockbackMultiplier(), CombatParameters.knockbackForce);
             
             hitSuccessful = true;
         }
