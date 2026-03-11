@@ -13,6 +13,6 @@ public static class CombatParameters
     public static readonly float ultimateKnockbackForce = 5f;
     
     
-    public static readonly float hitStunDuration = 0.2f;
+    public static readonly float hitStunDuration = 0.5f;
 }
 
