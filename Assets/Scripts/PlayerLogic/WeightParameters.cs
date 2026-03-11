@@ -8,9 +8,9 @@ public static class WeightParameters
 
    //light weightclass
    public static float lightDamageMultiplier = 0.8f;
-   public static float lightKnockbackMultiplier = 1.5f;
+   public static float lightKnockbackMultiplier = 1.3f;
 
    //heavy weightclass
    public static float heavyDamageMultiplier = 1.2f;
-   public static float heavyKnockbackMultiplier = 0.5f;
+   public static float heavyKnockbackMultiplier = 0.7f;
 }

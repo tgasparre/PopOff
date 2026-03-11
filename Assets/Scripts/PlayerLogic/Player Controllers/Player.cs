@@ -67,6 +67,11 @@ public class Player : PlayerBase
         }
     }
 
+    public void InstaDeath()
+    {
+        OnDeath(this);
+    }
+
     public void HealHP(int heal)
     {
         hurtbox.HP += heal;
