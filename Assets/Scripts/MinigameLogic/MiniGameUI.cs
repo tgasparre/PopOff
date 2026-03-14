@@ -90,9 +90,9 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         _miniGameCountdownTimer.text = info.MiniGameTime.ToString();
     }
 
-    public void OnWinMiniGame(string player, string reward)
+    public void OnWinMiniGame(int playerIndex, string reward)
     {
-        _playerName.text = player;
+        _playerName.text = GameUtils.PlayerNames[playerIndex];
         _rewardText.text = reward;
         CurrentState = UIState.Results;
     }

@@ -13,6 +13,12 @@ public class Player : PlayerBase
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
+
+    public float PlayerHealth
+    {
+        get => hurtbox.HP;
+        set => hurtbox.HP = value;
+    }
     
     public float Movement => _playerInputManager.GetMoveInput().x;
     public bool InAir => !_jumpModule.Grounded;

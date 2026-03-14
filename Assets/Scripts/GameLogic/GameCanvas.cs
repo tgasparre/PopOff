@@ -66,9 +66,9 @@ public class GameCanvas : MonoBehaviour
         _miniGameScreen.UpdateCountdown(time);
     }
 
-    public void OnWinMiniGame(string player, string reward)
+    public void OnWinMiniGame(int playerIndex, string reward)
     {
-        _miniGameScreen.OnWinMiniGame(player, reward);
+        _miniGameScreen.OnWinMiniGame(playerIndex, reward);
     }
 
     public void HideMiniGameDescription()

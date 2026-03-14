@@ -32,6 +32,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     private Powerup _chosenPowerup;
     [SerializeField] private PlayerStats _minigameStats;
     public PlayerStats MiniGameStats => _minigameStats;
+    [SerializeField] private int _miniGameStartingHealth = 100;
     
     [Space]
     [Tooltip("Time to wait before starting the countdown after loading the scene")] [SerializeField] private float _waitAfterLoadingTime = 0.8f;
@@ -46,6 +47,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected PlayerController[] _playerControllers;
     protected int _alivePlayers;
     protected int _winningPlayerIndex = -1;
+    protected float[] _combatPlayerHealth;
 
     private Action _onGameComplete;
     private Coroutine _countdownCoroutine;
@@ -98,7 +100,8 @@ public abstract class MiniGameInfo : MonoBehaviour
         _players = new PlayerTrack[players.Length];
         foreach (PlayerController controller in players)
         {
-            _players[controller.PlayerIndex] = new PlayerTrack(controller);
+            _players[controller.PlayerIndex] = new PlayerTrack(controller, controller.PlayerHealth);
+            controller.PlayerHealth = _miniGameStartingHealth;
         }
         _playerControllers = _players.Select(t => t.controller).ToArray();
         AssignWeightClasses(_minigameStats);
@@ -136,6 +139,12 @@ public abstract class MiniGameInfo : MonoBehaviour
             _players[_winningPlayerIndex].controller.ApplyPowerup(_chosenPowerup);
         }
 
+        //reset health
+        foreach (PlayerTrack track in _players)
+        {
+            track.controller.PlayerHealth = track.gameHealth;
+        }
+        
         ResetWeightClasses();
         _players = null;
         _playerControllers = null;
@@ -217,7 +226,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected virtual void ShowMiniGameResults(Action onFinished, string reward)
     {
         Game.IsFrozen = true;
-        GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex.ToString(), reward);
+        GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);
         StartCoroutine(ResultsScreen());
         return;
         
@@ -232,12 +241,14 @@ public abstract class MiniGameInfo : MonoBehaviour
     {
         public readonly PlayerController controller;
         public bool isDeadInMiniGame;
+        public float gameHealth;
         public int PlayerIndex => controller.PlayerIndex;
 
-        public PlayerTrack(PlayerController c)
+        public PlayerTrack(PlayerController c, float hp)
         {
             controller = c;
             isDeadInMiniGame = false;
+            gameHealth = hp;
         }
     }
 }

@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
     public void ApplyPowerup(Powerup p) { _defaultPlayer.powerups.ApplyPower(p); }
+    public float PlayerHealth
+    {
+        get => _defaultPlayer.PlayerHealth;
+        set => _defaultPlayer.PlayerHealth = value;
+    }
     
     [Header("Input Handlers")]
     [SerializeField] private InputManager _startingInputManager;
@@ -77,7 +82,10 @@ public class PlayerController : MonoBehaviour
     {
         _defaultPlayer.AssignWeightClass(stat);
     }
+    
 
+    #region Inputs
+    
     public void SetInputEnabled(bool value)
     {
         _startingInputManager.SetEnabled(value);
@@ -121,6 +129,8 @@ public class PlayerController : MonoBehaviour
             DEBUG_toggle = !DEBUG_toggle;
         }
     }
+    
+    #endregion
 }
 
 public enum PlayerState
