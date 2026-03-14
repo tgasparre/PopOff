@@ -3,12 +3,20 @@ public class CombatState : GameState
 {
     public override void EnterState()
     {
-        Game.IsFrozen = false;
+        Game.IsPlayersFrozen = true;
         //TODO -- Play little animation
-        Loader.LoadCombatScene();
-        
-        // //unfreeze all player movement after minigame
-        // Game.Instance.GetActivePlayersTracker().UnfreezeAllPlayers();
+        Loader.LoadCombatScene(StartCountdown);
+        return;
+
+        void StartCountdown()
+        {
+            GameCanvas.Instance.StartCombatCountdown(FinishCountdown);
+        }
+
+        void FinishCountdown()
+        {
+            Game.IsPlayersFrozen = false;
+        }
     }
     
     public override void ExitState()

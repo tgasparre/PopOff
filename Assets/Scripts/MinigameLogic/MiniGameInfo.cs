@@ -47,7 +47,6 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected PlayerController[] _playerControllers;
     protected int _alivePlayers;
     protected int _winningPlayerIndex = -1;
-    protected float[] _combatPlayerHealth;
 
     private Action _onGameComplete;
     private Coroutine _countdownCoroutine;
@@ -59,40 +58,29 @@ public abstract class MiniGameInfo : MonoBehaviour
     {
         _alivePlayers = Game.PlayerCount; 
         _onGameComplete = onGameComplete;
-        StartCoroutine(IntroCountdown());
+        StartCoroutine(StartCountdown());
         return;
         
-        IEnumerator IntroCountdown()
+        IEnumerator StartCountdown()
         {
             yield return new WaitForSeconds(_waitAfterLoadingTime);
             yield return new WaitForSeconds(_waitForInstructionTime);
             GameCanvas.Instance.HideMiniGameDescription();
             yield return new WaitForSeconds(0.6f);
-            yield return StartCoroutine(Countdown(_countdownTimer));
+
+            yield return GameCanvas.MiniGameUI.StartCurrentCountdown();
             yield return new WaitForSeconds(_waitBeforeStartingTime);
-            
+
             onIntroComplete.Invoke();
             if (!HasTimer)
             {
-                GameCanvas.Instance.UpdateMiniGameCountdown("");
+                GameCanvas.MiniGameUI.DisableCountdown();
                 yield break;
             }
             
             //being minigame timer
-            _countdownCoroutine = StartCoroutine(Countdown(_miniGameTime, _onGameComplete));
+            _countdownCoroutine = GameCanvas.MiniGameUI.StartCurrentCountdown(_onGameComplete);
         }
-    }
-
-    private static IEnumerator Countdown(float startTime, Action finished = null)
-    {
-        float timer = startTime;
-        while (timer >= 0)
-        {
-            GameCanvas.Instance.UpdateMiniGameCountdown(Mathf.RoundToInt(timer).ToString());    
-            timer -= Time.deltaTime;
-            yield return null;
-        }
-        finished?.Invoke();
     }
     
     public void Begin(PlayerController[] players)

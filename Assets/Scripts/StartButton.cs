@@ -5,52 +5,37 @@ using UnityEngine;
 
 public class StartButton : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _startGameText;
+    [SerializeField] private CountdownUI _startGameCountdown;
     [SerializeField] private int _defaultStartTime = 3;
-    private float _timer = 0;
-    private Coroutine _runningTimer = null;
 
     private void Awake()
     {
-        _startGameText.gameObject.SetActive(false);
-        _timer = _defaultStartTime;
-    }
-
-    private void OnDestroy()
-    {
+        _startGameCountdown.gameObject.SetActive(false);
         ResetCoroutine();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (_runningTimer != null || (Game.PlayerCount <= 1 && !Game.Instance.bypassOnePlayerBlock)) return;
-        _startGameText.gameObject.SetActive(true);
-        _runningTimer = StartCoroutine(StartGameTimer());
+        if (_startGameCountdown.isRunning || (Game.PlayerCount <= 1 && !Game.Instance.bypassOnePlayerBlock)) return;
+        _startGameCountdown.gameObject.SetActive(true);
+        _startGameCountdown.StartCountdown(StartGame, 0.5f);
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         ResetCoroutine();
     }
-
-    private IEnumerator StartGameTimer()
-    {
-        while (_timer >= 0)
-        {
-            _timer -= Time.deltaTime;
-            _startGameText.text = ((int)_timer + 1).ToString();
-            yield return null;
-        }
-        Game.currentState = GameStates.Playing;
-        _runningTimer = null;
-    }
-
+    
     private void ResetCoroutine()
     {
-        if (_runningTimer == null) return;
-        _timer = _defaultStartTime;
-        _startGameText.gameObject.SetActive(false);
-        StopCoroutine(_runningTimer);
-        _runningTimer = null;
+        if (_startGameCountdown == null) return;
+        _startGameCountdown.StopCountdownNoTrigger();
+        _startGameCountdown.InitializeCountdown(_defaultStartTime);
+        _startGameCountdown.gameObject.SetActive(false);
+    }
+
+    private void StartGame()
+    {
+        Game.currentState = GameStates.Playing;
     }
 }

@@ -16,8 +16,15 @@ public class Player : PlayerBase
 
     public float PlayerHealth
     {
-        get => hurtbox.HP;
-        set => hurtbox.HP = value;
+        get
+        {
+            if (hurtbox != null) return hurtbox.HP;
+            return 0;
+        }
+        set 
+        {
+            if (hurtbox != null) hurtbox.HP = value;
+        }
     }
     
     public float Movement => _playerInputManager.GetMoveInput().x;

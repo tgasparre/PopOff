@@ -245,7 +245,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		}
 		_players = new PlayerTrack[MAX_PLAYER];
 		_activePlayers = Array.Empty<PlayerTrack>();
-		GameCanvas.Instance.DestoryUI();
+		GameCanvas.Instance.DestroyUI();
 	}
 
 	public static void DEBUG_SetPlayerStates(PlayerState state)
