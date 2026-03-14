@@ -17,7 +17,7 @@ public static class MovementParameters
    public const float fastGroundAccelerationTime = 0.1f;
    public const float fastAirAccelerationTime = 0.1f;
    public const float fastGroundSpeed = 40 / 3f;
-   public const float fastAirSpeed = 25 / 3f;
+   public const float fastAirSpeed = 45 / 3f;
    public const float fastGroundDrag = 20;
    public const float fastAirDrag = 5;
    
@@ -29,10 +29,10 @@ public static class MovementParameters
    public const float slowTurnAroundSpeedMultiplier = 2f;
    public const float slowGroundAccelerationTime = 0.1f;
    public const float slowAirAccelerationTime = 0.1f;
-   public const float slowGroundSpeed = 20 / 3f;
+   public const float slowGroundSpeed = 23 / 3f;
    public const float slowAirSpeed = 25 / 3f;
    public const float slowGroundDrag = 20;
-   public const float slowAirDrag = 5;
+   public const float slowAirDrag = 6;
    
    public const float heavyJumpHeight = 16.66667f;
    public const float heavyJumpEndEarlyForce = 0.6f;

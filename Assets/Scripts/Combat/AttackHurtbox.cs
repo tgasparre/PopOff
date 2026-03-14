@@ -22,5 +22,10 @@ public class AttackHurtbox : MonoBehaviour
     {
         HP = _startingHealth;
     }
+
+    public void InstantDeath()
+    {
+        player.InstaDeath();
+    }
     
 }
