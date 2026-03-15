@@ -8,13 +8,23 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private CanvasGroup _mainMenu;
     [SerializeField] private CanvasGroup _controlsMenu;
     [SerializeField] private CanvasGroup _creditsMenu;
-    
+
+    [SerializeField] private GameObject _joinText;
+
+    private void Awake()
+    {
+        _joinText.SetActive(false);
+    }
+
     public void OnStartClicked()
     {
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
+            Game.IsPlayersFrozen = false;
             Game.CanJoin = true;
+            
+            _joinText.SetActive(true);
         });
     }
 

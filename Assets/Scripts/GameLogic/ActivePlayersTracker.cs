@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public interface IActivePlayerTracker
 {
@@ -109,10 +110,30 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 					TryJoinPlayer(Keyboard.current);
 				}
 
-				foreach (var gamepad in Gamepad.all.Where(gamepad => gamepad.buttonSouth.wasPressedThisFrame))
+				List<Gamepad> joiningPlayers = new List<Gamepad>();
+				foreach (Gamepad gamepad in Gamepad.all)
+				{
+					foreach (InputControl control in gamepad.allControls)
+					{
+						if (control is ButtonControl buttonControl)
+						{
+							if (buttonControl.isPressed && !buttonControl.synthetic)
+							{
+								joiningPlayers.Add(gamepad);
+								break;
+							}
+						}
+					}
+				}
+
+				foreach (Gamepad gamepad in joiningPlayers)
 				{
 					TryJoinPlayer(gamepad);
 				}
+				// foreach (Gamepad gamepad in Gamepad.all.Where(gamepad => gamepad.buttonSouth.wasPressedThisFrame))
+				// {
+				// 	TryJoinPlayer(gamepad);
+				// }
 				yield return null;
 			}
 			_joinCoroutine = null;

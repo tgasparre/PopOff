@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CountdownUI : MonoBehaviour
 {
+   [SerializeField] private CountdownType type = CountdownType.Number;
    [SerializeField] private float _timescaleSpeed = 1f;
    
    private int _startingNumber = -1;
@@ -12,11 +13,15 @@ public class CountdownUI : MonoBehaviour
    private Coroutine _coroutine = null;
    private Action _onFinished;
 
+   private CanvasGroup _canvasGroup;
+
    public bool isRunning { get; private set; } = false;
 
    private void Awake()
    {
       _countdown = GetComponent<TextMeshProUGUI>();
+      _canvasGroup = GetComponent<CanvasGroup>();
+      _canvasGroup.alpha = 0;
    }
 
    public void InitializeCountdown(int value)
@@ -25,6 +30,13 @@ public class CountdownUI : MonoBehaviour
       {
          _startingNumber = -1;
          _countdown.text = "";
+         return;
+      }
+
+      if (type == CountdownType.ReadyGo)
+      {
+         _startingNumber = 1;
+         _countdown.text = "Ready";
          return;
       }
       
@@ -39,15 +51,16 @@ public class CountdownUI : MonoBehaviour
          Debug.LogError("Starting Number not assigned");
          return null;
       }
-      
+
+      _canvasGroup.alpha = 1f;
       _onFinished = onFinished;
-      _coroutine ??= StartCoroutine(Timer());
+      _coroutine ??= StartCoroutine(type == CountdownType.Number ? Timer() : ReadyGo());
       return _coroutine;
-      
+
       IEnumerator Timer()
       {
          yield return new WaitForSeconds(delay);
-         
+
          isRunning = true;
          float timer = _startingNumber;
          while (timer >= 0)
@@ -57,9 +70,20 @@ public class CountdownUI : MonoBehaviour
             yield return null;
          }
 
-         isRunning = false;
-         _coroutine = null; 
-         onFinished?.Invoke();
+         StopCountdown();
+      }
+
+      IEnumerator ReadyGo()
+      {
+         yield return new WaitForSeconds(delay);
+
+         isRunning = true;
+         _countdown.text = "Ready";
+         yield return new WaitForSeconds(1.8f);
+         _countdown.text = "Go";
+         yield return new WaitForSeconds(0.8f);
+
+         StopCountdown();
       }
    }
 
@@ -68,6 +92,7 @@ public class CountdownUI : MonoBehaviour
       if (_coroutine != null) StopCoroutine(_coroutine);
       _coroutine = null;
       isRunning = false;
+      _canvasGroup.alpha = 0f;
       
       _onFinished?.Invoke();
       _onFinished = null;
@@ -78,6 +103,7 @@ public class CountdownUI : MonoBehaviour
       if (_coroutine != null) StopCoroutine(_coroutine);
       _coroutine = null;
       isRunning = false;
+      _canvasGroup.alpha = 0f;
       
       _onFinished = null;
    }
@@ -85,5 +111,11 @@ public class CountdownUI : MonoBehaviour
    private void OnDestroy()
    {
       StopCountdownNoTrigger();
+   }
+
+   public enum CountdownType
+   {
+      Number,
+      ReadyGo
    }
 }

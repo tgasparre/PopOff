@@ -37,7 +37,6 @@ public abstract class MiniGameInfo : MonoBehaviour
     [Space]
     [Tooltip("Time to wait before starting the countdown after loading the scene")] [SerializeField] private float _waitAfterLoadingTime = 0.8f;
     [Tooltip("Time to read the instructions of the minigame before starting the countdown")] [SerializeField] private float _waitForInstructionTime = 2f;
-    [Tooltip("Time to wait before actually beginning the minigame")] [SerializeField] private float _waitBeforeStartingTime = 0.5f;
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
     private PlayerTrack[] _players;
@@ -66,10 +65,8 @@ public abstract class MiniGameInfo : MonoBehaviour
             yield return new WaitForSeconds(_waitAfterLoadingTime);
             yield return new WaitForSeconds(_waitForInstructionTime);
             GameCanvas.Instance.HideMiniGameDescription();
-            yield return new WaitForSeconds(0.6f);
 
             yield return GameCanvas.MiniGameUI.StartCurrentCountdown();
-            yield return new WaitForSeconds(_waitBeforeStartingTime);
 
             onIntroComplete.Invoke();
             if (!HasTimer)

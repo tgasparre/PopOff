@@ -1492,8 +1492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartingMiniGame
   _miniGameName: Pick your weight
-  _miniGameInstructions: Press <color=red>South Button/Space</color> as fast as possible
-    to fill up your balloon
+  _miniGameInstructions: Press <color=red>South Button/Space</color> fill up your
+    balloon to your preferred weight class
   _countdownTimer: 3
   _miniGameTime: 8
   _powerupReward: []
@@ -1501,7 +1501,6 @@ MonoBehaviour:
   _miniGameStartingHealth: 100
   _waitAfterLoadingTime: 0.8
   _waitForInstructionTime: 3
-  _waitBeforeStartingTime: 0.6
   _waitBeforeSceneLoad: 1
   _airFillBoards:
   - {fileID: 411353083}

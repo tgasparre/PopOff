@@ -43,7 +43,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         _render.flipX = !_player.IsFacingLeft;
         
-        _animator.SetFloat(Movement, Mathf.Abs(_player.Movement));
+        _animator.SetFloat(Movement, Mathf.RoundToInt(Mathf.Abs(_player.Movement)));
         _animator.SetBool(InAir, _player.InAir);
     }
 
