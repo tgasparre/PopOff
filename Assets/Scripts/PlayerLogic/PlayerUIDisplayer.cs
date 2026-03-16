@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,83 +7,44 @@ public class PlayerUIDisplayer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _health;
-
-    private AttackHurtbox _hurtbox;
     
+    [Space]
+    [SerializeField] private Slider _ultimateAttackSlider;
+    [SerializeField] private Image _sliderImage;
+    [SerializeField] private Gradient _ultimateGradient;
     
-    public void UpdateHealth(string health)
+    private Player _player;
+
+    public void InitializePlayerUI(Player player)
     {
-        _health.text = $"<color=red>{health}</color>";
+        _sliderImage.enabled = false;
+        
+        _player = player;
+        _name.text = GameUtils.PlayerNames[_player.PlayerIndex];
+        Register();
+    }
+    
+    private void Register()
+    {
+        _player.UICallback_PlayerHealthChange += UpdateHealth;
+        _player.UICallback_UltimateAttackChange += UpdateUltimateAttack;
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if (_hurtbox != null)
-        {
-            UpdateHealth(Mathf.RoundToInt(_hurtbox.HP).ToString());
-        }
+        _player.UICallback_PlayerHealthChange -= UpdateHealth;
+        _player.UICallback_UltimateAttackChange -= UpdateUltimateAttack;
     }
 
-    public void InitializePlayerUI(int index, AttackHurtbox hurtbox)
+    public void UpdateHealth(float health)
     {
-        _name.text = index switch
-        {
-            0 => "Player One",
-            1 => "Player Two",
-            2 => "Player Three",
-            3 => "Player Four",
-            _ => _name.text
-        };
-        UpdateHealth("200");
-        _hurtbox = hurtbox;
+        _health.text = health.ToString();
     }
 
-    public void UpdateUltimateAttackUI(float fillAmount)
+    public void UpdateUltimateAttack(float value, bool isActive)
     {
-        //TODO
+        _sliderImage.enabled = value > 0;
+        _sliderImage.color = _ultimateGradient.Evaluate(value);
+        _ultimateAttackSlider.value = value;
     }
 }
-
-// public HorizontalLayoutGroup healthBarContainer;
-//     
-// [SerializeField] private GameObject playerDisplayPrefab;
-//     
-// public Slider slider;
-// public Image fillImage;
-// public Gradient gradient;
-//     
-// // Start is called once before the first execution of Update after the MonoBehaviour is created
-// void Start()
-// {
-//     slider.value = 0;
-//
-//     healthBarContainer = gameObject.GetComponentInParent<HorizontalLayoutGroup>();
-// }
-//     
-// public void SubscribeToTracker(UltimateAttackTracker tracker)
-// {
-//     tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
-// }
-//     
-// public void UpdateUI(float fillAmount)
-// {
-//     slider.value = fillAmount;
-// }
-//
-// public void InitializePlayerUI(AttackHurtbox hurtbox)
-// {
-//     gameObject.GetComponentInChildren<HPDisplayer>().Initialize(hurtbox);
-// }
-//
-// public void DeletePlayerUI()
-// {
-//     Destroy(gameObject);
-// }
-//
-// private void OnUltimateAttackUnlocked()
-// {
-//     if (fillImage != null)
-//     { 
-//         fillImage.color = Color.gold;
-//     }
-// }

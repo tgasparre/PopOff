@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 
 public class CombatInputHandler : MonoBehaviour
 {
-    public event Action OnSuccessfulHit;
-    
     public InputManager InputManager;
     public GameObject hitboxPrefab;
     public GameObject ultimateHitboxPrefab;
@@ -22,20 +20,23 @@ public class CombatInputHandler : MonoBehaviour
     [SerializeField] private Transform _leftAttack;
     [SerializeField] private Transform _rightAttack;
     
-    private bool UltimateAttackEnabled = false;
-    [Space] [SerializeField] private UltimateAttackTracker tracker;
+    private bool UltimateAttackEnabled = false; 
+    private UltimateAttackTracker _tracker;
 
     private Player _player;
 
     private void Awake()
     {
         _player = GetComponent<Player>();
+        _tracker = GetComponent<UltimateAttackTracker>();
+        _tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
     }
-
-    void Start()
+    private void OnDestroy()
     {
-        tracker.OnUltimateAttackUnlocked += OnUltimateAttackUnlocked;
+        _tracker.OnUltimateAttackUnlocked -= OnUltimateAttackUnlocked;
     }
+    
+    #region Inputs
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
     {
@@ -43,7 +44,7 @@ public class CombatInputHandler : MonoBehaviour
         if (UltimateAttackEnabled)
         {
             PreformUltimate();
-            tracker.ResetTracker();
+            _tracker.ResetTracker();
             ResetUltimateAttack();
         }
     }
@@ -65,10 +66,12 @@ public class CombatInputHandler : MonoBehaviour
         if (context.performed)
         {
             Vector3 attackDirection = GetAttackDirection();
-            PreformSecondaryAttack(attackDirection);
+            PreformAttack(attackDirection);
         }
     }
-
+    
+    #endregion
+    
     private Vector3 GetAttackDirection()
     {
         moveInput = InputManager.GetMoveInput();
@@ -105,87 +108,40 @@ public class CombatInputHandler : MonoBehaviour
     {
         StartCoroutine(UltimateAttackRoutine());
     }
-
-    private void PreformSecondaryAttack(Vector3 offset)
-    {
-        StartCoroutine(SecondaryAttackRoutine(offset));
-    }
     
-    //will likely need changes once we get actual attack animations
     IEnumerator AttackRoutine(Vector3 attackPos)
     {
-        GameObject hitbox = Instantiate(hitboxPrefab, 
-            attackPos, 
-            Quaternion.identity, 
-            transform);
+        GameObject hitbox = Instantiate(hitboxPrefab, attackPos, Quaternion.identity, transform);
         
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
-
         hitboxScript.thisPlayer = _player;
-        
         hitboxScript.SetAttackDamage(10);
         
-        // ChangeToCombatSprite(); // <- change once art is in
-        
-        yield return new WaitForSeconds(0.2f);
+        // yield return new WaitForSeconds(0.2f);
         
         //check to see if the hit was successful to increment ultimate attack meter
         if (hitboxScript.IsSuccessfulHit())
         {
-            OnSuccessfulHit?.Invoke();
+            _tracker.OnSuccessfulHit();
             hitboxScript.ResetSuccessfulHit();
         }
-        //TODO: adjust time once done with testing, 2 seconds is too long for a real hitbox
         Destroy(hitbox, _hitboxLifetime);
-        // ResetSprite();
+        yield break;
     }
-
+    
     IEnumerator UltimateAttackRoutine()
     {
-        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, 
-            transform.position, 
-            Quaternion.identity, 
-            transform);
+        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, transform.position, Quaternion.identity, transform);
         ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = _player;
         
-        // ChangeToCombatSprite();
-        yield return new WaitForSeconds(0.2f);
+        // yield return new WaitForSeconds(0.2f);
         Destroy(ultimateHitbox, 2f);
-        // ResetSprite();
-        
-    }
-
-    //I know this is mostly repeat code, but the animations will need to be different than the primary attack
-    //so it will be useful to have its own coroutine
-    IEnumerator SecondaryAttackRoutine(Vector3 attackPos)
-    {
-        GameObject hitbox = Instantiate(hitboxPrefab, 
-            attackPos, 
-            Quaternion.identity, 
-            transform);
-        
-        AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
-
-        hitboxScript.thisPlayer = _player;
-        hitboxScript.SetAttackDamage(25);
-        
-        // ChangeToCombatSprite();
-        
-        yield return new WaitForSeconds(0.2f);
-        
-        //check to see if the hit was successful to increment ultimate attack meter
-        if (hitboxScript.IsSuccessfulHit())
-        {
-            OnSuccessfulHit?.Invoke();
-            hitboxScript.ResetSuccessfulHit();
-        }
-        //TODO: adjust time once done with testing, 2 seconds is too long for a real hitbox
-        Destroy(hitbox, _hitboxLifetime);
-        // ResetSprite();
+        yield break;
     }
     
     private void OnUltimateAttackUnlocked()
     {
+        //TODO play sound
         UltimateAttackEnabled = true;
         Debug.Log("Ultimate attack unlocked!");
     }
@@ -194,11 +150,4 @@ public class CombatInputHandler : MonoBehaviour
     {
         UltimateAttackEnabled = false;
     }
-
-    private void OnDestroy()
-    {
-        tracker.OnUltimateAttackUnlocked -= OnUltimateAttackUnlocked;
-    }
-
-    
 }

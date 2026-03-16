@@ -78,9 +78,9 @@ public class GameCanvas : MonoBehaviour
         _combatScreen.StartCombatCountdown(onFinished);
     }
 
-    public void CreatePlayerUI(PlayerController playerController)
+    public PlayerUIDisplayer CreatePlayerUI(PlayerController playerController)
     {
-        _playerUIController.CreatePlayerUI(playerController);
+        return _playerUIController.CreatePlayerUI(playerController);
     }
 
     public void DestroyUI()

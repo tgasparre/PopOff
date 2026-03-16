@@ -127,6 +127,7 @@ public abstract class MiniGameInfo : MonoBehaviour
         //reset health
         foreach (PlayerTrack track in _players)
         {
+            if (track.gameHealth == 0) continue;
             track.controller.PlayerHealth = track.gameHealth;
         }
         
@@ -226,7 +227,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     {
         public readonly PlayerController controller;
         public bool isDeadInMiniGame;
-        public float gameHealth;
+        public readonly float gameHealth;
         public int PlayerIndex => controller.PlayerIndex;
 
         public PlayerTrack(PlayerController c, float hp)

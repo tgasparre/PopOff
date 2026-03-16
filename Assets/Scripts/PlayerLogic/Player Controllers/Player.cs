@@ -8,12 +8,15 @@ using UnityEngine.InputSystem;
 public class Player : PlayerBase
 {
     [SerializeField] private PlayerStats _defaultStats;
+ 
+    public event Action<Player> OnDeath;
+    public event Action<float> UICallback_PlayerHealthChange;
+    public event Action<float, bool> UICallback_UltimateAttackChange;
     
     // ===== References =====
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
-
     public float PlayerHealth
     {
         get
@@ -23,7 +26,11 @@ public class Player : PlayerBase
         }
         set 
         {
-            if (hurtbox != null) hurtbox.HP = value;
+            if (hurtbox != null)
+            {
+                hurtbox.HP = value;
+                UICallback_PlayerHealthChange?.Invoke(hurtbox.HP);
+            }
         }
     }
     
@@ -43,8 +50,6 @@ public class Player : PlayerBase
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
     
-    public Action<Player> OnDeath;
-    
     new void Awake()
     {
         base.Awake();
@@ -56,7 +61,21 @@ public class Player : PlayerBase
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         ResetWeightClass();
+
+        _ultimateAttackTracker.UICallback_OnUltimateAttackChange += UICallback_UltimateAttackChange;
     }
+    
+    private void OnDestroy()
+    {
+        OnDeath = null;
+        _ultimateAttackTracker.UICallback_OnUltimateAttackChange -= UICallback_UltimateAttackChange;
+    }
+
+    public void Register(Action<Player> deathCallback)
+    {
+        base.Register();
+        OnDeath = deathCallback;
+    } 
 
     #region Inputs
 
@@ -70,10 +89,10 @@ public class Player : PlayerBase
     
     public void TakeDamage(float damage)
     {
-        hurtbox.HP -= damage;
+        PlayerHealth -= damage;
         _animation.DamageFlash();
         
-        if (hurtbox.HP <= 0)
+        if (PlayerHealth <= 0)
         {
             OnDeath(this);
         }
@@ -86,10 +105,10 @@ public class Player : PlayerBase
 
     public void HealHP(int heal)
     {
-        hurtbox.HP += heal;
-        if (hurtbox.HP > 200)
+        PlayerHealth += heal;
+        if (PlayerHealth > 200)
         {
-            hurtbox.HP = 200;
+            PlayerHealth = 200;
         }
     }
 
@@ -179,11 +198,6 @@ public class Player : PlayerBase
     {
         _horizontalMovementModule.SetMovementSpeed(_movementSpeed);
         _jumpModule.Config.ReEnableJump();
-    }
-
-    private void OnDestroy()
-    {
-        OnDeath = null;
     }
 }
 

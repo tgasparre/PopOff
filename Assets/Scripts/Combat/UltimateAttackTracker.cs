@@ -4,65 +4,38 @@ using UnityEngine;
 public class UltimateAttackTracker : MonoBehaviour
 {
     public event Action OnUltimateAttackUnlocked;
+    public event Action<float, bool> UICallback_OnUltimateAttackChange;
     
-    public PlayerUIDisplayer playerUI;
-    public int AttacksNeededForUltimate = 5;
-    private int currentAttacks = 0;
-    
-    [SerializeField] private CombatInputHandler combatInputHandler;
+    [SerializeField] private int _attacksNeededForUltimate = 5;
+    private int _currentAttacks = 0;
 
-    void Start()
+    public int CurrentAttacks
     {
-        combatInputHandler.OnSuccessfulHit += OnSuccessfulHit;
-    }
-
-    public void SetPlayerUI(PlayerUIDisplayer playerUIDisplayer)
-    {
-        playerUI = playerUIDisplayer;
-        playerUI.UpdateUltimateAttackUI(0);
+        get => _currentAttacks;
+        set
+        {
+            _currentAttacks = value;
+            UICallback_OnUltimateAttackChange?.Invoke((float)value/_attacksNeededForUltimate, false);
+        }
     }
 
     public void ResetTracker()
     {
-        currentAttacks = 0;
-        playerUI.UpdateUltimateAttackUI(0);
+        CurrentAttacks = 0;
     }
 
-    private void OnSuccessfulHit()
+    public void OnSuccessfulHit()
     {
-        if (playerUI == null)
-        {
-            return;
-        }
-        
-        if (currentAttacks >= AttacksNeededForUltimate)
-        {
-            UnlockUltimateAttack();
-        }
+        if (CurrentAttacks >= _attacksNeededForUltimate) UnlockUltimateAttack();
         else
         {
-            IncrementUltimateAttackCounter();
+            if (CurrentAttacks < _attacksNeededForUltimate) ++CurrentAttacks;
         }
-        
-        playerUI.UpdateUltimateAttackUI(currentAttacks);
     }
     
     private void UnlockUltimateAttack()
     {
+        UICallback_OnUltimateAttackChange?.Invoke(_attacksNeededForUltimate, true);
         OnUltimateAttackUnlocked?.Invoke();
-        
     }
-    
-    private void IncrementUltimateAttackCounter()
-    {
-        if (currentAttacks < AttacksNeededForUltimate)
-            ++currentAttacks;
-    }
-    
-    //unsubscribe to OnSuccessfulHit
-    void OnDestroy()
-    {
-        combatInputHandler.OnSuccessfulHit -= OnSuccessfulHit;
-    }
-    
 }

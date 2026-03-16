@@ -158,7 +158,6 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		Joined?.Invoke(player);
 		joinedPlayerCount++;
 		
-		GameCanvas.Instance.CreatePlayerUI(player);
 	}
 
 	public void OnEndJoin()
