@@ -10,14 +10,11 @@ public class CombatState : GameState
     private void StartCountdown()
     {
         Game.IsPlayersFrozen = true;
-        GameCanvas.Instance.StartCombatCountdown(FinishCountdown);
+        GameCanvas.Instance.StartCombatCountdown(() =>
+        {
+            Game.IsPlayersFrozen = false;
+        });
     }
-
-    private void FinishCountdown()
-    {
-        Game.IsPlayersFrozen = false;
-    }
-    
     
     public override void ExitState()
     {
@@ -29,6 +26,9 @@ public class CombatState : GameState
         throw new System.NotSupportedException();
     }
 
+    /// <summary>
+    /// DEBUG method - starts the combat countdown without loading the combat scene 
+    /// </summary>
     public void DEBUG_StartCountdown()
     {
         Game.IsPlayersFrozen = true;

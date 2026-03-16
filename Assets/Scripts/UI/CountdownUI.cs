@@ -12,6 +12,10 @@ public class CountdownUI : MonoBehaviour
    private TextMeshProUGUI _countdown;
    private Coroutine _coroutine = null;
    private Action _onFinished;
+   
+   [Header("Ready Go Settings")]
+   [SerializeField] private float _readyWaitTime = 1.8f;
+   [SerializeField] private float _goWaitTime = 0.8f;
 
    private CanvasGroup _canvasGroup;
 
@@ -79,9 +83,9 @@ public class CountdownUI : MonoBehaviour
 
          isRunning = true;
          _countdown.text = "Ready";
-         yield return new WaitForSeconds(1.8f);
+         yield return new WaitForSeconds(_readyWaitTime);
          _countdown.text = "Go";
-         yield return new WaitForSeconds(0.8f);
+         yield return new WaitForSeconds(_goWaitTime);
 
          StopCountdown();
       }
