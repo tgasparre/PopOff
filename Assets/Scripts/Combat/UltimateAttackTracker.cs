@@ -26,11 +26,8 @@ public class UltimateAttackTracker : MonoBehaviour
 
     public void OnSuccessfulHit()
     {
-        if (CurrentAttacks >= _attacksNeededForUltimate) UnlockUltimateAttack();
-        else
-        {
-            if (CurrentAttacks < _attacksNeededForUltimate) ++CurrentAttacks;
-        }
+        CurrentAttacks++;
+        if (CurrentAttacks == _attacksNeededForUltimate) UnlockUltimateAttack();
     }
     
     private void UnlockUltimateAttack()

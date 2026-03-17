@@ -684,14 +684,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatInputHandler
   InputManager: {fileID: -3513391965951973333}
   hitboxPrefab: {fileID: 3381663754871476220, guid: f268201e5cabb914b9379ef257aa1b9e, type: 3}
-  ultimateHitboxPrefab: {fileID: 4727914425852663025, guid: f8c66bb8d2e722d4bac823d693804aff, type: 3}
+  ultimateHitboxPrefab: {fileID: 362156727819583380, guid: b38504dc09e0dc711810506944288104, type: 3}
   _hitboxLifetime: 0.2
+  _ultimateHitboxLifetime: 0.8
   _angleSectorValue: 45
   _upAttack: {fileID: 5982143638330029620}
   _downAttack: {fileID: 2002634596113616065}
   _leftAttack: {fileID: 2227577367149958629}
   _rightAttack: {fileID: 3886515783455640000}
-  tracker: {fileID: 1766012394733150405}
 --- !u!114 &-3513391965951973333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,9 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0757763fe04c3754c8528a04ad4ff33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UltimateAttackTracker
-  playerUI: {fileID: 0}
-  AttacksNeededForUltimate: 5
-  combatInputHandler: {fileID: 4562915021269651356}
+  _attacksNeededForUltimate: 5
 --- !u!114 &3998949220849115704
 MonoBehaviour:
   m_ObjectHideFlags: 0

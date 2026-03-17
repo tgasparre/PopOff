@@ -13,6 +13,7 @@ public class CombatInputHandler : MonoBehaviour
     private Vector2 moveInput;
     [Header("Attack Settings")]
     [SerializeField] private float _hitboxLifetime = 0.5f;
+    [SerializeField] private float _ultimateHitboxLifetime = 0.8f;
     [Header("Attack Locations")]
     [SerializeField] [Range(0,90)] private float _angleSectorValue = 45;
     [SerializeField] private Transform _upAttack;
@@ -43,8 +44,8 @@ public class CombatInputHandler : MonoBehaviour
         if (!InputManager.isInputEnabled) return;
         if (UltimateAttackEnabled)
         {
-            PreformUltimate();
-            _tracker.ResetTracker();
+            Vector3 attackDirection = GetAttackDirection(true);
+            PreformUltimate(attackDirection);
             ResetUltimateAttack();
         }
     }
@@ -72,11 +73,11 @@ public class CombatInputHandler : MonoBehaviour
     
     #endregion
     
-    private Vector3 GetAttackDirection()
+    private Vector3 GetAttackDirection(bool limitVertical = false)
     {
         moveInput = InputManager.GetMoveInput();
         float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg;
-        if (angle == 0)
+        if (angle == 0 || limitVertical)
         {
             return InputManager.GetFacingDirection() switch
             {
@@ -98,45 +99,29 @@ public class CombatInputHandler : MonoBehaviour
         };
     }
 
-    private void PreformAttack(Vector3 offset)
+    private void PreformAttack(Vector2 offset)
     {
         _player.TriggerAttack();
-        StartCoroutine(AttackRoutine(offset));
-    }
-
-    private void PreformUltimate()
-    {
-        StartCoroutine(UltimateAttackRoutine());
-    }
-    
-    IEnumerator AttackRoutine(Vector3 attackPos)
-    {
-        GameObject hitbox = Instantiate(hitboxPrefab, attackPos, Quaternion.identity, transform);
-        
+        GameObject hitbox = Instantiate(hitboxPrefab, offset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
-        hitboxScript.thisPlayer = _player;
-        hitboxScript.SetAttackDamage(10);
         
-        // yield return new WaitForSeconds(0.2f);
-        
-        //check to see if the hit was successful to increment ultimate attack meter
-        if (hitboxScript.IsSuccessfulHit())
+        hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Regular, () =>
         {
             _tracker.OnSuccessfulHit();
-            hitboxScript.ResetSuccessfulHit();
-        }
-        Destroy(hitbox, _hitboxLifetime);
-        yield break;
-    }
-    
-    IEnumerator UltimateAttackRoutine()
-    {
-        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, transform.position, Quaternion.identity, transform);
-        ultimateHitbox.GetComponent<UltimateAttackHitbox>().thisPlayer = _player;
+        });
         
-        // yield return new WaitForSeconds(0.2f);
-        Destroy(ultimateHitbox, 2f);
-        yield break;
+        Destroy(hitbox, _hitboxLifetime);
+    }
+
+    private void PreformUltimate(Vector2 offset)
+    {
+        _player.TriggerUltimate();
+        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, offset, Quaternion.identity, transform);
+        AttackHitbox hitboxScript = ultimateHitbox.GetComponent<AttackHitbox>();
+
+        hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, null);
+
+        Destroy(ultimateHitbox, _ultimateHitboxLifetime);
     }
     
     private void OnUltimateAttackUnlocked()
@@ -149,5 +134,13 @@ public class CombatInputHandler : MonoBehaviour
     private void ResetUltimateAttack()
     {
         UltimateAttackEnabled = false;
+        _tracker.ResetTracker();
     }
+    
+    IEnumerator AttackRoutine(Vector3 attackPos)
+    {
+       
+        yield break;
+    }
+
 }

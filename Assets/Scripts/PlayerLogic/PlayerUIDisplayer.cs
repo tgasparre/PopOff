@@ -21,19 +21,22 @@ public class PlayerUIDisplayer : MonoBehaviour
         
         _player = player;
         _name.text = GameUtils.PlayerNames[_player.PlayerIndex];
+        UpdateHealth(player.PlayerHealth);
+        UpdateUltimateAttack(0f, false);
         Register();
     }
     
     private void Register()
     {
         _player.UICallback_PlayerHealthChange += UpdateHealth;
-        _player.UICallback_UltimateAttackChange += UpdateUltimateAttack;
+        _player.ultimateAttackTracker.UICallback_OnUltimateAttackChange += UpdateUltimateAttack;
     }
 
     private void OnDestroy()
     {
+        if (_player == null) return;
         _player.UICallback_PlayerHealthChange -= UpdateHealth;
-        _player.UICallback_UltimateAttackChange -= UpdateUltimateAttack;
+        _player.ultimateAttackTracker.UICallback_OnUltimateAttackChange -= UpdateUltimateAttack;
     }
 
     public void UpdateHealth(float health)

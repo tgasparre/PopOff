@@ -11,12 +11,12 @@ public class Player : PlayerBase
  
     public event Action<Player> OnDeath;
     public event Action<float> UICallback_PlayerHealthChange;
-    public event Action<float, bool> UICallback_UltimateAttackChange;
     
     // ===== References =====
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
+    public UltimateAttackTracker ultimateAttackTracker { private set; get; }
     public float PlayerHealth
     {
         get
@@ -37,13 +37,13 @@ public class Player : PlayerBase
     public float Movement => _playerInputManager.GetMoveInput().x;
     public bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack() { _animation.TriggerAttack(); }
+    public void TriggerUltimate() {_animation.TriggerUltimate();}
 
     // ===== Internal References =====
     private PlayerStateMachine  _playerStateMachine;
     private PlayerAnimation _animation;
     private Powerup _attachedPowerup;
     private float _movementSpeed;
-    private UltimateAttackTracker _ultimateAttackTracker;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
 
@@ -57,18 +57,15 @@ public class Player : PlayerBase
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponentInChildren<PlayerAnimation>();
         _playerStateMachine = GetComponent<PlayerStateMachine>();
-        _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
+        ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         ResetWeightClass();
-
-        _ultimateAttackTracker.UICallback_OnUltimateAttackChange += UICallback_UltimateAttackChange;
     }
     
     private void OnDestroy()
     {
         OnDeath = null;
-        _ultimateAttackTracker.UICallback_OnUltimateAttackChange -= UICallback_UltimateAttackChange;
     }
 
     public void Register(Action<Player> deathCallback)
@@ -87,6 +84,7 @@ public class Player : PlayerBase
 
     #endregion
     
+    #region Health
     public void TakeDamage(float damage)
     {
         PlayerHealth -= damage;
@@ -116,25 +114,27 @@ public class Player : PlayerBase
     {
         hurtbox.ResetHealth();
     }
-
+    #endregion
+    
+    #region Combat 
     public void ApplyHitStun(float duration)
     { 
         //if null starts hitstun, else do nothing which is what we want 
         _hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
     }
     
-    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    public void ApplyKnockback(Vector2 direction, float knockbackForce)
     {
-        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, knockbackMultiplier, knockbackForce));
+        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, knockbackForce));
     }
     
-    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    IEnumerator AddKnockback(Vector2 direction, float knockbackForce)
     {
         float elapsedTime = 0f;
         while (elapsedTime < CombatParameters.knockbackDuration)
         {
             float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
-            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * (knockbackForce * knockbackMultiplier);
+            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * knockbackForce;
 
             _rigidbody2D.AddForce(direction * currentForce * 10);
             
@@ -186,6 +186,7 @@ public class Player : PlayerBase
                 throw new ArgumentOutOfRangeException();
         }
     }
+    #endregion
     
     public void FreezePlayerMovement()
     {

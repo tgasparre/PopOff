@@ -7,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int Movement = Animator.StringToHash("movement");
     private static readonly int InAir = Animator.StringToHash("inAir");
     private static readonly int Attack = Animator.StringToHash("attack");
+    private static readonly int Ultimate = Animator.StringToHash("ultimate");
 
     [SerializeField] private SpriteRenderer _render;
     [SerializeField] private Animator _animator;
@@ -50,5 +51,10 @@ public class PlayerAnimation : MonoBehaviour
     public void TriggerAttack()
     {
         _animator.SetTrigger(Attack);
+    }
+
+    public void TriggerUltimate()
+    {
+        _animator.SetTrigger(Ultimate);
     }
 }

@@ -11,8 +11,7 @@ public class PlayerUIController : MonoBehaviour
     {
         GameObject uiInstance = Instantiate(_playerUIPrefab, _playerUITransform);
         PlayerUIDisplayer playerUIDisplayer = uiInstance.GetComponent<PlayerUIDisplayer>();
-		  
-        // Connect hurtbox to UI
+        
         playerUIDisplayer.InitializePlayerUI(player.ActivePlayer as Player);
         ui.Add(playerUIDisplayer);
         return playerUIDisplayer;

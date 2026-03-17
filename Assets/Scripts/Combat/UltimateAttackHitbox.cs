@@ -21,7 +21,7 @@ public class UltimateAttackHitbox : MonoBehaviour
         if (otherHurtbox != null && !hitPlayers.Contains(otherHurtbox))
         {
             hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
-            hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(), thisPlayer.playerStats.KnockbackMultiplier(), CombatParameters.ultimateKnockbackForce);
+            hitPlayer.ApplyKnockback(attackerInput.GetMoveInput(), CombatParameters.ultimateKnockbackForce);
             otherHurtbox.TakeDamage(50);
             hitPlayers.Add(otherHurtbox);
         }
