@@ -2,7 +2,8 @@ using UnityEngine;
 
 public abstract class GameState
 {
-    protected static ISceneLoader Loader => Game.Instance.SceneLoader;
+    protected static ISceneLoader Loader => Game.SceneLoader;
+    protected static IActivePlayerTracker ActivePlayerTracker => Game.ActivePlayerTracker;
     
     public abstract void EnterState();
     public abstract void ExitState();

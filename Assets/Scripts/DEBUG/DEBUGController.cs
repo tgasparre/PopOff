@@ -23,25 +23,28 @@ public class DEBUGController : MonoBehaviour
 
     [SerializeField] private int _playersToSpawn = 1;
     
+    [Space] [SerializeField] private PlayerState _playerState = PlayerState.Fighting;
     [SerializeField] private GameStates _enteringState = GameStates.Playing; 
     public GameStates EnteringState => _enteringState;
-
     [SerializeField] [HideInInspector] private GameplayStates _playingState = GameplayStates.Combat;
-    public GameplayStates EnteringPlayingState => _playingState;
     
-    private void Start()
+    private IEnumerator Start()
     {
         StateMachineManager.DEBUG_SetGameState(_enteringState); 
         if (_enteringState == GameStates.Playing) PlayingState.DEBUG_SetGamePlayState(_playingState);
+        ActivePlayersTracker.JoinEnded += JoinEnded;        
+        ActivePlayersTracker.Joined += Joined;        
         Debug.Log("== Started DEBUG State: " + Game.currentState + " ==");
-        StartCoroutine(HandleDEBUGJoin());
+        
+        Game.CanJoin = true;
+        yield return new WaitUntil(() => Game.PlayerCount == _playersToSpawn);
+        Game.CanJoin = false;
     }
 
-    private IEnumerator HandleDEBUGJoin()
+    private void OnDestroy()
     {
-        Game.Instance.CanJoin = true;
-        yield return new WaitUntil(() => Game.Instance.PlayerCount == _playersToSpawn);
-        Game.Instance.CanJoin = false;
+        ActivePlayersTracker.JoinEnded -= JoinEnded;
+        ActivePlayersTracker.Joined -= Joined;
     }
 
     private void OnValidate()
@@ -59,6 +62,7 @@ public class DEBUGController : MonoBehaviour
             case "StartingMiniGame":
                 _enteringState = GameStates.Playing;
                 _playingState = GameplayStates.MiniGame;
+                _playerState = PlayerState.StartingMiniGame;
                 break;
             default:
                 if (activeName.Contains("minigame", StringComparison.CurrentCultureIgnoreCase))
@@ -68,6 +72,17 @@ public class DEBUGController : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void JoinEnded()
+    {
+        if (_playingState == GameplayStates.MiniGame) PlayingState.DEBUG_StartMiniGame();
+    }
+
+    private void Joined(PlayerController player)
+    {
+        player.CurrentState = _playerState;
+        ActivePlayersTracker.LookForPlayerSpawn(player.ActivePlayer);
     }
 }
 

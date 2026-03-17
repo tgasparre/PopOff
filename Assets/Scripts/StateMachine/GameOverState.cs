@@ -11,14 +11,14 @@ public class GameOverState : GameState
         // uiHandler.SwitchToEndScreen();
         
         //TODO -- play animation of winner
-        Time.timeScale = 0f;
+        Game.IsFrozen = true;
         GameCanvas.Instance.ShowGameOverScreen();
        // GameCanvas.Instance.GameOverController.SetWinnerName("s");
     }
 
     public override void ExitState()
     {
-        Time.timeScale = 1f;
+        Game.IsFrozen = false;
         GameCanvas.Instance.HideAllScreens();
     }
 

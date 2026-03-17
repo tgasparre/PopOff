@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameCanvas : MonoBehaviour
@@ -18,12 +19,16 @@ public class GameCanvas : MonoBehaviour
     }
 
     [SerializeField] private CanvasGroup _pauseScreen;
+    [SerializeField] private MiniGameUI _miniGameScreen;
     [SerializeField] private GameOverController _gameOverScreen;
+    [SerializeField] private PlayerUIController _playerUIController;
     private TransitionController _transitionController;
     
     [Space]
     [SerializeField] private Button _unpauseButton;
     [SerializeField] private Button _playAgainButton;
+
+    public static IMiniGameUI MiniGameUI => Instance._miniGameScreen;
 
     public void Unpause()
     {
@@ -32,6 +37,7 @@ public class GameCanvas : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         Game.currentState = GameStates.Menu;
     }
 
@@ -53,6 +59,31 @@ public class GameCanvas : MonoBehaviour
         _playAgainButton.Select();
         _gameOverScreen.SetWinnerName();
         CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
+    }
+    
+    public void UpdateMiniGameCountdown(string time)
+    {
+        _miniGameScreen.UpdateCountdown(time);
+    }
+
+    public void OnWinMiniGame(string player, string reward)
+    {
+        _miniGameScreen.OnWinMiniGame(player, reward);
+    }
+
+    public void HideMiniGameDescription()
+    {
+        _miniGameScreen.HideDescription();
+    }
+
+    public void CreatePlayerUI(PlayerController playerController)
+    {
+        _playerUIController.CreatePlayerUI(playerController);
+    }
+
+    public void DestoryUI()
+    {
+        _playerUIController.DestroyUI();
     }
 
     public void HideAllScreens()

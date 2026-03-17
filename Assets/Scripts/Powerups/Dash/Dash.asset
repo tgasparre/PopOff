@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb91961d4bfa1733683db2ec9daab804, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: Assembly-CSharp::DashPowerup
-  _timeToExpire: 10
-  _useCooldown: 0.4
+  _name: Dash
+  _timeToExpire: 2
+  _useCooldown: 0.25
   _icon: {fileID: -7911572535675539837, guid: 5d4daff38e3d9174b873918abcf2c1d4, type: 3}
   _dashStats:
-    dashForce: 60
-    yForce: 12
+    dashForce: 45
+    yForce: 8

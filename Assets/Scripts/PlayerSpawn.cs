@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class PlayerSpawn : MonoBehaviour
 {
-    [SerializeField] private SpawnType _type;
-    public SpawnType Type { get => _type; private set => _type = value; }
+    [SerializeField] private PIndex _type;
+    public PIndex Type { get => _type; private set => _type = value; }
 
-    public void Spawn(GameObject player)
+    public void Spawn(PlayerBase player)
     {
-        player.transform.position = transform.position;
+        player.Spawn(transform.position);
     }
 }
 
-public enum SpawnType
+public enum PIndex
 {
     One = 0,
     Two = 1,

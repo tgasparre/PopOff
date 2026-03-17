@@ -19,13 +19,13 @@ public class UltimateAttackTracker : MonoBehaviour
     public void SetPlayerUI(PlayerUIDisplayer playerUIDisplayer)
     {
         playerUI = playerUIDisplayer;
-        playerUI.UpdateUI(0);
+        playerUI.UpdateUltimateAttackUI(0);
     }
 
     public void ResetTracker()
     {
         currentAttacks = 0;
-        playerUI.UpdateUI(0);
+        playerUI.UpdateUltimateAttackUI(0);
     }
 
     private void OnSuccessfulHit()
@@ -44,7 +44,7 @@ public class UltimateAttackTracker : MonoBehaviour
             IncrementUltimateAttackCounter();
         }
         
-        playerUI.UpdateUI(currentAttacks);
+        playerUI.UpdateUltimateAttackUI(currentAttacks);
     }
     
     private void UnlockUltimateAttack()

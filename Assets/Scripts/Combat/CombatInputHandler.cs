@@ -39,6 +39,7 @@ public class CombatInputHandler : MonoBehaviour
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
     {
+        if (!InputManager.isInputEnabled) return;
         if (UltimateAttackEnabled)
         {
             PreformUltimate();
@@ -49,6 +50,7 @@ public class CombatInputHandler : MonoBehaviour
 
     public void OnPrimaryAttack(InputAction.CallbackContext context)
     {
+        if (!InputManager.isInputEnabled) return;
         if (context.performed)
         {
             Vector3 attackDirection = GetAttackDirection();
@@ -59,6 +61,7 @@ public class CombatInputHandler : MonoBehaviour
 
     public void OnSecondaryAttack(InputAction.CallbackContext context)
     {
+        if (!InputManager.isInputEnabled) return;
         if (context.performed)
         {
             Vector3 attackDirection = GetAttackDirection();

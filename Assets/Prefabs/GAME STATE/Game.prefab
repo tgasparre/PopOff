@@ -59,6 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76b9d3da9de4c54cb0af72a5a0416d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game
+  _playerPrefab: {fileID: 2774913894424997013, guid: 51be7ce37a2e38d0a9cfbff8ed085ca2, type: 3}
+  _mouseAnimation: {fileID: 9100000, guid: c5b76ddfd0aea5b4cafdb6ed093d7892, type: 2}
+  _dogAnimation: {fileID: 9100000, guid: 23508451f84fdaa43879ec7cf76f53a4, type: 2}
+  bypassOnePlayerBlock: 0
 --- !u!114 &1538154858333272104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,8 +85,10 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: cdf843863a235ce458a1a86748ebebd2, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/MiniGame1.unity
+  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0
