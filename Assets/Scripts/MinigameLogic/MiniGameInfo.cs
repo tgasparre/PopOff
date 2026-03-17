@@ -32,7 +32,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     private Powerup _chosenPowerup;
     [SerializeField] private PlayerStats _minigameStats;
     public PlayerStats MiniGameStats => _minigameStats;
-    [SerializeField] private int _miniGameStartingHealth = 100;
+    [SerializeField] private int _miniGameStartingHealth = 200;
     
     [Space]
     [Tooltip("Time to wait before starting the countdown after loading the scene")] [SerializeField] private float _waitAfterLoadingTime = 0.8f;
@@ -40,9 +40,9 @@ public abstract class MiniGameInfo : MonoBehaviour
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
     private PlayerTrack[] _players;
-    private bool _isPlayingMiniGame = false;
     private float _resultsTime = 1.3f;
 
+    protected bool _isPlayingMiniGame { get; private set; }  = false;
     protected PlayerController[] _playerControllers;
     protected int _alivePlayers;
     protected int _winningPlayerIndex = -1;
@@ -118,6 +118,8 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     public void End()
     {
+        OnEndMiniGame();
+        
         //apply powerup
         if (_chosenPowerup != null)
         {
@@ -208,6 +210,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     }
 
     protected abstract void StartMiniGame();
+    protected virtual void OnEndMiniGame() { /* to be inherited */}
 
     protected virtual void ShowMiniGameResults(Action onFinished, string reward)
     {

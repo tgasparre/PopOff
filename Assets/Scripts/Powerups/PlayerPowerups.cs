@@ -35,6 +35,7 @@ public class PlayerPowerups : MonoBehaviour
 
     public void ApplyPower(Powerup p)
     {
+        if (_powerupCoroutine != null) StopCoroutine(_powerupCoroutine);
         _powerupUI.alpha = 1f;
         _currentPower = p;
         _powerupIcon.sprite = p.GetIcon();

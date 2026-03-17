@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Powerup : ScriptableObject
 {
     [Header("Basic Settings")]
-    [SerializeField] private new string _name = "default powerup"; 
+    [SerializeField] private string _name = "default powerup"; 
     [SerializeField] [Tooltip("time powerup is usable, -1 for single use")] protected readonly float _timeToExpire = -1f;
     [SerializeField] protected float _useCooldown = 0.5f;
 
