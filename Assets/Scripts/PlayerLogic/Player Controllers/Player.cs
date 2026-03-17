@@ -34,6 +34,7 @@ public class Player : PlayerBase
         }
     }
     
+    public bool IsFrozen { get; private set; }
     public float Movement => _playerInputManager.GetMoveInput().x;
     public bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack() { _animation.TriggerAttack(); }
@@ -43,12 +44,13 @@ public class Player : PlayerBase
     private PlayerStateMachine  _playerStateMachine;
     private PlayerAnimation _animation;
     private Powerup _attachedPowerup;
-    private float _movementSpeed;
+    private float _savedMovementSpeed;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
 
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
+    private Coroutine _freezeMovementCoroutine;
     
     new void Awake()
     {
@@ -190,15 +192,37 @@ public class Player : PlayerBase
     
     public void FreezePlayerMovement()
     {
-        _movementSpeed = _horizontalMovementModule.GetMovementSpeed();
+        IsFrozen = true;
+        _savedMovementSpeed = _horizontalMovementModule.GetMovementSpeed();
         _horizontalMovementModule.SetMovementSpeed(0f);
         _jumpModule.Config.DisableJump();
     }
 
     public void UnfreezePlayerMovement()
     {
-        _horizontalMovementModule.SetMovementSpeed(_movementSpeed);
+        IsFrozen = false;
+        _horizontalMovementModule.SetMovementSpeed(_savedMovementSpeed);
         _jumpModule.Config.ReEnableJump();
+    }
+
+    /// <summary>
+    /// Freeze the player for a brief moment 
+    /// </summary>
+    public void FreezePlayer(float _duration)
+    {
+        _freezeMovementCoroutine ??= StartCoroutine(Freeze());
+        return;
+        
+        IEnumerator Freeze()
+        {
+            if (IsFrozen) yield break;
+        
+            FreezePlayerMovement();
+            yield return new WaitForSeconds(_duration);
+            UnfreezePlayerMovement();
+            yield return new WaitForSeconds(0.35f);
+            _freezeMovementCoroutine = null;
+        }
     }
 }
 

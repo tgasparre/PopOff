@@ -128,7 +128,6 @@ public class CombatInputHandler : MonoBehaviour
     {
         //TODO play sound
         UltimateAttackEnabled = true;
-        Debug.Log("Ultimate attack unlocked!");
     }
 
     private void ResetUltimateAttack()
