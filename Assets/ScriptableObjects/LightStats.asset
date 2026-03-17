@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b72bac3259c0c4a92016c426b4b5aa, type: 3}
   m_Name: LightStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  WeightClass:
-    type: 0
-    knockbackMultiplier: 0.8
-    damageMultiplier: 0.9
+  _type: 0
+  _knockbackMultiplier: 1
+  _damageMultiplier: 1
+  _parameters:
+    turnAroundSpeed: 0
+    groundAcceleration: 0
+    airAcceleration: 0
+    groundSpeed: 0
+    airSpeed: 0
+    groundDrag: 0
+    airDrag: 0
+    numDoubleJump: 0
+    jumpHeight: 0
+    jumpEndEarlyForce: 0
