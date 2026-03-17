@@ -17,11 +17,10 @@ public class PlayerController : MonoBehaviour
     public void Register(PlayerInput input, Action<Player> deathCallback)
     {
         _playerInput = input;
-        _defaultPlayer.OnDeath = deathCallback;
         CurrentState = _playerState;
         
         _startingPlayer.Register();
-        _defaultPlayer.Register();
+        _defaultPlayer.Register(deathCallback);
 
         _animator.runtimeAnimatorController = Game.Instance.GetPlayerAnimation(PlayerIndex);
         
@@ -30,6 +29,7 @@ public class PlayerController : MonoBehaviour
     }
     public int PlayerIndex => _playerInput.playerIndex;
     public PlayerBase ActivePlayer => (CurrentState == PlayerState.Starting) ? _startingPlayer : _defaultPlayer;
+    public PlayerUIDisplayer PlayerUI { get; private set; } = null;
     
     [Header("Player Objects")]
     [SerializeField] private Animator _animator;
@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
     public void ApplyPowerup(Powerup p) { _defaultPlayer.powerups.ApplyPower(p); }
+    public float PlayerHealth
+    {
+        get => _defaultPlayer.PlayerHealth;
+        set => _defaultPlayer.PlayerHealth = value;
+    }
     
     [Header("Input Handlers")]
     [SerializeField] private InputManager _startingInputManager;
@@ -61,6 +66,7 @@ public class PlayerController : MonoBehaviour
                 OnMove = _defaultInputManager.Move;
                 OnJump = _defaultInputManager.Jump;
                 _defaultPlayer.gameObject.SetActive(true);
+                _defaultPlayer.ResetHealth();
                 break;
             case PlayerState.StartingMiniGame:
                 OnMove = null;
@@ -71,13 +77,19 @@ public class PlayerController : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
         _playerState = state;
+        
+        //initialize UI
+        if (_playerState == PlayerState.Fighting && PlayerUI == null) PlayerUI = GameCanvas.Instance.CreatePlayerUI(this); 
     }
 
     public void AssignWeightClass(PlayerStats stat)
     {
         _defaultPlayer.AssignWeightClass(stat);
     }
+    
 
+    #region Inputs
+    
     public void SetInputEnabled(bool value)
     {
         _startingInputManager.SetEnabled(value);
@@ -121,6 +133,8 @@ public class PlayerController : MonoBehaviour
             DEBUG_toggle = !DEBUG_toggle;
         }
     }
+    
+    #endregion
 }
 
 public enum PlayerState

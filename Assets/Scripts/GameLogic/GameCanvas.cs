@@ -20,6 +20,7 @@ public class GameCanvas : MonoBehaviour
 
     [SerializeField] private CanvasGroup _pauseScreen;
     [SerializeField] private MiniGameUI _miniGameScreen;
+    [SerializeField] private CombatUI _combatScreen;
     [SerializeField] private GameOverController _gameOverScreen;
     [SerializeField] private PlayerUIController _playerUIController;
     private TransitionController _transitionController;
@@ -60,15 +61,10 @@ public class GameCanvas : MonoBehaviour
         _gameOverScreen.SetWinnerName();
         CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
     }
-    
-    public void UpdateMiniGameCountdown(string time)
-    {
-        _miniGameScreen.UpdateCountdown(time);
-    }
 
-    public void OnWinMiniGame(string player, string reward)
+    public void OnWinMiniGame(int playerIndex, string reward)
     {
-        _miniGameScreen.OnWinMiniGame(player, reward);
+        _miniGameScreen.OnWinMiniGame(playerIndex, reward);
     }
 
     public void HideMiniGameDescription()
@@ -76,12 +72,18 @@ public class GameCanvas : MonoBehaviour
         _miniGameScreen.HideDescription();
     }
 
-    public void CreatePlayerUI(PlayerController playerController)
+    public void StartCombatCountdown(Action onFinished)
     {
-        _playerUIController.CreatePlayerUI(playerController);
+        CanvasGroupDisplayer.Show(_combatScreen.Group);
+        _combatScreen.StartCombatCountdown(onFinished);
     }
 
-    public void DestoryUI()
+    public PlayerUIDisplayer CreatePlayerUI(PlayerController playerController)
+    {
+        return _playerUIController.CreatePlayerUI(playerController);
+    }
+
+    public void DestroyUI()
     {
         _playerUIController.DestroyUI();
     }
@@ -89,6 +91,7 @@ public class GameCanvas : MonoBehaviour
     public void HideAllScreens()
     {
         CanvasGroupDisplayer.Hide(_pauseScreen);
+        CanvasGroupDisplayer.Hide(_combatScreen.Group);
         CanvasGroupDisplayer.Hide(_gameOverScreen.canvasGroup);
     }
 }

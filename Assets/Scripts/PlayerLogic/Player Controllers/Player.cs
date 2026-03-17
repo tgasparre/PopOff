@@ -7,31 +7,50 @@ using UnityEngine.InputSystem;
 
 public class Player : PlayerBase
 {
-    [Space]
-    public PlayerStats DEBUG_playerStatsTemplate;
-
+    [SerializeField] private PlayerStats _defaultStats;
+ 
+    public event Action<Player> OnDeath;
+    public event Action<float> UICallback_PlayerHealthChange;
+    
     // ===== References =====
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
+    public UltimateAttackTracker ultimateAttackTracker { private set; get; }
+    public float PlayerHealth
+    {
+        get
+        {
+            if (hurtbox != null) return hurtbox.HP;
+            return 0;
+        }
+        set 
+        {
+            if (hurtbox != null)
+            {
+                hurtbox.HP = value;
+                UICallback_PlayerHealthChange?.Invoke(hurtbox.HP);
+            }
+        }
+    }
     
+    public bool IsFrozen { get; private set; }
     public float Movement => _playerInputManager.GetMoveInput().x;
     public bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack() { _animation.TriggerAttack(); }
+    public void TriggerUltimate() {_animation.TriggerUltimate();}
 
     // ===== Internal References =====
     private PlayerStateMachine  _playerStateMachine;
     private PlayerAnimation _animation;
     private Powerup _attachedPowerup;
-    private float _movementSpeed;
-    private UltimateAttackTracker _ultimateAttackTracker;
+    private float _savedMovementSpeed;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
 
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
-    
-    public Action<Player> OnDeath;
+    private Coroutine _freezeMovementCoroutine;
     
     new void Awake()
     {
@@ -40,11 +59,22 @@ public class Player : PlayerBase
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponentInChildren<PlayerAnimation>();
         _playerStateMachine = GetComponent<PlayerStateMachine>();
-        _ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
+        ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
-        AssignWeightClass(DEBUG_playerStatsTemplate);
+        ResetWeightClass();
     }
+    
+    private void OnDestroy()
+    {
+        OnDeath = null;
+    }
+
+    public void Register(Action<Player> deathCallback)
+    {
+        base.Register();
+        OnDeath = deathCallback;
+    } 
 
     #region Inputs
 
@@ -56,12 +86,13 @@ public class Player : PlayerBase
 
     #endregion
     
+    #region Health
     public void TakeDamage(float damage)
     {
-        hurtbox.HP -= damage;
+        PlayerHealth -= damage;
         _animation.DamageFlash();
         
-        if (hurtbox.HP <= 0)
+        if (PlayerHealth <= 0)
         {
             OnDeath(this);
         }
@@ -74,10 +105,10 @@ public class Player : PlayerBase
 
     public void HealHP(int heal)
     {
-        hurtbox.HP += heal;
-        if (hurtbox.HP > 200)
+        PlayerHealth += heal;
+        if (PlayerHealth > 200)
         {
-            hurtbox.HP = 200;
+            PlayerHealth = 200;
         }
     }
 
@@ -85,25 +116,27 @@ public class Player : PlayerBase
     {
         hurtbox.ResetHealth();
     }
-
+    #endregion
+    
+    #region Combat 
     public void ApplyHitStun(float duration)
     { 
         //if null starts hitstun, else do nothing which is what we want 
         _hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
     }
     
-    public void ApplyKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    public void ApplyKnockback(Vector2 direction, float knockbackForce)
     {
-        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, knockbackMultiplier, knockbackForce));
+        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, knockbackForce));
     }
     
-    IEnumerator AddKnockback(Vector2 direction, float knockbackMultiplier, float knockbackForce)
+    IEnumerator AddKnockback(Vector2 direction, float knockbackForce)
     {
         float elapsedTime = 0f;
         while (elapsedTime < CombatParameters.knockbackDuration)
         {
             float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
-            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * (knockbackForce * knockbackMultiplier);
+            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * knockbackForce;
 
             _rigidbody2D.AddForce(direction * currentForce * 10);
             
@@ -123,11 +156,16 @@ public class Player : PlayerBase
         _hitStunCoroutine = null;
     }
 
-    //may need testing to ensure movement feels good
+    public void ResetWeightClass()
+    {
+        if (_defaultStats == null) Debug.LogError("Default Stats should not be null!");
+        AssignWeightClass(_defaultStats);
+    }
+    
     public void AssignWeightClass(PlayerStats stats)
     {
         playerStats = stats;
-        switch (stats.WeightClass.type)
+        switch (stats.Type)
         {
             case WeightClassType.Light:
                 _jumpModule.Config.SetJumpTypeToLight();
@@ -142,27 +180,49 @@ public class Player : PlayerBase
                 _jumpModule.Config.ResetJumpType();
                 _horizontalMovementModule.ResetMovement();
                 break;
+            case WeightClassType.Custom:
+                _jumpModule.Config.SetParameters(stats.PlayerParameters);
+                _horizontalMovementModule.SetParameters(stats.PlayerParameters);
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
+    #endregion
     
     public void FreezePlayerMovement()
     {
-        _movementSpeed = _horizontalMovementModule.GetMovementSpeed();
+        IsFrozen = true;
+        _savedMovementSpeed = _horizontalMovementModule.GetMovementSpeed();
         _horizontalMovementModule.SetMovementSpeed(0f);
         _jumpModule.Config.DisableJump();
     }
 
     public void UnfreezePlayerMovement()
     {
-        _horizontalMovementModule.SetMovementSpeed(_movementSpeed);
+        IsFrozen = false;
+        _horizontalMovementModule.SetMovementSpeed(_savedMovementSpeed);
         _jumpModule.Config.ReEnableJump();
     }
 
-    private void OnDestroy()
+    /// <summary>
+    /// Freeze the player for a brief moment 
+    /// </summary>
+    public void FreezePlayer(float _duration)
     {
-        OnDeath = null;
+        _freezeMovementCoroutine ??= StartCoroutine(Freeze());
+        return;
+        
+        IEnumerator Freeze()
+        {
+            if (IsFrozen) yield break;
+        
+            FreezePlayerMovement();
+            yield return new WaitForSeconds(_duration);
+            UnfreezePlayerMovement();
+            yield return new WaitForSeconds(0.35f);
+            _freezeMovementCoroutine = null;
+        }
     }
 }
 

@@ -7,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int Movement = Animator.StringToHash("movement");
     private static readonly int InAir = Animator.StringToHash("inAir");
     private static readonly int Attack = Animator.StringToHash("attack");
+    private static readonly int Ultimate = Animator.StringToHash("ultimate");
 
     [SerializeField] private SpriteRenderer _render;
     [SerializeField] private Animator _animator;
@@ -43,12 +44,17 @@ public class PlayerAnimation : MonoBehaviour
     {
         _render.flipX = !_player.IsFacingLeft;
         
-        _animator.SetFloat(Movement, Mathf.Abs(Mathf.RoundToInt(_player.Movement)));
+        _animator.SetFloat(Movement, Mathf.RoundToInt(Mathf.Abs(_player.Movement)));
         _animator.SetBool(InAir, _player.InAir);
     }
 
     public void TriggerAttack()
     {
         _animator.SetTrigger(Attack);
+    }
+
+    public void TriggerUltimate()
+    {
+        _animator.SetTrigger(Ultimate);
     }
 }

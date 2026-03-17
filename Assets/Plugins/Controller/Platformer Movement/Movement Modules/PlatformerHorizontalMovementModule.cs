@@ -56,6 +56,17 @@ namespace ControllerSystem.Platformer2D
             }
         }
 
+        public void SetParameters(CustomPlayerParameters parameters)
+        {
+            _turnAroundSpeedMultiplier = parameters.turnAroundSpeed;
+            _groundAccelerationTime = parameters.groundAcceleration;
+            _airAccelerationTime = parameters.airAcceleration;
+            _groundSpeed = parameters.groundSpeed;
+            _airSpeed = parameters.airSpeed;
+            _groundDrag = parameters.groundDrag;
+            _airDrag = parameters.airDrag;
+        }
+
         public void SetMovementTypeToFast()
         {
             _turnAroundSpeedMultiplier = MovementParameters.fastTurnAroundSpeedMultiplier;

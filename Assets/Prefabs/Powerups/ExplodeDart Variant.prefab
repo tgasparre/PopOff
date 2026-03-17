@@ -57,6 +57,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6680269983971091878, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
+      propertyPath: _lifetime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680269983971091878, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
       propertyPath: _explode._explodePrefab
       value: 
       objectReference: {fileID: 5216513343874438164, guid: f8ff553c5ce019467b3fdcb367c56db6, type: 3}

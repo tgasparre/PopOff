@@ -77,6 +77,7 @@ public class DEBUGController : MonoBehaviour
     private void JoinEnded()
     {
         if (_playingState == GameplayStates.MiniGame) PlayingState.DEBUG_StartMiniGame();
+        if (_playingState == GameplayStates.Combat) PlayingState.DEBUG_StartCombatCountdown();
     }
 
     private void Joined(PlayerController player)
