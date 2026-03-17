@@ -85,6 +85,14 @@ public class PlayingState : GameState
     {
         miniGameState.StartMiniGame();
     }
+
+    /// <summary>
+    /// DEBUG method -- start the combat countdown when entering combat scenes
+    /// </summary>
+    public static void DEBUG_StartCombatCountdown()
+    {
+        combatState.DEBUG_StartCountdown();
+    }
 }
 
 public enum GameplayStates

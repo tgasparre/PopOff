@@ -5,8 +5,8 @@ namespace ControllerSystem.Platformer2D
 {
     public class PlatformerJumpModule : PlatformerMotorModule
     {
-        [SerializeField] private JumpConfig jumpConfig = new JumpConfig();
-        public JumpConfig Config => jumpConfig;
+        [SerializeField] private JumpConfig _jumpSettings;
+        public JumpConfig Config => _jumpSettings;
         public bool Grounded => motor.Grounded;
         
         public override void HandleMovement()
@@ -58,6 +58,13 @@ namespace ControllerSystem.Platformer2D
             private float prevJumpHeight;
             
             //code not from crown starts here
+            public void SetParameters(CustomPlayerParameters parameters)
+            {
+                NumDoubleJumps = parameters.numDoubleJump;
+                JumpHeight = parameters.jumpHeight;
+                JumpEndEarlyForce = parameters.jumpEndEarlyForce;
+            }
+            
             public void SetJumpTypeToLight()
             {
                 NumDoubleJumps = 2;
@@ -95,7 +102,6 @@ namespace ControllerSystem.Platformer2D
             
             // code not from crown ends here
         }
-        [SerializeField] private JumpConfig _jumpSettings;
         
         
         [Serializable]

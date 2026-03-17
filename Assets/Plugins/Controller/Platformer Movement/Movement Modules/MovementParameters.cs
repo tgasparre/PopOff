@@ -37,3 +37,35 @@ public static class MovementParameters
    public const float heavyJumpHeight = 16.66667f;
    public const float heavyJumpEndEarlyForce = 0.6f;
 }
+
+[System.Serializable]
+public struct CustomPlayerParameters
+{
+    public float turnAroundSpeed;
+    public float groundAcceleration;
+    public float airAcceleration;
+    public float groundSpeed;
+    public float airSpeed;
+    public float groundDrag;
+    public float airDrag;
+    
+    public int numDoubleJump;
+    public float jumpHeight;
+    public float jumpEndEarlyForce;
+
+    public CustomPlayerParameters(float turnAroundSpeed, float groundAcceleration, float airAcceleration,
+        float groundSpeed, float airSpeed, float groundDrag, float airDrag, int numDoubleJump, float jumpHeight, float jumpEndEarlyForce)
+    {
+        this.turnAroundSpeed = turnAroundSpeed;
+        this.groundAcceleration = groundAcceleration;
+        this.airAcceleration = airAcceleration;
+        this.groundSpeed = groundSpeed;
+        this.airSpeed = airSpeed;
+        this.groundDrag = groundDrag;
+        this.airDrag = airDrag;
+
+        this.numDoubleJump = numDoubleJump;
+        this.jumpHeight = jumpHeight;
+        this.jumpEndEarlyForce = jumpEndEarlyForce;
+    }
+}

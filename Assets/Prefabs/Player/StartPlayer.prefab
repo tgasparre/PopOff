@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 7934700583049031135}
   - component: {fileID: 846152427212371766}
   - component: {fileID: 4759323558422661124}
+  - component: {fileID: 6288018526767795909}
   m_Layer: 0
   m_Name: StartPlayer
   m_TagString: Untagged
@@ -344,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3df2e4f478da5d54a01e3f6eb38dc24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartPlayerMovement
+  _controller: {fileID: 0}
   _movementSpeed: 4.2
   _boostForce: 15
   _boostInterval: 1.2
@@ -506,6 +508,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79a6ea53-920f-4a8a-b0b5-feedadc4940e
+    m_ActionName: 'Player/DEBUG2[/Keyboard/quote]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -523,4 +529,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a7d07d8aa69a54394b4d2a060ab943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: com.shellter.input-management::InputManagement.InputManager
-  playerInput: {fileID: 846152427212371766}
+  _playerInput: {fileID: 0}
+--- !u!114 &6288018526767795909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891316446291471739}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06925f2b4ab0cd04abe3e223fb82687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackHurtbox
+  player: {fileID: 0}
+  _startingHealth: -1
