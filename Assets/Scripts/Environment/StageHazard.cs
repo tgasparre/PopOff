@@ -1,0 +1,22 @@
+using UnityEngine;
+
+public class StageHazard : MonoBehaviour
+{
+    [SerializeField] private Vector2 knockbackDirection = Vector2.up;
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
+            other.gameObject.GetComponentInChildren<AttackHurtbox>().TakeDamage(5f);
+            
+            hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
+            Vector2 directionToPlayer = (other.gameObject.transform.position - transform.position).normalized;
+            Vector2 finalDirection = new Vector2(directionToPlayer.x, knockbackDirection.y).normalized;
+            hitPlayer.ApplyKnockback(finalDirection, hitPlayer.playerStats.WeightClass.knockbackMultiplier, 3.1f);
+            
+        }
+    }
+    
+    
+}
