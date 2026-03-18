@@ -376,7 +376,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: de3015ff91cd60a4f9602732ed87a5f8, type: 3}
+  m_Sprite: {fileID: -636402441, guid: 68fc6c5f12aac1a48a49babe085a6374, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -579,11 +579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b506f5ebf308a42bae9f85b3a39177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpConfig:
-    NumDoubleJumps: 1
-    JumpHeight: 16.66667
-    JumpEndEarlyForce: 0.6
-    JumpEndEarlyWindowDuration: 0.2
   _jumpSettings:
     NumDoubleJumps: 1
     JumpHeight: 16.66667
@@ -656,6 +651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _controller: {fileID: 0}
+  _mainSpriteRender: {fileID: 342960275079809150}
   _defaultStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
 --- !u!114 &6056498423530927706
 MonoBehaviour:

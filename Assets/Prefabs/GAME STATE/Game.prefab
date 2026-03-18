@@ -61,7 +61,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game
   _playerPrefab: {fileID: 2774913894424997013, guid: 51be7ce37a2e38d0a9cfbff8ed085ca2, type: 3}
   _mouseAnimation: {fileID: 9100000, guid: c5b76ddfd0aea5b4cafdb6ed093d7892, type: 2}
-  _dogAnimation: {fileID: 9100000, guid: 23508451f84fdaa43879ec7cf76f53a4, type: 2}
+  _dogAnimation: {fileID: 9100000, guid: a76d48aa9d6e397569f63fa2079c3e28, type: 2}
+  _playerColors:
+  - {r: 0.14680739, g: 0.750384, b: 0.8296863, a: 1}
+  - {r: 0.9295761, g: 0.5534885, b: 0.31177953, a: 1}
+  - {r: 0.9033077, g: 0.8709651, b: 0.25661016, a: 1}
+  - {r: 1, g: 0.41864705, b: 0.72019935, a: 1}
   bypassOnePlayerBlock: 0
 --- !u!114 &1538154858333272104
 MonoBehaviour:

@@ -130,10 +130,6 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 				{
 					TryJoinPlayer(gamepad);
 				}
-				// foreach (Gamepad gamepad in Gamepad.all.Where(gamepad => gamepad.buttonSouth.wasPressedThisFrame))
-				// {
-				// 	TryJoinPlayer(gamepad);
-				// }
 				yield return null;
 			}
 			_joinCoroutine = null;

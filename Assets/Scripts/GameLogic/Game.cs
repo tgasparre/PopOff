@@ -21,6 +21,10 @@ public class Game : MonoBehaviour
     [Header("Player Animations")]
     [SerializeField] private RuntimeAnimatorController _mouseAnimation;
     [SerializeField] private RuntimeAnimatorController _dogAnimation;
+
+    [SerializeField] private Color[] _playerColors;
+    public Color[] PlayerColors => _playerColors;
+    
     public RuntimeAnimatorController GetPlayerAnimation(int index)
     {
         return index switch

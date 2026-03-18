@@ -44,7 +44,8 @@ public class CombatInputHandler : MonoBehaviour
         if (!InputManager.isInputEnabled) return;
         if (UltimateAttackEnabled)
         {
-            Vector3 attackDirection = GetAttackDirection(true);
+            Vector3 attackDirection;
+            (attackDirection, _) = GetAttackDirection(true);
             PreformUltimate(attackDirection);
             ResetUltimateAttack();
         }
@@ -55,8 +56,10 @@ public class CombatInputHandler : MonoBehaviour
         if (!InputManager.isInputEnabled) return;
         if (context.performed)
         {
-            Vector3 attackDirection = GetAttackDirection();
-            PreformAttack(attackDirection);
+            Vector3 attackDirection;
+            int animationDirection;
+            (attackDirection, animationDirection) = GetAttackDirection();
+            PreformAttack(attackDirection, animationDirection);
         }
             
     }
@@ -66,14 +69,16 @@ public class CombatInputHandler : MonoBehaviour
         if (!InputManager.isInputEnabled) return;
         if (context.performed)
         {
-            Vector3 attackDirection = GetAttackDirection();
-            PreformAttack(attackDirection);
+            Vector3 attackDirection;
+            int animationDirection;
+            (attackDirection, animationDirection) = GetAttackDirection();
+            PreformAttack(attackDirection, animationDirection);
         }
     }
     
     #endregion
     
-    private Vector3 GetAttackDirection(bool limitVertical = false)
+    private (Vector3, int) GetAttackDirection(bool limitVertical = false)
     {
         moveInput = InputManager.GetMoveInput();
         float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg;
@@ -81,9 +86,9 @@ public class CombatInputHandler : MonoBehaviour
         {
             return InputManager.GetFacingDirection() switch
             {
-                -1 => _leftAttack.position,
-                1 => _rightAttack.position,
-                _ => Vector3.zero
+                -1 => (_leftAttack.position, 0),
+                1 => (_rightAttack.position, 0),
+                _ => (Vector3.zero, 0)
             };
         }
         
@@ -91,17 +96,17 @@ public class CombatInputHandler : MonoBehaviour
         int direction = Mathf.FloorToInt(normalized / 90f);
         return direction switch
         {
-            0 => _rightAttack.position,
-            1 => _upAttack.position,
-            2 => _leftAttack.position,
-            3 => _downAttack.position,
-            _ => Vector3.zero
+            0 => (_rightAttack.position, 0),
+            1 => (_upAttack.position, 1),
+            2 => (_leftAttack.position, 0),
+            3 => (_downAttack.position, -1),
+            _ => (Vector3.zero, 0)
         };
     }
 
-    private void PreformAttack(Vector2 offset)
+    private void PreformAttack(Vector2 offset, int animationDirection)
     {
-        _player.TriggerAttack();
+        _player.TriggerAttack(animationDirection);
         GameObject hitbox = Instantiate(hitboxPrefab, offset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
         
