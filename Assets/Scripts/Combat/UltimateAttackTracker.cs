@@ -28,6 +28,7 @@ public class UltimateAttackTracker : MonoBehaviour
     {
         CurrentAttacks++;
         if (CurrentAttacks == _attacksNeededForUltimate) UnlockUltimateAttack();
+        
     }
     
     private void UnlockUltimateAttack()

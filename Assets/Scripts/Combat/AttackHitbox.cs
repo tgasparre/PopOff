@@ -38,6 +38,8 @@ public class AttackHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+        //TODO: Test this
+        gameObject.GetComponentInParent<Player>().ApplyHitStun(CombatParameters.hitStunDuration);
         
         AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
         Player hitPlayer = other.GetComponentInParent<Player>();

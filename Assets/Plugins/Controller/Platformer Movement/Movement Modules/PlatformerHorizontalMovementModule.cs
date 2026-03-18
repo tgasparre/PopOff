@@ -109,5 +109,11 @@ namespace ControllerSystem.Platformer2D
         {
             return _groundSpeed;
         }
+
+        public void SetMovementToSlippery()
+        {
+            _groundDrag = 0;
+            _turnAroundSpeedMultiplier = 0.1f;
+        }
     }
 }
