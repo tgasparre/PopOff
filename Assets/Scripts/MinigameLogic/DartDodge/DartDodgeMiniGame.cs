@@ -6,9 +6,10 @@ public class DartDodgeMiniGame : MiniGameInfo
 {
     [Header("References")]
     [SerializeField] private FallingDart[] _dartPrefabPool;
+    [SerializeField] private FallingDart[] _hiddenDartPrefab;
     [Space]
     [SerializeField] private GameObject[] _spawnPoints;
-    [SerializeField] private Transform[] _hiddenSpawnPoints;
+    [SerializeField] private GameObject[] _hiddenSpawnPoints;
     [Tooltip("How often should a new dart spawn")] [SerializeField] private float _spawnRate = 0.25f;
     [Tooltip("How much should the spawn rate decrease when the difficulty is raised")] [SerializeField] private float _decreaseRate = 0.05f;
     [Tooltip("How often should the difficulty be raised")] [SerializeField] private float _difficultyRate = 2f;
@@ -23,6 +24,7 @@ public class DartDodgeMiniGame : MiniGameInfo
     protected override void StartMiniGame()
     {
         StartCoroutine(SpawnDarts());
+        StartCoroutine(SpawnHiddenDarts());
         StartCoroutine(Difficulty());
     }
 
@@ -39,6 +41,20 @@ public class DartDodgeMiniGame : MiniGameInfo
         }
     }
 
+    private IEnumerator SpawnHiddenDarts()
+    {
+        while (_isPlayingMiniGame)
+        {
+            yield return new WaitForSeconds(1f);
+            int hiddenIndex = 0;
+            foreach (GameObject point in _hiddenSpawnPoints)
+            {
+                _hiddenDartPrefab[hiddenIndex++].Spawn(point.transform.position, _dartFallRate);
+            }
+            yield return null;
+        }
+    }
+
     private IEnumerator Difficulty()
     {
         while (_isPlayingMiniGame)
@@ -47,6 +63,14 @@ public class DartDodgeMiniGame : MiniGameInfo
             _spawnRate = Mathf.Max(SpawnRateLimit, _spawnRate - _decreaseRate);
             _dartFallRate = Mathf.Min(_dartFallRate + 0.1f, DartFallLimit);
             yield return null;
+        }
+    }
+
+    protected override void OnEndMiniGame()
+    {
+        foreach (FallingDart dart in _dartPrefabPool)
+        {
+            dart.ReturnToPool();
         }
     }
 

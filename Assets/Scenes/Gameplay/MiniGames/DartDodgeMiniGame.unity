@@ -338,6 +338,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingDart
+--- !u!1001 &91205921
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1044832715}
+    m_Modifications:
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: _hidden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107434090579478935, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_Name
+      value: FallingDart (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+--- !u!4 &91205922 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 91205921}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &91205923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 91205921}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallingDart
 --- !u!1 &103768641
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +576,11 @@ MonoBehaviour:
   - {fileID: 685221660}
   - {fileID: 42630025}
   - {fileID: 664344087}
+  _hiddenDartPrefab:
+  - {fileID: 1188607627}
+  - {fileID: 1821581244}
+  - {fileID: 2106440987}
+  - {fileID: 91205923}
   _spawnPoints:
   - {fileID: 1282544304}
   - {fileID: 1616209637}
@@ -2217,6 +2299,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingDart
+--- !u!1 &1044832714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044832715}
+  m_Layer: 0
+  m_Name: HiddenDarts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1044832715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044832714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.08937, y: 1.45547, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1188607626}
+  - {fileID: 1821581243}
+  - {fileID: 2106440986}
+  - {fileID: 91205922}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1057455460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3331,6 +3448,83 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
   m_PrefabInstance: {fileID: 1184313059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallingDart
+--- !u!1001 &1188607625
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1044832715}
+    m_Modifications:
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: _hidden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107434090579478935, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_Name
+      value: FallingDart
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+--- !u!4 &1188607626 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 1188607625}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1188607627 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 1188607625}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -4687,6 +4881,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingDart
+--- !u!1001 &1821581242
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1044832715}
+    m_Modifications:
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: _hidden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107434090579478935, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_Name
+      value: FallingDart (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+--- !u!4 &1821581243 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 1821581242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1821581244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 1821581242}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallingDart
 --- !u!1001 &1826677588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5395,6 +5666,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingDart
+--- !u!1001 &2106440985
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1044832715}
+    m_Modifications:
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: _hidden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4107434090579478935, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+      propertyPath: m_Name
+      value: FallingDart (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+--- !u!4 &2106440986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1089117807784779550, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 2106440985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2106440987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1722694483676335064, guid: f1151c79454a8bdcb9c917ce8bfcb6e0, type: 3}
+  m_PrefabInstance: {fileID: 2106440985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallingDart
 --- !u!1001 &9197032478874760174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5462,5 +5810,6 @@ SceneRoots:
   - {fileID: 1461308656}
   - {fileID: 1171641299}
   - {fileID: 1143643651}
+  - {fileID: 1044832715}
   - {fileID: 9197032478874760174}
   - {fileID: 268031187}

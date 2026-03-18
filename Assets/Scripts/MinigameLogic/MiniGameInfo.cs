@@ -98,6 +98,8 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void ShowResults(Action onDelayOver, Action onFinished)
     {
         _isPlayingMiniGame = false;
+        OnEndMiniGame();
+        
         if (_countdownCoroutine != null)
         {
             StopCoroutine(_countdownCoroutine);
@@ -118,8 +120,6 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     public void End()
     {
-        OnEndMiniGame();
-        
         //apply powerup
         if (_chosenPowerup != null)
         {

@@ -6,6 +6,8 @@ public class FallingDart : MonoBehaviour
     [SerializeField] private float _damage = 500f;
     [SerializeField] private float _lifetime = 1f;
 
+    [SerializeField] private bool _hidden = false;
+
     private SpriteRenderer _renderer;
     private BoxCollider2D[] _colliders;
     private Rigidbody2D _rigidbody2D;
@@ -40,7 +42,8 @@ public class FallingDart : MonoBehaviour
         if (other.gameObject.CompareTag("Climbable"))
         {
             _interactable = false;
-            Invoke(nameof(ReturnToPool), _lifetime);
+            if (_hidden) ReturnToPool();
+            else Invoke(nameof(ReturnToPool), _lifetime);
         }
     }
 
