@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Trap
   m_EditorClassIdentifier: Assembly-CSharp::TrapPowerup
   _name: Box
-  type: 1
+  type: 0
   _charges: 3
   _useCooldown: 0.5
-  _icon: {fileID: 1982798753367972342, guid: e85c6e02fda4a004b84664f435ad4d73, type: 3}
+  _icon: {fileID: 21300000, guid: 7fe93ebd07beb4d48b029c91130f1b5d, type: 3}
   _trapPrefab: {fileID: 1957223733200214045, guid: 22c35d07e801d084f9d95dbcf834ddfd, type: 3}
   _trapStats:
     speed: 5
     size: 1
-    type: 0
+    type: 1
     damage: 0
-    glueDuration: 1
+    glueDuration: 2
