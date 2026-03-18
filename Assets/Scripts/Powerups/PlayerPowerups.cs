@@ -12,6 +12,7 @@ public class PlayerPowerups : MonoBehaviour
     [SerializeField] private Image _powerupIcon; 
     
     private Powerup _currentPower = null;
+    private int _chargesUsed = -1;
     public bool HasPower => _currentPower != null;
     
     [Header("Powerup References")]
@@ -40,6 +41,7 @@ public class PlayerPowerups : MonoBehaviour
         _currentPower = p;
         _powerupIcon.sprite = p.GetIcon();
         _canUsePowerup = true;
+        _chargesUsed = 0;
         SetRadialTimer(1f);
     }
     public void RemovePower()
@@ -54,16 +56,17 @@ public class PlayerPowerups : MonoBehaviour
         if (HasPower && _canUsePowerup)
         {
             _currentPower.UsePowerup(this);
+            StartCoroutine(PowerupTimer(_currentPower.UseCooldown));
             
-            if (!_currentPower.IsInfinite) _powerupCoroutine ??= StartCoroutine(AwaitTimeExpire());
-            else RemovePower();
+            if (_currentPower.HasTimer) _powerupCoroutine ??= StartCoroutine(AwaitTimeExpire());
+            else CheckCharges();
         }
     }
     
     private IEnumerator AwaitTimeExpire()
     {
         float elapsed = 0;
-        float timeToExpire = _currentPower.GetExpireTime();
+        float timeToExpire = _currentPower.GetCharges();
         while (elapsed < timeToExpire)
         {
             elapsed += Time.deltaTime;
@@ -73,6 +76,17 @@ public class PlayerPowerups : MonoBehaviour
         _powerupCoroutine = null;
         RemovePower();
     }
+
+    private void CheckCharges()
+    {
+        _chargesUsed++;
+        SetRadialTimer(1f - (_chargesUsed / _currentPower.GetCharges()));
+        if (_chargesUsed >= _currentPower.GetCharges())
+        {
+            RemovePower();
+        }
+    }
+    
     public void SetRadialTimer(float percent)
     {
         _radialTimer.fillAmount = percent;
@@ -80,14 +94,11 @@ public class PlayerPowerups : MonoBehaviour
     
     #region Powerup Actions
 
-    public void Dash(DashStats stats, float useCooldown)
+    public void Dash(DashStats stats)
     {
-        StartCoroutine(PowerupTimer(useCooldown));
-
         Vector2 direction = _inputManager.GetMoveInput().normalized;
         if (direction.x == 0) direction.x = _player.FacingLeftValue;
         Vector2 force = direction * stats.dashForce; //new Vector2(direction.x * stats.dashForce, direction.y * stats.yForce);
-        Debug.Log(force);
         _rigidbody2D.AddForce(force, ForceMode2D.Impulse);
     }
 

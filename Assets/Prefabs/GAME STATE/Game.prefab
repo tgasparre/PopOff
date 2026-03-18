@@ -89,6 +89,8 @@ MonoBehaviour:
     scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: QuickDart
   m_EditorClassIdentifier: Assembly-CSharp::DartPowerup
   _name: Quick Dart
-  _timeToExpire: -1
+  type: 1
+  _charges: 4
   _useCooldown: 0.5
   _icon: {fileID: 7145198348311737387, guid: f73dfe034c22cfc41bd7e8799020a5ac, type: 3}
   _dartPrefab: {fileID: 4107434090579478935, guid: 6f7d98e8e73b3d40193031d8e42afc33, type: 3}
   _dartStats:
     speed: 12
     size: 1
+    type: 0
     damage: 0
+    glueDuration: 1
     falloffSpeed: 0
