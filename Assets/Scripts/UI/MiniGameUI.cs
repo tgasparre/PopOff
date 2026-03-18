@@ -7,6 +7,8 @@ public interface IMiniGameUI
 {
     public MiniGameUI.UIState CurrentState { get; set; }
     public void SetValues(MiniGameInfo info);
+    public Coroutine StartCurrentCountdown(Action onFinished = null);
+    public void DisableCountdown();
     public void DisableAll();
 }
 public class MiniGameUI : MonoBehaviour, IMiniGameUI
@@ -15,11 +17,11 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [SerializeField] private CanvasGroup _introCanvasGroup;
     [SerializeField] private TextMeshProUGUI _miniGameName;
     [SerializeField] private TextMeshProUGUI _miniGameDescription;
-    [SerializeField] private TextMeshProUGUI _introCountdownTimer;
+    [SerializeField] private CountdownUI _introCountdownTimer;
     
     [Header("MiniGame State")]
     [SerializeField] private CanvasGroup _miniGameCanvasGroup;
-    [SerializeField] private TextMeshProUGUI _miniGameCountdownTimer;
+    [SerializeField] private CountdownUI _miniGameCountdownTimer;
     
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
@@ -31,7 +33,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     
     //===== State =====
     private UIState _currentState;
-    private TextMeshProUGUI _currentCountdown;
+    private CountdownUI _currentCountdown;
 
     public UIState CurrentState
     {
@@ -70,9 +72,14 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         DisableAll();
     }
 
-    public void UpdateCountdown(string time)
+    public Coroutine StartCurrentCountdown(Action onFinished = null)
     {
-        _currentCountdown.text = time;
+       return _currentCountdown.StartCountdown(onFinished);
+    }
+
+    public void DisableCountdown()
+    {
+        _currentCountdown.InitializeCountdown(-1);
     }
 
     public void HideDescription()
@@ -86,13 +93,13 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         CurrentState = UIState.Introduction;
         _miniGameName.text = info.MiniGameName;
         _miniGameDescription.text = info.MiniGameInstructions;
-        _introCountdownTimer.text = info.CountdownTimer.ToString();
-        _miniGameCountdownTimer.text = info.MiniGameTime.ToString();
+        _introCountdownTimer.InitializeCountdown(info.CountdownTimer);
+        _miniGameCountdownTimer.InitializeCountdown(info.MiniGameTime);
     }
 
-    public void OnWinMiniGame(string player, string reward)
+    public void OnWinMiniGame(int playerIndex, string reward)
     {
-        _playerName.text = player;
+        _playerName.text = GameUtils.PlayerNames[playerIndex];
         _rewardText.text = reward;
         CurrentState = UIState.Results;
     }
@@ -103,6 +110,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         CanvasGroupDisplayer.Hide(_introCanvasGroup);
         CanvasGroupDisplayer.Hide(_miniGameCanvasGroup);
         CanvasGroupDisplayer.Hide(_resultsCanvasGroup);
+        _currentCountdown = null;
     }
 
     public enum UIState

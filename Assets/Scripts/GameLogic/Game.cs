@@ -78,9 +78,12 @@ public class Game : MonoBehaviour
     
     public static void ExitGame()
     {
+        CanJoin = false;
+        IsFrozen = false;
+        IsPlayersFrozen = false;
         Application.Quit();
     }
-    
+
     [Header("DEBUG Controls")]
     [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
      

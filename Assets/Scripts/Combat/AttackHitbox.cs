@@ -1,34 +1,38 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using InputManagement;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 public class AttackHitbox : MonoBehaviour
 {
-    public Player thisPlayer;
-    private bool hitSuccessful = false;
+    private Player _player;
+    private float _attackDamage;
+    private float _knockbackForce;
+    private Action onHitCallback;
+
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
-    //placeholder value, overwritten in CombatInputHandler 
-    private float attackDamage = 10;
-
-    public bool IsSuccessfulHit()
+    public void SpawnHitbox(Player player, HitboxType type, Action hitCallback)
     {
-        return hitSuccessful;
-    }
-
-    public void ResetSuccessfulHit()
-    {
-        hitSuccessful = false;
-    }
-
-    //apply this player's damage multiplier depending on their weightclass
-    public void SetAttackDamage(float damage)
-    {
-        attackDamage =  damage * thisPlayer.playerStats.WeightClass.damageMultiplier;
+        _player = player;
+        switch (type)
+        {
+            case HitboxType.Regular:
+                _attackDamage = CombatParameters.basicAttackDamage;
+                _knockbackForce = CombatParameters.knockbackForce;
+                break;
+            case HitboxType.Ultimate:
+                _attackDamage = CombatParameters.ultimateAttackDamage;
+                _knockbackForce = CombatParameters.ultimateKnockbackForce;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+        _attackDamage *= player.playerStats.DamageMultiplier();
+        _knockbackForce *= player.playerStats.KnockbackMultiplier();
+        
+        onHitCallback = hitCallback;
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -39,32 +43,26 @@ public class AttackHitbox : MonoBehaviour
         Player hitPlayer = other.GetComponentInParent<Player>();
         
         //dont hit yourself
-        if (otherHb.player == thisPlayer)
-            return;
-        
-        Debug.Log("Collision with player entered");
+        if (otherHb.player == _player) return;
         InputManager attackerInput = GetComponentInParent<InputManager>();
         
         if (otherHb != null && !hitPlayers.Contains(otherHb))
         {
             hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
-            otherHb.TakeDamage(attackDamage);
+            otherHb.TakeDamage(_attackDamage);
             hitPlayers.Add(otherHb);
 
-            Vector2 direction = (hitPlayer.transform.position - thisPlayer.transform.position).normalized;
+            Vector2 direction = (hitPlayer.transform.position - _player.transform.position).normalized;
             direction += Vector2.up * attackerInput.GetMoveInput().y;
-            hitPlayer.ApplyKnockback(direction, thisPlayer.playerStats.WeightClass.knockbackMultiplier, CombatParameters.knockbackForce);
+            hitPlayer.ApplyKnockback(direction, _knockbackForce);
             
-            hitSuccessful = true;
+            onHitCallback?.Invoke();
         }
+    }
 
-        ResetHitPlayers();
-    }
-        
-    private void ResetHitPlayers()
+    public enum HitboxType
     {
-        hitPlayers.Clear();
+        Regular,
+        Ultimate
     }
-    
-    
 }

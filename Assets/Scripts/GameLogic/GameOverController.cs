@@ -5,8 +5,6 @@ using UnityEngine;
 public class GameOverController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _winnerNameText;
-    [Space]
-    [SerializeField] private string[] _playerNames;
 
     public CanvasGroup canvasGroup { get; private set; }
     private void Awake()
@@ -18,7 +16,7 @@ public class GameOverController : MonoBehaviour
     {
         int winningIndex = Game.WinningIndex;
         if (winningIndex == -1) Debug.LogError("Error! Winning Index = -1, shouldn't happen!");
-        _winnerNameText.text = _playerNames[winningIndex];
+        _winnerNameText.text = GameUtils.PlayerNames[winningIndex];
     }
     
     public void RestartGame()
@@ -32,3 +30,4 @@ public class GameOverController : MonoBehaviour
         Game.currentState = GameStates.Menu;
     }
 }
+

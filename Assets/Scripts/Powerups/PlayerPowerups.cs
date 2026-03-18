@@ -116,7 +116,6 @@ public class PlayerPowerups : MonoBehaviour
 
     public void SpawnExplosion(GameObject explosion, Transform pos)
     {
-        Debug.Log("spawn");
         Instantiate(explosion, pos.position, Quaternion.identity);
     }
 

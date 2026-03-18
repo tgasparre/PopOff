@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class Throwable : MonoBehaviour
@@ -9,17 +10,30 @@ public abstract class Throwable : MonoBehaviour
     
     [Header("Explosion Settings")]
     [SerializeField] private Explode _explode;
+    
+    [Header("Damage Settings")]
+    [SerializeField] private PowerupType type;
+    [SerializeField] private float _damage = 20f;
+    [SerializeField] private float _glueDuration = 1f;
 
     protected GameObject _throwingPlayer;
     protected Rigidbody2D _rigidbody2D;
     protected float _direction;
     
     private SpriteRenderer _renderer;
+    private bool _interactable = false;
+    private float _interactableTimer = 0.1f;
 
     protected void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _renderer = GetComponentInChildren<SpriteRenderer>();
+        Invoke(nameof(EnableInteraction), _interactableTimer);
+    }
+
+    private void EnableInteraction()
+    {
+        _interactable = true;
     }
 
     public virtual void Throw(GameObject throwingPlayer, PowerupStats powerupStats, int direction)
@@ -31,13 +45,34 @@ public abstract class Throwable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject == _throwingPlayer) return;
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //TODO 
-            //damage
+        if (other.gameObject.CompareTag("Climbable")) HitGround();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!_interactable) return;
+        if (other.gameObject == _throwingPlayer && type != PowerupType.Glue) return;
+        
+        if (other.CompareTag("Player"))
+        {  
+            Player hitPlayer = other.GetComponentInParent<Player>();
+            HitPlayer(hitPlayer);
         }
-        else if (other.gameObject.CompareTag("Climbable")) HitGround();
+    }
+
+    private void HitPlayer(Player hitPlayer)
+    {
+        switch (type)
+        {
+            case PowerupType.Damage:
+                hitPlayer.TakeDamage(_damage);
+                break;
+            case PowerupType.Glue:
+                hitPlayer.FreezePlayer(_glueDuration);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     protected virtual void HitGround()
@@ -56,4 +91,10 @@ public abstract class Throwable : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    
+    private enum PowerupType
+    {
+        Damage,
+        Glue
+    } 
 }

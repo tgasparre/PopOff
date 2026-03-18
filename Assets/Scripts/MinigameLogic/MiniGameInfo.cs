@@ -30,11 +30,13 @@ public abstract class MiniGameInfo : MonoBehaviour
     public bool HasTimer => _miniGameTime > 0;
     [SerializeField] private Powerup[] _powerupReward = Array.Empty<Powerup>();
     private Powerup _chosenPowerup;
+    [SerializeField] private PlayerStats _minigameStats;
+    public PlayerStats MiniGameStats => _minigameStats;
+    [SerializeField] private int _miniGameStartingHealth = 100;
     
     [Space]
     [Tooltip("Time to wait before starting the countdown after loading the scene")] [SerializeField] private float _waitAfterLoadingTime = 0.8f;
     [Tooltip("Time to read the instructions of the minigame before starting the countdown")] [SerializeField] private float _waitForInstructionTime = 2f;
-    [Tooltip("Time to wait before actually beginning the minigame")] [SerializeField] private float _waitBeforeStartingTime = 0.5f;
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
     private PlayerTrack[] _players;
@@ -55,40 +57,27 @@ public abstract class MiniGameInfo : MonoBehaviour
     {
         _alivePlayers = Game.PlayerCount; 
         _onGameComplete = onGameComplete;
-        StartCoroutine(IntroCountdown());
+        StartCoroutine(StartCountdown());
         return;
         
-        IEnumerator IntroCountdown()
+        IEnumerator StartCountdown()
         {
             yield return new WaitForSeconds(_waitAfterLoadingTime);
             yield return new WaitForSeconds(_waitForInstructionTime);
             GameCanvas.Instance.HideMiniGameDescription();
-            yield return new WaitForSeconds(0.6f);
-            yield return StartCoroutine(Countdown(_countdownTimer));
-            yield return new WaitForSeconds(_waitBeforeStartingTime);
-            
+
+            yield return GameCanvas.MiniGameUI.StartCurrentCountdown();
+
             onIntroComplete.Invoke();
             if (!HasTimer)
             {
-                GameCanvas.Instance.UpdateMiniGameCountdown("");
+                GameCanvas.MiniGameUI.DisableCountdown();
                 yield break;
             }
             
             //being minigame timer
-            _countdownCoroutine = StartCoroutine(Countdown(_miniGameTime, _onGameComplete));
+            _countdownCoroutine = GameCanvas.MiniGameUI.StartCurrentCountdown(_onGameComplete);
         }
-    }
-
-    private static IEnumerator Countdown(float startTime, Action finished = null)
-    {
-        float timer = startTime;
-        while (timer >= 0)
-        {
-            GameCanvas.Instance.UpdateMiniGameCountdown(Mathf.RoundToInt(timer).ToString());    
-            timer -= Time.deltaTime;
-            yield return null;
-        }
-        finished?.Invoke();
     }
     
     public void Begin(PlayerController[] players)
@@ -96,9 +85,11 @@ public abstract class MiniGameInfo : MonoBehaviour
         _players = new PlayerTrack[players.Length];
         foreach (PlayerController controller in players)
         {
-            _players[controller.PlayerIndex] = new PlayerTrack(controller);
+            _players[controller.PlayerIndex] = new PlayerTrack(controller, controller.PlayerHealth);
+            controller.PlayerHealth = _miniGameStartingHealth;
         }
         _playerControllers = _players.Select(t => t.controller).ToArray();
+        AssignWeightClasses(_minigameStats);
         
         _isPlayingMiniGame = true;
         StartMiniGame();
@@ -132,7 +123,15 @@ public abstract class MiniGameInfo : MonoBehaviour
         {
             _players[_winningPlayerIndex].controller.ApplyPowerup(_chosenPowerup);
         }
+
+        //reset health
+        foreach (PlayerTrack track in _players)
+        {
+            if (track.gameHealth == 0) continue;
+            track.controller.PlayerHealth = track.gameHealth;
+        }
         
+        ResetWeightClasses();
         _players = null;
         _playerControllers = null;
         _winningPlayerIndex = -1;
@@ -150,6 +149,29 @@ public abstract class MiniGameInfo : MonoBehaviour
     private Powerup GetRandomPowerup()
     {
         return _powerupReward.Length == 0 ? null : _powerupReward[Random.Range(0, _powerupReward.Length)];
+    }
+
+    private void AssignWeightClasses(PlayerStats stats)
+    {
+        if (stats == null) return;
+        foreach (PlayerController controller in _playerControllers)
+        {
+            if (controller.ActivePlayer is Player player)
+            {
+                player.AssignWeightClass(stats);
+            }
+        }
+    }
+
+    private void ResetWeightClasses()
+    {
+        foreach (PlayerController controller in _playerControllers)
+        {
+            if (controller.ActivePlayer is Player player)
+            {
+                player.ResetWeightClass();
+            }
+        }
     }
 
     /// <summary>
@@ -190,7 +212,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected virtual void ShowMiniGameResults(Action onFinished, string reward)
     {
         Game.IsFrozen = true;
-        GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex.ToString(), reward);
+        GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);
         StartCoroutine(ResultsScreen());
         return;
         
@@ -205,12 +227,14 @@ public abstract class MiniGameInfo : MonoBehaviour
     {
         public readonly PlayerController controller;
         public bool isDeadInMiniGame;
+        public readonly float gameHealth;
         public int PlayerIndex => controller.PlayerIndex;
 
-        public PlayerTrack(PlayerController c)
+        public PlayerTrack(PlayerController c, float hp)
         {
             controller = c;
             isDeadInMiniGame = false;
+            gameHealth = hp;
         }
     }
 }

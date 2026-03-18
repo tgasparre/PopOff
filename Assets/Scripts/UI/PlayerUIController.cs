@@ -7,14 +7,14 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private Transform _playerUITransform;
     private List<PlayerUIDisplayer> ui = new List<PlayerUIDisplayer>();
     
-    public void CreatePlayerUI(PlayerController player)
+    public PlayerUIDisplayer CreatePlayerUI(PlayerController player)
     {
         GameObject uiInstance = Instantiate(_playerUIPrefab, _playerUITransform);
         PlayerUIDisplayer playerUIDisplayer = uiInstance.GetComponent<PlayerUIDisplayer>();
-		  
-        // Connect hurtbox to UI
-        playerUIDisplayer.InitializePlayerUI(player.PlayerIndex, player.PlayerHurtbox);
+        
+        playerUIDisplayer.InitializePlayerUI(player.ActivePlayer as Player);
         ui.Add(playerUIDisplayer);
+        return playerUIDisplayer;
     }
 
     public void DestroyUI()
