@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b72bac3259c0c4a92016c426b4b5aa, type: 3}
   m_Name: HeavyStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  WeightClass:
-    type: 2
-    knockbackMultiplier: 1.5
-    damageMultiplier: 1.2
+  _type: 2
+  _knockbackMultiplier: 1
+  _damageMultiplier: 1
+  _parameters:
+    turnAroundSpeed: 0
+    groundAcceleration: 0
+    airAcceleration: 0
+    groundSpeed: 0
+    airSpeed: 0
+    groundDrag: 0
+    airDrag: 0
+    numDoubleJump: 0
+    jumpHeight: 0
+    jumpEndEarlyForce: 0
