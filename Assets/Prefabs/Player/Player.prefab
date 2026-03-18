@@ -131,7 +131,7 @@ MonoBehaviour:
     intensity: 0.4
     duration: 0.15
     ease: 6
-  _crouchModule: {fileID: 1672003238094329634}
+  _crouchModule: {fileID: 0}
   _crouchEffector:
     intensity: 0.3
     duration: 0.1
@@ -579,11 +579,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8b506f5ebf308a42bae9f85b3a39177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpConfig:
-    NumDoubleJumps: 1
-    JumpHeight: 16.66667
-    JumpEndEarlyForce: 0.6
-    JumpEndEarlyWindowDuration: 0.2
   _jumpSettings:
     NumDoubleJumps: 1
     JumpHeight: 16.66667
