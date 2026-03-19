@@ -38,8 +38,7 @@ public class AttackHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        //TODO: Test this
-        gameObject.GetComponentInParent<Player>().ApplyHitStun(CombatParameters.hitStunDuration);
+        //apply hitstun  to attacking player
         
         AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
         Player hitPlayer = other.GetComponentInParent<Player>();
@@ -48,18 +47,32 @@ public class AttackHitbox : MonoBehaviour
         if (otherHb.player == _player) return;
         InputManager attackerInput = GetComponentInParent<InputManager>();
         
+        AddKnockbackAndHitstunToAttacker(_player, attackerInput);
+        
+        //on successful hit
         if (otherHb != null && !hitPlayers.Contains(otherHb))
         {
+            //apply hitstun to hit player and take damage
             hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
             otherHb.TakeDamage(_attackDamage);
             hitPlayers.Add(otherHb);
 
+            //apply knockback to hit player
             Vector2 direction = (hitPlayer.transform.position - _player.transform.position).normalized;
             direction += Vector2.up * attackerInput.GetMoveInput().y;
             hitPlayer.ApplyKnockback(direction, _knockbackForce);
             
             onHitCallback?.Invoke();
         }
+    }
+
+    private void AddKnockbackAndHitstunToAttacker(Player hitPlayer, InputManager attackerInput)
+    {
+        _player.ApplyHitStun(CombatParameters.hitStunDuration - 0.2f);
+        
+        Vector2 direction = (_player.transform.position - hitPlayer.transform.position).normalized;
+        direction += Vector2.up * attackerInput.GetMoveInput().y;
+        hitPlayer.ApplyKnockback(direction, _knockbackForce/2);
     }
 
     public enum HitboxType
