@@ -99,6 +99,8 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
 
     public void OnWinMiniGame(int playerIndex, string reward)
     {
+        if (playerIndex > 3 || playerIndex < 0)
+            return;
         _playerName.text = GameUtils.PlayerNames[playerIndex];
         _rewardText.text = reward;
         CurrentState = UIState.Results;
