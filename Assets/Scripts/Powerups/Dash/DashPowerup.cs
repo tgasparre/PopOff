@@ -8,7 +8,7 @@ public class DashPowerup : Powerup
     
     public override void UsePowerup(PlayerPowerups powerups)
     {
-        powerups.Dash(_dashStats, _useCooldown);
+        powerups.Dash(_dashStats);
     }
 
     public override void Expire(PlayerPowerups powerups)

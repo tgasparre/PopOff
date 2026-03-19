@@ -11,10 +11,9 @@ public abstract class Throwable : MonoBehaviour
     [Header("Explosion Settings")]
     [SerializeField] private Explode _explode;
     
-    [Header("Damage Settings")]
-    [SerializeField] private PowerupType type;
-    [SerializeField] private float _damage = 20f;
-    [SerializeField] private float _glueDuration = 1f;
+    private PowerupStats.PowerupType type;
+    private float _damage = 20f;
+    private float _glueDuration = 1f;
 
     protected GameObject _throwingPlayer;
     protected Rigidbody2D _rigidbody2D;
@@ -40,6 +39,10 @@ public abstract class Throwable : MonoBehaviour
     {
         _throwingPlayer = throwingPlayer;
         _direction = direction;
+
+        type = powerupStats.type;
+        _damage = powerupStats.damage;
+        _glueDuration = powerupStats.glueDuration;
         transform.localScale = Vector3.one * powerupStats.size;
     }
 
@@ -51,7 +54,7 @@ public abstract class Throwable : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!_interactable) return;
-        if (other.gameObject == _throwingPlayer && type != PowerupType.Glue) return;
+        if (other.gameObject == _throwingPlayer && type != PowerupStats.PowerupType.Glue) return;
         
         if (other.CompareTag("Player"))
         {  
@@ -64,10 +67,10 @@ public abstract class Throwable : MonoBehaviour
     {
         switch (type)
         {
-            case PowerupType.Damage:
+            case PowerupStats.PowerupType.Damage:
                 hitPlayer.TakeDamage(_damage);
                 break;
-            case PowerupType.Glue:
+            case PowerupStats.PowerupType.Glue:
                 hitPlayer.FreezePlayer(_glueDuration);
                 break;
             default:
@@ -91,10 +94,4 @@ public abstract class Throwable : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    
-    private enum PowerupType
-    {
-        Damage,
-        Glue
-    } 
 }

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public abstract class PlayerBase : MonoBehaviour
 {
     [SerializeField] protected PlayerController _controller;
+    [SerializeField] private SpriteRenderer _mainSpriteRender;
     protected InputManager _playerInputManager;
     
     public bool IsFacingLeft => FacingLeftValue == -1;
@@ -24,6 +25,7 @@ public abstract class PlayerBase : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerInputManager = GetComponent<InputManager>();
+        _mainSpriteRender.color = Game.Instance.PlayerColors[PlayerIndex];
     }
     
     public void FreezePlayer()

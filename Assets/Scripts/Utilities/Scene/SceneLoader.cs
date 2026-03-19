@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Tymski;
@@ -19,6 +21,8 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     [SerializeField] private SceneReference _combatScene;
     [SerializeField] private SceneReference _startingMiniGame;
     [SerializeField] private SceneReference[] _miniGameScenes;
+
+    private List<int> _unplayedMiniGames = new List<int>();
 
     public bool canLoadScene { get; private set; }  = true;
     private void LoadSceneTransition(SceneReference scene, Action sceneLoaded = null, Action transitionCompleted = null, TransitionType transitionType = TransitionType.Scene)
@@ -78,7 +82,11 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
 
     private SceneReference PickMiniGame()
     {
-        return _miniGameScenes[Random.Range(0,_miniGameScenes.Length)];
+        if (_unplayedMiniGames.Count == 0) {_unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList();}
+        int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
+        _unplayedMiniGames.Remove(minigameToPlay);
+        
+        return _miniGameScenes[minigameToPlay];
     }
 }
 

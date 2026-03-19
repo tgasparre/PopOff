@@ -41,6 +41,7 @@ public class PlayerUIDisplayer : MonoBehaviour
 
     public void UpdateHealth(float health)
     {
+        health = Mathf.Max(0f, health);
         _health.text = health.ToString();
     }
 

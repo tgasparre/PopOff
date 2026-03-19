@@ -130,10 +130,6 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 				{
 					TryJoinPlayer(gamepad);
 				}
-				// foreach (Gamepad gamepad in Gamepad.all.Where(gamepad => gamepad.buttonSouth.wasPressedThisFrame))
-				// {
-				// 	TryJoinPlayer(gamepad);
-				// }
 				yield return null;
 			}
 			_joinCoroutine = null;
@@ -224,7 +220,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 			}
 			case GameplayStates.MiniGame:
 				try { _onPlayerDiedInMinigame.Invoke(player); }
-				catch (NullReferenceException e) 
+				catch (NullReferenceException) 
 				{
 					//the code doesn't know what to do when a player dies
 					Debug.LogError("No Mini-Game death event attached! Make sure there is a MiniGameInfo object in the scene");

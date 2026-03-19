@@ -37,8 +37,9 @@ public class Player : PlayerBase
     public bool IsFrozen { get; private set; }
     public float Movement => _playerInputManager.GetMoveInput().x;
     public bool InAir => !_jumpModule.Grounded;
-    public void TriggerAttack() { _animation.TriggerAttack(); }
+    public void TriggerAttack(int direction) { _animation.TriggerAttack(direction); }
     public void TriggerUltimate() {_animation.TriggerUltimate();}
+    public void TriggerJump() { _animation.TriggerJump(); }
 
     // ===== Internal References =====
     private PlayerStateMachine  _playerStateMachine;
@@ -63,11 +64,14 @@ public class Player : PlayerBase
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         ResetWeightClass();
+
+        _jumpModule.JumpTriggered += TriggerJump;
     }
     
     private void OnDestroy()
     {
         OnDeath = null;
+        if (_jumpModule) _jumpModule.JumpTriggered -= TriggerJump;
     }
 
     public void Register(Action<Player> deathCallback)

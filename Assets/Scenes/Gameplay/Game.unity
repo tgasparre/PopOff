@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6cb34667457754baaf84791ad9fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerupCollectable
-  powerup: {fileID: 11400000, guid: 271153daddf6c4b4d92b911550ae29e6, type: 2}
+  powerup: {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
 --- !u!58 &1696143342
 CircleCollider2D:
   m_ObjectHideFlags: 0
