@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class ToMiniGameDEBUG : MonoBehaviour
 {
+    [SerializeField] private float _appearTimeMin = 10f;
+    [SerializeField] private float _appearTimeMax = 18f;
+    
     private void Start()
     {
         GetComponent<SpriteRenderer>().enabled = false;
@@ -12,7 +15,8 @@ public class ToMiniGameDEBUG : MonoBehaviour
       
         IEnumerator EnabledTimer()
         {
-            yield return new WaitForSeconds(9f);
+            // yield return new WaitForSeconds(Random.Range(_appearTimeMin, _appearTimeMax));
+            yield return new WaitForSeconds(1f);
             GetComponent<SpriteRenderer>().enabled = true;
             GetComponent<CircleCollider2D>().enabled = true;
         }

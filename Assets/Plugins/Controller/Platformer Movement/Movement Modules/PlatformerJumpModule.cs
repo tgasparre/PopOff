@@ -8,6 +8,8 @@ namespace ControllerSystem.Platformer2D
         [SerializeField] private JumpConfig _jumpSettings;
         public JumpConfig Config => _jumpSettings;
         public bool Grounded => motor.Grounded;
+
+        public event Action JumpTriggered;
         
         public override void HandleMovement()
         {

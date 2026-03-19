@@ -5,30 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/Gameplay/Menu.unity
     guid: 008d2734d3269e2929dc0aa9e1c1d35f
   - enabled: 1
-    path: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
-    guid: 013db58c5966165c9a4a610b3e0dc382
-  - enabled: 1
     path: Assets/Scenes/Gameplay/Game.unity
     guid: 4a2c4268a8d68b48bbe13ef2f5c1c498
   - enabled: 1
+    path: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
+    guid: 013db58c5966165c9a4a610b3e0dc382
+  - enabled: 1
     path: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
     guid: 16b5d012e5d43ce489c8312e34c7ded3
-  - enabled: 0
-    path: Assets/Scenes/Gameplay/MiniGames/MiniGame1.unity
-    guid: cdf843863a235ce458a1a86748ebebd2
   - enabled: 1
     path: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
     guid: 9df19a0beb10c73478347b0e45d9051f
   - enabled: 1
-    path: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
-    guid: bc952bc716d86a74db3af300d8a58042
+    path: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
+    guid: 46ea2c76ad472934a9780eb306d7a8ab
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: ba72fc5f77d9ba1498926e89db8c3d81, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

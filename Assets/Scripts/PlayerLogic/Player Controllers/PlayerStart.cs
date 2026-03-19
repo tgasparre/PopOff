@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using ControllerSystem.Platformer2D;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerStart : PlayerBase
 {
@@ -18,17 +16,23 @@ public class PlayerStart : PlayerBase
     
     public bool InputtingHorizontalMovement => Mathf.Abs(_moveDirection.x) > 0.5f;
     
-    // private static readonly Vector2 BoostFactor = new Vector2(.8f, 1.2f);
+    public float Movement => _playerInputManager.GetMoveInput().x;
+    public bool InAir => !_groundCheck.Grounded;
+    
     public Vector2 BoostFactor;
+
+    private StartPlayerAnimation _animation;
 
     private new void Awake()
     {
         base.Awake();
         _groundCheck = GetComponentInChildren<GroundCheck>();
+        _animation = GetComponentInChildren<StartPlayerAnimation>();
     }
 
     private IEnumerator LaunchJump()
     {
+        _animation.TriggerJump();
         float timer = 0f;
         do
         {
