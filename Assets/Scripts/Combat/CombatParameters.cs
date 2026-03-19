@@ -9,7 +9,7 @@ public static class CombatParameters
     public const float knockbackForce = 6f; //was 5.5f
     public static readonly AnimationCurve knockbackCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
     
-    public const float ultimateKnockbackForce = 5f;
+    public const float ultimateKnockbackForce = 8f;
     public const float hitStunDuration = 0.5f;
 }
 

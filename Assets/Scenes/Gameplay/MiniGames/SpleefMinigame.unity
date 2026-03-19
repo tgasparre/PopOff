@@ -232,9 +232,10 @@ MonoBehaviour:
   _powerupReward:
   - {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
   - {fileID: 11400000, guid: 3af36c234fbdac1138db4a237a44559e, type: 2}
+  _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
+  _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.8
   _waitForInstructionTime: 1
-  _waitBeforeStartingTime: 0.5
   _waitBeforeSceneLoad: 1
   _startingPlatformParent: {fileID: 265535653}
 --- !u!1 &265535653

@@ -82,12 +82,6 @@ public class PlayerController : MonoBehaviour
         if (_playerState == PlayerState.Fighting && PlayerUI == null) PlayerUI = GameCanvas.Instance.CreatePlayerUI(this); 
     }
 
-    public void AssignWeightClass(PlayerStats stat)
-    {
-        _defaultPlayer.AssignWeightClass(stat);
-    }
-    
-
     #region Inputs
     
     public void SetInputEnabled(bool value)

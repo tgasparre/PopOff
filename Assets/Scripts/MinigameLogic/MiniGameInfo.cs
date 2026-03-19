@@ -53,8 +53,17 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// <summary>
     /// Play the intro animation (display title, countdown to start)
     /// </summary>
-    public void Intro(Action onIntroComplete, Action onGameComplete)
+    public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] players)
     {
+        _players = new PlayerTrack[players.Length];
+        foreach (PlayerController controller in players)
+        {
+            _players[controller.PlayerIndex] = new PlayerTrack(controller, controller.PlayerHealth);
+            controller.PlayerHealth = _miniGameStartingHealth;
+        }
+        _playerControllers = _players.Select(t => t.controller).ToArray();
+        AssignWeightClasses(_minigameStats);
+        
         _alivePlayers = Game.PlayerCount; 
         _onGameComplete = onGameComplete;
         StartCoroutine(StartCountdown());
@@ -80,17 +89,8 @@ public abstract class MiniGameInfo : MonoBehaviour
         }
     }
     
-    public void Begin(PlayerController[] players)
+    public void Begin()
     {
-        _players = new PlayerTrack[players.Length];
-        foreach (PlayerController controller in players)
-        {
-            _players[controller.PlayerIndex] = new PlayerTrack(controller, controller.PlayerHealth);
-            controller.PlayerHealth = _miniGameStartingHealth;
-        }
-        _playerControllers = _players.Select(t => t.controller).ToArray();
-        AssignWeightClasses(_minigameStats);
-        
         _isPlayingMiniGame = true;
         StartMiniGame();
     }
@@ -121,7 +121,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void End()
     {
         //apply powerup
-        if (_chosenPowerup != null && _winningPlayerIndex > 0 && _winningPlayerIndex < 4)
+        if (_chosenPowerup != null && _winningPlayerIndex is >= 0 and < 4)
         {
             _players[_winningPlayerIndex].controller.ApplyPowerup(_chosenPowerup);
         }

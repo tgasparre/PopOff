@@ -1498,6 +1498,7 @@ MonoBehaviour:
   _miniGameTime: 8
   _powerupReward: []
   _minigameStats: {fileID: 0}
+  _replaceStats: 0
   _miniGameStartingHealth: 100
   _waitAfterLoadingTime: 0.8
   _waitForInstructionTime: 3

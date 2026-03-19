@@ -708,7 +708,7 @@ MonoBehaviour:
   _powerupReward:
   - {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
   - {fileID: 11400000, guid: 4a5b3e06393778474aaafdb3046e82a1, type: 2}
-  _minigameStats: {fileID: 0}
+  _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 100
   _waitAfterLoadingTime: 0.8
   _waitForInstructionTime: 2

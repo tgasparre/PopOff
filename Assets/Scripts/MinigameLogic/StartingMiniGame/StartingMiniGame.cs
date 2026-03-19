@@ -47,7 +47,10 @@ public class StartingMiniGame : MiniGameInfo
             if (fillAmount < 0.33f) weightClass = _heavyClass;
             _playerControllers[i].CurrentState = PlayerState.Fighting;
             ActivePlayersTracker.LookForPlayerSpawn(_playerControllers[i].ActivePlayer);
-            _playerControllers[i].AssignWeightClass(weightClass);
+            if (_playerControllers[i].ActivePlayer is Player player)
+            {
+                player.AssignWeightClass(weightClass);
+            }
         }
         onFinished.Invoke();
     }

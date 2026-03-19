@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using ControllerSystem.Platformer2D;
-using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -163,7 +162,8 @@ public class Player : PlayerBase
     public void ResetWeightClass()
     {
         if (_defaultStats == null) Debug.LogError("Default Stats should not be null!");
-        AssignWeightClass(_defaultStats);
+        else if (playerStats == null) AssignWeightClass(_defaultStats);
+        else AssignWeightClass(playerStats);
     }
     
     public void AssignWeightClass(PlayerStats stats)
