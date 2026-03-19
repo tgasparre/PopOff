@@ -119,7 +119,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void End()
     {
         //apply powerup
-        if (_chosenPowerup != null)
+        if (_chosenPowerup != null && _winningPlayerIndex > 0 && _winningPlayerIndex < 4)
         {
             _players[_winningPlayerIndex].controller.ApplyPowerup(_chosenPowerup);
         }

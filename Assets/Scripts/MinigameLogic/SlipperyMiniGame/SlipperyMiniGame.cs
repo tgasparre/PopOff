@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class SlipperyMiniGame : MiniGameInfo
 {
-    //set knockback higher for this minigame
-    //possibly make custom weightclass and put changes from settoslippery() into it
+    public TiltingPlatform MainPlatform;
+    [Space]
+    [SerializeField] private GameObject startingPlatformParent;
+    
     protected override void StartMiniGame()
     {
-        
+        startingPlatformParent.SetActive(false);
+        MainPlatform.StartTiltingPlatform();
     }
 }
