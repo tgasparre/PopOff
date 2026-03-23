@@ -41,12 +41,12 @@ public class Player : PlayerBase
     public void TriggerJump() { _animation.TriggerJump(); }
 
     // ===== Internal References =====
-    private PlayerStateMachine  _playerStateMachine;
     private PlayerAnimation _animation;
     private Powerup _attachedPowerup;
     private float _savedMovementSpeed;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
+    private IndicatorUI _indicatorUI;
 
     private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
@@ -58,7 +58,6 @@ public class Player : PlayerBase
         hurtbox = GetComponentInChildren<AttackHurtbox>();
         powerups = GetComponent<PlayerPowerups>();
         _animation = GetComponentInChildren<PlayerAnimation>();
-        _playerStateMachine = GetComponent<PlayerStateMachine>();
         ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
@@ -75,9 +74,17 @@ public class Player : PlayerBase
 
     public void Register(Action<Player> deathCallback)
     {
+        _indicatorUI = GetComponentInChildren<IndicatorUI>();
+        _indicatorUI.SetColor(Game.Instance.PlayerColors[PlayerIndex]);
+        
         base.Register();
         OnDeath = deathCallback;
-    } 
+    }
+
+    public void StartIndicator()
+    {
+        _indicatorUI.StartIndicator();
+    }
 
     #region Inputs
 
@@ -124,39 +131,29 @@ public class Player : PlayerBase
     #region Combat 
     public void ApplyHitStun(float duration)
     { 
-        //if null starts hitstun, else do nothing which is what we want 
-        _hitStunCoroutine ??= StartCoroutine(AddHitStun(duration));
+        FreezePlayer(duration, 0.1f);
     }
     
     public void ApplyKnockback(Vector2 direction, float knockbackForce)
     {
-        _damageCoroutine ??= StartCoroutine(AddKnockback(direction, knockbackForce));
-    }
-    
-    IEnumerator AddKnockback(Vector2 direction, float knockbackForce)
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < CombatParameters.knockbackDuration)
+        _damageCoroutine ??= StartCoroutine(AddKnockback());
+        return;
+        
+        IEnumerator AddKnockback()
         {
-            float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
-            float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * knockbackForce;
+            float elapsedTime = 0f;
+            while (elapsedTime < CombatParameters.knockbackDuration)
+            {
+                float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
+                float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * knockbackForce;
 
-            _rigidbody2D.AddForce(direction * currentForce * 10);
+                _rigidbody2D.AddForce(direction * currentForce * 10);
             
-            elapsedTime += Time.deltaTime;
-            yield return null;
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            _damageCoroutine = null;
         }
-        _damageCoroutine = null;
-    }
-
-    IEnumerator AddHitStun(float duration)
-    {
-        _playerStateMachine.EnterHitStun();
-        FreezePlayerMovement();
-        yield return new WaitForSeconds(duration);
-        UnfreezePlayerMovement();
-        _playerStateMachine.ResetState();
-        _hitStunCoroutine = null;
     }
 
     public void ResetWeightClass()
@@ -212,7 +209,7 @@ public class Player : PlayerBase
     /// <summary>
     /// Freeze the player for a brief moment 
     /// </summary>
-    public void FreezePlayer(float _duration)
+    public void FreezePlayer(float duration, float cooldown = 0.35f)
     {
         _freezeMovementCoroutine ??= StartCoroutine(Freeze());
         return;
@@ -222,11 +219,23 @@ public class Player : PlayerBase
             if (IsFrozen) yield break;
         
             FreezePlayerMovement();
-            yield return new WaitForSeconds(_duration);
+            yield return new WaitForSeconds(duration);
             UnfreezePlayerMovement();
-            yield return new WaitForSeconds(0.35f);
+            yield return new WaitForSeconds(cooldown);
             _freezeMovementCoroutine = null;
         }
+    }
+    
+    //replaced AddHitStun with FreezePlayer instead which makes sure no coroutine is stopped early, disabling movement 
+    [Obsolete("replaced with FreezePlayer")]
+    IEnumerator AddHitStun(float duration)
+    {
+        if (IsFrozen) yield break;
+        
+        FreezePlayerMovement();
+        yield return new WaitForSeconds(duration);
+        UnfreezePlayerMovement();
+        _hitStunCoroutine = null;
     }
 }
 

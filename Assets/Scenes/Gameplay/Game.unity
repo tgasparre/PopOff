@@ -906,7 +906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d6cb34667457754baaf84791ad9fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerupCollectable
-  powerup: {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
+  powerup: {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
 --- !u!58 &1696143342
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1074,7 +1074,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5806683983664184314, guid: aeb47f54c076aced182522ac390c0195, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788251428059024599, guid: aeb47f54c076aced182522ac390c0195, type: 3}
+      propertyPath: _appearTimeMax
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788251428059024599, guid: aeb47f54c076aced182522ac390c0195, type: 3}
+      propertyPath: _appearTimeMin
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

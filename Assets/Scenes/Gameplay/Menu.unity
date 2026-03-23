@@ -6055,7 +6055,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: _miniGameScenes.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: _miniGameScenes.Array.data[0].scenePath
@@ -6070,6 +6070,10 @@ PrefabInstance:
       value: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.data[3].scenePath
+      value: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: _miniGameScenes.Array.data[0].sceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
@@ -6081,6 +6085,10 @@ PrefabInstance:
       propertyPath: _miniGameScenes.Array.data[2].sceneAsset
       value: 
       objectReference: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _miniGameScenes.Array.data[3].sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
     - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_Name
       value: Game

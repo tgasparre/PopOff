@@ -38,10 +38,15 @@ public abstract class PlayerBase : MonoBehaviour
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
     }
 
-    public void Spawn(Vector2 pos)
+    public void Spawn(Vector2 pos, bool showIndicators)
     {
         UnfreezePlayer();
         _rigidbody2D.linearVelocity = Vector2.zero;
         transform.position = pos;
+        
+        if (showIndicators && this is Player player)
+        {
+            player.StartIndicator();
+        }
     }
 }

@@ -15,8 +15,9 @@ public class PlayerPowerups : MonoBehaviour
     private int _chargesUsed = -1;
     public bool HasPower => _currentPower != null;
     
-    [Header("Powerup References")]
-    [SerializeField] private GameObject _field;
+    // [Header("Powerup References")]
+    // [SerializeField] private GameObject _field;
+
     private Rigidbody2D _rigidbody2D;
     private Player _player;
     private bool _canUsePowerup = true;
@@ -30,7 +31,7 @@ public class PlayerPowerups : MonoBehaviour
         _powerupUI.alpha = 0;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
-        _field.SetActive(false);
+        // _field.SetActive(false);
         _inputManager = GetComponent<InputManager>();
     }
 
@@ -109,15 +110,15 @@ public class PlayerPowerups : MonoBehaviour
         dart.Throw(gameObject, dartStats, _player.FacingLeftValue);
     }
 
-    public void Field(FieldStats stats)
-    {
-        _field.GetComponent<Field>().StartField(stats.Force);
-        _field.SetActive(true);
-    }
-    public void DisableField()
-    {
-        _field.SetActive(false);
-    }
+    // public void Field(FieldStats stats)
+    // {
+    //     _field.GetComponent<Field>().StartField(stats.Force);
+    //     _field.SetActive(true);
+    // }
+    // public void DisableField()
+    // {
+    //     _field.SetActive(false);
+    // }
 
     public void Trap(GameObject prefab, TrapStats trapStats)
     {

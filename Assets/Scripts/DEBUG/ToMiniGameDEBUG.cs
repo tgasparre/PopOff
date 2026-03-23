@@ -15,8 +15,7 @@ public class ToMiniGameDEBUG : MonoBehaviour
       
         IEnumerator EnabledTimer()
         {
-            // yield return new WaitForSeconds(Random.Range(_appearTimeMin, _appearTimeMax));
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(Random.Range(_appearTimeMin, _appearTimeMax));
             GetComponent<SpriteRenderer>().enabled = true;
             GetComponent<CircleCollider2D>().enabled = true;
         }
