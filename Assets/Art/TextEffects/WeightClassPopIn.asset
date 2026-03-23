@@ -17,7 +17,7 @@ MonoBehaviour:
   charLength: 0
   animationType: 3
   fixedDuration: 0
-  durationPerChar: 0.5
+  durationPerChar: 0.2
   timeBetweenChars: 0
   noDelayForChars: 1
   reverseCharOrder: 0
@@ -27,25 +27,43 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
+      inSlope: 1.2098802
+      outSlope: 1.2098802
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
+      time: 0.38801244
+      value: 0.4694486
+      inSlope: 2.8424523
+      outSlope: 2.8424523
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.46981567
+      value: 0.83552
+      inSlope: 2.3949542
+      outSlope: 2.3949542
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9725647
+      value: 0.9938278
+      inSlope: 0.31488433
+      outSlope: 0.31488433
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   clampBetween0And1: 0
   timeType: 0
-  startScale: 0.25
+  startScale: 0.6
   endScale: 1

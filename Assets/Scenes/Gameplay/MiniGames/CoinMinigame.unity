@@ -928,7 +928,8 @@ MonoBehaviour:
   _countdownTimer: 3
   _miniGameTime: 0
   _powerupReward:
-  - {fileID: 11400000, guid: c0085b096de7407d5ab428484e672d8d, type: 2}
+  - {fileID: 11400000, guid: 271153daddf6c4b4d92b911550ae29e6, type: 2}
+  - {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.8

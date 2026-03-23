@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         _defaultPlayer.Register(deathCallback);
 
         _animator.runtimeAnimatorController = Game.Instance.GetPlayerAnimation(PlayerIndex);
+        _render.sortingOrder += PlayerIndex;
         
         ActivePlayersTracker.LookForPlayerSpawn(ActivePlayer);
         DontDestroyOnLoad(gameObject);
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Player Objects")]
     [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _render;
     [SerializeField] private PlayerStart _startingPlayer;
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();

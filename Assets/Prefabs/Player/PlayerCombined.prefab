@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _playerState: 0
   _animator: {fileID: 5095390084564648639}
+  _render: {fileID: 3763884199623603978}
   _startingPlayer: {fileID: 6318339373282605343}
   _defaultPlayer: {fileID: 1909307872167797691}
   _startingInputManager: {fileID: 8916700117487656132}
@@ -427,6 +428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a648f3093073fbb42985e9531a29de8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!212 &3763884199623603978 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 342960275079809150, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}
+  m_PrefabInstance: {fileID: 3530382514977177460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &5095390084564648639 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8523069408354041291, guid: 9eadfc17a4a1e9741a986b7ce615cfb1, type: 3}

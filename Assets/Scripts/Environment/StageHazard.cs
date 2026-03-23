@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class StageHazard : MonoBehaviour
 {
     [SerializeField] private Vector2 knockbackDirection = Vector2.up;
-    void OnCollisionEnter2D(Collision2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -17,6 +19,4 @@ public class StageHazard : MonoBehaviour
             
         }
     }
-    
-    
 }
