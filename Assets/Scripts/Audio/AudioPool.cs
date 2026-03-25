@@ -22,9 +22,9 @@ public class AudioPool : MonoBehaviour
 
         float delay = settings.delay;
         if (delay == 0f) _source.Play();
-        else _source.PlayDelayed(settings.delay);
+        else _source.PlayDelayed(delay);
         
-        StartCoroutine(PlayingDuration(settings.clip.length, settings.delay));
+        StartCoroutine(PlayingDuration(settings.clip.length, delay));
     }
 
     IEnumerator PlayingDuration(float duration, float delay = 0f)

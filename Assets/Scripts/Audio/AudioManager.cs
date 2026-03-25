@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    private const int NUM_SFX_SOURCE = 4;
+    public const int NUM_SFX_SOURCE = 4;
     
     [SerializeField] private GameObject _audioSourcePrefab;
     [SerializeField] private Audio[] _audios;
@@ -30,7 +33,10 @@ public class AudioManager : MonoBehaviour
 
         foreach (Audio a in _audios)
         {
-            _audioDictionary.TryAdd(a.type, a);
+            if (!_audioDictionary.TryAdd(a.type, a))
+            {
+                throw new Exception($"Failed to add type {a.type} to AudioDictionary - check that no type duplicates exist");
+            }
         }
     }
 
@@ -42,9 +48,15 @@ public class AudioManager : MonoBehaviour
         }
     }
     
-    public static void PlaySound(AudioType type)
+    public static void PlaySound(AudioType type, float delay = 0f)
     {
-        AudioSettings settings = Instance._audioDictionary[type].GetClip();
+        if (!Instance._audioDictionary.TryGetValue(type, out Audio audio))
+        {
+            throw new Exception($"Audio Type not found {type}, check if it is set up in AudioManager");
+        }
+
+        AudioSettings settings = audio.GetClip();
+        settings.delay = delay;
         PlaySound(settings);
     }
     
@@ -82,7 +94,7 @@ public class AudioManager : MonoBehaviour
         public readonly AudioClip clip;
         public readonly float volume;
         public readonly float pitch;
-        public readonly float delay;
+        public float delay;
 
         public AudioSettings(AudioClip clip, float volume = 1f, float pitch = 1f, float delay = 0f)
         {
@@ -93,21 +105,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    public class Audio
+    [Serializable]
+    public struct Audio
     {
-        public AudioType type = AudioType.Other;
+        public AudioType type;
         [SerializeField] private AudioClip[] _clips;
-        [SerializeField] [Range(0f, 1f)] private float _volumeMin = 1f;
-        [SerializeField] [Range(0f, 1f)] private float _volumeMax = 1f;
-        [SerializeField] [Range(-3f, 3f)] private float _pitchMin = 1f;
-        [SerializeField] [Range(-3f, 3f)] private float _pitchMax = 1f;
-
+        [SerializeField] [Range(0f, 1f)] private float _volumeMin;
+        [SerializeField] [Range(0f, 1f)] private float _volumeMax;
+        [SerializeField] [Range(-3f, 3f)] private float _pitchMin;
+        [SerializeField] [Range(-3f, 3f)] private float _pitchMax;
+        
         public AudioSettings GetClip()
         {
-            //TODO 
-            // make the random clips not be the same ones - avoid repeats up to two
-            
             AudioClip clip = _clips[Random.Range(0, _clips.Length)];
             float volume = Random.Range(_volumeMin, _volumeMax);
             float pitch = Random.Range(_pitchMin, _pitchMax);
@@ -119,15 +128,86 @@ public class AudioManager : MonoBehaviour
 
 public enum AudioType
 {
+    Other,
     PlayerHit,
     PlayerMove,
-    Transition,
-    Countdown,
-    ButtonClick,
-    PlayerDeath,
     PlayerJump,
+    PlayerDeath,
     PowerupThrow,
     GameStart,
     MinigameStart,
-    Other
+    Transition,
+    Countdown,
+    ButtonClick
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(AudioManager))]
+public class AudioManagerEditor : Editor
+{
+    private int previousSize = -1;
+
+    private SerializedProperty prefabProp;
+    private SerializedProperty arrayProp;
+
+    private void OnEnable()
+    {
+        prefabProp = serializedObject.FindProperty("_audioSourcePrefab");
+        arrayProp = serializedObject.FindProperty("_audios");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        GUI.enabled = false;
+        EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour((AudioManager)target), typeof(AudioManager), false);
+        EditorGUILayout.FloatField(label: "Total SFX Sources", AudioManager.NUM_SFX_SOURCE);
+        GUI.enabled = true;
+        
+        EditorGUILayout.Space(10f);
+        
+        serializedObject.Update();
+
+        EditorGUILayout.PropertyField(prefabProp);
+        
+        if (previousSize == -1)
+        {
+            previousSize = arrayProp.arraySize;
+        }
+
+        EditorGUI.BeginChangeCheck();
+        
+        EditorGUILayout.PropertyField(arrayProp, true);
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            if (arrayProp.arraySize > previousSize)
+            {
+                for (int i = previousSize; i < arrayProp.arraySize; i++)
+                {
+                    SerializedProperty element = arrayProp.GetArrayElementAtIndex(i);
+                    Initialize(element);
+                }
+            }
+            previousSize = arrayProp.arraySize;
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private static void Initialize(SerializedProperty element)
+    {
+        SerializedProperty type = element.FindPropertyRelative("type");
+        SerializedProperty volumeMin = element.FindPropertyRelative("_volumeMin");
+        SerializedProperty volumeMax = element.FindPropertyRelative("_volumeMax");
+        SerializedProperty pitchMin = element.FindPropertyRelative("_pitchMin");
+        SerializedProperty pitchMax = element.FindPropertyRelative("_pitchMax");
+
+        type.enumValueIndex = 0;
+        volumeMin.floatValue = 1f;
+        volumeMax.floatValue = 1f;
+        pitchMin.floatValue = 1f;
+        pitchMax.floatValue = 1f;
+
+    }
+}
+#endif
