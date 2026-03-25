@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a537d832b988dab4bb3faf4e4dbbc1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageHazard
+  knockbackDirection: {x: 0, y: 1}
 --- !u!61 &2595061890339530094
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

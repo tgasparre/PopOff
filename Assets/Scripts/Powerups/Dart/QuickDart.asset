@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: QuickDart
   m_EditorClassIdentifier: Assembly-CSharp::DartPowerup
   _name: Quick Dart
-  type: 0
+  type: 1
   _charges: 3
   _useCooldown: 0.5
   _icon: {fileID: 21300000, guid: 3dfc1834e7be02347bfd4b75a4e5438e, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Field", menuName = "Powerups/Field Powerup")]
@@ -8,12 +9,14 @@ public class FieldPowerup : Powerup
     
     public override void UsePowerup(PlayerPowerups powerups)
     {
-        powerups.Field(_stats);
+        // powerups.Field(_stats);
+        throw new NotImplementedException();
     }
 
     public override void Expire(PlayerPowerups powerups)
     {
-        powerups.DisableField();
+        // powerups.DisableField();
+        throw new NotImplementedException();
     }
 }
 

@@ -5,6 +5,7 @@ public class StartingMiniGame : MiniGameInfo
 {
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
+    [SerializeField] private WeightUI[] _weightUIs;
     [SerializeField] private float _fillRate = 0.1f;
     [SerializeField] private float _deflateRate = 0.2f;
     [Space]
@@ -12,18 +13,23 @@ public class StartingMiniGame : MiniGameInfo
     [SerializeField] private PlayerStats _defaultClass;
     [SerializeField] private PlayerStats _heavyClass;
 
-    private void SetFillBoards(bool isVisible)
+    private void SetMinigameUI(bool isVisible)
     {
         foreach (AirFillBoard board in _airFillBoards)
         {
             board.IsVisible = isVisible;
             board.SetValues(_fillRate, _deflateRate);
         }
+
+        foreach (WeightUI weightUI in _weightUIs)
+        {
+            weightUI.IsVisible = isVisible;
+        }
     }
 
     private void Start()
     {
-        SetFillBoards(false);
+        SetMinigameUI(false);
     }
 
     protected override void StartMiniGame()
@@ -33,6 +39,8 @@ public class StartingMiniGame : MiniGameInfo
         {
             _airFillBoards[i].IsVisible = true;
             _playerControllers[i].OnJump = _airFillBoards[i].Fill;
+
+            _weightUIs[i].IsVisible = true;
         }
     }
 
@@ -41,14 +49,31 @@ public class StartingMiniGame : MiniGameInfo
         //TODO fun animation
         for (int i = 0; i < _playerControllers.Length; i++)
         {
-            float fillAmount = _airFillBoards[i].FillAmount;
+            _weightUIs[i].IsVisible = false;
+            
             PlayerStats weightClass = _lightClass;
-            if (fillAmount < 0.66f) weightClass = _defaultClass;
-            if (fillAmount < 0.33f) weightClass = _heavyClass;
+            Weight playerWeight = _airFillBoards[i].GetWeight();
+            weightClass = playerWeight switch
+            {
+                Weight.Default => _defaultClass,
+                Weight.Heavy => _heavyClass,
+                _ => weightClass
+            };
+            
             _playerControllers[i].CurrentState = PlayerState.Fighting;
             ActivePlayersTracker.LookForPlayerSpawn(_playerControllers[i].ActivePlayer);
-            _playerControllers[i].AssignWeightClass(weightClass);
+            if (_playerControllers[i].ActivePlayer is Player player)
+            {
+                player.AssignWeightClass(weightClass);
+            }
         }
         onFinished.Invoke();
+    }
+    
+    public enum Weight
+    {
+        Light,
+        Default,
+        Heavy
     }
 }

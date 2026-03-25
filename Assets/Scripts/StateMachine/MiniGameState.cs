@@ -43,14 +43,14 @@ public class MiniGameState : GameState
         Game.IsPlayersFrozen = true;
         GameUI.SetValues(_currentMiniGame);
         ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameLose);
-        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished);
+        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetPlayers());
         return;
         
         void OnIntroFinished()
         {
             Game.IsPlayersFrozen = false;
             GameUI.CurrentState = MiniGameUI.UIState.MiniGame;
-            _currentMiniGame.Begin(ActivePlayerTracker.GetPlayers());
+            _currentMiniGame.Begin();
             
         }
         

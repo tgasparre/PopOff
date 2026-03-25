@@ -22,6 +22,14 @@ public class AirFillBoard : MonoBehaviour
 
     public float FillAmount => _progressSlider.value;
 
+    public StartingMiniGame.Weight GetWeight()
+    {
+        StartingMiniGame.Weight weightClass = StartingMiniGame.Weight.Light;
+        if (FillAmount < 0.66f) weightClass = StartingMiniGame.Weight.Default;
+        if (FillAmount < 0.33f) weightClass = StartingMiniGame.Weight.Heavy;
+        return weightClass;
+    }
+    
     private void Awake()
     {
         _progressSlider = GetComponentInChildren<Slider>();
@@ -49,6 +57,5 @@ public class AirFillBoard : MonoBehaviour
             _progressSlider.value -= _deflateRate * Time.deltaTime;
         }
     }
-    
     
 }

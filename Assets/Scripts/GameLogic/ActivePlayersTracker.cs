@@ -151,8 +151,8 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		PlayerController player = playerInput.GetComponent<PlayerController>();
 		player.Register(playerInput, OnPlayerDied);
 		_players[playerInput.playerIndex] = new PlayerTrack(player);
-		Joined?.Invoke(player);
 		joinedPlayerCount++;
+		Joined?.Invoke(player);
 		
 	}
 

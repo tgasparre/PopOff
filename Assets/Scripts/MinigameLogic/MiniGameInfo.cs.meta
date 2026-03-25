@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: cd6dea2d9a8169c729d7ca2fa3f51d72
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _minigameStats: {fileID: 11400000, guid: f290df82ceea8b2a9aeaa15746fba220, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

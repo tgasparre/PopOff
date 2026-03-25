@@ -13,7 +13,7 @@ public static class MovementParameters
    public const float airDrag = 5;
    
    // for fast movement - the light weight class has faster movement and more jumping power
-   public const float fastTurnAroundSpeedMultiplier = 0.2f;
+   public const float fastTurnAroundSpeedMultiplier = .95f;
    public const float fastGroundAccelerationTime = 0.1f;
    public const float fastAirAccelerationTime = 0.1f;
    public const float fastGroundSpeed = 40 / 3f;

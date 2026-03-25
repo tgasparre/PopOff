@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         _defaultPlayer.Register(deathCallback);
 
         _animator.runtimeAnimatorController = Game.Instance.GetPlayerAnimation(PlayerIndex);
+        _render.sortingOrder += PlayerIndex;
         
         ActivePlayersTracker.LookForPlayerSpawn(ActivePlayer);
         DontDestroyOnLoad(gameObject);
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Player Objects")]
     [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _render;
     [SerializeField] private PlayerStart _startingPlayer;
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
@@ -81,12 +83,6 @@ public class PlayerController : MonoBehaviour
         //initialize UI
         if (_playerState == PlayerState.Fighting && PlayerUI == null) PlayerUI = GameCanvas.Instance.CreatePlayerUI(this); 
     }
-
-    public void AssignWeightClass(PlayerStats stat)
-    {
-        _defaultPlayer.AssignWeightClass(stat);
-    }
-    
 
     #region Inputs
     

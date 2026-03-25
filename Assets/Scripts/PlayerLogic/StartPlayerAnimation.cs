@@ -27,6 +27,6 @@ public class StartPlayerAnimation : MonoBehaviour
         _renderer.flipX = !_playerStart.IsFacingLeft;
         
         _animator.SetFloat(Movement, Mathf.RoundToInt(Mathf.Abs(_playerStart.Movement)));
-        _animator.SetBool(InAir, _playerStart.InAir);
+        // _animator.SetBool(InAir, _playerStart.InAir);
     }
 }
