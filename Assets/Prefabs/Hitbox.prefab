@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd40b2ae71c93684eb050eb77e88a0cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackHitbox
+  attackParticlesPrefab: {fileID: 6612030643151144694, guid: 959d78f8ba7884f499dd8f6f6d102ae1, type: 3}
 --- !u!50 &8655983042702143557
 Rigidbody2D:
   serializedVersion: 5

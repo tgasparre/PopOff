@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using InputManagement;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vector2 = UnityEngine.Vector2;
 
 public class AttackHitbox : MonoBehaviour
@@ -10,6 +11,12 @@ public class AttackHitbox : MonoBehaviour
     private float _attackDamage;
     private float _knockbackForce;
     private Action onHitCallback;
+    
+    //particle system variables
+    private bool _useParticles;
+    [SerializeField] private ParticleSystem attackParticlesPrefab;
+    private ParticleSystem attackParticles;
+    
 
     private HashSet<AttackHurtbox> hitPlayers = new HashSet<AttackHurtbox>();
 
@@ -21,10 +28,12 @@ public class AttackHitbox : MonoBehaviour
             case HitboxType.Regular:
                 _attackDamage = CombatParameters.basicAttackDamage;
                 _knockbackForce = CombatParameters.knockbackForce;
+                _useParticles = true;
                 break;
             case HitboxType.Ultimate:
                 _attackDamage = CombatParameters.ultimateAttackDamage;
                 _knockbackForce = CombatParameters.ultimateKnockbackForce;
+                _useParticles = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -38,8 +47,8 @@ public class AttackHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        //apply hitstun  to attacking player
         
+        //apply hitstun  to attacking player
         AttackHurtbox otherHb = other.GetComponent<AttackHurtbox>();
         Player hitPlayer = other.GetComponentInParent<Player>();
         
@@ -47,11 +56,11 @@ public class AttackHitbox : MonoBehaviour
         if (otherHb.player == _player) return;
         InputManager attackerInput = GetComponentInParent<InputManager>();
         
-        AddKnockbackAndHitstunToAttacker(_player, attackerInput);
-        
         //on successful hit
         if (otherHb != null && !hitPlayers.Contains(otherHb))
         {
+            AddKnockbackAndHitstunToAttacker(_player, attackerInput);
+            
             //apply hitstun to hit player and take damage
             hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
             otherHb.TakeDamage(_attackDamage);
@@ -59,6 +68,11 @@ public class AttackHitbox : MonoBehaviour
 
             //apply knockback to hit player
             Vector2 direction = (hitPlayer.transform.position - _player.transform.position).normalized;
+            
+            //add particle effects
+            if (_useParticles)
+                SpawnAttackParticles(direction);
+            
             direction += Vector2.up * attackerInput.GetMoveInput().y;
             hitPlayer.ApplyKnockback(direction, _knockbackForce);
             
@@ -73,6 +87,12 @@ public class AttackHitbox : MonoBehaviour
         Vector2 direction = (_player.transform.position - hitPlayer.transform.position).normalized;
         direction += Vector2.up * attackerInput.GetMoveInput().y;
         hitPlayer.ApplyKnockback(direction, _knockbackForce/2);
+    }
+
+    private void SpawnAttackParticles(Vector2 attackDirection)
+    {
+        Quaternion spawnRotation = Quaternion.FromToRotation(Vector2.right, attackDirection);
+        attackParticles = Instantiate(attackParticlesPrefab, transform.position, spawnRotation);
     }
 
     public enum HitboxType
