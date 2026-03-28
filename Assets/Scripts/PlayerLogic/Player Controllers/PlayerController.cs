@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
                     yield return null;
                     continue;
                 }
-                AudioManager.PlaySound(AudioType.PlayerMove);
+                AudioManager.PlaySound(AudioTrack.PlayerMove);
                 yield return new WaitForSeconds(SFX_INTERVAL);
             }
             _movingCoroutine = null;

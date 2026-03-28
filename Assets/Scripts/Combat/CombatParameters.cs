@@ -12,6 +12,6 @@ public static class CombatParameters
     public const float ultimateKnockbackForce = 17f;
     public const float hitStunDuration = 0.5f;
 
-    public const float MAX_PLAYER_HEALTH = 200f;
+    public const float MAX_PLAYER_HEALTH = 1f;
 }
 

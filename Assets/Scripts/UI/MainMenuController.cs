@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnStartClicked()
     {
-        AudioManager.PlaySound(AudioType.ButtonClick);
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
         
         GameCanvas.Instance.Transition(completed: () =>
         {
@@ -32,7 +32,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnControlsClicked(Button selectionHandler)
     {
-        AudioManager.PlaySound(AudioType.ButtonClick);
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
         
         GameCanvas.Instance.Transition(completed: () =>
         {
@@ -44,7 +44,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnCreditsClicked(Button selectionHandler)
     {
-        AudioManager.PlaySound(AudioType.ButtonClick);
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
         
         GameCanvas.Instance.Transition(completed: () =>
         {
@@ -56,14 +56,14 @@ public class MainMenuController : MonoBehaviour
 
     public void OnQuitGameClicked()
     {
-        AudioManager.PlaySound(AudioType.ButtonClick);
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
         
         GameCanvas.Instance.Transition(completed: Game.ExitGame);
     }
 
     public void ReturnToMainMenu(Button selectionHandler)
     {
-        AudioManager.PlaySound(AudioType.ButtonClick);
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
         
         GameCanvas.Instance.Transition(completed: () =>
         {

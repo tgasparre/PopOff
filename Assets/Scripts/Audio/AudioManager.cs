@@ -11,14 +11,14 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public const int NUM_SFX_SOURCE = 8;
-    private const float FADE_OUT_TIME = 1.25f;
+    private const float CROSS_FADE_TIME = 1.25f;
     
     [SerializeField] private GameObject _audioSourcePrefab;
     [SerializeField] private Audio[] _audios;
     
     private AudioPool[] _sources;
     private Queue<AudioSettings> _soundQueue = new Queue<AudioSettings>();
-    private Dictionary<AudioType, Audio> _audioDictionary = new Dictionary<AudioType, Audio>();
+    private Dictionary<AudioTrack, Audio> _audioDictionary = new Dictionary<AudioTrack, Audio>();
 
     private AudioSource _musicPlayer;
     [SerializeField] private AudioClip _menuMusic;
@@ -44,9 +44,9 @@ public class AudioManager : MonoBehaviour
 
         foreach (Audio a in _audios)
         {
-            if (!_audioDictionary.TryAdd(a.type, a))
+            if (!_audioDictionary.TryAdd(a.track, a))
             {
-                throw new Exception($"Failed to add type {a.type} to AudioDictionary - check that no type duplicates exist");
+                throw new Exception($"Failed to add type {a.track} to AudioDictionary - check that no type duplicates exist");
             }
         }
     }
@@ -60,11 +60,11 @@ public class AudioManager : MonoBehaviour
     }
     
     #region SFX
-    public static void PlaySound(AudioType type, float delay = 0f)
+    public static void PlaySound(AudioTrack track, float delay = 0f)
     {
-        if (!Instance._audioDictionary.TryGetValue(type, out Audio audio))
+        if (!Instance._audioDictionary.TryGetValue(track, out Audio audio))
         {
-            Debug.LogWarning($"Audio Type not found {type}, check if it is set up in AudioManager");
+            Debug.LogWarning($"Audio Type not found {track}, check if it is set up in AudioManager");
             return;
         }
 
@@ -73,9 +73,16 @@ public class AudioManager : MonoBehaviour
         PlaySound(settings);
     }
 
+    public static void PlaySound(Audio audio, float delay = 0f)
+    {
+        AudioSettings settings = audio.GetClip();
+        settings.delay = delay;
+        PlaySound(settings);
+    }
+
     public void PlayUISound()
     {
-        PlaySound(AudioType.ButtonClick);
+        PlaySound(AudioTrack.ButtonClick);
     }
     
     public static void PlaySound(AudioClip clip, float volume = 1f, float pitch = 1f, float delay = 0f)
@@ -104,6 +111,8 @@ public class AudioManager : MonoBehaviour
         {
             AudioSettings settings = _soundQueue.Dequeue();
             finished.PlaySound(settings);
+            
+            if (Instance._soundQueue.Count >= 5) Debug.LogWarning("The sound queue exceeds 5 sounds, consider adding more audio sources");
         }
     }
     #endregion
@@ -127,10 +136,10 @@ public class AudioManager : MonoBehaviour
     {
         float elapsed = 0f;
         float startVolume = _musicPlayer.volume;
-        while (elapsed < FADE_OUT_TIME)
+        while (elapsed < CROSS_FADE_TIME)
         {
             elapsed += Time.unscaledDeltaTime;
-            _musicPlayer.volume = Mathf.Lerp(startVolume, 0f, elapsed / FADE_OUT_TIME);
+            _musicPlayer.volume = Mathf.Lerp(startVolume, 0f, elapsed / CROSS_FADE_TIME);
             yield return null;
         }
 
@@ -138,10 +147,10 @@ public class AudioManager : MonoBehaviour
         _musicPlayer.clip = newSong;
 
         elapsed = 0f;
-        while (elapsed < FADE_OUT_TIME)
+        while (elapsed < CROSS_FADE_TIME)
         {
             elapsed += Time.unscaledDeltaTime;
-            _musicPlayer.volume = Mathf.Lerp(0f, startVolume, elapsed / FADE_OUT_TIME);
+            _musicPlayer.volume = Mathf.Lerp(0f, startVolume, elapsed / CROSS_FADE_TIME);
             yield return null;
         }
         
@@ -170,7 +179,7 @@ public class AudioManager : MonoBehaviour
     public struct Audio
     {
         public string name; //editor use only
-        public AudioType type;
+        public AudioTrack track;
         [SerializeField] private AudioClip[] _clips;
         [SerializeField] [Range(0f, 1f)] private float _volumeMin;
         [SerializeField] [Range(0f, 1f)] private float _volumeMax;
@@ -188,7 +197,7 @@ public class AudioManager : MonoBehaviour
     }
 }
 
-public enum AudioType
+public enum AudioTrack
 {
     Other,
     PlayerHit,
@@ -202,7 +211,12 @@ public enum AudioType
     Transition,
     Countdown,
     ButtonClick,
-    PlayerUltimate
+    PlayerUltimate,
+    PlayerAppear,
+    MinigameTransition,
+    MinigameWhistle,
+    PowerupThud,
+    PowerupExplode
 }
 
 public enum MusicType

@@ -32,7 +32,7 @@ public class PlayerStart : PlayerBase
 
     private IEnumerator LaunchJump()
     {
-        AudioManager.PlaySound(AudioType.PlayerJump);
+        AudioManager.PlaySound(AudioTrack.PlayerJump);
         
         _animation.TriggerJump();
         float timer = 0f;

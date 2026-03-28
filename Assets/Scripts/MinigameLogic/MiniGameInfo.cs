@@ -97,6 +97,8 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     public void ShowResults(Action onDelayOver, Action onFinished)
     {
+        AudioManager.PlaySound(AudioTrack.MinigameWhistle);
+        
         _isPlayingMiniGame = false;
         OnEndMiniGame();
         
@@ -113,6 +115,8 @@ public abstract class MiniGameInfo : MonoBehaviour
             yield return new WaitForSecondsRealtime(_resultsTime);
             onDelayOver.Invoke();
             yield return new WaitForSecondsRealtime(0.2f);
+            
+            AudioManager.PlaySound(AudioTrack.MinigameEnd);
             _chosenPowerup = GetRandomPowerup();
             ShowMiniGameResults(onFinished, _chosenPowerup ? _chosenPowerup.Name : "");
         }
@@ -189,7 +193,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// called when a player dies in a mini-game, runs TriggerEndMiniGame() if only one player is left 
     /// </summary>
     /// <param name="player">player who lost</param>
-    public void OnPlayerMiniGameLose(Player player)
+    public void OnPlayerMiniGameDie(Player player)
     {
         _alivePlayers--;
         _players[player.PlayerIndex].isDeadInMiniGame = true;

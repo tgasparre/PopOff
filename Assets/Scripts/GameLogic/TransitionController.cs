@@ -21,6 +21,7 @@ public class TransitionController : MonoBehaviour
     [SerializeField] private GameObject _miniGameTransition;
     [SerializeField] private float _defaultMiniGameAnimationSpeed = 1f;
     [SerializeField] private float _miniGameHiddenOffset = 2000;
+    [SerializeField] private float _miniGameHoldDelay = 1f;
     private RectTransform _miniGameRect;
 
     private RectTransform _activeTransition;
@@ -69,39 +70,43 @@ public class TransitionController : MonoBehaviour
 
     public void Transition(TransitionType type = TransitionType.Menu, Action onCompleted = null, float timeOverride = -1)
     {
-        float animationTime;
+        float animationTime, holdDelay = .2f;
         switch (type)
         {
             case TransitionType.Menu:
                 animationTime = Mathf.Max(timeOverride, _defaultMenuAnimationSpeed);
                 _activeHiddenOffset = _menuHiddenOffset;
                 _activeTransition = _menuRect;
+                AudioManager.PlaySound(AudioTrack.Transition, 0.2f);
                 break;
             case TransitionType.Scene:
                 animationTime = Mathf.Max(timeOverride, _defaultSceneAnimationSpeed);
                 _activeHiddenOffset = _sceneHiddeOffset;
                 _activeTransition = _sceneRect;
+                AudioManager.PlaySound(AudioTrack.Transition, 0.2f);
                 break;
             case TransitionType.MiniGame:
                 animationTime = Mathf.Max(timeOverride, _defaultMiniGameAnimationSpeed);
                 _activeHiddenOffset = _miniGameHiddenOffset;
                 _activeTransition = _miniGameRect;
+                holdDelay = _miniGameHoldDelay;
+                AudioManager.PlaySound(AudioTrack.MinigameTransition, 0.2f);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
-        TransitionInOut(animationTime, onCompleted);
+        
+        TransitionInOut(animationTime, holdDelay, onCompleted);
     }
 
 
-    private void TransitionInOut(float time, Action inCompleted = null, Action outCompleted = null)
+    private void TransitionInOut(float time, float holdDelay, Action inCompleted = null, Action outCompleted = null)
     {
         StartCoroutine(InOut());
         return;
 
         IEnumerator InOut()
         {
-            AudioManager.PlaySound(AudioType.Transition, 0.2f);
             yield return StartCoroutine(ApplyTransition(_activeHiddenOffset, 0, time, () =>
             {
                 StartCoroutine(OutLoader());
@@ -110,6 +115,7 @@ public class TransitionController : MonoBehaviour
 
             IEnumerator OutLoader()
             {
+                yield return new WaitForSecondsRealtime(holdDelay);
                 inCompleted?.Invoke();
                 yield return new WaitUntil(() => Game.CanLoadScene);
                 StartCoroutine(ApplyTransition(0, -_activeHiddenOffset, time, () =>

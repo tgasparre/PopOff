@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class StartingMiniGame : MiniGameInfo
 {
     [Space]
     [SerializeField] private AudioClip _blowUpBallonClip;
+    [SerializeField] private AudioManager.Audio _pressBlowButtonAudio;
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private WeightUI[] _weightUIs;
@@ -14,6 +16,9 @@ public class StartingMiniGame : MiniGameInfo
     [SerializeField] private PlayerStats _lightClass;
     [SerializeField] private PlayerStats _defaultClass;
     [SerializeField] private PlayerStats _heavyClass;
+
+    private Coroutine _fillingCoroutine;
+    private const float SFX_INTERVAL = 0.7f;
 
     private void SetMinigameUI(bool isVisible)
     {
@@ -72,6 +77,19 @@ public class StartingMiniGame : MiniGameInfo
             }
         }
         onFinished.Invoke();
+    }
+
+    public void OnFill()
+    {
+        _fillingCoroutine ??= StartCoroutine(SFXDelay());
+        return;
+        
+        IEnumerator SFXDelay()
+        {
+            AudioManager.PlaySound(_pressBlowButtonAudio);
+            yield return new WaitForSeconds(SFX_INTERVAL);
+            _fillingCoroutine = null;
+        }
     }
     
     public enum Weight

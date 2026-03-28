@@ -80,6 +80,8 @@ public abstract class Throwable : MonoBehaviour
 
     protected virtual void HitGround()
     {
+        AudioManager.PlaySound(AudioTrack.PowerupThud);
+        
         if (_explode.CanExplode) StartCoroutine(_explode.TriggerExplode(_lifetime, _renderer, SpawnExplosion));
         else Invoke(nameof(Despawn), _lifetime);
     }

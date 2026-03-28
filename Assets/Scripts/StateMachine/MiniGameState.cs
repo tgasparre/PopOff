@@ -12,12 +12,10 @@ public class MiniGameState : GameState
         _currentMiniGame = null;
         if (PlayingState.IsStarting) //intro minigame
         {
-            //TODO -- play introduction animation
             Loader.LoadStartingMiniGameScene(StartingLoaded);
         } 
         else //all other minigames
         {
-            //TODO -- Play little animation
             Loader.LoadMiniGameScene(StartMiniGame);
         }
 
@@ -42,7 +40,7 @@ public class MiniGameState : GameState
 
         Game.IsPlayersFrozen = true;
         GameUI.SetValues(_currentMiniGame);
-        ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameLose);
+        ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameDie);
         _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetPlayers());
         return;
         

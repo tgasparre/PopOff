@@ -40,12 +40,12 @@ public class Player : PlayerBase
 
     public void TriggerUltimate()
     {
-        AudioManager.PlaySound(AudioType.PlayerUltimate);
+        AudioManager.PlaySound(AudioTrack.PlayerUltimate);
         _animation.TriggerUltimate();
     }
     public void TriggerJump()
     {
-        AudioManager.PlaySound(AudioType.PlayerJump);
+        AudioManager.PlaySound(AudioTrack.PlayerJump);
         _animation.TriggerJump();
     }
     private void TriggerWallJump(int dir)
@@ -120,10 +120,10 @@ public class Player : PlayerBase
         
         if (PlayerHealth <= 0)
         {
-            AudioManager.PlaySound(AudioType.PlayerDeath);
+            AudioManager.PlaySound(AudioTrack.PlayerDeath);
             OnDeath(this);
         }
-        else AudioManager.PlaySound(AudioType.PlayerHit);
+        else AudioManager.PlaySound(AudioTrack.PlayerHit);
     }
 
     public void InstaDeath()

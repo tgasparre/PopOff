@@ -46,6 +46,8 @@ public abstract class PlayerBase : MonoBehaviour
         _rigidbody2D.linearVelocity = Vector2.zero;
         transform.position = pos;
         
+        AudioManager.PlaySound(AudioTrack.PlayerAppear, delay: 0.15f);
+        
         if (showIndicators && this is Player player)
         {
             player.StartIndicator();

@@ -1859,7 +1859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5eb478ed41ed4125a58393a158b10f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartingMiniGame
-  _miniGameName: Fill you Balloons
+  _miniGameName: Fill your Balloon
   _miniGameInstructions: Press <color=red>South Button/Space</color> fill up your
     balloon to your preferred weight
   _countdownTimer: 3
@@ -1871,6 +1871,16 @@ MonoBehaviour:
   _waitForInstructionTime: 3
   _waitBeforeSceneLoad: 1
   _blowUpBallonClip: {fileID: 8300000, guid: 34bf434e4c7d1a8efad4753f8e269b2b, type: 3}
+  _pressBlowButtonAudio:
+    name: Blow Balloon
+    type: 0
+    _clips:
+    - {fileID: 8300000, guid: 1ac603e22dc0b29ea9524830f4f879e9, type: 3}
+    - {fileID: 8300000, guid: 85daf633b7a739286833d10ad7d32d28, type: 3}
+    _volumeMin: 0.3
+    _volumeMax: 0.5
+    _pitchMin: 1
+    _pitchMax: 1.3
   _airFillBoards:
   - {fileID: 411353083}
   - {fileID: 727906943}
@@ -1882,7 +1892,7 @@ MonoBehaviour:
   - {fileID: 1199165925}
   - {fileID: 17609597}
   _fillRate: 0.1
-  _deflateRate: 0.22
+  _deflateRate: 0.18
   _lightClass: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
   _defaultClass: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _heavyClass: {fileID: 11400000, guid: d8b2f865a56e88240b8b3034b5e7ef57, type: 2}

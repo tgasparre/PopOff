@@ -36,6 +36,8 @@ public class Explode
         }
 
         renderer.color = Color.white;
+        
+        AudioManager.PlaySound(AudioTrack.PowerupExplode);
         callback.Invoke();
     }
 }
