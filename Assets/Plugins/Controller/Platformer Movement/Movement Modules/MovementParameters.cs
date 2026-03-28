@@ -11,6 +11,10 @@ public static class MovementParameters
    public const float airSpeed = 25 / 3f;
    public const float groundDrag = 20;
    public const float airDrag = 5;
+
+   public const int defaultDoubleJumps = 1;
+   public const float defaultJumpHeight = 16.66667f;
+   public const float defaultJumpEndEarlyForce = 0.6f;
    
    // for fast movement - the light weight class has faster movement and more jumping power
    public const float fastTurnAroundSpeedMultiplier = .95f;
@@ -21,6 +25,7 @@ public static class MovementParameters
    public const float fastGroundDrag = 20;
    public const float fastAirDrag = 5;
    
+   public const int lightDoubleJumps = 2;
    public const float lightJumpHeight = 16.66667f;
    public const float lightJumpEndEarlyForce = 0.6f;
    
@@ -34,6 +39,7 @@ public static class MovementParameters
    public const float slowGroundDrag = 20;
    public const float slowAirDrag = 6;
    
+   public const int heavyDoubleJumps = 1;
    public const float heavyJumpHeight = 16.66667f;
    public const float heavyJumpEndEarlyForce = 0.6f;
 }
@@ -52,20 +58,4 @@ public struct CustomPlayerParameters
     public int numDoubleJump;
     public float jumpHeight;
     public float jumpEndEarlyForce;
-
-    public CustomPlayerParameters(float turnAroundSpeed, float groundAcceleration, float airAcceleration,
-        float groundSpeed, float airSpeed, float groundDrag, float airDrag, int numDoubleJump, float jumpHeight, float jumpEndEarlyForce)
-    {
-        this.turnAroundSpeed = turnAroundSpeed;
-        this.groundAcceleration = groundAcceleration;
-        this.airAcceleration = airAcceleration;
-        this.groundSpeed = groundSpeed;
-        this.airSpeed = airSpeed;
-        this.groundDrag = groundDrag;
-        this.airDrag = airDrag;
-
-        this.numDoubleJump = numDoubleJump;
-        this.jumpHeight = jumpHeight;
-        this.jumpEndEarlyForce = jumpEndEarlyForce;
-    }
 }

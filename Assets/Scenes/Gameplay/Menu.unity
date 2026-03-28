@@ -6023,10 +6023,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 622329729881392737, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.0000076293945
-      objectReference: {fileID: 0}
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6107,21 +6103,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3722570380901548119, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 6129222586446067764, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2276573473287355257}
+    - target: {fileID: 6476867202571021858, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2276573473287355257}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
       value: Game Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 9162043500139149320, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2276573473287355257}
+    - target: {fileID: 9221843400555026224, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2276573473287355257}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 785945134751868465, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
@@ -6182,6 +6185,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+--- !u!114 &2276573473287355257 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+  m_PrefabInstance: {fileID: 2276573473287355256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3fcda7143fd33a88f27a61c0cd04d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
 --- !u!1001 &3791474177285847023
 PrefabInstance:
   m_ObjectHideFlags: 0

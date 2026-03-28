@@ -90,6 +90,34 @@ public class PlayerStatsEditor : Editor
             EditorGUILayout.PropertyField(parameters, true);
         } 
     }
+
+    private void ResetCustom(SerializedProperty element)
+    {
+        SerializedProperty turnAroundSpeed = element.FindPropertyRelative("turnAroundSpeed");
+        SerializedProperty groundAcceleration = element.FindPropertyRelative("groundAcceleration");
+        SerializedProperty airAcceleration = element.FindPropertyRelative("airAcceleration");
+        SerializedProperty groundSpeed = element.FindPropertyRelative("groundSpeed");
+        SerializedProperty airSpeed = element.FindPropertyRelative("airSpeed");
+        SerializedProperty groundDrag = element.FindPropertyRelative("groundDrag");
+        SerializedProperty airDrag = element.FindPropertyRelative("airDrag");
+        
+        SerializedProperty numDoubleJump = element.FindPropertyRelative("numDoubleJump");
+        SerializedProperty jumpHeight = element.FindPropertyRelative("jumpHeight");
+        SerializedProperty jumpEndEarlyForce = element.FindPropertyRelative("jumpEndEarlyForce");
+
+        turnAroundSpeed.floatValue = MovementParameters.turnAroundSpeedMultiplier;
+        groundAcceleration.floatValue = MovementParameters.groundAccelerationTime;
+        airAcceleration.floatValue = MovementParameters.airAccelerationTime;
+        groundSpeed.floatValue = MovementParameters.groundSpeed;
+        airSpeed.floatValue = MovementParameters.airSpeed;
+        groundDrag.floatValue = MovementParameters.groundDrag;
+        airDrag.floatValue = MovementParameters.airDrag;
+
+        numDoubleJump.intValue = MovementParameters.defaultDoubleJumps;
+        jumpHeight.floatValue = MovementParameters.defaultJumpHeight;
+        jumpEndEarlyForce.floatValue = MovementParameters.defaultJumpEndEarlyForce;
+
+    }
 }
 
 #endif

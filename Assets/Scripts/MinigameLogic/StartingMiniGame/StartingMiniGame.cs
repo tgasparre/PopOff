@@ -4,6 +4,8 @@ using UnityEngine;
 public class StartingMiniGame : MiniGameInfo
 {
     [Space]
+    [SerializeField] private AudioClip _blowUpBallonClip;
+    [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private WeightUI[] _weightUIs;
     [SerializeField] private float _fillRate = 0.1f;
@@ -42,6 +44,8 @@ public class StartingMiniGame : MiniGameInfo
 
             _weightUIs[i].IsVisible = true;
         }
+        
+        AudioManager.PlaySound(_blowUpBallonClip, 0.6f, delay: 1.5f);
     }
 
     protected override void ShowMiniGameResults(Action onFinished, string reward)

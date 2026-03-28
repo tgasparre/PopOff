@@ -35,10 +35,23 @@ public class Player : PlayerBase
     
     public bool IsFrozen { get; private set; }
     public float Movement => _playerInputManager.GetMoveInput().x;
-    public bool InAir => !_jumpModule.Grounded;
+    public override bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack(int direction) { _animation.TriggerAttack(direction); }
-    public void TriggerUltimate() {_animation.TriggerUltimate();}
-    public void TriggerJump() { _animation.TriggerJump(); }
+
+    public void TriggerUltimate()
+    {
+        AudioManager.PlaySound(AudioType.PlayerUltimate);
+        _animation.TriggerUltimate();
+    }
+    public void TriggerJump()
+    {
+        AudioManager.PlaySound(AudioType.PlayerJump);
+        _animation.TriggerJump();
+    }
+    private void TriggerWallJump(int dir)
+    {
+        TriggerJump();
+    }
 
     // ===== Internal References =====
     private PlayerAnimation _animation;
@@ -46,9 +59,9 @@ public class Player : PlayerBase
     private float _savedMovementSpeed;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
+    private PlatformerWallModule _wallModule;
     private IndicatorUI _indicatorUI;
 
-    private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
     private Coroutine _freezeMovementCoroutine;
     
@@ -60,16 +73,19 @@ public class Player : PlayerBase
         _animation = GetComponentInChildren<PlayerAnimation>();
         ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
+        _wallModule = GetComponent<PlatformerWallModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         ResetWeightClass();
 
         _jumpModule.JumpTriggered += TriggerJump;
+        _wallModule.OnWallJump += TriggerWallJump;
     }
     
     private void OnDestroy()
     {
         OnDeath = null;
         if (_jumpModule) _jumpModule.JumpTriggered -= TriggerJump;
+        if (_wallModule) _wallModule.OnWallJump -= TriggerWallJump;
     }
 
     public void Register(Action<Player> deathCallback)
@@ -104,8 +120,10 @@ public class Player : PlayerBase
         
         if (PlayerHealth <= 0)
         {
+            AudioManager.PlaySound(AudioType.PlayerDeath);
             OnDeath(this);
         }
+        else AudioManager.PlaySound(AudioType.PlayerHit);
     }
 
     public void InstaDeath()
@@ -116,9 +134,9 @@ public class Player : PlayerBase
     public void HealHP(int heal)
     {
         PlayerHealth += heal;
-        if (PlayerHealth > 200)
+        if (PlayerHealth > CombatParameters.MAX_PLAYER_HEALTH)
         {
-            PlayerHealth = 200;
+            PlayerHealth = CombatParameters.MAX_PLAYER_HEALTH;
         }
     }
 
@@ -235,7 +253,7 @@ public class Player : PlayerBase
         FreezePlayerMovement();
         yield return new WaitForSeconds(duration);
         UnfreezePlayerMovement();
-        _hitStunCoroutine = null;
+        _freezeMovementCoroutine = null;
     }
 }
 

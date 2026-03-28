@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,7 +10,8 @@ using UnityEditor;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    public const int NUM_SFX_SOURCE = 4;
+    public const int NUM_SFX_SOURCE = 8;
+    private const float FADE_OUT_TIME = 1.25f;
     
     [SerializeField] private GameObject _audioSourcePrefab;
     [SerializeField] private Audio[] _audios;
@@ -18,10 +20,19 @@ public class AudioManager : MonoBehaviour
     private Queue<AudioSettings> _soundQueue = new Queue<AudioSettings>();
     private Dictionary<AudioType, Audio> _audioDictionary = new Dictionary<AudioType, Audio>();
 
+    private AudioSource _musicPlayer;
+    [SerializeField] private AudioClip _menuMusic;
+    [SerializeField] private AudioClip _gameMusic;
+    [SerializeField] private AudioClip _minigameMusic;
+
+    private Coroutine _crossfadeCoroutine;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        _musicPlayer = GetComponent<AudioSource>();
 
         _sources = new AudioPool[NUM_SFX_SOURCE];
         for (int i = 0; i < NUM_SFX_SOURCE; i++)
@@ -48,16 +59,23 @@ public class AudioManager : MonoBehaviour
         }
     }
     
+    #region SFX
     public static void PlaySound(AudioType type, float delay = 0f)
     {
         if (!Instance._audioDictionary.TryGetValue(type, out Audio audio))
         {
-            throw new Exception($"Audio Type not found {type}, check if it is set up in AudioManager");
+            Debug.LogWarning($"Audio Type not found {type}, check if it is set up in AudioManager");
+            return;
         }
 
         AudioSettings settings = audio.GetClip();
         settings.delay = delay;
         PlaySound(settings);
+    }
+
+    public void PlayUISound()
+    {
+        PlaySound(AudioType.ButtonClick);
     }
     
     public static void PlaySound(AudioClip clip, float volume = 1f, float pitch = 1f, float delay = 0f)
@@ -88,6 +106,49 @@ public class AudioManager : MonoBehaviour
             finished.PlaySound(settings);
         }
     }
+    #endregion
+    
+    #region Music
+
+    public void SwitchMusic(MusicType type)
+    {
+        AudioClip song = type switch
+        {
+            MusicType.Menu => _menuMusic,
+            MusicType.Game => _gameMusic,
+            MusicType.Minigame => _minigameMusic,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+
+        _crossfadeCoroutine ??= StartCoroutine(CrossFadeMusic(song));
+    }
+
+    private IEnumerator CrossFadeMusic(AudioClip newSong)
+    {
+        float elapsed = 0f;
+        float startVolume = _musicPlayer.volume;
+        while (elapsed < FADE_OUT_TIME)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            _musicPlayer.volume = Mathf.Lerp(startVolume, 0f, elapsed / FADE_OUT_TIME);
+            yield return null;
+        }
+
+        _musicPlayer.volume = 0f;
+        _musicPlayer.clip = newSong;
+
+        elapsed = 0f;
+        while (elapsed < FADE_OUT_TIME)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            _musicPlayer.volume = Mathf.Lerp(0f, startVolume, elapsed / FADE_OUT_TIME);
+            yield return null;
+        }
+        
+        _crossfadeCoroutine = null;
+    }
+    
+    #endregion
 
     public struct AudioSettings
     {
@@ -108,6 +169,7 @@ public class AudioManager : MonoBehaviour
     [Serializable]
     public struct Audio
     {
+        public string name; //editor use only
         public AudioType type;
         [SerializeField] private AudioClip[] _clips;
         [SerializeField] [Range(0f, 1f)] private float _volumeMin;
@@ -136,9 +198,18 @@ public enum AudioType
     PowerupThrow,
     GameStart,
     MinigameStart,
+    MinigameEnd,
     Transition,
     Countdown,
-    ButtonClick
+    ButtonClick,
+    PlayerUltimate
+}
+
+public enum MusicType
+{
+    Menu,
+    Game,
+    Minigame
 }
 
 #if UNITY_EDITOR
@@ -150,10 +221,18 @@ public class AudioManagerEditor : Editor
     private SerializedProperty prefabProp;
     private SerializedProperty arrayProp;
 
+    private SerializedProperty menuMusic;
+    private SerializedProperty gameMusic;
+    private SerializedProperty minigameMusic;
+
     private void OnEnable()
     {
         prefabProp = serializedObject.FindProperty("_audioSourcePrefab");
         arrayProp = serializedObject.FindProperty("_audios");
+        
+        menuMusic = serializedObject.FindProperty("_menuMusic");
+        gameMusic = serializedObject.FindProperty("_gameMusic");
+        minigameMusic = serializedObject.FindProperty("_minigameMusic");
     }
 
     public override void OnInspectorGUI()
@@ -168,6 +247,12 @@ public class AudioManagerEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(prefabProp);
+        
+        EditorGUILayout.Space(10f);
+        EditorGUILayout.PropertyField(menuMusic);
+        EditorGUILayout.PropertyField(gameMusic);
+        EditorGUILayout.PropertyField(minigameMusic);
+        EditorGUILayout.Space(10f);
         
         if (previousSize == -1)
         {
@@ -197,12 +282,14 @@ public class AudioManagerEditor : Editor
     private static void Initialize(SerializedProperty element)
     {
         SerializedProperty type = element.FindPropertyRelative("type");
+        SerializedProperty array = element.FindPropertyRelative("_clips");
         SerializedProperty volumeMin = element.FindPropertyRelative("_volumeMin");
         SerializedProperty volumeMax = element.FindPropertyRelative("_volumeMax");
         SerializedProperty pitchMin = element.FindPropertyRelative("_pitchMin");
         SerializedProperty pitchMax = element.FindPropertyRelative("_pitchMax");
 
         type.enumValueIndex = 0;
+        array.arraySize = 0;
         volumeMin.floatValue = 1f;
         volumeMax.floatValue = 1f;
         pitchMin.floatValue = 1f;

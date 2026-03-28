@@ -4,7 +4,6 @@ using UnityEngine;
 public class AttackHurtbox : MonoBehaviour
 {
     public Player player;
-    [SerializeField] private float _startingHealth = 200;
     public float HP { get; set; }
 
     private void Awake()
@@ -20,7 +19,7 @@ public class AttackHurtbox : MonoBehaviour
 
     public void ResetHealth()
     {
-        HP = _startingHealth;
+        HP = CombatParameters.MAX_PLAYER_HEALTH;
     }
 
     public void InstantDeath()

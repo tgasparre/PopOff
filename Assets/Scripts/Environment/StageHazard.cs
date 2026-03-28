@@ -7,10 +7,10 @@ public class StageHazard : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Player hitPlayer = other.gameObject.GetComponentInParent<Player>();
-            other.gameObject.GetComponentInChildren<AttackHurtbox>().TakeDamage(5f);
+            hitPlayer.gameObject.GetComponentInChildren<AttackHurtbox>().TakeDamage(5f);
             
             hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
             Vector2 directionToPlayer = (other.gameObject.transform.position - transform.position).normalized;

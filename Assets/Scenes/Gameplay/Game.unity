@@ -1074,7 +1074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5806683983664184314, guid: aeb47f54c076aced182522ac390c0195, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8788251428059024599, guid: aeb47f54c076aced182522ac390c0195, type: 3}
       propertyPath: _appearTimeMax

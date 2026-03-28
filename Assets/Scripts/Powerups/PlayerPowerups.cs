@@ -56,6 +56,8 @@ public class PlayerPowerups : MonoBehaviour
     {
         if (HasPower && _canUsePowerup)
         {
+            AudioManager.PlaySound(AudioType.PowerupThrow);
+            
             _currentPower.UsePowerup(this);
             StartCoroutine(PowerupTimer(_currentPower.UseCooldown));
             

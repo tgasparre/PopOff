@@ -9,6 +9,11 @@ public class SlipperyMiniGame : MiniGameInfo
     protected override void StartMiniGame()
     {
         startingPlatformParent.SetActive(false);
-        MainPlatform.StartTiltingPlatform();
+        MainPlatform.StartTiltingPlatform(MiniGameTime);
+    }
+
+    protected override void OnEndMiniGame()
+    {
+        MainPlatform.EndGame();
     }
 }

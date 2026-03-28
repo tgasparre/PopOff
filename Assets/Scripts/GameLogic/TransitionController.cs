@@ -101,6 +101,7 @@ public class TransitionController : MonoBehaviour
 
         IEnumerator InOut()
         {
+            AudioManager.PlaySound(AudioType.Transition, 0.2f);
             yield return StartCoroutine(ApplyTransition(_activeHiddenOffset, 0, time, () =>
             {
                 StartCoroutine(OutLoader());

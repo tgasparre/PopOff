@@ -16,6 +16,8 @@ public abstract class PlayerBase : MonoBehaviour
     
     protected Rigidbody2D _rigidbody2D;
 
+    public abstract bool InAir { get; }
+
     protected void Awake()
     {
         Register();

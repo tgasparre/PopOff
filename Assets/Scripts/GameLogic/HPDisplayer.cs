@@ -22,7 +22,7 @@ public class HPDisplayer : MonoBehaviour
     {
         if (hurtbox == null) return;
 
-        float pct = hurtbox.HP / 200f;
+        float pct = hurtbox.HP / CombatParameters.MAX_PLAYER_HEALTH;
 
         // Update width
         hpBar.sizeDelta = new Vector2(fullSize * pct, hpBar.sizeDelta.y);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
         get => _defaultPlayer.PlayerHealth;
         set => _defaultPlayer.PlayerHealth = value;
     }
+
+    private bool _inAir => ActivePlayer.InAir;
     
     [Header("Input Handlers")]
     [SerializeField] private InputManager _startingInputManager;
@@ -52,6 +55,10 @@ public class PlayerController : MonoBehaviour
     private Action<InputAction.CallbackContext> OnMove;
     public Action<InputAction.CallbackContext> OnJump;
     private bool _inputEnabled = true;
+    
+    //===== Sound Effects =====
+    private const float SFX_INTERVAL = 0.5f;
+    private Coroutine _movingCoroutine;
 
     private void SwitchState(PlayerState state)
     {
@@ -96,7 +103,25 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         if (!_inputEnabled) return;
+        _movingCoroutine ??= StartCoroutine(SFXDelay());
         OnMove?.Invoke(context);
+        return;
+
+        IEnumerator SFXDelay()
+        {
+            while (context.started)
+            {
+                float xDir = context.ReadValue<Vector2>().x;
+                if (_inAir || xDir == 0)
+                {
+                    yield return null;
+                    continue;
+                }
+                AudioManager.PlaySound(AudioType.PlayerMove);
+                yield return new WaitForSeconds(SFX_INTERVAL);
+            }
+            _movingCoroutine = null;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)

@@ -10,16 +10,16 @@ public class TiltingPlatform : MonoBehaviour
 
     [SerializeField] private TiltingPlatformSensor leftSide;
     [SerializeField] private TiltingPlatformSensor rightSide;
-
-    private Coroutine tiltCoroutine;
+    
+    private Coroutine tiltCoroutine = null;
+    private Coroutine gameCoroutine = null;
     
     //rotation parameters
     private float rotation;
     private float startValue;
     private float rightEndValue = -4f;
     private float leftEndValue = 4f;
-
-
+    
     void Start()
     {
         if (leftSide != null)
@@ -34,38 +34,40 @@ public class TiltingPlatform : MonoBehaviour
         }
     }
 
-    public void StartTiltingPlatform()
+    public void StartTiltingPlatform(float minigameDuration)
     {
-        StartCoroutine(TiltPlatform());
+        gameCoroutine = StartCoroutine(TiltPlatform(minigameDuration));
+    }
+
+    public void EndGame()
+    {
+        StopAllCoroutines();
     }
 
     //when num players on one side is greater than the other, tilt the platform
-    IEnumerator TiltPlatform()
+    IEnumerator TiltPlatform(float minigameDuration)
     {
-       float timeElapsed = 0;
-       float MinigameDuration = 25f; //IF MINIGAME TIMER CHANGES, CHANGE THIS
+        float timeElapsed = 0;
+        while (timeElapsed < minigameDuration)
+        {
+            if (tiltCoroutine != null) StopCoroutine(tiltCoroutine);
 
-       while (timeElapsed < MinigameDuration)
-       {
-           if (tiltCoroutine != null)
-               StopCoroutine(tiltCoroutine);
+            if (numPlayersOnLeft > numPlayersOnRight)
+            {
+                tiltCoroutine = StartCoroutine(Tilt(leftEndValue));
+            }
+            else if (numPlayersOnLeft < numPlayersOnRight)
+            {
+                tiltCoroutine = StartCoroutine(Tilt(rightEndValue));
+            }
+            else
+            {
+                tiltCoroutine = StartCoroutine(Tilt(0));
+            }
 
-           if (numPlayersOnLeft > numPlayersOnRight)
-           {
-               tiltCoroutine = StartCoroutine(Tilt(leftEndValue));
-           }
-           else if (numPlayersOnLeft < numPlayersOnRight)
-           {
-               tiltCoroutine = StartCoroutine(Tilt(rightEndValue));
-           }
-           else
-           {
-               tiltCoroutine = StartCoroutine(Tilt(0));
-           }
-           
-           yield return null;
-           timeElapsed += Time.deltaTime;
-       }
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
 
     }
 
@@ -85,6 +87,7 @@ public class TiltingPlatform : MonoBehaviour
 
             yield return null;
         }
+        tiltCoroutine = null; 
 
         rotation = endValue;
     }

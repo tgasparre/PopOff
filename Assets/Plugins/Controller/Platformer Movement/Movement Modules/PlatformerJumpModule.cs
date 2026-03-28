@@ -69,23 +69,23 @@ namespace ControllerSystem.Platformer2D
             
             public void SetJumpTypeToLight()
             {
-                NumDoubleJumps = 2;
+                NumDoubleJumps = MovementParameters.lightDoubleJumps;
                 JumpHeight = MovementParameters.lightJumpHeight;
                 JumpEndEarlyForce = MovementParameters.lightJumpEndEarlyForce;
             }
 
             public void SetJumpTypeToHeavy()
             {
-                NumDoubleJumps = 1;
+                NumDoubleJumps = MovementParameters.heavyDoubleJumps;
                 JumpHeight = MovementParameters.heavyJumpHeight;
                 JumpEndEarlyForce = MovementParameters.heavyJumpEndEarlyForce;
             }
 
             public void ResetJumpType()
             {
-                NumDoubleJumps = 1;
-                JumpHeight = 16.66667f;
-                JumpEndEarlyForce = 0.6f;
+                NumDoubleJumps = MovementParameters.defaultDoubleJumps;
+                JumpHeight = MovementParameters.defaultJumpHeight;
+                JumpEndEarlyForce = MovementParameters.defaultJumpEndEarlyForce;
             }
 
             public void DisableJump()
