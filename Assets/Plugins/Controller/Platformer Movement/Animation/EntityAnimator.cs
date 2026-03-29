@@ -53,6 +53,7 @@ public abstract class EntityAnimator : MonoBehaviour
         if (!motor.Controller.InputtingHorizontalMovement) return;
             
         FlipToFaceDirection(motor.Controller.Input.move.GetValue().x);
+        
     }
 
     public void FlipToFaceDirection(float direction)

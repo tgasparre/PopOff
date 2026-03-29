@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +9,10 @@ public abstract class MiniGameInfo : MonoBehaviour
 {
     public static MiniGameInfo Instance;
     public static bool IsPlayingMiniGame => Instance._isPlayingMiniGame;
+
+    public ParticleSystem winningParticlesPrefab;
+    private ParticleSystem _winningParticles;
+    
     protected void Awake()
     {
         if (Instance == null) Instance = this;
@@ -182,6 +187,10 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void TriggerEndMiniGame(int winningIndex)
     {
         _winningPlayerIndex = winningIndex;
+        
+        if (_winningPlayerIndex is >= 0 and < 4)
+            SpawnWinningParticles(_players[_winningPlayerIndex].controller.gameObject.transform.position);
+        
         _onGameComplete.Invoke();
     }
 
@@ -209,6 +218,12 @@ public abstract class MiniGameInfo : MonoBehaviour
         }
     }
 
+    private void SpawnWinningParticles(Vector3 position)
+    {
+        if (winningParticlesPrefab != null)
+            _winningParticles = Instantiate(winningParticlesPrefab, position,quaternion.identity);
+    }
+
     protected abstract void StartMiniGame();
     protected virtual void OnEndMiniGame() { /* to be inherited */}
 
@@ -216,6 +231,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     {
         Game.IsFrozen = true;
         GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);
+        
         StartCoroutine(ResultsScreen());
         return;
         

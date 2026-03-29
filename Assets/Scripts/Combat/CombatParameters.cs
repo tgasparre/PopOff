@@ -6,7 +6,7 @@ public static class CombatParameters
     public const int ultimateAttackDamage = 40;
 
     public const float knockbackDuration = 0.2f;
-    public const float knockbackForce = 15f; 
+    public const float knockbackForce = 13f; 
     public static readonly AnimationCurve knockbackCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
     
     public const float ultimateKnockbackForce = 17f;
