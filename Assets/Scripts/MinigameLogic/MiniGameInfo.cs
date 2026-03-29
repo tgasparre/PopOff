@@ -118,7 +118,7 @@ public abstract class MiniGameInfo : MonoBehaviour
             
             AudioManager.PlaySound(AudioTrack.MinigameEnd);
             _chosenPowerup = GetRandomPowerup();
-            ShowMiniGameResults(onFinished, _chosenPowerup ? _chosenPowerup.Name : "");
+            ShowMiniGameResults(onFinished, _chosenPowerup);
         }
     }
 
@@ -216,7 +216,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     protected abstract void StartMiniGame();
     protected virtual void OnEndMiniGame() { /* to be inherited */}
 
-    protected virtual void ShowMiniGameResults(Action onFinished, string reward)
+    protected virtual void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
         Game.IsFrozen = true;
         GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);

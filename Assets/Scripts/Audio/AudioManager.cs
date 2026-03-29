@@ -46,6 +46,7 @@ public class AudioManager : MonoBehaviour
         {
             if (!_audioDictionary.TryAdd(a.track, a))
             {
+                if (a.track == AudioTrack.Other) continue;
                 throw new Exception($"Failed to add type {a.track} to AudioDictionary - check that no type duplicates exist");
             }
         }
@@ -204,19 +205,19 @@ public enum AudioTrack
     PlayerMove,
     PlayerJump,
     PlayerDeath,
+    PlayerUltimate,
+    PlayerAppear,
     PowerupThrow,
+    PowerupThud,
+    PowerupExplode,
     GameStart,
     MinigameStart,
     MinigameEnd,
+    MinigameTransition,
+    MinigameWhistle,
     Transition,
     Countdown,
     ButtonClick,
-    PlayerUltimate,
-    PlayerAppear,
-    MinigameTransition,
-    MinigameWhistle,
-    PowerupThud,
-    PowerupExplode
 }
 
 public enum MusicType

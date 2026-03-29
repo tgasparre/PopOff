@@ -62,7 +62,7 @@ public class GameCanvas : MonoBehaviour
         CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
     }
 
-    public void OnWinMiniGame(int playerIndex, string reward)
+    public void OnWinMiniGame(int playerIndex, Powerup reward)
     {
         _miniGameScreen.OnWinMiniGame(playerIndex, reward);
     }

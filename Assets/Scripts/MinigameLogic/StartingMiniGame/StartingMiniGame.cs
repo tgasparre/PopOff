@@ -53,7 +53,7 @@ public class StartingMiniGame : MiniGameInfo
         AudioManager.PlaySound(_blowUpBallonClip, 0.6f, delay: 1.5f);
     }
 
-    protected override void ShowMiniGameResults(Action onFinished, string reward)
+    protected override void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
         //TODO fun animation
         for (int i = 0; i < _playerControllers.Length; i++)

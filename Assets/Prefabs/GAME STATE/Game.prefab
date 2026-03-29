@@ -257,7 +257,7 @@ MonoBehaviour:
   _audioSourcePrefab: {fileID: 5182545077953137728, guid: 4abc30020cd223a81a76341af7b82fa4, type: 3}
   _audios:
   - name: Player Move
-    type: 2
+    track: 2
     _clips:
     - {fileID: 8300000, guid: 496599e3f9bb71db4bf875c6ac03029e, type: 3}
     _volumeMin: 0.1
@@ -265,7 +265,7 @@ MonoBehaviour:
     _pitchMin: 0.75
     _pitchMax: 1.2
   - name: Player Jump
-    type: 3
+    track: 3
     _clips:
     - {fileID: 8300000, guid: 9b6d4dc2bf0b1dbda9f2155f1f3126f8, type: 3}
     _volumeMin: 0.2
@@ -273,16 +273,15 @@ MonoBehaviour:
     _pitchMin: 0.8
     _pitchMax: 1
   - name: Player Hit
-    type: 1
+    track: 1
     _clips:
-    - {fileID: 8300000, guid: 2c2bb443a815e4aba853961bd1f4d41e, type: 3}
     - {fileID: 8300000, guid: 45c29f880cef3f041b058c8b255d6733, type: 3}
     _volumeMin: 0.2
     _volumeMax: 0.25
-    _pitchMin: 0.9
-    _pitchMax: 1.1
+    _pitchMin: 0.85
+    _pitchMax: 1.25
   - name: Player Death
-    type: 4
+    track: 4
     _clips:
     - {fileID: 8300000, guid: 8c72663bbb552a9a7af8b3eb9299b868, type: 3}
     - {fileID: 8300000, guid: 756b1540be435efb780d3cdd7085b570, type: 3}
@@ -291,7 +290,7 @@ MonoBehaviour:
     _pitchMin: 0.9
     _pitchMax: 1.1
   - name: Player Appear
-    type: 13
+    track: 6
     _clips:
     - {fileID: 8300000, guid: d2006275738d988babc50834bb51bfdb, type: 3}
     - {fileID: 8300000, guid: adb7afdffcfef5bcaa52f9acb419c3c3, type: 3}
@@ -300,7 +299,7 @@ MonoBehaviour:
     _pitchMin: 0.9
     _pitchMax: 1.1
   - name: Transition
-    type: 9
+    track: 15
     _clips:
     - {fileID: 8300000, guid: d7574aef98282f197948a23bcc527add, type: 3}
     _volumeMin: 1
@@ -308,7 +307,7 @@ MonoBehaviour:
     _pitchMin: 1
     _pitchMax: 1.3
   - name: Minigame Transition
-    type: 14
+    track: 13
     _clips:
     - {fileID: 8300000, guid: d2c73e4ec3591b041881b9cac4638772, type: 3}
     _volumeMin: 0.8
@@ -316,7 +315,7 @@ MonoBehaviour:
     _pitchMin: 0.9
     _pitchMax: 1.1
   - name: Minigame Start
-    type: 7
+    track: 11
     _clips:
     - {fileID: 8300000, guid: b8b2264c0e958bc9eab0cd89903995fe, type: 3}
     _volumeMin: 0.5
@@ -324,7 +323,7 @@ MonoBehaviour:
     _pitchMin: 1.2
     _pitchMax: 1.5
   - name: Minigame End
-    type: 8
+    track: 12
     _clips:
     - {fileID: 8300000, guid: 26e18a25f1a8ac078a92214f055b52a6, type: 3}
     _volumeMin: 0.5
@@ -332,7 +331,7 @@ MonoBehaviour:
     _pitchMin: 1
     _pitchMax: 1.1
   - name: Minigame Whistle
-    type: 15
+    track: 14
     _clips:
     - {fileID: 8300000, guid: 0a197fc5147e9aedbab57b057b85a19a, type: 3}
     _volumeMin: 0.5
@@ -340,7 +339,7 @@ MonoBehaviour:
     _pitchMin: 0.9
     _pitchMax: 1.1
   - name: Game Start
-    type: 6
+    track: 10
     _clips:
     - {fileID: 8300000, guid: f2016690211ba1a81841e2369829029f, type: 3}
     _volumeMin: 0.5
@@ -348,7 +347,7 @@ MonoBehaviour:
     _pitchMin: 0.9
     _pitchMax: 1.05
   - name: Powerup Throw
-    type: 5
+    track: 7
     _clips:
     - {fileID: 8300000, guid: d7574aef98282f197948a23bcc527add, type: 3}
     _volumeMin: 0.2
@@ -356,7 +355,7 @@ MonoBehaviour:
     _pitchMin: 2.8
     _pitchMax: 3
   - name: Powerup Thud
-    type: 16
+    track: 8
     _clips:
     - {fileID: 8300000, guid: d17209ef4de2c17e08dc3fc03d6aeeb6, type: 3}
     _volumeMin: 0.4
@@ -364,7 +363,7 @@ MonoBehaviour:
     _pitchMin: 0.8
     _pitchMax: 1.1
   - name: Button Click
-    type: 11
+    track: 17
     _clips:
     - {fileID: 8300000, guid: e8ff69dbf2cf8b57db9246dfdc63ccbd, type: 3}
     _volumeMin: 0.1

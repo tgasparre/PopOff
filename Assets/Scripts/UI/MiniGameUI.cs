@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public interface IMiniGameUI
 {
@@ -30,6 +31,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
     [SerializeField] private TextMeshProUGUI _playerName;
     [SerializeField] private TextMeshProUGUI _rewardText;
+    [SerializeField] private Image _rewardImage;
     
     //===== State =====
     private UIState _currentState;
@@ -97,12 +99,12 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         _miniGameCountdownTimer.InitializeCountdown(info.MiniGameTime);
     }
 
-    public void OnWinMiniGame(int playerIndex, string reward)
+    public void OnWinMiniGame(int playerIndex, Powerup reward)
     {
-        if (playerIndex > 3 || playerIndex < 0)
-            return;
+        if (playerIndex is > 3 or < 0 || !reward) return;
         _playerName.text = GameUtils.PlayerNames[playerIndex];
-        _rewardText.text = reward;
+        _rewardText.text = reward.Name;
+        _rewardImage.sprite = reward.GetIcon();
         CurrentState = UIState.Results;
     }
 
