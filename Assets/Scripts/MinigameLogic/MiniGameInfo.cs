@@ -189,7 +189,7 @@ public abstract class MiniGameInfo : MonoBehaviour
         _winningPlayerIndex = winningIndex;
         
         if (_winningPlayerIndex is >= 0 and < 4)
-            SpawnWinningParticles(_players[_winningPlayerIndex].controller.gameObject.transform.position);
+            SpawnWinningParticles(_players[_winningPlayerIndex].controller.PlayerHurtbox.gameObject.transform.position);
         
         _onGameComplete.Invoke();
     }
