@@ -53,9 +53,9 @@ namespace ControllerSystem.Platformer2D
                 // Boost force when turning around
                 if (!Mathf.Approximately(Mathf.Sign(Controller.Input.move.GetValue().x), Mathf.Sign(motor.Rb.linearVelocity.x)))
                 {
+                    FlipParticleTrail();
                     horizontalForce *= _turnAroundSpeedMultiplier;
                 }
-
                 motor.Rb.AddForce(new Vector2(horizontalForce * Time.fixedDeltaTime, 0), ForceMode2D.Impulse);
                 
                 
@@ -128,6 +128,13 @@ namespace ControllerSystem.Platformer2D
         {
             _groundDrag = 0;
             _turnAroundSpeedMultiplier = 0.1f;
+        }
+
+        private void FlipParticleTrail()
+        {
+            _runningParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            _runningParticles.transform.localRotation = Quaternion.FromToRotation(Vector2.left, Controller.Input.move.GetValue());
+            _runningParticles.Play();
         }
     }
 }
