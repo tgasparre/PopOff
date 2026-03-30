@@ -57,6 +57,7 @@ public class CountdownUI : MonoBehaviour
          return null;
       }
 
+      _forceQuit = false;
       _canvasGroup.alpha = 1f;
       _onFinished = onFinished;
       _coroutine ??= StartCoroutine(type == CountdownType.Number ? Timer() : ReadyGo());
@@ -70,11 +71,8 @@ public class CountdownUI : MonoBehaviour
          float timer = _startingNumber;
          while (timer >= 0)
          {
-            if (_forceQuit)
-            {
-               _forceQuit = false;
-               yield break;
-            }
+            if (_forceQuit) yield break;
+
             _countdown.text = Mathf.RoundToInt(timer).ToString();
             timer -= Time.deltaTime * _timescaleSpeed;
             yield return null;
@@ -86,27 +84,16 @@ public class CountdownUI : MonoBehaviour
       IEnumerator ReadyGo()
       {
          yield return new WaitForSeconds(delay);
-         if (_forceQuit) 
-         {
-            _forceQuit = false;
-            yield break;
-         }
+         if (_forceQuit)  yield break; 
 
          isRunning = true;
          _countdown.text = "Ready";
          yield return new WaitForSeconds(_readyWaitTime);
-         if (_forceQuit) 
-         {
-            _forceQuit = false;
-            yield break;
-         }
+         if (_forceQuit) yield break;
+
          _countdown.text = "Go";
          yield return new WaitForSeconds(_goWaitTime);
-         if (_forceQuit) 
-         {
-            _forceQuit = false;
-            yield break;
-         }
+         if (_forceQuit)  yield break;
 
          StopCountdown();
       }
