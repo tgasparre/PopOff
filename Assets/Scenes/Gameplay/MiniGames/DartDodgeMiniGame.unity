@@ -521,6 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f2268e26045d3458a972dc71528ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HotPotatoMinigGame
+  winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: Dart Dodge
   _miniGameInstructions: Avoid the falling darts to be the last one standing
   _countdownTimer: 3
