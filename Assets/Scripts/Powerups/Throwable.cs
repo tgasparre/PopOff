@@ -40,10 +40,14 @@ public abstract class Throwable : MonoBehaviour
         _throwingPlayer = throwingPlayer;
         _direction = direction;
 
+        _renderer.flipX = _direction == 1;
+
         type = powerupStats.type;
         _damage = powerupStats.damage;
         _glueDuration = powerupStats.glueDuration;
         transform.localScale = Vector3.one * powerupStats.size;
+        
+        Invoke(nameof(Despawn), 40);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -69,6 +73,8 @@ public abstract class Throwable : MonoBehaviour
         {
             case PowerupStats.PowerupType.Damage:
                 hitPlayer.TakeDamage(_damage);
+                Vector2 knockback = new Vector2(_rigidbody2D.linearVelocityX, -_rigidbody2D.linearVelocityY).normalized;
+                hitPlayer.ApplyKnockback(knockback, CombatParameters.knockbackForce); 
                 break;
             case PowerupStats.PowerupType.Glue:
                 hitPlayer.FreezePlayer(_glueDuration);

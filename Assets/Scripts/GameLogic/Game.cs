@@ -12,6 +12,8 @@ public class Game : MonoBehaviour
         _sceneLoader = GetComponent<SceneLoader>();
         _activePlayersTracker = GetComponentInChildren<ActivePlayersTracker>();
         currentState = GameStates.Menu;
+
+        Cursor.visible = false;
     }
     
     [Header("Player Prefabs")]
@@ -24,15 +26,15 @@ public class Game : MonoBehaviour
 
     [SerializeField] private Color[] _playerColors;
     public Color[] PlayerColors => _playerColors;
+    [SerializeField] private PlayerType[] _playerTypes;
+    public PlayerType[] PlayerTypes => _playerTypes;
     
     public RuntimeAnimatorController GetPlayerAnimation(int index)
     {
-        return index switch
+        return _playerTypes[index] switch
         {
-            0 => _mouseAnimation,
-            1 => _dogAnimation,
-            2 => _mouseAnimation,
-            3 => _dogAnimation,
+            PlayerType.Mouse => _mouseAnimation,
+            PlayerType.Dog => _dogAnimation,
             _ => null
         };
     }
@@ -91,4 +93,10 @@ public class Game : MonoBehaviour
     [Header("DEBUG Controls")]
     [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
      
+}
+
+public enum PlayerType
+{
+    Mouse,
+    Dog
 }

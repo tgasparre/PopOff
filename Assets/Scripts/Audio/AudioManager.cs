@@ -218,6 +218,7 @@ public enum AudioTrack
     Transition,
     Countdown,
     ButtonClick,
+    UltimateAttackUnlock,
 }
 
 public enum MusicType
@@ -296,7 +297,7 @@ public class AudioManagerEditor : Editor
 
     private static void Initialize(SerializedProperty element)
     {
-        SerializedProperty type = element.FindPropertyRelative("type");
+        SerializedProperty type = element.FindPropertyRelative("track");
         SerializedProperty array = element.FindPropertyRelative("_clips");
         SerializedProperty volumeMin = element.FindPropertyRelative("_volumeMin");
         SerializedProperty volumeMax = element.FindPropertyRelative("_volumeMax");

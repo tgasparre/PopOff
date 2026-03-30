@@ -8,7 +8,7 @@ public class MenuState : GameState
        Game.CanJoin = false;
     }
 
-    public override void ExitState()
+    public override void ExitState(GameStates newState)
     {
         Game.CanJoin = false;
     }

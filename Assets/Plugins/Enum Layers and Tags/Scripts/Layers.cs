@@ -11,6 +11,7 @@ public static class Layers
     public const int Platform = 8;
     public const int Ground = 9;
     public const int Other = 10;
+    public const int Throwable = 11;
 
     public static int ToLayerMask(int layer)
     {

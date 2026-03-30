@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartingMiniGame : MiniGameInfo
 {
     [Space]
-    [SerializeField] private AudioClip _blowUpBallonClip;
+    [SerializeField] private AudioSource _blowUpBallon;
     [SerializeField] private AudioManager.Audio _pressBlowButtonAudio;
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
@@ -36,7 +36,20 @@ public class StartingMiniGame : MiniGameInfo
 
     private void Start()
     {
+        PauseState.OnPaused += OnPause;
         SetMinigameUI(false);
+    }
+
+    protected new void OnDestroy()
+    {
+        PauseState.OnPaused -= OnPause;
+        base.OnDestroy();
+    }
+
+    private void OnPause(bool isPaused)
+    {
+        if (isPaused) _blowUpBallon.Pause();
+        else _blowUpBallon.UnPause();
     }
 
     protected override void StartMiniGame()
@@ -50,7 +63,7 @@ public class StartingMiniGame : MiniGameInfo
             _weightUIs[i].IsVisible = true;
         }
         
-        AudioManager.PlaySound(_blowUpBallonClip, 0.6f, delay: 1.5f);
+        _blowUpBallon.PlayDelayed(1.5f);
     }
 
     protected override void ShowMiniGameResults(Action onFinished, Powerup reward)

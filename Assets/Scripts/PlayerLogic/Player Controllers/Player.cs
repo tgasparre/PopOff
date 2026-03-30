@@ -38,9 +38,14 @@ public class Player : PlayerBase
     public override bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack(int direction) { _animation.TriggerAttack(direction); }
 
+    public void TriggerDeath()
+    {
+        _animation.TriggerDeath();
+        Invoke(nameof(KillPlayer), 0.25f);
+    }
+
     public void TriggerUltimate()
     {
-        AudioManager.PlaySound(AudioTrack.PlayerUltimate);
         _animation.TriggerUltimate();
     }
     public void TriggerJump()
@@ -121,12 +126,12 @@ public class Player : PlayerBase
         if (PlayerHealth <= 0)
         {
             AudioManager.PlaySound(AudioTrack.PlayerDeath);
-            OnDeath(this);
+            TriggerDeath();
         }
         else AudioManager.PlaySound(AudioTrack.PlayerHit);
     }
 
-    public void InstaDeath()
+    public void KillPlayer()
     {
         OnDeath(this);
     }

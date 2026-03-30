@@ -163,10 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0718f9b13da495cb9e11770f40eefdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
-  _playersToSpawn: 2
-  _playerState: 2
+  _playersToSpawn: 1
+  _disablePlayerUI: 0
+  _playersImmortal: 0
+  _playersOneHit: 0
+  _playerState: 1
   _enteringState: 2
-  _playingState: 0
+  _playingState: 1
 --- !u!1001 &1251484911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232,6 +235,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 492116959838332726, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174464074363400081, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913882559396812698, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 77.7577
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913882559396812698, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 38.878815
+      objectReference: {fileID: 0}
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -312,6 +331,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3099421678186531877, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_Spacing
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099421678186531877, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099421678186531877, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099421678186531877, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -344,6 +379,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6854652143727935068, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: _rewardImage
+      value: 
+      objectReference: {fileID: 1828748636}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
       value: Game Canvas
@@ -410,6 +449,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 516e3cf8d6c7f199589718355735edf1, type: 3}
+--- !u!114 &1828748636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8594264324629337659, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+  m_PrefabInstance: {fileID: 1373778576}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

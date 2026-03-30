@@ -14,7 +14,7 @@ public abstract class MiniGameInfo : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         Instance = null;
     }
@@ -55,6 +55,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// </summary>
     public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] players)
     {
+        _countdownCoroutine = null;
         _players = new PlayerTrack[players.Length];
         foreach (PlayerController controller in players)
         {
@@ -228,6 +229,14 @@ public abstract class MiniGameInfo : MonoBehaviour
             yield return new WaitForSecondsRealtime(2f);
             onFinished.Invoke();
         }
+    }
+
+    //called when exiting the state -- disables all minigame related UI and timers
+    public void ForceEnd()
+    {
+        if (!_isPlayingMiniGame) return;
+        GameCanvas.MiniGameUI.StopCurrentCountdownNoTrigger();
+        _countdownCoroutine = null;
     }
     
     protected struct PlayerTrack

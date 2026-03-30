@@ -23,6 +23,11 @@ public class DEBUGController : MonoBehaviour
 
     [SerializeField] private int _playersToSpawn = 1;
     
+    [Header("Toggles")]
+    [SerializeField] private bool _disablePlayerUI = false;
+    [SerializeField] private bool _playersImmortal = false;
+    [SerializeField] private bool _playersOneHit = false;
+    
     [Space] [SerializeField] private PlayerState _playerState = PlayerState.Fighting;
     [SerializeField] private GameStates _enteringState = GameStates.Playing; 
     public GameStates EnteringState => _enteringState;
@@ -80,6 +85,22 @@ public class DEBUGController : MonoBehaviour
         else if (_playingState == GameplayStates.Combat) PlayingState.DEBUG_StartCombatCountdown();
         ActivePlayersTracker.JoinEnded -= JoinEnded;
         ActivePlayersTracker.Joined -= Joined;
+        
+        if (_disablePlayerUI) FindFirstObjectByType<PlayerUIController>().gameObject.SetActive(false);
+        if (_playersImmortal)
+        {
+            foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+            {
+                player.PlayerHealth = 100000f;
+            }
+        }
+        if (_playersOneHit)
+        {
+            foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+            {
+                player.PlayerHealth = 1f;
+            }
+        }
     }
 
     private void Joined(PlayerController player)

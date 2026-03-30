@@ -9,18 +9,24 @@ public class PlayerUIDisplayer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _health;
     
     [Space]
+    [SerializeField] private Image _playerImage;
+    
+    [Space]
     [SerializeField] private Slider _ultimateAttackSlider;
     [SerializeField] private Image _sliderImage;
     [SerializeField] private Gradient _ultimateGradient;
     
     private Player _player;
 
-    public void InitializePlayerUI(Player player)
+    public void InitializePlayerUI(Player player, Sprite playerSprite)
     {
         _sliderImage.enabled = false;
         
         _player = player;
         _name.text = GameUtils.PlayerNames[_player.PlayerIndex];
+        _playerImage.sprite = playerSprite;
+        _playerImage.color = Game.Instance.PlayerColors[_player.PlayerIndex];
+        
         UpdateHealth(player.PlayerHealth);
         UpdateUltimateAttack(0f, false);
         Register();

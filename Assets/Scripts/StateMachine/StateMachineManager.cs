@@ -22,16 +22,16 @@ public static class StateMachineManager
         switch (state)
         {
             case GameStates.Menu:
-                SetGameStateTo(menuState);
+                SetGameStateTo(menuState, state);
                 break;
             case GameStates.Pause:
-                SetGameStateTo(pauseState);
+                SetGameStateTo(pauseState, state);
                 break;
             case GameStates.Playing:
-                SetGameStateTo(playingState);
+                SetGameStateTo(playingState, state);
                 break;
             case GameStates.GameOver:
-                SetGameStateTo(gameOverState);
+                SetGameStateTo(gameOverState, state);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -39,9 +39,10 @@ public static class StateMachineManager
         currentState = state;
     }
 
-    private static void SetGameStateTo(GameState state)
+    private static void SetGameStateTo(GameState state, GameStates type)
     {
-        if (state != _activeState) _activeState?.ExitState();
+        // Debug.Log("switching state: " + state + " --- active state: " + _activeState);
+        if (state != _activeState) _activeState?.ExitState(type);
         
         _activeState = state;
         _activeState.EnterState();

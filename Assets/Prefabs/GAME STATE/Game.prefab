@@ -68,6 +68,7 @@ MonoBehaviour:
   - {r: 0.9295761, g: 0.5534885, b: 0.31177953, a: 1}
   - {r: 0.9033077, g: 0.8709651, b: 0.25661016, a: 1}
   - {r: 1, g: 0.41864705, b: 0.72019935, a: 1}
+  _playerTypes: 00000000010000000000000001000000
   bypassOnePlayerBlock: 0
 --- !u!114 &1538154858333272104
 MonoBehaviour:
@@ -91,14 +92,14 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
-  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +299,22 @@ MonoBehaviour:
     _volumeMax: 0.35
     _pitchMin: 0.9
     _pitchMax: 1.1
+  - name: Player Ultimate
+    track: 5
+    _clips:
+    - {fileID: 8300000, guid: e18fe68de017df3b6a4c54cc9eadb262, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 1.1
+    _pitchMax: 1.35
+  - name: Ultimate Attack Unlock
+    track: 18
+    _clips:
+    - {fileID: 8300000, guid: 5bac825b01f3a3877b862509a2007c3f, type: 3}
+    _volumeMin: 0.4
+    _volumeMax: 0.5
+    _pitchMin: 0.9
+    _pitchMax: 1.1
   - name: Transition
     track: 15
     _clips:
@@ -362,6 +379,14 @@ MonoBehaviour:
     _volumeMax: 0.5
     _pitchMin: 0.8
     _pitchMax: 1.1
+  - name: Powerup Explode
+    track: 9
+    _clips:
+    - {fileID: 8300000, guid: 5b5b13e84fa85e81780276bdc40c1260, type: 3}
+    _volumeMin: 0.7
+    _volumeMax: 0.85
+    _pitchMin: 1.2
+    _pitchMax: 1.8
   - name: Button Click
     track: 17
     _clips:

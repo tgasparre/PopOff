@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2676ef4f29b4d6891f834d4489f54da, type: 3}
-  m_Name: PopInScale
+  m_Name: CounterInflate
   m_EditorClassIdentifier: EasyTextEffects::EasyTextEffects.Effects.Effect_Scale
   effectTag: 
   startCharIndex: 0
   charLength: 0
-  animationType: 2
+  animationType: 3
   fixedDuration: 0
-  durationPerChar: 1
+  durationPerChar: 3.25
   timeBetweenChars: 0.25
-  noDelayForChars: 0
+  noDelayForChars: 1
   reverseCharOrder: 0
   easingCurve:
     serializedVersion: 2
@@ -34,6 +34,42 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.25066933
+      value: 0.50021815
+      inSlope: -0.007614776
+      outSlope: -0.007614776
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.76225483
+    - serializedVersion: 3
+      time: 0.42885053
+      value: 0.37926513
+      inSlope: 0.0073582954
+      outSlope: 0.0073582954
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.6285156
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6044662
+      value: 0.8749578
+      inSlope: -0.004019359
+      outSlope: -0.004019359
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.92415977
+    - serializedVersion: 3
+      time: 0.8160063
+      value: 0.6283073
+      inSlope: 0.014576729
+      outSlope: 0.014576729
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.9975226
+      outWeight: 1
+    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 0
@@ -46,6 +82,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   clampBetween0And1: 0
-  timeType: 1
-  startScale: 0.8
+  timeType: 0
+  startScale: 0.15
   endScale: 1

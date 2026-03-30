@@ -23,6 +23,7 @@ public class CombatInputHandler : MonoBehaviour
     
     private bool UltimateAttackEnabled = false; 
     private UltimateAttackTracker _tracker;
+    private Vector2 _ultimateSavedOffset;
 
     private Player _player;
 
@@ -46,7 +47,7 @@ public class CombatInputHandler : MonoBehaviour
         {
             Vector3 attackDirection;
             (attackDirection, _) = GetAttackDirection(true);
-            PreformUltimate(attackDirection);
+            TriggerUltimate(attackDirection);
             ResetUltimateAttack();
         }
     }
@@ -118,10 +119,17 @@ public class CombatInputHandler : MonoBehaviour
         Destroy(hitbox, _hitboxLifetime);
     }
 
-    private void PreformUltimate(Vector2 offset)
+    private void TriggerUltimate(Vector2 offset)
     {
+        _ultimateSavedOffset = offset;
         _player.TriggerUltimate();
-        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, offset, Quaternion.identity, transform);
+    }
+
+    public void PerformUltimate()
+    {
+        AudioManager.PlaySound(AudioTrack.PlayerUltimate);
+        
+        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, _ultimateSavedOffset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = ultimateHitbox.GetComponent<AttackHitbox>();
 
         hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, null);
@@ -131,7 +139,7 @@ public class CombatInputHandler : MonoBehaviour
     
     private void OnUltimateAttackUnlocked()
     {
-        //TODO play sound
+        AudioManager.PlaySound(AudioTrack.UltimateAttackUnlock);
         UltimateAttackEnabled = true;
     }
 

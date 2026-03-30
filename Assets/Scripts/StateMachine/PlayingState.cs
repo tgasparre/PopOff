@@ -17,10 +17,10 @@ public class PlayingState : GameState
             switch (value)
             {
                 case GameplayStates.Combat:
-                    SetState(combatState);
+                    SetState(combatState, GameStates.Playing);
                     break;
                 case GameplayStates.MiniGame:
-                    SetState(miniGameState);
+                    SetState(miniGameState, GameStates.Playing);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -28,9 +28,9 @@ public class PlayingState : GameState
             _currentState = value;
             return;
 
-            static void SetState(GameState state)
+            static void SetState(GameState state, GameStates type)
             {
-                if (state != _activeState) _activeState?.ExitState();
+                if (state != _activeState) _activeState?.ExitState(type);
 
                 _activeState = state;
                 _activeState.EnterState();
@@ -40,26 +40,28 @@ public class PlayingState : GameState
 
     public override void EnterState()
     {
-        switch (Game.currentState)
+        if (Game.currentState == GameStates.Menu)
         {
-            case GameStates.Menu:
-                IsStarting = true;
-                CurrentGameplayState = GameplayStates.MiniGame;
-                break;
-            case GameStates.Playing:
-                break;
+            IsStarting = true;
+            CurrentGameplayState = GameplayStates.MiniGame;
         }
+
         IsStarting = false;
     }
 
-    public override void ExitState()
+    public override void ExitState(GameStates newState)
     {
-        
+
     }
 
     public override bool IsStateSwitchable(GameStates test)
     {
         return test is GameStates.Pause or GameStates.GameOver or GameStates.Playing;
+    }
+
+    public static void ExitFromPause()
+    {
+        _activeState.ExitState(GameStates.Menu);
     }
 
     /// <summary>

@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     public int PlayerIndex => _playerInput.playerIndex;
-    public PlayerBase ActivePlayer => (CurrentState == PlayerState.Starting) ? _startingPlayer : _defaultPlayer;
+    public PlayerBase ActivePlayer => (CurrentState == PlayerState.Fighting) ? _defaultPlayer : _startingPlayer;
     public PlayerUIDisplayer PlayerUI { get; private set; } = null;
     
     [Header("Player Objects")]
@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     private Action<InputAction.CallbackContext> OnMove;
     public Action<InputAction.CallbackContext> OnJump;
     private bool _inputEnabled = true;
+
+    private bool _startingMiniGameFreeze = false;
     
     //===== Sound Effects =====
     private const float SFX_INTERVAL = 0.5f;
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         _defaultPlayer.gameObject.SetActive(false);
         _startingPlayer.gameObject.SetActive(false);
+        _startingMiniGameFreeze = false;
         switch (state)
         {
             case PlayerState.Starting:
@@ -81,6 +84,7 @@ public class PlayerController : MonoBehaviour
                 OnMove = null;
                 //OnJump assigned by StartingMiniGame
                 _startingPlayer.gameObject.SetActive(true);
+                _startingMiniGameFreeze = true;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -109,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
         IEnumerator SFXDelay()
         {
-            while (context.started)
+            while (context.started && !_startingMiniGameFreeze)
             {
                 float xDir = context.ReadValue<Vector2>().x;
                 if (_inAir || xDir == 0)

@@ -7,6 +7,12 @@ public class Trap : Throwable
     [Header("Trap")]
     [SerializeField] private float _throwForce;
     [SerializeField] private TrapStyle _style;
+    
+    [Header("Trap Sounds")]
+    [SerializeField] private AudioManager.Audio expandAudio;
+
+    private float _growthTime = 0.25f;
+    private float _sizePercentage = 2f;
 
     public override void Throw(GameObject throwingPlayer, PowerupStats powerupStats, int direction)
     {
@@ -28,6 +34,7 @@ public class Trap : Throwable
         {
             case TrapStyle.Sticky:
                 _rigidbody2D.bodyType = RigidbodyType2D.Static;
+                StartCoroutine(GrowInSize());
                 break;
             case TrapStyle.Bouncy:
                 _rigidbody2D.sharedMaterial = _bouncyMat;
@@ -35,6 +42,23 @@ public class Trap : Throwable
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private IEnumerator GrowInSize()
+    {
+        AudioManager.PlaySound(expandAudio);
+        
+        Vector3 target = transform.localScale * _sizePercentage;
+        Vector3 starting = transform.localScale;
+        float elapsed = 0f;
+        while (elapsed < _growthTime)
+        {
+            elapsed += Time.deltaTime;
+            Vector3 temp = Vector3.Lerp(starting, target, elapsed / _growthTime);
+            transform.localScale = temp;
+            yield return null;
+        }
+        transform.localScale = target;
     }
 }
 

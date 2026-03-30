@@ -24,7 +24,7 @@ public class AttackHurtbox : MonoBehaviour
 
     public void InstantDeath()
     {
-        player.InstaDeath();
+        player.KillPlayer();
     }
     
 }

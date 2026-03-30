@@ -9,6 +9,7 @@ public interface IMiniGameUI
     public MiniGameUI.UIState CurrentState { get; set; }
     public void SetValues(MiniGameInfo info);
     public Coroutine StartCurrentCountdown(Action onFinished = null);
+    public void StopCurrentCountdownNoTrigger();
     public void DisableCountdown();
     public void DisableAll();
 }
@@ -77,6 +78,11 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     public Coroutine StartCurrentCountdown(Action onFinished = null)
     {
        return _currentCountdown.StartCountdown(onFinished);
+    }
+
+    public void StopCurrentCountdownNoTrigger()
+    {
+        _currentCountdown.StopCountdownNoTrigger();
     }
 
     public void DisableCountdown()
