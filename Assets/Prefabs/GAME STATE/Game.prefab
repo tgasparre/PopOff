@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5137142601896784448}
   - component: {fileID: 4965981714751721931}
   - component: {fileID: 1538154858333272104}
+  - component: {fileID: 724731811040075967}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -100,6 +101,22 @@ MonoBehaviour:
     scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
+--- !u!114 &724731811040075967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705814946791109472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fec3848a208e003d84181ae34ce8110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  _hitDuration: 0.1
+  _hitMagnitude: {x: 0.15, y: 0.15}
+  _deathDuration: 0.1
+  _deathMagnitude: {x: 0.3, y: 0.3}
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0

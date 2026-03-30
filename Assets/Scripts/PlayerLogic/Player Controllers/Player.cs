@@ -125,10 +125,15 @@ public class Player : PlayerBase
         
         if (PlayerHealth <= 0)
         {
+            Game.CameraShake.DeathShake();
             AudioManager.PlaySound(AudioTrack.PlayerDeath);
             TriggerDeath();
         }
-        else AudioManager.PlaySound(AudioTrack.PlayerHit);
+        else
+        {
+            Game.CameraShake.HitShake();
+            AudioManager.PlaySound(AudioTrack.PlayerHit);
+        }
     }
 
     public void KillPlayer()

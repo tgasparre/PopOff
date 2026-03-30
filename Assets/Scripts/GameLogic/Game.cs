@@ -11,6 +11,7 @@ public class Game : MonoBehaviour
 
         _sceneLoader = GetComponent<SceneLoader>();
         _activePlayersTracker = GetComponentInChildren<ActivePlayersTracker>();
+        _cameraShake = GetComponent<CameraShake>();
         currentState = GameStates.Menu;
 
         Cursor.visible = false;
@@ -41,6 +42,7 @@ public class Game : MonoBehaviour
 
     private SceneLoader _sceneLoader;
     private ActivePlayersTracker _activePlayersTracker;
+    private CameraShake _cameraShake;
     
     public static GameStates currentState
     {
@@ -76,11 +78,12 @@ public class Game : MonoBehaviour
     
     public static bool CanLoadScene => Instance._sceneLoader.canLoadScene;
     public static int WinningIndex => Instance._activePlayersTracker.WinningPlayerIndex;
-    public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();}
+    public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();} 
     public static int PlayerCount => Instance._activePlayersTracker.joinedPlayerCount;
 
     public static ISceneLoader SceneLoader => Instance._sceneLoader;
     public static IActivePlayerTracker ActivePlayerTracker => Instance._activePlayersTracker;
+    public static CameraShake CameraShake => Instance._cameraShake;
     
     public static void ExitGame()
     {

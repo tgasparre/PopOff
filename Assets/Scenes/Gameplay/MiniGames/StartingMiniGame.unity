@@ -1988,6 +1988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5eb478ed41ed4125a58393a158b10f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartingMiniGame
+  winningParticlesPrefab: {fileID: 0}
   _miniGameName: Fill your Balloon
   _miniGameInstructions: Press <color=red>South Button/Space</color> fill up your
     balloon to your preferred weight

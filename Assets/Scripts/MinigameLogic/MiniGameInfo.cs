@@ -219,7 +219,8 @@ public abstract class MiniGameInfo : MonoBehaviour
                     return;
                 }
             }
-            Debug.LogError("no alive player was found, an error");
+            Debug.LogError("no alive player was found, if not DEBUG then we have a problem");
+            TriggerEndMiniGame(_players[0].PlayerIndex); //set player one to win by default 
         }
     }
 

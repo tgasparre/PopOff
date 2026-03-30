@@ -63,7 +63,8 @@ public class MiniGameState : GameState
 
     public override void ExitState(GameStates newState)
     {
-        _currentMiniGame.ForceEnd();
+        if (_currentMiniGame != null) _currentMiniGame.ForceEnd();
+        
         GameUI.DisableAll();
         Game.IsPlayersFrozen = false;
         
