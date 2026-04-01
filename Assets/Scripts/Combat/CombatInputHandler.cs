@@ -23,7 +23,9 @@ public class CombatInputHandler : MonoBehaviour
     
     private bool UltimateAttackEnabled = false; 
     private UltimateAttackTracker _tracker;
+    private Vector2 _ultimateSavedOffset;
 
+    private bool _isAttacking = false;
     private Player _player;
 
     private void Awake()
@@ -46,7 +48,7 @@ public class CombatInputHandler : MonoBehaviour
         {
             Vector3 attackDirection;
             (attackDirection, _) = GetAttackDirection(true);
-            PreformUltimate(attackDirection);
+            TriggerUltimate(attackDirection);
             ResetUltimateAttack();
         }
     }
@@ -106,22 +108,40 @@ public class CombatInputHandler : MonoBehaviour
 
     private void PreformAttack(Vector2 offset, int animationDirection)
     {
+        if (_isAttacking) return;
+
+        _isAttacking = true;
+        Invoke(nameof(AttackCooldown), CombatParameters.ATTACK_COOLDOWN);
+        
         _player.TriggerAttack(animationDirection);
         GameObject hitbox = Instantiate(hitboxPrefab, offset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = hitbox.GetComponent<AttackHitbox>();
         
         hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Regular, () =>
         {
+            if (animationDirection == -1) _player.Pogo();
             _tracker.OnSuccessfulHit();
         });
         
         Destroy(hitbox, _hitboxLifetime);
     }
 
-    private void PreformUltimate(Vector2 offset)
+    private void AttackCooldown()
     {
+        _isAttacking = false;
+    }
+
+    private void TriggerUltimate(Vector2 offset)
+    {
+        _ultimateSavedOffset = offset;
         _player.TriggerUltimate();
-        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, offset, Quaternion.identity, transform);
+    }
+
+    public void PerformUltimate()
+    {
+        AudioManager.PlaySound(AudioTrack.PlayerUltimate);
+        
+        GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, _ultimateSavedOffset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = ultimateHitbox.GetComponent<AttackHitbox>();
 
         hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, null);
@@ -131,7 +151,7 @@ public class CombatInputHandler : MonoBehaviour
     
     private void OnUltimateAttackUnlocked()
     {
-        //TODO play sound
+        AudioManager.PlaySound(AudioTrack.UltimateAttackUnlock);
         UltimateAttackEnabled = true;
     }
 
@@ -139,12 +159,6 @@ public class CombatInputHandler : MonoBehaviour
     {
         UltimateAttackEnabled = false;
         _tracker.ResetTracker();
-    }
-    
-    IEnumerator AttackRoutine(Vector3 attackPos)
-    {
-       
-        yield break;
     }
 
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -11,7 +10,10 @@ public class Game : MonoBehaviour
 
         _sceneLoader = GetComponent<SceneLoader>();
         _activePlayersTracker = GetComponentInChildren<ActivePlayersTracker>();
+        _cameraShake = GetComponent<CameraShake>();
         currentState = GameStates.Menu;
+
+        Cursor.visible = false;
     }
     
     [Header("Player Prefabs")]
@@ -24,21 +26,23 @@ public class Game : MonoBehaviour
 
     [SerializeField] private Color[] _playerColors;
     public Color[] PlayerColors => _playerColors;
+    [SerializeField] private PlayerType[] _playerTypes;
+    public PlayerType[] PlayerTypes => _playerTypes;
+    
     
     public RuntimeAnimatorController GetPlayerAnimation(int index)
     {
-        return index switch
+        return _playerTypes[index] switch
         {
-            0 => _mouseAnimation,
-            1 => _dogAnimation,
-            2 => _mouseAnimation,
-            3 => _dogAnimation,
+            PlayerType.Mouse => _mouseAnimation,
+            PlayerType.Dog => _dogAnimation,
             _ => null
         };
     }
 
     private SceneLoader _sceneLoader;
     private ActivePlayersTracker _activePlayersTracker;
+    private CameraShake _cameraShake;
     
     public static GameStates currentState
     {
@@ -74,11 +78,12 @@ public class Game : MonoBehaviour
     
     public static bool CanLoadScene => Instance._sceneLoader.canLoadScene;
     public static int WinningIndex => Instance._activePlayersTracker.WinningPlayerIndex;
-    public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();}
+    public static PlayerController[] GetPlayers() {return Instance._activePlayersTracker.GetPlayers();} 
     public static int PlayerCount => Instance._activePlayersTracker.joinedPlayerCount;
 
     public static ISceneLoader SceneLoader => Instance._sceneLoader;
     public static IActivePlayerTracker ActivePlayerTracker => Instance._activePlayersTracker;
+    public static CameraShake CameraShake => Instance._cameraShake;
     
     public static void ExitGame()
     {
@@ -90,5 +95,10 @@ public class Game : MonoBehaviour
 
     [Header("DEBUG Controls")]
     [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
-     
+}
+
+public enum PlayerType
+{
+    Mouse,
+    Dog
 }

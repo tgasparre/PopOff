@@ -62,7 +62,7 @@ public class GameCanvas : MonoBehaviour
         CanvasGroupDisplayer.Show(_gameOverScreen.canvasGroup);
     }
 
-    public void OnWinMiniGame(int playerIndex, string reward)
+    public void OnWinMiniGame(int playerIndex, Powerup reward)
     {
         _miniGameScreen.OnWinMiniGame(playerIndex, reward);
     }
@@ -81,6 +81,12 @@ public class GameCanvas : MonoBehaviour
     public PlayerUIDisplayer CreatePlayerUI(PlayerController playerController)
     {
         return _playerUIController.CreatePlayerUI(playerController);
+    }
+
+    public void SetPlayerUIVisibility(bool isVisible)
+    {
+        if (isVisible) _playerUIController.ShowPlayerUI();
+        else _playerUIController.HidePlayerUI();
     }
 
     public void DestroyUI()

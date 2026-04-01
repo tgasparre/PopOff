@@ -16,6 +16,8 @@ public abstract class PlayerBase : MonoBehaviour
     
     protected Rigidbody2D _rigidbody2D;
 
+    public abstract bool InAir { get; }
+
     protected void Awake()
     {
         Register();
@@ -43,6 +45,8 @@ public abstract class PlayerBase : MonoBehaviour
         UnfreezePlayer();
         _rigidbody2D.linearVelocity = Vector2.zero;
         transform.position = pos;
+        
+        AudioManager.PlaySound(AudioTrack.PlayerAppear, delay: 0.15f);
         
         if (showIndicators && this is Player player)
         {

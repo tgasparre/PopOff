@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb592f475199af9097272f26af47784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpleefMiniGame
+  winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: Spleef
   _miniGameInstructions: Be the <color=red>last</color> one standing
   _countdownTimer: 3
@@ -473,7 +474,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -558,7 +559,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1764248388572607169, guid: 4d73e8b42255d2e73b9403ce95b5f713, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.8
+      value: -10.7
       objectReference: {fileID: 0}
     - target: {fileID: 2936008068031576273, guid: 4d73e8b42255d2e73b9403ce95b5f713, type: 3}
       propertyPath: m_Name

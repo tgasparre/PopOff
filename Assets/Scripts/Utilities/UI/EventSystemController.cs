@@ -8,12 +8,19 @@ public class EventSystemController : MonoBehaviour
     private static EventSystem reference;
     private void Awake()
     {
-        SceneManager.sceneLoaded += SceneLoaded;
+        if (reference != null) RemoveEventSystem();
+        
+        // SceneManager.sceneLoaded += SceneLoaded;
         reference = GetComponent<EventSystem>();
         DontDestroyOnLoad(gameObject);
     }
 
     private static void SceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
+    {
+        RemoveEventSystem();
+    }
+
+    private static void RemoveEventSystem()
     {
         EventSystem[] eventSystems = FindObjectsByType<EventSystem>(FindObjectsSortMode.None);
         foreach (EventSystem system in eventSystems)
@@ -25,6 +32,6 @@ public class EventSystemController : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= SceneLoaded;
+        // SceneManager.sceneLoaded -= SceneLoaded;
     }
 }

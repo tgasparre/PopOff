@@ -16,7 +16,7 @@ public class Player : PlayerBase
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
     public UltimateAttackTracker ultimateAttackTracker { private set; get; }
-    public float PlayerHealth
+    public int PlayerHealth
     {
         get
         {
@@ -35,10 +35,28 @@ public class Player : PlayerBase
     
     public bool IsFrozen { get; private set; }
     public float Movement => _playerInputManager.GetMoveInput().x;
-    public bool InAir => !_jumpModule.Grounded;
+    public override bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack(int direction) { _animation.TriggerAttack(direction); }
-    public void TriggerUltimate() {_animation.TriggerUltimate();}
-    public void TriggerJump() { _animation.TriggerJump(); }
+
+    public void TriggerDeath()
+    {
+        _animation.TriggerDeath();
+        Invoke(nameof(KillPlayer), 0.28f);
+    }
+
+    public void TriggerUltimate()
+    {
+        _animation.TriggerUltimate();
+    }
+    public void TriggerJump()
+    {
+        AudioManager.PlaySound(AudioTrack.PlayerJump);
+        _animation.TriggerJump();
+    }
+    private void TriggerWallJump(int dir)
+    {
+        TriggerJump();
+    }
 
     // ===== Internal References =====
     private PlayerAnimation _animation;
@@ -46,9 +64,9 @@ public class Player : PlayerBase
     private float _savedMovementSpeed;
     private PlatformerHorizontalMovementModule _horizontalMovementModule;
     private PlatformerJumpModule _jumpModule;
+    private PlatformerWallModule _wallModule;
     private IndicatorUI _indicatorUI;
 
-    private Coroutine _hitStunCoroutine;
     private Coroutine _damageCoroutine;
     private Coroutine _freezeMovementCoroutine;
     
@@ -60,16 +78,19 @@ public class Player : PlayerBase
         _animation = GetComponentInChildren<PlayerAnimation>();
         ultimateAttackTracker = GetComponent<UltimateAttackTracker>();
         _jumpModule = GetComponent<PlatformerJumpModule>();
+        _wallModule = GetComponent<PlatformerWallModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
         ResetWeightClass();
 
         _jumpModule.JumpTriggered += TriggerJump;
+        _wallModule.OnWallJump += TriggerWallJump;
     }
     
     private void OnDestroy()
     {
         OnDeath = null;
         if (_jumpModule) _jumpModule.JumpTriggered -= TriggerJump;
+        if (_wallModule) _wallModule.OnWallJump -= TriggerWallJump;
     }
 
     public void Register(Action<Player> deathCallback)
@@ -97,18 +118,31 @@ public class Player : PlayerBase
     #endregion
     
     #region Health
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         PlayerHealth -= damage;
         _animation.DamageFlash();
         
         if (PlayerHealth <= 0)
         {
-            OnDeath(this);
+            Game.CameraShake.DeathShake();
+            AudioManager.PlaySound(AudioTrack.PlayerDeath);
+            TriggerDeath();
+        }
+        else
+        {
+            Game.CameraShake.HitShake();
+            AudioManager.PlaySound(AudioTrack.PlayerHit);
         }
     }
 
-    public void InstaDeath()
+    public void InstantDeath()
+    {
+        PlayerHealth = 0;
+        TriggerDeath();
+    }
+    
+    private void KillPlayer()
     {
         OnDeath(this);
     }
@@ -116,9 +150,9 @@ public class Player : PlayerBase
     public void HealHP(int heal)
     {
         PlayerHealth += heal;
-        if (PlayerHealth > 200)
+        if (PlayerHealth > CombatParameters.MAX_PLAYER_HEALTH)
         {
-            PlayerHealth = 200;
+            PlayerHealth = CombatParameters.MAX_PLAYER_HEALTH;
         }
     }
 
@@ -142,18 +176,23 @@ public class Player : PlayerBase
         IEnumerator AddKnockback()
         {
             float elapsedTime = 0f;
-            while (elapsedTime < CombatParameters.knockbackDuration)
+            while (elapsedTime < CombatParameters.KNOCKBACK_DURATION)
             {
-                float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
-                float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * knockbackForce;
+                float normalizedTime = elapsedTime / CombatParameters.KNOCKBACK_DURATION;
+                float currentForce = CombatParameters.KNOCKBACK_CURVE.Evaluate(normalizedTime) * knockbackForce;
 
-                _rigidbody2D.AddForce(direction * currentForce * 10);
+                _rigidbody2D.AddForce(direction.normalized * currentForce * 10);
             
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.fixedDeltaTime;
                 yield return null;
             }
             _damageCoroutine = null;
         }
+    }
+
+    public void Pogo()
+    {
+        _rigidbody2D.AddForce(Vector2.up * CombatParameters.POGO_FORCE, ForceMode2D.Impulse);
     }
 
     public void ResetWeightClass()
@@ -235,7 +274,7 @@ public class Player : PlayerBase
         FreezePlayerMovement();
         yield return new WaitForSeconds(duration);
         UnfreezePlayerMovement();
-        _hitStunCoroutine = null;
+        _freezeMovementCoroutine = null;
     }
 }
 

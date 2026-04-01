@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6497036020613947179, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3922714250223309129, guid: 33da733ac0b1c999baedb174f5981363, type: 3}
     m_RemovedGameObjects: []
@@ -90,3 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fab23949edcd25eda94442414efc760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToMiniGameDEBUG
+  _appearTimeMin: 10
+  _appearTimeMax: 18

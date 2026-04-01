@@ -1,23 +1,18 @@
-using System.Collections.Generic;
 using UnityEngine;
 public class MiniGameState : GameState
 {
     private MiniGameInfo _currentMiniGame;
     private static IMiniGameUI GameUI => GameCanvas.MiniGameUI;
     
-    private List<int> _playerHealthBeforeMinigame = new List<int>();
-    
     public override void EnterState()
     {
         _currentMiniGame = null;
         if (PlayingState.IsStarting) //intro minigame
         {
-            //TODO -- play introduction animation
             Loader.LoadStartingMiniGameScene(StartingLoaded);
         } 
         else //all other minigames
         {
-            //TODO -- Play little animation
             Loader.LoadMiniGameScene(StartMiniGame);
         }
 
@@ -41,9 +36,10 @@ public class MiniGameState : GameState
         }
 
         Game.IsPlayersFrozen = true;
+        GameCanvas.Instance.SetPlayerUIVisibility(false);
         GameUI.SetValues(_currentMiniGame);
-        ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameLose);
-        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetPlayers());
+        ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameDie);
+        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetAlivePlayers());
         return;
         
         void OnIntroFinished()
@@ -66,12 +62,16 @@ public class MiniGameState : GameState
         }
     }
 
-    public override void ExitState()
+    public override void ExitState(GameStates newState)
     {
+        GameCanvas.Instance.SetPlayerUIVisibility(true);
+        if (_currentMiniGame != null) _currentMiniGame.ForceEnd();
+        
         GameUI.DisableAll();
         Game.IsPlayersFrozen = false;
-        _currentMiniGame = null;
         
+        _currentMiniGame = null;
+
     }
 
     public override bool IsStateSwitchable(GameStates test)

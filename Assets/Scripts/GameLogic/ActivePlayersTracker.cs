@@ -12,6 +12,7 @@ public interface IActivePlayerTracker
 	public void DestroyPlayers();
 	public void SetPlayerStates(PlayerState state);
 	public PlayerController[] GetPlayers();
+	public PlayerController[] GetAlivePlayers();
 	public void SubscribeMiniGameDeath(Action<Player> onPlayerDiedInMinigame);
 }
 public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
@@ -33,7 +34,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		}
 	}
 
-	private struct PlayerTrack
+	private class PlayerTrack
 	{
 		public PlayerController controller;
 		public bool isDead;
@@ -52,6 +53,10 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	public PlayerController[] GetPlayers()
 	{
 		return _activePlayers.Select(tracker => tracker.controller).ToArray(); 
+	}
+	public PlayerController[] GetAlivePlayers()
+	{
+		return _alivePlayers.Select(tracker => tracker.controller).ToArray();
 	}
 	public int WinningPlayerIndex { get; private set; } = -1;
 	public int joinedPlayerCount { get; private set; } = 0;
@@ -158,7 +163,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 
 	public void OnEndJoin()
 	{
-		int totalPlayers = _players.Count(t => t.controller != null);
+		int totalPlayers = _players.Count(t => t != null);
 		_activePlayers = new PlayerTrack[totalPlayers];
 		for (int i = 0; i < totalPlayers; i++)
 		{
@@ -203,9 +208,8 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 			case GameplayStates.Combat:
 			{
 				_players[player.PlayerIndex].isDead = true;
-			
 				PlayerTrack[] alive = _alivePlayers;
-				switch (alive.Length - 1)
+				switch (alive.Length)
 				{
 					case 1:
 						WinningPlayerIndex = alive[0].PlayerIndex;
@@ -213,18 +217,14 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 						break;
 					case 0:
 						Debug.LogError("zero players left should only happen if DEBUG!");
+						WinningPlayerIndex = 0;
+						Game.currentState = GameStates.GameOver;
 						break;
 				}
-
 				break;
 			}
 			case GameplayStates.MiniGame:
-				try { _onPlayerDiedInMinigame.Invoke(player); }
-				catch (NullReferenceException) 
-				{
-					//the code doesn't know what to do when a player dies
-					Debug.LogError("No Mini-Game death event attached! Make sure there is a MiniGameInfo object in the scene");
-				}
+				_onPlayerDiedInMinigame?.Invoke(player);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -238,18 +238,6 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 			tracker.controller.CurrentState = state;
 		}
 	}
-
-    //used for unfreezing all players after minigame
-    public void UnfreezeAllPlayers()
-    {
-        foreach (PlayerTrack tracker in _players)
-        {
-            if (!tracker.isDead)
-            {
-                //tracker.player.UnfreezePlayer();
-            }
-        }
-    }
 	
 	public void DestroyPlayers()
 	{
@@ -263,49 +251,4 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		_activePlayers = Array.Empty<PlayerTrack>();
 		GameCanvas.Instance.DestroyUI();
 	}
-
-	public static void DEBUG_SetPlayerStates(PlayerState state)
-	{
-		foreach (PlayerController controller in Game.GetPlayers())
-		{
-			controller.CurrentState = state;
-		}
-	}
-    
-    private void ResetPlayerAfterMinigame(Player player)
-    {
-        //_players[player.PlayerIndex].isAliveInMinigame = true;
-    }
-
-    public void ResetPlayerHealth()
-    {
-	    
-    }
 }
-
-
-	//TODO
-	// private void CreatePlayerUI(PlayerInput playerInput)
-	// {
-		// GameObject uiInstance = Instantiate(_playerUIPrefab, _playerUIGroup);
-		// PlayerUIDisplayer playerUIDisplayer = uiInstance.GetComponent<PlayerUIDisplayer>();
-	 //   
-		// // Connect hurtbox to UI
-		// playerUIDisplayer.InitializePlayerUI(playerInput.GetComponentInChildren<AttackHurtbox>());
-	 //   
-		// // Connect tracker to player
-		// UltimateAttackTracker tracker = playerInput.GetComponent<UltimateAttackTracker>();
-	 //   
-		// if (tracker != null && playerUIDisplayer != null)
-		// {
-		// 	//connect tracker to UI 
-		// 	tracker.SetPlayerUI(playerUIDisplayer);
-		// 	//let the UI know when the ultimate attack is unlocked
-		// 	playerUIDisplayer.SubscribeToTracker(tracker);
-		// 	Debug.Log("Successfully connected tracker to UI");
-		// }
-		// else
-		// {
-		// 	Debug.LogError("Failed to find tracker or UI displayer");
-		// }
-	// }

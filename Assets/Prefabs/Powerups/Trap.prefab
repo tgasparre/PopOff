@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1329639003970239861}
+  - component: {fileID: 1435550960043224129}
   - component: {fileID: 5727294018527877714}
   - component: {fileID: 3958937275765745156}
   - component: {fileID: 5723305170284503951}
   - component: {fileID: 1009383805526345441}
-  - component: {fileID: 1435550960043224129}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,6 +36,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1435550960043224129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957223733200214045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7805054bf6638358aa5cb4e6aaec927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Trap
+  _lifetime: 15
+  _bouncyMat: {fileID: 0}
+  _explode:
+    _explodePrefab: {fileID: 0}
+    _flashTimePercent: 0
+    _idleTimePercent: 0
+    _explosionRadius: 2
+    _explosionDamage: 20
+    _explosionForce: 1000
+  _throwForce: 6
+  _style: 0
+  expandAudio:
+    name: Growing Sound
+    track: 0
+    _clips:
+    - {fileID: 8300000, guid: d03255ce127e6aa82b2caad4ed14c748, type: 3}
+    _volumeMin: 0.3
+    _volumeMax: 0.4
+    _pitchMin: 1.1
+    _pitchMax: 1.2
 --- !u!212 &5727294018527877714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -82,9 +114,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.87654173, g: 0.3665225, b: 0.3665225, a: 0.5803922}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 5c245752d0f14294c99d31a47f67762f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,7 +142,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 2120
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -128,17 +160,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0054379106, y: 0.13927819}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    border: {x: 0.47285715, y: 0.5214286, z: 0.43714285, w: 0.40857142}
+    pivot: {x: 0.51174676, y: 0.34761402}
+    oldSize: {x: 1.5428572, y: 1.5428572}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.66385686, y: 0.32417175}
   m_EdgeRadius: 0
 --- !u!61 &5723305170284503951
 BoxCollider2D:
@@ -174,17 +206,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0054379106, y: 0.29041523}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    border: {x: 0.47285715, y: 0.5214286, z: 0.43714285, w: 0.40857142}
+    pivot: {x: 0.51174676, y: 0.34761402}
+    oldSize: {x: 1.5428572, y: 1.5428572}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6638569, y: 0.6256738}
   m_EdgeRadius: 0
 --- !u!50 &1009383805526345441
 Rigidbody2D:
@@ -213,26 +245,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1435550960043224129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957223733200214045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7805054bf6638358aa5cb4e6aaec927d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Trap
-  _lifetime: 15
-  _bouncyMat: {fileID: 0}
-  _explode:
-    _explodePrefab: {fileID: 0}
-    _flashTimePercent: 0
-    _idleTimePercent: 0
-  type: 1
-  _damage: 20
-  _glueDuration: 1
-  _throwForce: 6
-  _style: 0

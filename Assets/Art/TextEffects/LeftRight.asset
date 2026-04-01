@@ -18,8 +18,8 @@ MonoBehaviour:
   animationType: 2
   fixedDuration: 0
   durationPerChar: 0.7
-  timeBetweenChars: 0.05
-  noDelayForChars: 0
+  timeBetweenChars: 0
+  noDelayForChars: 1
   reverseCharOrder: 0
   easingCurve:
     serializedVersion: 2
@@ -28,7 +28,7 @@ MonoBehaviour:
       time: 0
       value: 0
       inSlope: 0
-      outSlope: 1
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
+      inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
@@ -48,5 +48,5 @@ MonoBehaviour:
   clampBetween0And1: 0
   timeType: 1
   centerOffset: {x: 0, y: 0}
-  startAngle: -10
-  endAngle: 10
+  startAngle: -5
+  endAngle: 5

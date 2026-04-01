@@ -61,7 +61,9 @@ namespace ControllerSystem.Platformer2D
             Collider2D collisionResults = Physics2DOverlapBoxCollider(_groundBox, GroundLayerMask);
 
             if (collisionResults != null)
+            {
                 GroundHit(collisionResults);
+            }
         }
 
         private void GroundHit(Collider2D hit)

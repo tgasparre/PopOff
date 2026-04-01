@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e7a3bde689c6699acb6c5f3efdcada, type: 3}
   m_Name: ExplodeTrap
   m_EditorClassIdentifier: Assembly-CSharp::TrapPowerup
-  _name: Exploding Box
+  _name: Exploding Glue Trap
   type: 1
   _charges: 3
   _useCooldown: 0.5
-  _icon: {fileID: 21300000, guid: 7fe93ebd07beb4d48b029c91130f1b5d, type: 3}
+  _icon: {fileID: 21300000, guid: 27d1361f99d910645a4f673f528099ed, type: 3}
   _trapPrefab: {fileID: 7096449467145609094, guid: 6474b0d38d763be308db525d0ec9d329, type: 3}
   _trapStats:
     speed: 5

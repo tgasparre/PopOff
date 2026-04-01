@@ -41,7 +41,7 @@ public class PowerupStats
     
     [Header("Damage Settings")]
     public PowerupType type;
-    public float damage = 20f;
+    public int damage = 20;
     public float glueDuration = 1f;
     
     public enum PowerupType

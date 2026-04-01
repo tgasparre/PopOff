@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5137142601896784448}
   - component: {fileID: 4965981714751721931}
   - component: {fileID: 1538154858333272104}
+  - component: {fileID: 724731811040075967}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -33,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1473609276500953802}
+  - {fileID: 5309844979668393601}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5137142601896784448
@@ -67,6 +69,7 @@ MonoBehaviour:
   - {r: 0.9295761, g: 0.5534885, b: 0.31177953, a: 1}
   - {r: 0.9033077, g: 0.8709651, b: 0.25661016, a: 1}
   - {r: 1, g: 0.41864705, b: 0.72019935, a: 1}
+  _playerTypes: 00000000010000000000000001000000
   bypassOnePlayerBlock: 0
 --- !u!114 &1538154858333272104
 MonoBehaviour:
@@ -90,12 +93,30 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
-  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
+  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
+--- !u!114 &724731811040075967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705814946791109472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fec3848a208e003d84181ae34ce8110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  _hitDuration: 0.1
+  _hitMagnitude: {x: 0.15, y: 0.15}
+  _deathDuration: 0.1
+  _deathMagnitude: {x: 0.3, y: 0.3}
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +227,291 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!1 &4286678553715073317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5309844979668393601}
+  - component: {fileID: 40943581982874886}
+  - component: {fileID: 4455664451416948110}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5309844979668393601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286678553715073317}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6616540441250519296}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &40943581982874886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286678553715073317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3fcda7143fd33a88f27a61c0cd04d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  _audioSourcePrefab: {fileID: 5182545077953137728, guid: 4abc30020cd223a81a76341af7b82fa4, type: 3}
+  _audios:
+  - name: Player Move
+    track: 2
+    _clips:
+    - {fileID: 8300000, guid: 496599e3f9bb71db4bf875c6ac03029e, type: 3}
+    _volumeMin: 0.1
+    _volumeMax: 0.15
+    _pitchMin: 0.75
+    _pitchMax: 1.2
+  - name: Player Jump
+    track: 3
+    _clips:
+    - {fileID: 8300000, guid: 9b6d4dc2bf0b1dbda9f2155f1f3126f8, type: 3}
+    _volumeMin: 0.2
+    _volumeMax: 0.3
+    _pitchMin: 0.8
+    _pitchMax: 1
+  - name: Player Hit
+    track: 1
+    _clips:
+    - {fileID: 8300000, guid: 45c29f880cef3f041b058c8b255d6733, type: 3}
+    _volumeMin: 0.2
+    _volumeMax: 0.25
+    _pitchMin: 0.85
+    _pitchMax: 1.25
+  - name: Player Death
+    track: 4
+    _clips:
+    - {fileID: 8300000, guid: 8c72663bbb552a9a7af8b3eb9299b868, type: 3}
+    - {fileID: 8300000, guid: 756b1540be435efb780d3cdd7085b570, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 0.9
+    _pitchMax: 1.1
+  - name: Player Appear
+    track: 6
+    _clips:
+    - {fileID: 8300000, guid: d2006275738d988babc50834bb51bfdb, type: 3}
+    - {fileID: 8300000, guid: adb7afdffcfef5bcaa52f9acb419c3c3, type: 3}
+    _volumeMin: 0.3
+    _volumeMax: 0.35
+    _pitchMin: 0.9
+    _pitchMax: 1.1
+  - name: Player Ultimate
+    track: 5
+    _clips:
+    - {fileID: 8300000, guid: e18fe68de017df3b6a4c54cc9eadb262, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 1.1
+    _pitchMax: 1.35
+  - name: Ultimate Attack Unlock
+    track: 18
+    _clips:
+    - {fileID: 8300000, guid: 5bac825b01f3a3877b862509a2007c3f, type: 3}
+    _volumeMin: 0.4
+    _volumeMax: 0.5
+    _pitchMin: 0.9
+    _pitchMax: 1.1
+  - name: Transition
+    track: 15
+    _clips:
+    - {fileID: 8300000, guid: d7574aef98282f197948a23bcc527add, type: 3}
+    _volumeMin: 1
+    _volumeMax: 1
+    _pitchMin: 1
+    _pitchMax: 1.3
+  - name: Minigame Transition
+    track: 13
+    _clips:
+    - {fileID: 8300000, guid: d2c73e4ec3591b041881b9cac4638772, type: 3}
+    _volumeMin: 0.8
+    _volumeMax: 1
+    _pitchMin: 0.9
+    _pitchMax: 1.1
+  - name: Minigame Start
+    track: 11
+    _clips:
+    - {fileID: 8300000, guid: b8b2264c0e958bc9eab0cd89903995fe, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 1.2
+    _pitchMax: 1.5
+  - name: Minigame End
+    track: 12
+    _clips:
+    - {fileID: 8300000, guid: 26e18a25f1a8ac078a92214f055b52a6, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 1
+    _pitchMax: 1.1
+  - name: Minigame Whistle
+    track: 14
+    _clips:
+    - {fileID: 8300000, guid: 0a197fc5147e9aedbab57b057b85a19a, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 0.9
+    _pitchMax: 1.1
+  - name: Game Start
+    track: 10
+    _clips:
+    - {fileID: 8300000, guid: f2016690211ba1a81841e2369829029f, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 0.9
+    _pitchMax: 1.05
+  - name: Powerup Throw
+    track: 7
+    _clips:
+    - {fileID: 8300000, guid: d7574aef98282f197948a23bcc527add, type: 3}
+    _volumeMin: 0.2
+    _volumeMax: 0.3
+    _pitchMin: 2.8
+    _pitchMax: 3
+  - name: Powerup Thud
+    track: 8
+    _clips:
+    - {fileID: 8300000, guid: d17209ef4de2c17e08dc3fc03d6aeeb6, type: 3}
+    _volumeMin: 0.4
+    _volumeMax: 0.5
+    _pitchMin: 0.8
+    _pitchMax: 1.1
+  - name: Powerup Explode
+    track: 9
+    _clips:
+    - {fileID: 8300000, guid: 5b5b13e84fa85e81780276bdc40c1260, type: 3}
+    _volumeMin: 0.7
+    _volumeMax: 0.85
+    _pitchMin: 1.2
+    _pitchMax: 1.8
+  - name: Button Click
+    track: 17
+    _clips:
+    - {fileID: 8300000, guid: e8ff69dbf2cf8b57db9246dfdc63ccbd, type: 3}
+    _volumeMin: 0.1
+    _volumeMax: 0.15
+    _pitchMin: 1
+    _pitchMax: 2
+  _menuMusic: {fileID: 0}
+  _gameMusic: {fileID: 0}
+  _minigameMusic: {fileID: 0}
+--- !u!82 &4455664451416948110
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4286678553715073317}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 100
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7359541963647673215
 GameObject:
   m_ObjectHideFlags: 0

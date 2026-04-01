@@ -16,7 +16,7 @@ public class GameOverState : GameState
        // GameCanvas.Instance.GameOverController.SetWinnerName("s");
     }
 
-    public override void ExitState()
+    public override void ExitState(GameStates newState)
     {
         Game.IsFrozen = false;
         GameCanvas.Instance.HideAllScreens();

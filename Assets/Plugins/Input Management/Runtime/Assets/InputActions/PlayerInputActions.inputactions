@@ -652,7 +652,7 @@
                 {
                     "name": "",
                     "id": "95a4fbc7-b0f6-48a3-beff-de5939efc6a8",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -684,23 +684,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1e260c11-1060-4a54-8f91-d878872c1d55",
-                    "path": "<Keyboard>/n",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "SecondaryAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "27965c2c-8012-4773-9902-cc897c1768c1",
-                    "path": "<Gamepad>/buttonWest",
+                    "id": "31c3dcb1-dfaa-4f92-b207-ddba31a6991d",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "SecondaryAttack",
+                    "action": "UltimateAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

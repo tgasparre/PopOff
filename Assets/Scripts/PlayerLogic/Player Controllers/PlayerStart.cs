@@ -17,7 +17,7 @@ public class PlayerStart : PlayerBase
     public bool InputtingHorizontalMovement => Mathf.Abs(_moveDirection.x) > 0.5f;
     
     public float Movement => _playerInputManager.GetMoveInput().x;
-    public bool InAir => !_groundCheck.Grounded;
+    public override bool InAir => !_groundCheck.Grounded;
     
     public Vector2 BoostFactor;
 
@@ -32,6 +32,8 @@ public class PlayerStart : PlayerBase
 
     private IEnumerator LaunchJump()
     {
+        AudioManager.PlaySound(AudioTrack.PlayerJump);
+        
         _animation.TriggerJump();
         float timer = 0f;
         do
@@ -49,6 +51,7 @@ public class PlayerStart : PlayerBase
 
     private void FixedUpdate()
     { 
+        // Debug.Log(InAir);
         if (!_playerInputManager.isInputEnabled) return;
         HandleMovement();
         HandleJump();

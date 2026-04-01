@@ -16,7 +16,7 @@ public class CombatState : GameState
         });
     }
     
-    public override void ExitState()
+    public override void ExitState(GameStates newState)
     {
         
     }

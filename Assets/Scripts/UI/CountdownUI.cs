@@ -19,6 +19,7 @@ public class CountdownUI : MonoBehaviour
 
    private CanvasGroup _canvasGroup;
 
+   private bool _forceQuit = false;
    public bool isRunning { get; private set; } = false;
 
    private void Awake()
@@ -56,6 +57,7 @@ public class CountdownUI : MonoBehaviour
          return null;
       }
 
+      _forceQuit = false;
       _canvasGroup.alpha = 1f;
       _onFinished = onFinished;
       _coroutine ??= StartCoroutine(type == CountdownType.Number ? Timer() : ReadyGo());
@@ -69,6 +71,12 @@ public class CountdownUI : MonoBehaviour
          float timer = _startingNumber;
          while (timer >= 0)
          {
+            if (_forceQuit)
+            {
+               StopCountdownNoTrigger();
+               yield break;
+            }
+
             _countdown.text = Mathf.RoundToInt(timer).ToString();
             timer -= Time.deltaTime * _timescaleSpeed;
             yield return null;
@@ -80,12 +88,28 @@ public class CountdownUI : MonoBehaviour
       IEnumerator ReadyGo()
       {
          yield return new WaitForSeconds(delay);
+         if (_forceQuit)
+         {
+            StopCountdownNoTrigger();
+            yield break;
+         }
 
          isRunning = true;
          _countdown.text = "Ready";
          yield return new WaitForSeconds(_readyWaitTime);
+         if (_forceQuit)
+         {
+            StopCountdownNoTrigger();
+            yield break;
+         }
+
          _countdown.text = "Go";
          yield return new WaitForSeconds(_goWaitTime);
+         if (_forceQuit)
+         {
+            StopCountdownNoTrigger();
+            yield break;
+         }
 
          StopCountdown();
       }
@@ -93,7 +117,7 @@ public class CountdownUI : MonoBehaviour
 
    public void StopCountdown()
    {
-      if (_coroutine != null) StopCoroutine(_coroutine);
+      if (_coroutine != null) _forceQuit = true;
       _coroutine = null;
       isRunning = false;
       _canvasGroup.alpha = 0f;
@@ -104,7 +128,7 @@ public class CountdownUI : MonoBehaviour
 
    public void StopCountdownNoTrigger()
    {
-      if (_coroutine != null) StopCoroutine(_coroutine);
+      if (_coroutine != null) _forceQuit = true;
       _coroutine = null;
       isRunning = false;
       _canvasGroup.alpha = 0f;

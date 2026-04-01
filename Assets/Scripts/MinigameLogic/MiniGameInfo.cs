@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,13 +10,17 @@ public abstract class MiniGameInfo : MonoBehaviour
 {
     public static MiniGameInfo Instance;
     public static bool IsPlayingMiniGame => Instance._isPlayingMiniGame;
+
+    public ParticleSystem winningParticlesPrefab;
+    private ParticleSystem _winningParticles;
+    
     protected void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
     
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         Instance = null;
     }
@@ -39,8 +45,8 @@ public abstract class MiniGameInfo : MonoBehaviour
     [Tooltip("Time to read the instructions of the minigame before starting the countdown")] [SerializeField] private float _waitForInstructionTime = 2f;
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
-    private PlayerTrack[] _players;
-    private float _resultsTime = 1.3f;
+    private Dictionary<int, PlayerTrack> _players;
+    private float _resultsTime = 2f;
 
     protected bool _isPlayingMiniGame { get; private set; }  = false;
     protected PlayerController[] _playerControllers;
@@ -53,26 +59,26 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// <summary>
     /// Play the intro animation (display title, countdown to start)
     /// </summary>
-    public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] players)
+    public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] alivePlayers)
     {
-        _players = new PlayerTrack[players.Length];
-        foreach (PlayerController controller in players)
+        _countdownCoroutine = null;
+        _players = new Dictionary<int, PlayerTrack>(alivePlayers.Length);
+        foreach (PlayerController controller in alivePlayers)
         {
             _players[controller.PlayerIndex] = new PlayerTrack(controller, controller.PlayerHealth);
             controller.PlayerHealth = _miniGameStartingHealth;
         }
-        _playerControllers = _players.Select(t => t.controller).ToArray();
+        _playerControllers = _players.Select(t => t.Value.controller).ToArray();
         AssignWeightClasses(_minigameStats);
-        
-        _alivePlayers = Game.PlayerCount; 
+
+        _alivePlayers = alivePlayers.Length;
         _onGameComplete = onGameComplete;
         StartCoroutine(StartCountdown());
         return;
         
         IEnumerator StartCountdown()
         {
-            yield return new WaitForSeconds(_waitAfterLoadingTime);
-            yield return new WaitForSeconds(_waitForInstructionTime);
+            yield return new WaitForSeconds(_waitAfterLoadingTime + _waitForInstructionTime);
             GameCanvas.Instance.HideMiniGameDescription();
 
             yield return GameCanvas.MiniGameUI.StartCurrentCountdown();
@@ -97,6 +103,8 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     public void ShowResults(Action onDelayOver, Action onFinished)
     {
+        AudioManager.PlaySound(AudioTrack.MinigameWhistle);
+        
         _isPlayingMiniGame = false;
         OnEndMiniGame();
         
@@ -112,9 +120,11 @@ public abstract class MiniGameInfo : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(_resultsTime);
             onDelayOver.Invoke();
-            yield return new WaitForSecondsRealtime(0.2f);
+            yield return new WaitForSecondsRealtime(0.25f);
+            
+            AudioManager.PlaySound(AudioTrack.MinigameEnd);
             _chosenPowerup = GetRandomPowerup();
-            ShowMiniGameResults(onFinished, _chosenPowerup ? _chosenPowerup.Name : "");
+            ShowMiniGameResults(onFinished, _chosenPowerup);
         }
     }
 
@@ -127,10 +137,10 @@ public abstract class MiniGameInfo : MonoBehaviour
         }
 
         //reset health
-        foreach (PlayerTrack track in _players)
+        foreach (KeyValuePair<int, PlayerTrack> track in _players)
         {
-            if (track.gameHealth == 0) continue;
-            track.controller.PlayerHealth = track.gameHealth;
+            if (track.Value.gameHealth == 0) continue;
+            track.Value.controller.PlayerHealth = track.Value.gameHealth;
         }
         
         ResetWeightClasses();
@@ -182,6 +192,10 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void TriggerEndMiniGame(int winningIndex)
     {
         _winningPlayerIndex = winningIndex;
+        
+        if (_winningPlayerIndex is >= 0 and < 4)
+            SpawnWinningParticles(_players[_winningPlayerIndex].controller.PlayerHurtbox.gameObject.transform.position);
+        
         _onGameComplete.Invoke();
     }
 
@@ -189,7 +203,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// called when a player dies in a mini-game, runs TriggerEndMiniGame() if only one player is left 
     /// </summary>
     /// <param name="player">player who lost</param>
-    public void OnPlayerMiniGameLose(Player player)
+    public void OnPlayerMiniGameDie(Player player)
     {
         _alivePlayers--;
         _players[player.PlayerIndex].isDeadInMiniGame = true;
@@ -197,25 +211,33 @@ public abstract class MiniGameInfo : MonoBehaviour
         if (_alivePlayers <= 1)
         {
             //find winner
-            foreach (PlayerTrack track in _players)
+            foreach (KeyValuePair<int, PlayerTrack> track in _players)
             {
-                if (!track.isDeadInMiniGame)
+                if (!track.Value.isDeadInMiniGame)
                 {
-                    TriggerEndMiniGame(track.PlayerIndex);
+                    TriggerEndMiniGame(track.Value.PlayerIndex);
                     return;
                 }
             }
-            Debug.LogError("no alive player was found, an error");
+            Debug.LogWarning("no alive player was found, if not DEBUG then we have a problem");
+            TriggerEndMiniGame(_players[0].PlayerIndex); //set player one to win by default 
         }
+    }
+
+    private void SpawnWinningParticles(Vector3 position)
+    {
+        if (winningParticlesPrefab != null)
+            _winningParticles = Instantiate(winningParticlesPrefab, position,quaternion.identity);
     }
 
     protected abstract void StartMiniGame();
     protected virtual void OnEndMiniGame() { /* to be inherited */}
 
-    protected virtual void ShowMiniGameResults(Action onFinished, string reward)
+    protected virtual void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
         Game.IsFrozen = true;
         GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);
+        
         StartCoroutine(ResultsScreen());
         return;
         
@@ -225,15 +247,23 @@ public abstract class MiniGameInfo : MonoBehaviour
             onFinished.Invoke();
         }
     }
+
+    //called when exiting the state -- disables all minigame related UI and timers
+    public void ForceEnd()
+    {
+        if (!_isPlayingMiniGame) return;
+        GameCanvas.MiniGameUI.StopCurrentCountdownNoTrigger();
+        _countdownCoroutine = null;
+    }
     
-    protected struct PlayerTrack
+    protected class PlayerTrack
     {
         public readonly PlayerController controller;
         public bool isDeadInMiniGame;
-        public readonly float gameHealth;
+        public readonly int gameHealth;
         public int PlayerIndex => controller.PlayerIndex;
 
-        public PlayerTrack(PlayerController c, float hp)
+        public PlayerTrack(PlayerController c, int hp)
         {
             controller = c;
             isDeadInMiniGame = false;

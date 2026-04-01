@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class StartingMiniGame : MiniGameInfo
 {
+    [Space]
+    [SerializeField] private AudioSource _blowUpBallon;
+    [SerializeField] private AudioManager.Audio _pressBlowButtonAudio;
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private WeightUI[] _weightUIs;
@@ -12,6 +16,9 @@ public class StartingMiniGame : MiniGameInfo
     [SerializeField] private PlayerStats _lightClass;
     [SerializeField] private PlayerStats _defaultClass;
     [SerializeField] private PlayerStats _heavyClass;
+
+    private Coroutine _fillingCoroutine;
+    private const float SFX_INTERVAL = 0.7f;
 
     private void SetMinigameUI(bool isVisible)
     {
@@ -29,7 +36,20 @@ public class StartingMiniGame : MiniGameInfo
 
     private void Start()
     {
+        PauseState.OnPaused += OnPause;
         SetMinigameUI(false);
+    }
+
+    protected new void OnDestroy()
+    {
+        PauseState.OnPaused -= OnPause;
+        base.OnDestroy();
+    }
+
+    private void OnPause(bool isPaused)
+    {
+        if (isPaused) _blowUpBallon.Pause();
+        else _blowUpBallon.UnPause();
     }
 
     protected override void StartMiniGame()
@@ -42,9 +62,11 @@ public class StartingMiniGame : MiniGameInfo
 
             _weightUIs[i].IsVisible = true;
         }
+        
+        _blowUpBallon.PlayDelayed(1.5f);
     }
 
-    protected override void ShowMiniGameResults(Action onFinished, string reward)
+    protected override void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
         //TODO fun animation
         for (int i = 0; i < _playerControllers.Length; i++)
@@ -68,6 +90,19 @@ public class StartingMiniGame : MiniGameInfo
             }
         }
         onFinished.Invoke();
+    }
+
+    public void OnFill()
+    {
+        _fillingCoroutine ??= StartCoroutine(SFXDelay());
+        return;
+        
+        IEnumerator SFXDelay()
+        {
+            AudioManager.PlaySound(_pressBlowButtonAudio);
+            yield return new WaitForSeconds(SFX_INTERVAL);
+            _fillingCoroutine = null;
+        }
     }
     
     public enum Weight

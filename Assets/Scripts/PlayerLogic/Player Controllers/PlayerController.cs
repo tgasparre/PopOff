@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = System.Random;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     public int PlayerIndex => _playerInput.playerIndex;
-    public PlayerBase ActivePlayer => (CurrentState == PlayerState.Starting) ? _startingPlayer : _defaultPlayer;
+    public PlayerBase ActivePlayer => (CurrentState == PlayerState.Fighting) ? _defaultPlayer : _startingPlayer;
     public PlayerUIDisplayer PlayerUI { get; private set; } = null;
     
     [Header("Player Objects")]
@@ -39,11 +41,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
     public void ApplyPowerup(Powerup p) { _defaultPlayer.powerups.ApplyPower(p); }
-    public float PlayerHealth
+    public int PlayerHealth
     {
         get => _defaultPlayer.PlayerHealth;
         set => _defaultPlayer.PlayerHealth = value;
     }
+
+    private bool _inAir => ActivePlayer.InAir;
     
     [Header("Input Handlers")]
     [SerializeField] private InputManager _startingInputManager;
@@ -53,10 +57,17 @@ public class PlayerController : MonoBehaviour
     public Action<InputAction.CallbackContext> OnJump;
     private bool _inputEnabled = true;
 
+    private bool _startingMiniGameFreeze = false;
+    
+    //===== Sound Effects =====
+    private const float SFX_INTERVAL = 0.5f;
+    private Coroutine _movingCoroutine;
+
     private void SwitchState(PlayerState state)
     {
         _defaultPlayer.gameObject.SetActive(false);
         _startingPlayer.gameObject.SetActive(false);
+        _startingMiniGameFreeze = false;
         switch (state)
         {
             case PlayerState.Starting:
@@ -74,6 +85,7 @@ public class PlayerController : MonoBehaviour
                 OnMove = null;
                 //OnJump assigned by StartingMiniGame
                 _startingPlayer.gameObject.SetActive(true);
+                _startingMiniGameFreeze = true;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
@@ -96,7 +108,25 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         if (!_inputEnabled) return;
+        _movingCoroutine ??= StartCoroutine(SFXDelay());
         OnMove?.Invoke(context);
+        return;
+
+        IEnumerator SFXDelay()
+        {
+            while (context.started && !_startingMiniGameFreeze)
+            {
+                float xDir = context.ReadValue<Vector2>().x;
+                if (_inAir || xDir == 0)
+                {
+                    yield return null;
+                    continue;
+                }
+                AudioManager.PlaySound(AudioTrack.PlayerMove);
+                yield return new WaitForSeconds(SFX_INTERVAL);
+            }
+            _movingCoroutine = null;
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -115,8 +145,8 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            if (CurrentState == PlayerState.Starting) CurrentState = PlayerState.Fighting;
-            else if (CurrentState == PlayerState.Fighting) CurrentState = PlayerState.Starting;
+            Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1, 1f)).normalized;
+            _defaultPlayer.ApplyKnockback(randomDirection, CombatParameters.KNOCKBACK_FORCE);
         }
     }
 

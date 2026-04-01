@@ -13,6 +13,7 @@ public class AirFillBoard : MonoBehaviour
     
     private float _fillRate;
     private float _deflateRate;
+    private StartingMiniGame _startingMiniGame;
 
     public bool IsVisible
     {
@@ -36,6 +37,11 @@ public class AirFillBoard : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    private void Start()
+    {
+        _startingMiniGame = (StartingMiniGame)MiniGameInfo.Instance;
+    }
+
     public void SetValues(float fillRate, float deflateRate)
     {
         _fillRate = fillRate;
@@ -46,6 +52,7 @@ public class AirFillBoard : MonoBehaviour
     {
         if (context.performed)
         {
+            _startingMiniGame.OnFill();
             _progressSlider.value += _fillRate;
         }
     }

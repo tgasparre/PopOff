@@ -923,6 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88d2ab62aada909aabfdd6552d895f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinMiniGame
+  winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: Collect the Coin
   _miniGameInstructions: Be the <color=red>first</color> to get to the coin
   _countdownTimer: 3
@@ -933,7 +934,7 @@ MonoBehaviour:
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.8
-  _waitForInstructionTime: 2
+  _waitForInstructionTime: 1
   _waitBeforeSceneLoad: 1
   _coin: {fileID: 153682952}
 --- !u!4 &594538744

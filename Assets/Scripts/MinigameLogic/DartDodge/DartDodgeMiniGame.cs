@@ -61,7 +61,7 @@ public class DartDodgeMiniGame : MiniGameInfo
         {
             yield return new WaitForSeconds(_difficultyRate);
             _spawnRate = Mathf.Max(SpawnRateLimit, _spawnRate - _decreaseRate);
-            _dartFallRate = Mathf.Min(_dartFallRate + 0.1f, DartFallLimit);
+            _dartFallRate = Mathf.Min(_dartFallRate + _dartFallIncreaseRate, DartFallLimit);
             yield return null;
         }
     }

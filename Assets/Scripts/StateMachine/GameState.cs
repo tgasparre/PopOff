@@ -6,7 +6,7 @@ public abstract class GameState
     protected static IActivePlayerTracker ActivePlayerTracker => Game.ActivePlayerTracker;
     
     public abstract void EnterState();
-    public abstract void ExitState();
+    public abstract void ExitState(GameStates newState);
 
     /// <summary>
     /// Test to see if the state can be switched into

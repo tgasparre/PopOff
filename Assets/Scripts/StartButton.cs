@@ -89,6 +89,8 @@ public class StartButton : MonoBehaviour
 
     private void StartGame()
     {
+        AudioManager.PlaySound(AudioTrack.GameStart);
+        
         Game.currentState = GameStates.Playing;
     }
 }

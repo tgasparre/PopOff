@@ -17,6 +17,9 @@ namespace ControllerSystem.Platformer2D
         [Tooltip("Applies only when not inputting movement")]
         [SerializeField] private float _airDrag = MovementParameters.airDrag;
 
+        [SerializeField] private ParticleSystem _runningParticles;
+        private bool _wasGrounded = false;
+
         private PlatformerCrouchModule _crouchModule;
         
         private void Awake()
@@ -28,6 +31,17 @@ namespace ControllerSystem.Platformer2D
         {
             if (Controller.InputtingHorizontalMovement && (_crouchModule == null || !_crouchModule.Crouching)) // Stop movement if crouching
             {
+                //only spawn walk particles when on ground
+                if (motor.Grounded && !_wasGrounded)
+                {
+                    _runningParticles.Play();
+                }
+                else if (!motor.Grounded && _wasGrounded)
+                {
+                    _runningParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                }
+                _wasGrounded = motor.Grounded;
+                
                 float targetSpeed = motor.Grounded ? _groundSpeed : _airSpeed;
                 float acceleration = motor.Grounded ? _groundAccelerationTime : _airAccelerationTime;
 
@@ -39,9 +53,9 @@ namespace ControllerSystem.Platformer2D
                 // Boost force when turning around
                 if (!Mathf.Approximately(Mathf.Sign(Controller.Input.move.GetValue().x), Mathf.Sign(motor.Rb.linearVelocity.x)))
                 {
+                    FlipParticleTrail();
                     horizontalForce *= _turnAroundSpeedMultiplier;
                 }
-
                 motor.Rb.AddForce(new Vector2(horizontalForce * Time.fixedDeltaTime, 0), ForceMode2D.Impulse);
                 
                 
@@ -114,6 +128,13 @@ namespace ControllerSystem.Platformer2D
         {
             _groundDrag = 0;
             _turnAroundSpeedMultiplier = 0.1f;
+        }
+
+        private void FlipParticleTrail()
+        {
+            _runningParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            _runningParticles.transform.localRotation = Quaternion.FromToRotation(Vector2.left, Controller.Input.move.GetValue());
+            _runningParticles.Play();
         }
     }
 }

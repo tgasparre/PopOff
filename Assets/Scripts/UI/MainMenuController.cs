@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
+    [SerializeField] private Button _startButton;
+    [Space]
     [SerializeField] private CanvasGroup _mainMenu;
     [SerializeField] private CanvasGroup _controlsMenu;
     [SerializeField] private CanvasGroup _creditsMenu;
@@ -14,10 +16,13 @@ public class MainMenuController : MonoBehaviour
     private void Awake()
     {
         _joinText.SetActive(false);
+        _startButton.Select();
     }
 
     public void OnStartClicked()
     {
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
+        
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
@@ -30,6 +35,8 @@ public class MainMenuController : MonoBehaviour
 
     public void OnControlsClicked(Button selectionHandler)
     {
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
+        
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
@@ -40,6 +47,8 @@ public class MainMenuController : MonoBehaviour
 
     public void OnCreditsClicked(Button selectionHandler)
     {
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
+        
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();
@@ -50,11 +59,15 @@ public class MainMenuController : MonoBehaviour
 
     public void OnQuitGameClicked()
     {
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
+        
         GameCanvas.Instance.Transition(completed: Game.ExitGame);
     }
 
     public void ReturnToMainMenu(Button selectionHandler)
     {
+        AudioManager.PlaySound(AudioTrack.ButtonClick);
+        
         GameCanvas.Instance.Transition(completed: () =>
         {
             DisableAll();

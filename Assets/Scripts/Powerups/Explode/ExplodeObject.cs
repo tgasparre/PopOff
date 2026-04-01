@@ -4,39 +4,32 @@ using UnityEngine;
 
 public class ExplodeObject : MonoBehaviour
 {
-    [SerializeField] private float _explosionRadius = 3f;
-
     private float _growRate = 5f;
     private float _growDuration = 0.2f;
 
-    private const float ExplosionDamage = 20f;
-    private const float ExplosionForce = 1000f;
-    
-    private void Awake()
-    {
-        Die();
-    }
+    [SerializeField] private bool _grow = false;
 
-    private void Die()
+    public void StartDie(Explode explosion)
     {
-        Collider2D[] colliers = Physics2D.OverlapCircleAll(transform.position, _explosionRadius);
+        Collider2D[] colliers = Physics2D.OverlapCircleAll(transform.position, explosion.Radius);
         foreach (Collider2D collier in colliers)
         {
             if (collier.gameObject.CompareTag("Player"))
             {
                 Player hitPlayer = collier.gameObject.GetComponentInParent<Player>();
                 float distanceFromCenter = Vector2.Distance(transform.position, hitPlayer.transform.position);
-                hitPlayer.TakeDamage(Mathf.Round(distanceFromCenter/_explosionRadius * ExplosionDamage));
-                
+                hitPlayer.TakeDamage(Mathf.RoundToInt(distanceFromCenter / explosion.Radius * explosion.Damage));
+
                 Rigidbody2D rb = hitPlayer.GetComponent<Rigidbody2D>();
                 Vector2 explosionDir = rb.position - (Vector2)transform.position;
                 float explosionDistance = explosionDir.magnitude;
                 explosionDir /= explosionDistance;
-                rb.AddForce(explosionDir * ExplosionForce);
+                rb.AddForce(explosionDir * explosion.Force);
             }
         }
 
-        StartCoroutine(GrowBeforeDeath());
+        if (_grow) StartCoroutine(GrowBeforeDeath());
+        else Destroy(gameObject, 0.5f);
     }
 
     private IEnumerator GrowBeforeDeath()
@@ -51,9 +44,9 @@ public class ExplodeObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blueViolet;
-        Gizmos.DrawWireSphere(transform.position, _explosionRadius);
-    }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.blueViolet;
+    //     Gizmos.DrawWireSphere(transform.position, _explosionRadius);
+    // }
 }

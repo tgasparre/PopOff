@@ -1,10 +1,12 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _winnerNameText;
+    [SerializeField] private Button _focusButton;
 
     public CanvasGroup canvasGroup { get; private set; }
     private void Awake()
@@ -14,6 +16,8 @@ public class GameOverController : MonoBehaviour
 
     public void SetWinnerName()
     {
+        _focusButton.Select();
+        
         int winningIndex = Game.WinningIndex;
         if (winningIndex == -1) Debug.LogError("Error! Winning Index = -1, shouldn't happen!");
         _winnerNameText.text = GameUtils.PlayerNames[winningIndex];

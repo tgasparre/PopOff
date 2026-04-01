@@ -4,15 +4,14 @@ using UnityEngine;
 public class AttackHurtbox : MonoBehaviour
 {
     public Player player;
-    [SerializeField] private float _startingHealth = 200;
-    public float HP { get; set; }
+    public int HP { get; set; }
 
     private void Awake()
     {
         ResetHealth();
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (player != null) 
             player.TakeDamage(damage);
@@ -20,12 +19,12 @@ public class AttackHurtbox : MonoBehaviour
 
     public void ResetHealth()
     {
-        HP = _startingHealth;
+        HP = CombatParameters.MAX_PLAYER_HEALTH;
     }
 
     public void InstantDeath()
     {
-        player.InstaDeath();
+        player.InstantDeath();
     }
     
 }
