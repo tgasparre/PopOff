@@ -703,7 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlipperyMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: King of the Hill
-  _miniGameInstructions: Push everyone else off the platform!
+  _miniGameInstructions: 
   _countdownTimer: 3
   _miniGameTime: 30
   _powerupReward:
@@ -1519,9 +1519,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 998148533}
+  - {fileID: 671235338}
   - {fileID: 1511640671}
   - {fileID: 170758533}
-  - {fileID: 671235338}
   - {fileID: 307431165}
   - {fileID: 490554094}
   - {fileID: 1500229431}

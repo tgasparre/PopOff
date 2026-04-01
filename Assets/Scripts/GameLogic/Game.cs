@@ -95,6 +95,8 @@ public class Game : MonoBehaviour
 
     [Header("DEBUG Controls")]
     [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
+    [Tooltip("Disable the player UI and stop it from appearing")] public bool disablePlayerUi = false;
+    [Tooltip("Disables camera shake for everything")] public bool disableCameraShake = false;
 }
 
 public enum PlayerType

@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpleefMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: Spleef
-  _miniGameInstructions: Be the <color=red>last</color> one standing
+  _miniGameInstructions: 
   _countdownTimer: 3
   _miniGameTime: 0
   _powerupReward:
