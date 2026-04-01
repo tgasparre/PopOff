@@ -39,7 +39,7 @@ public class MiniGameState : GameState
         GameCanvas.Instance.SetPlayerUIVisibility(false);
         GameUI.SetValues(_currentMiniGame);
         ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameDie);
-        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetPlayers());
+        _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetAlivePlayers());
         return;
         
         void OnIntroFinished()

@@ -16,7 +16,7 @@ public class Player : PlayerBase
     public AttackHurtbox hurtbox { private set; get; }
     public PlayerStats playerStats { private set; get; }
     public UltimateAttackTracker ultimateAttackTracker { private set; get; }
-    public float PlayerHealth
+    public int PlayerHealth
     {
         get
         {
@@ -41,7 +41,7 @@ public class Player : PlayerBase
     public void TriggerDeath()
     {
         _animation.TriggerDeath();
-        Invoke(nameof(KillPlayer), 0.25f);
+        Invoke(nameof(KillPlayer), 0.28f);
     }
 
     public void TriggerUltimate()
@@ -118,7 +118,7 @@ public class Player : PlayerBase
     #endregion
     
     #region Health
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         PlayerHealth -= damage;
         _animation.DamageFlash();
@@ -136,7 +136,13 @@ public class Player : PlayerBase
         }
     }
 
-    public void KillPlayer()
+    public void InstantDeath()
+    {
+        PlayerHealth = 0;
+        TriggerDeath();
+    }
+    
+    private void KillPlayer()
     {
         OnDeath(this);
     }
@@ -170,18 +176,23 @@ public class Player : PlayerBase
         IEnumerator AddKnockback()
         {
             float elapsedTime = 0f;
-            while (elapsedTime < CombatParameters.knockbackDuration)
+            while (elapsedTime < CombatParameters.KNOCKBACK_DURATION)
             {
-                float normalizedTime = elapsedTime / CombatParameters.knockbackDuration;
-                float currentForce = CombatParameters.knockbackCurve.Evaluate(normalizedTime) * knockbackForce;
+                float normalizedTime = elapsedTime / CombatParameters.KNOCKBACK_DURATION;
+                float currentForce = CombatParameters.KNOCKBACK_CURVE.Evaluate(normalizedTime) * knockbackForce;
 
-                _rigidbody2D.AddForce(direction * currentForce * 10);
+                _rigidbody2D.AddForce(direction.normalized * currentForce * 10);
             
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.fixedDeltaTime;
                 yield return null;
             }
             _damageCoroutine = null;
         }
+    }
+
+    public void Pogo()
+    {
+        _rigidbody2D.AddForce(Vector2.up * CombatParameters.POGO_FORCE, ForceMode2D.Impulse);
     }
 
     public void ResetWeightClass()

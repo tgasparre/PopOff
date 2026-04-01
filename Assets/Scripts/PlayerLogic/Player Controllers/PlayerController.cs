@@ -3,6 +3,7 @@ using System.Collections;
 using InputManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = System.Random;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Player _defaultPlayer;
     public AttackHurtbox PlayerHurtbox => _defaultPlayer.GetComponentInChildren<AttackHurtbox>();
     public void ApplyPowerup(Powerup p) { _defaultPlayer.powerups.ApplyPower(p); }
-    public float PlayerHealth
+    public int PlayerHealth
     {
         get => _defaultPlayer.PlayerHealth;
         set => _defaultPlayer.PlayerHealth = value;
@@ -144,8 +145,8 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            if (CurrentState == PlayerState.Starting) CurrentState = PlayerState.Fighting;
-            else if (CurrentState == PlayerState.Fighting) CurrentState = PlayerState.Starting;
+            Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1, 1f)).normalized;
+            _defaultPlayer.ApplyKnockback(randomDirection, CombatParameters.KNOCKBACK_FORCE);
         }
     }
 

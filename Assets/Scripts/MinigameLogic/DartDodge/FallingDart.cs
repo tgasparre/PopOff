@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FallingDart : MonoBehaviour
 {
-    [SerializeField] private float _damage = 500f;
+    [SerializeField] private int _damage = 500;
     [SerializeField] private float _lifetime = 1f;
 
     [SerializeField] private bool _hidden = false;

@@ -12,32 +12,28 @@ public abstract class Throwable : MonoBehaviour
     [SerializeField] private Explode _explode;
     
     private PowerupStats.PowerupType type;
-    private float _damage = 20f;
+    private int _damage = 20;
     private float _glueDuration = 1f;
 
-    protected GameObject _throwingPlayer;
     protected Rigidbody2D _rigidbody2D;
     protected float _direction;
+
+    protected Player _throwingPlayer;
+    private int _throwingPlayerIndex => _throwingPlayer.PlayerIndex;
     
     private SpriteRenderer _renderer;
-    private bool _interactable = false;
-    private float _interactableTimer = 0.1f;
+    private bool _interactable = true;
+    private float _interactableTimer = 0.25f;
 
     protected void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _renderer = GetComponentInChildren<SpriteRenderer>();
-        Invoke(nameof(EnableInteraction), _interactableTimer);
-    }
-
-    private void EnableInteraction()
-    {
-        _interactable = true;
     }
 
     public virtual void Throw(GameObject throwingPlayer, PowerupStats powerupStats, int direction)
     {
-        _throwingPlayer = throwingPlayer;
+        _throwingPlayer = throwingPlayer.GetComponentInChildren<Player>();
         _direction = direction;
 
         _renderer.flipX = _direction == 1;
@@ -46,6 +42,12 @@ public abstract class Throwable : MonoBehaviour
         _damage = powerupStats.damage;
         _glueDuration = powerupStats.glueDuration;
         transform.localScale = Vector3.one * powerupStats.size;
+
+        if (type == PowerupStats.PowerupType.Glue)
+        {
+            _interactable = false;
+            Invoke(nameof(EnableInteraction), _interactableTimer);
+        }
         
         Invoke(nameof(Despawn), 40);
     }
@@ -57,12 +59,12 @@ public abstract class Throwable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!_interactable) return;
-        if (other.gameObject == _throwingPlayer && type != PowerupStats.PowerupType.Glue) return;
-        
         if (other.CompareTag("Player"))
-        {  
+        {
             Player hitPlayer = other.GetComponentInParent<Player>();
+            if (!_interactable) return;
+            if (hitPlayer.PlayerIndex == _throwingPlayerIndex && type != PowerupStats.PowerupType.Glue) return;
+
             HitPlayer(hitPlayer);
         }
     }
@@ -74,7 +76,7 @@ public abstract class Throwable : MonoBehaviour
             case PowerupStats.PowerupType.Damage:
                 hitPlayer.TakeDamage(_damage);
                 Vector2 knockback = new Vector2(_rigidbody2D.linearVelocityX, -_rigidbody2D.linearVelocityY).normalized;
-                hitPlayer.ApplyKnockback(knockback, CombatParameters.knockbackForce); 
+                hitPlayer.ApplyKnockback(knockback, CombatParameters.KNOCKBACK_FORCE); 
                 break;
             case PowerupStats.PowerupType.Glue:
                 hitPlayer.FreezePlayer(_glueDuration);
@@ -101,5 +103,10 @@ public abstract class Throwable : MonoBehaviour
     private void Despawn()
     {
         Destroy(gameObject);
+    }
+    
+    private void EnableInteraction()
+    {
+        _interactable = true;
     }
 }

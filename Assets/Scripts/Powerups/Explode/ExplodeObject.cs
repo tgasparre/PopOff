@@ -18,7 +18,7 @@ public class ExplodeObject : MonoBehaviour
             {
                 Player hitPlayer = collier.gameObject.GetComponentInParent<Player>();
                 float distanceFromCenter = Vector2.Distance(transform.position, hitPlayer.transform.position);
-                hitPlayer.TakeDamage(Mathf.Round(distanceFromCenter / explosion.Radius * explosion.Damage));
+                hitPlayer.TakeDamage(Mathf.RoundToInt(distanceFromCenter / explosion.Radius * explosion.Damage));
 
                 Rigidbody2D rb = hitPlayer.GetComponent<Rigidbody2D>();
                 Vector2 explosionDir = rb.position - (Vector2)transform.position;

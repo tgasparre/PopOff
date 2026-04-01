@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 170758536}
   m_Layer: 0
   m_Name: MainPlatform
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 100
   _waitAfterLoadingTime: 0.8
-  _waitForInstructionTime: 2
+  _waitForInstructionTime: 1
   _waitBeforeSceneLoad: 1
   MainPlatform: {fileID: 170758536}
   startingPlatformParent: {fileID: 490554093}

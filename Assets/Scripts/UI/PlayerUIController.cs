@@ -11,6 +11,7 @@ public class PlayerUIController : MonoBehaviour
     [Space]
     [SerializeField] private Sprite _mousePlayerSprite;
     [SerializeField] private Sprite _dogPlayerSprite;
+    [SerializeField] private Sprite _deathSprite;
 
     private CanvasGroup _canvasGroup;
 
@@ -31,7 +32,7 @@ public class PlayerUIController : MonoBehaviour
             _ => throw new ArgumentOutOfRangeException()
         };
         
-        playerUIDisplayer.InitializePlayerUI(activePlayer, playerSprite);
+        playerUIDisplayer.InitializePlayerUI(activePlayer, playerSprite, _deathSprite);
         ui.Add(playerUIDisplayer);
         return playerUIDisplayer;
     }

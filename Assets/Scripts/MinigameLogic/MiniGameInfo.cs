@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
@@ -44,7 +45,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     [Tooltip("Time to read the instructions of the minigame before starting the countdown")] [SerializeField] private float _waitForInstructionTime = 2f;
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
-    private PlayerTrack[] _players;
+    private Dictionary<int, PlayerTrack> _players;
     private float _resultsTime = 2f;
 
     protected bool _isPlayingMiniGame { get; private set; }  = false;
@@ -58,27 +59,26 @@ public abstract class MiniGameInfo : MonoBehaviour
     /// <summary>
     /// Play the intro animation (display title, countdown to start)
     /// </summary>
-    public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] players)
+    public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] alivePlayers)
     {
         _countdownCoroutine = null;
-        _players = new PlayerTrack[players.Length];
-        foreach (PlayerController controller in players)
+        _players = new Dictionary<int, PlayerTrack>(alivePlayers.Length);
+        foreach (PlayerController controller in alivePlayers)
         {
             _players[controller.PlayerIndex] = new PlayerTrack(controller, controller.PlayerHealth);
             controller.PlayerHealth = _miniGameStartingHealth;
         }
-        _playerControllers = _players.Select(t => t.controller).ToArray();
+        _playerControllers = _players.Select(t => t.Value.controller).ToArray();
         AssignWeightClasses(_minigameStats);
-        
-        _alivePlayers = Game.PlayerCount; 
+
+        _alivePlayers = alivePlayers.Length;
         _onGameComplete = onGameComplete;
         StartCoroutine(StartCountdown());
         return;
         
         IEnumerator StartCountdown()
         {
-            yield return new WaitForSeconds(_waitAfterLoadingTime);
-            yield return new WaitForSeconds(_waitForInstructionTime);
+            yield return new WaitForSeconds(_waitAfterLoadingTime + _waitForInstructionTime);
             GameCanvas.Instance.HideMiniGameDescription();
 
             yield return GameCanvas.MiniGameUI.StartCurrentCountdown();
@@ -137,10 +137,10 @@ public abstract class MiniGameInfo : MonoBehaviour
         }
 
         //reset health
-        foreach (PlayerTrack track in _players)
+        foreach (KeyValuePair<int, PlayerTrack> track in _players)
         {
-            if (track.gameHealth == 0) continue;
-            track.controller.PlayerHealth = track.gameHealth;
+            if (track.Value.gameHealth == 0) continue;
+            track.Value.controller.PlayerHealth = track.Value.gameHealth;
         }
         
         ResetWeightClasses();
@@ -211,11 +211,11 @@ public abstract class MiniGameInfo : MonoBehaviour
         if (_alivePlayers <= 1)
         {
             //find winner
-            foreach (PlayerTrack track in _players)
+            foreach (KeyValuePair<int, PlayerTrack> track in _players)
             {
-                if (!track.isDeadInMiniGame)
+                if (!track.Value.isDeadInMiniGame)
                 {
-                    TriggerEndMiniGame(track.PlayerIndex);
+                    TriggerEndMiniGame(track.Value.PlayerIndex);
                     return;
                 }
             }
@@ -256,14 +256,14 @@ public abstract class MiniGameInfo : MonoBehaviour
         _countdownCoroutine = null;
     }
     
-    protected struct PlayerTrack
+    protected class PlayerTrack
     {
         public readonly PlayerController controller;
         public bool isDeadInMiniGame;
-        public readonly float gameHealth;
+        public readonly int gameHealth;
         public int PlayerIndex => controller.PlayerIndex;
 
-        public PlayerTrack(PlayerController c, float hp)
+        public PlayerTrack(PlayerController c, int hp)
         {
             controller = c;
             isDeadInMiniGame = false;

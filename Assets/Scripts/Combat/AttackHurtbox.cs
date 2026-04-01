@@ -4,14 +4,14 @@ using UnityEngine;
 public class AttackHurtbox : MonoBehaviour
 {
     public Player player;
-    public float HP { get; set; }
+    public int HP { get; set; }
 
     private void Awake()
     {
         ResetHealth();
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         if (player != null) 
             player.TakeDamage(damage);
@@ -24,7 +24,7 @@ public class AttackHurtbox : MonoBehaviour
 
     public void InstantDeath()
     {
-        player.KillPlayer();
+        player.InstantDeath();
     }
     
 }

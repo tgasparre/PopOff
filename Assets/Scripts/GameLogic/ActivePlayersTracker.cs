@@ -12,6 +12,7 @@ public interface IActivePlayerTracker
 	public void DestroyPlayers();
 	public void SetPlayerStates(PlayerState state);
 	public PlayerController[] GetPlayers();
+	public PlayerController[] GetAlivePlayers();
 	public void SubscribeMiniGameDeath(Action<Player> onPlayerDiedInMinigame);
 }
 public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
@@ -52,6 +53,10 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	public PlayerController[] GetPlayers()
 	{
 		return _activePlayers.Select(tracker => tracker.controller).ToArray(); 
+	}
+	public PlayerController[] GetAlivePlayers()
+	{
+		return _alivePlayers.Select(tracker => tracker.controller).ToArray();
 	}
 	public int WinningPlayerIndex { get; private set; } = -1;
 	public int joinedPlayerCount { get; private set; } = 0;
@@ -214,9 +219,6 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 						Debug.LogError("zero players left should only happen if DEBUG!");
 						WinningPlayerIndex = 0;
 						Game.currentState = GameStates.GameOver;
-						break;
-					default:
-						Debug.LogError("Error dead player was not removed!");
 						break;
 				}
 				break;

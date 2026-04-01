@@ -8,7 +8,7 @@ using Vector2 = UnityEngine.Vector2;
 public class AttackHitbox : MonoBehaviour
 {
     private Player _player;
-    private float _attackDamage;
+    private int _attackDamage;
     private float _knockbackForce;
     private Action onHitCallback;
     
@@ -26,19 +26,19 @@ public class AttackHitbox : MonoBehaviour
         switch (type)
         {
             case HitboxType.Regular:
-                _attackDamage = CombatParameters.basicAttackDamage;
-                _knockbackForce = CombatParameters.knockbackForce;
+                _attackDamage = CombatParameters.BASIC_ATTACK_DMG;
+                _knockbackForce = CombatParameters.KNOCKBACK_FORCE;
                 _useParticles = true;
                 break;
             case HitboxType.Ultimate:
-                _attackDamage = CombatParameters.ultimateAttackDamage;
-                _knockbackForce = CombatParameters.ultimateKnockbackForce;
+                _attackDamage = CombatParameters.ULTIMATE_ATTACK_DMG;
+                _knockbackForce = CombatParameters.ULTIMATE_KNOCKBACK_FORCE;
                 _useParticles = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
-        _attackDamage *= player.playerStats.DamageMultiplier();
+        _attackDamage = Mathf.RoundToInt(_attackDamage * player.playerStats.DamageMultiplier());
         _knockbackForce *= player.playerStats.KnockbackMultiplier();
         
         onHitCallback = hitCallback;
@@ -62,7 +62,7 @@ public class AttackHitbox : MonoBehaviour
             AddKnockbackAndHitstunToAttacker(_player, attackerInput);
             
             //apply hitstun to hit player and take damage
-            hitPlayer.ApplyHitStun(CombatParameters.hitStunDuration);
+            hitPlayer.ApplyHitStun(CombatParameters.HIT_STUN_DURATION);
             otherHb.TakeDamage(_attackDamage);
             hitPlayers.Add(otherHb);
 
@@ -82,7 +82,7 @@ public class AttackHitbox : MonoBehaviour
 
     private void AddKnockbackAndHitstunToAttacker(Player hitPlayer, InputManager attackerInput)
     {
-        _player.ApplyHitStun(CombatParameters.hitStunDuration - 0.2f);
+        _player.ApplyHitStun(CombatParameters.HIT_STUN_DURATION - 0.2f);
         
         Vector2 direction = (_player.transform.position - hitPlayer.transform.position).normalized;
         direction += Vector2.up * attackerInput.GetMoveInput().y;

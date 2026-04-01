@@ -91,14 +91,14 @@ public class DEBUGController : MonoBehaviour
         {
             foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
             {
-                player.PlayerHealth = 100000f;
+                player.PlayerHealth = 100000;
             }
         }
         if (_playersOneHit)
         {
             foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
             {
-                player.PlayerHealth = 1f;
+                player.PlayerHealth = 1;
             }
         }
     }

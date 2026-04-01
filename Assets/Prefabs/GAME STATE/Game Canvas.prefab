@@ -3439,6 +3439,7 @@ MonoBehaviour:
   _playerUITransform: {fileID: 1913882559396812698}
   _mousePlayerSprite: {fileID: 21300000, guid: de3015ff91cd60a4f9602732ed87a5f8, type: 3}
   _dogPlayerSprite: {fileID: 21300000, guid: a0c4f65e03083624281f6e16e11d2096, type: 3}
+  _deathSprite: {fileID: 379020967, guid: 3f427ea92a7dca64393bd5fd96e33d8f, type: 3}
 --- !u!225 &4577902753005721928
 CanvasGroup:
   m_ObjectHideFlags: 0

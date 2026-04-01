@@ -71,7 +71,11 @@ public class CountdownUI : MonoBehaviour
          float timer = _startingNumber;
          while (timer >= 0)
          {
-            if (_forceQuit) yield break;
+            if (_forceQuit)
+            {
+               StopCountdownNoTrigger();
+               yield break;
+            }
 
             _countdown.text = Mathf.RoundToInt(timer).ToString();
             timer -= Time.deltaTime * _timescaleSpeed;
@@ -84,16 +88,28 @@ public class CountdownUI : MonoBehaviour
       IEnumerator ReadyGo()
       {
          yield return new WaitForSeconds(delay);
-         if (_forceQuit)  yield break; 
+         if (_forceQuit)
+         {
+            StopCountdownNoTrigger();
+            yield break;
+         }
 
          isRunning = true;
          _countdown.text = "Ready";
          yield return new WaitForSeconds(_readyWaitTime);
-         if (_forceQuit) yield break;
+         if (_forceQuit)
+         {
+            StopCountdownNoTrigger();
+            yield break;
+         }
 
          _countdown.text = "Go";
          yield return new WaitForSeconds(_goWaitTime);
-         if (_forceQuit)  yield break;
+         if (_forceQuit)
+         {
+            StopCountdownNoTrigger();
+            yield break;
+         }
 
          StopCountdown();
       }

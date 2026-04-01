@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0718f9b13da495cb9e11770f40eefdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
-  _playersToSpawn: 1
+  _playersToSpawn: 2
   _disablePlayerUI: 0
   _playersImmortal: 0
   _playersOneHit: 0
@@ -235,14 +235,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2280236877366239102, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 94.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2465159541906429176, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 55.25
-      objectReference: {fileID: 0}
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -323,10 +315,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4022254610691285545, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 55.75
-      objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -341,10 +329,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4221606180115950843, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_HorizontalFit
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6741507329588444411, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
@@ -362,25 +346,12 @@ PrefabInstance:
     - target: {fileID: 6741507329588444411, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7147530813976146583, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 760
-      objectReference: {fileID: 0}
-    - target: {fileID: 7268731061967885115, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 63.15
       objectReference: {fileID: 0}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
       value: Game Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8669043744482695434, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 500
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4221606180115950843, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
