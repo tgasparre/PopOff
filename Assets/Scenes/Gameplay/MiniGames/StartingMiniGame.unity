@@ -1990,8 +1990,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartingMiniGame
   winningParticlesPrefab: {fileID: 0}
   _miniGameName: Fill your Balloon
-  _miniGameInstructions: Press <color=red>South Button/Space</color> fill up your
-    balloon to your preferred weight
+  _miniGameInstructions: Press <color=red>jump</color> fill up your balloon to your
+    preferred weight
   _countdownTimer: 3
   _miniGameTime: 8
   _powerupReward: []

@@ -94,7 +94,7 @@ public abstract class Throwable : MonoBehaviour
     
     private void SpawnExplosion()
     {
-        _throwingPlayer.GetComponent<PlayerPowerups>().SpawnExplosion(_explode.Explosion, transform);
+        _throwingPlayer.GetComponent<PlayerPowerups>().SpawnExplosion(_explode, transform);
         Despawn();
     }
 

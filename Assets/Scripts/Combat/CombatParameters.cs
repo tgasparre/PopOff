@@ -2,8 +2,8 @@ using UnityEngine;
 
 public static class CombatParameters
 {
-    public const int basicAttackDamage = 20;
-    public const int ultimateAttackDamage = 40;
+    public const int basicAttackDamage = 10;
+    public const int ultimateAttackDamage = 20;
 
     public const float knockbackDuration = 0.2f;
     public const float knockbackForce = 15f; 

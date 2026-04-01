@@ -129,9 +129,10 @@ public class PlayerPowerups : MonoBehaviour
         trap.Throw(gameObject, trapStats, _player.FacingLeftValue);
     }
 
-    public void SpawnExplosion(GameObject explosion, Transform pos)
+    public void SpawnExplosion(Explode explosion, Transform pos)
     {
-        Instantiate(explosion, pos.position, Quaternion.identity);
+        GameObject o = Instantiate(explosion.Explosion, pos.position, Quaternion.identity);
+        o.GetComponent<ExplodeObject>().StartDie(explosion);
     }
 
     private IEnumerator PowerupTimer(float duration)

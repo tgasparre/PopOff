@@ -11,7 +11,14 @@ public class PlayerUIController : MonoBehaviour
     [Space]
     [SerializeField] private Sprite _mousePlayerSprite;
     [SerializeField] private Sprite _dogPlayerSprite;
-    
+
+    private CanvasGroup _canvasGroup;
+
+    private void Awake()
+    {
+        _canvasGroup = GetComponent<CanvasGroup>();
+    }
+
     public PlayerUIDisplayer CreatePlayerUI(PlayerController player)
     {
         GameObject uiInstance = Instantiate(_playerUIPrefab, _playerUITransform);
@@ -27,6 +34,16 @@ public class PlayerUIController : MonoBehaviour
         playerUIDisplayer.InitializePlayerUI(activePlayer, playerSprite);
         ui.Add(playerUIDisplayer);
         return playerUIDisplayer;
+    }
+
+    public void HidePlayerUI()
+    {
+        CanvasGroupDisplayer.Hide(_canvasGroup);
+    }
+
+    public void ShowPlayerUI()
+    {
+        CanvasGroupDisplayer.Show(_canvasGroup);
     }
 
     public void DestroyUI()

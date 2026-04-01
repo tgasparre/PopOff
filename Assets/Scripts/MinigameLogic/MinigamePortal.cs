@@ -1,33 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class MinigamePortal : MonoBehaviour
+public class MinigamePortal : Collectable
 {
-    public Game game;
-    private bool isPlayerInRange;
-
-    public void Update()
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (isPlayerInRange && Keyboard.current.enterKey.wasPressedThisFrame)
-        {
-            // game.TriggerMinigame();
-        }
+        if (!other.gameObject.CompareTag("Player")) return;
+        PlayingState.CurrentGameplayState = GameplayStates.MiniGame;
     }
-    
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("collision with portal entered");
-        isPlayerInRange = true;
-    }
-    
-    //start code from chatgpt: i want some action to occur when the player is close enough
-    //to an object and presses the enter button. How would i write a method to do that?
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
-        }
-    }
-    //end code from chatgpt
 }

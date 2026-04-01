@@ -83,6 +83,12 @@ public class GameCanvas : MonoBehaviour
         return _playerUIController.CreatePlayerUI(playerController);
     }
 
+    public void SetPlayerUIVisibility(bool isVisible)
+    {
+        if (isVisible) _playerUIController.ShowPlayerUI();
+        else _playerUIController.HidePlayerUI();
+    }
+
     public void DestroyUI()
     {
         _playerUIController.DestroyUI();

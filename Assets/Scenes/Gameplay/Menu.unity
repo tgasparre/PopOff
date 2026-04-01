@@ -920,17 +920,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &511624855 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3146665589798182699, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-  m_PrefabInstance: {fileID: 1951611364233530164}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &516334233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9d69a4ed41d0ab68db274fc82cc604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
+  _startButton: {fileID: 764139742}
   _mainMenu: {fileID: 1803970252}
   _controlsMenu: {fileID: 2139149158}
   _creditsMenu: {fileID: 499863983}
@@ -3202,17 +3192,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597538383}
   m_CullTransparentMesh: 1
---- !u!114 &1615413355 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8594264324629337659, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-  m_PrefabInstance: {fileID: 1951611364233530164}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1649844530
 GameObject:
   m_ObjectHideFlags: 0
@@ -5573,18 +5552,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2486939840827976615, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: _focusButton
-      value: 
-      objectReference: {fileID: 511624855}
     - target: {fileID: 3146665589798182699, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 4022254610691285545, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 55.75
-      objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5605,22 +5576,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 5463087829473577151, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 52.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5463087829473577151, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: ceb06ffc874ae1ecf890af232ebf2ccb, type: 2}
-    - target: {fileID: 5463087829473577151, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -3733608337825674710, guid: ceb06ffc874ae1ecf890af232ebf2ccb, type: 2}
-    - target: {fileID: 5463087829473577151, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6741507329588444411, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5637,10 +5592,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6854652143727935068, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: _rewardImage
-      value: 
-      objectReference: {fileID: 1615413355}
+    - target: {fileID: 7147530813976146583, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7679658457908975980, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 

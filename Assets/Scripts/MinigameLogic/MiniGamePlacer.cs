@@ -1,26 +1,27 @@
-using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MiniGamePlacer : ObjectPlacer
 {
+    [Space]
+    [SerializeField] private float _holdTime = 5f;
+    [SerializeField] private float _minTimeToSpawn = 5f;
+    [SerializeField] private float _maxTimeToSpawn = 10f;
+    
     protected override void StartPlacing()
     {
-        throw new NotImplementedException();
+        StartCoroutine(BeginPlace());
+        return;
+
+        IEnumerator BeginPlace()
+        {
+            while (_canPlace)
+            {
+                float waitingTime = Random.Range(_minTimeToSpawn, _maxTimeToSpawn);
+                yield return new WaitForSeconds(waitingTime);
+                if (_canPlace) Place(_holdTime);
+            }
+        }
     }
 }
-
-// public Game portalGame;
-// public void Start()
-// {
-//     TagToClean = "Portal";
-//     minimumSecondsToCreate = 10f;
-//     maximumSecondsToCreate = 30f;
-// }
-//
-// public override void Place()
-// {
-//     Debug.Log("placed object");
-//     Vector3 position = SpriteTools.RandomTopOfScreenLocationWorldSpace();
-//     Instantiate(ObjectPrefab, position, Quaternion.identity);
-//     ObjectPrefab.GetComponent<MinigamePortal>().game = portalGame;
-// }

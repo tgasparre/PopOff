@@ -1,4 +1,3 @@
-using UnityEngine;
 public class MenuState : GameState
 {
     public override void EnterState()

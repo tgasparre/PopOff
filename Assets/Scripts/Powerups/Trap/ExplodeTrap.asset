@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 1
   _charges: 3
   _useCooldown: 0.5
-  _icon: {fileID: 1989899530, guid: 7fe93ebd07beb4d48b029c91130f1b5d, type: 3}
+  _icon: {fileID: 21300000, guid: 27d1361f99d910645a4f673f528099ed, type: 3}
   _trapPrefab: {fileID: 7096449467145609094, guid: 6474b0d38d763be308db525d0ec9d329, type: 3}
   _trapStats:
     speed: 5

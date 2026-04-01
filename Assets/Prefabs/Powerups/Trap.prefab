@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1329639003970239861}
+  - component: {fileID: 1435550960043224129}
   - component: {fileID: 5727294018527877714}
   - component: {fileID: 3958937275765745156}
   - component: {fileID: 5723305170284503951}
   - component: {fileID: 1009383805526345441}
-  - component: {fileID: 1435550960043224129}
   m_Layer: 11
   m_Name: Trap
   m_TagString: Untagged
@@ -36,6 +36,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1435550960043224129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957223733200214045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7805054bf6638358aa5cb4e6aaec927d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Trap
+  _lifetime: 15
+  _bouncyMat: {fileID: 0}
+  _explode:
+    _explodePrefab: {fileID: 0}
+    _flashTimePercent: 0
+    _idleTimePercent: 0
+    _explosionRadius: 2
+    _explosionDamage: 20
+    _explosionForce: 1000
+  _throwForce: 6
+  _style: 0
+  expandAudio:
+    name: Growing Sound
+    track: 0
+    _clips:
+    - {fileID: 8300000, guid: d03255ce127e6aa82b2caad4ed14c748, type: 3}
+    _volumeMin: 0.3
+    _volumeMax: 0.4
+    _pitchMin: 1.1
+    _pitchMax: 1.2
 --- !u!212 &5727294018527877714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -82,7 +114,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 5c245752d0f14294c99d31a47f67762f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -213,32 +245,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1435550960043224129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957223733200214045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7805054bf6638358aa5cb4e6aaec927d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Trap
-  _lifetime: 15
-  _bouncyMat: {fileID: 0}
-  _explode:
-    _explodePrefab: {fileID: 0}
-    _flashTimePercent: 0
-    _idleTimePercent: 0
-  _throwForce: 6
-  _style: 0
-  expandAudio:
-    name: Growing Sound
-    track: 0
-    _clips:
-    - {fileID: 8300000, guid: d03255ce127e6aa82b2caad4ed14c748, type: 3}
-    _volumeMin: 0.3
-    _volumeMax: 0.4
-    _pitchMin: 1.1
-    _pitchMax: 1.2

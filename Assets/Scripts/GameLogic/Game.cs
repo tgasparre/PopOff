@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -29,6 +28,7 @@ public class Game : MonoBehaviour
     public Color[] PlayerColors => _playerColors;
     [SerializeField] private PlayerType[] _playerTypes;
     public PlayerType[] PlayerTypes => _playerTypes;
+    
     
     public RuntimeAnimatorController GetPlayerAnimation(int index)
     {
@@ -95,7 +95,6 @@ public class Game : MonoBehaviour
 
     [Header("DEBUG Controls")]
     [Tooltip("Make it so one player can start the game themselves")] public bool bypassOnePlayerBlock = true;
-     
 }
 
 public enum PlayerType

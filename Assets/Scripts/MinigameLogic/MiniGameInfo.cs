@@ -45,7 +45,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     [Tooltip("Time to wait after the game is over before going to the next scene")] [SerializeField] private float _waitBeforeSceneLoad = 1f;
 
     private PlayerTrack[] _players;
-    private float _resultsTime = 1.3f;
+    private float _resultsTime = 2f;
 
     protected bool _isPlayingMiniGame { get; private set; }  = false;
     protected PlayerController[] _playerControllers;
@@ -120,7 +120,7 @@ public abstract class MiniGameInfo : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(_resultsTime);
             onDelayOver.Invoke();
-            yield return new WaitForSecondsRealtime(0.2f);
+            yield return new WaitForSecondsRealtime(0.25f);
             
             AudioManager.PlaySound(AudioTrack.MinigameEnd);
             _chosenPowerup = GetRandomPowerup();
@@ -219,7 +219,7 @@ public abstract class MiniGameInfo : MonoBehaviour
                     return;
                 }
             }
-            Debug.LogError("no alive player was found, if not DEBUG then we have a problem");
+            Debug.LogWarning("no alive player was found, if not DEBUG then we have a problem");
             TriggerEndMiniGame(_players[0].PlayerIndex); //set player one to win by default 
         }
     }

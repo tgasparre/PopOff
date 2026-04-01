@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using EasyTextEffects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
+    [SerializeField] private TextEffect _finishedEffect;
     
     [Header("Results State")]
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
@@ -57,7 +59,8 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
                     CanvasGroupDisplayer.Show(_miniGameCanvasGroup);
                     break;
                 case UIState.Finished:
-                    CanvasGroupDisplayer.Show(_finishedCanvasGroup);
+                    _finishedEffect.StartManualEffects();
+                    StartCoroutine(VerySmallDelay());
                     break;
                 case UIState.Results:
                     CanvasGroupDisplayer.Show(_resultsCanvasGroup);
@@ -67,6 +70,12 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
             }
             _currentState = value;
         }
+    }
+
+    private IEnumerator VerySmallDelay()
+    {
+        yield return new WaitForSeconds(.1f);
+        CanvasGroupDisplayer.Show(_finishedCanvasGroup);
     }
 
     private void Awake()

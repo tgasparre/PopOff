@@ -36,6 +36,7 @@ public class MiniGameState : GameState
         }
 
         Game.IsPlayersFrozen = true;
+        GameCanvas.Instance.SetPlayerUIVisibility(false);
         GameUI.SetValues(_currentMiniGame);
         ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameDie);
         _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetPlayers());
@@ -63,6 +64,7 @@ public class MiniGameState : GameState
 
     public override void ExitState(GameStates newState)
     {
+        GameCanvas.Instance.SetPlayerUIVisibility(true);
         if (_currentMiniGame != null) _currentMiniGame.ForceEnd();
         
         GameUI.DisableAll();
