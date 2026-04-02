@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class MapBoundary : MonoBehaviour
 {
+    public bool isLeftBound;
+    
     [SerializeField] private Layout _layout = Layout.Horizontal;
     [SerializeField] private bool _extend = true;
+    
+    [SerializeField] private ParticleSystem _deathParticlesPrefab;
+    private ParticleSystem _deathParticles;
 
     private void Awake()
     {
@@ -28,6 +33,9 @@ public class MapBoundary : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            ContactPoint2D contact = collision.contacts[0];
+            SpawnDeathParticles(contact.point);
+            
             collision.gameObject.GetComponentInChildren<AttackHurtbox>().InstantDeath();
         }
     }
@@ -46,6 +54,25 @@ public class MapBoundary : MonoBehaviour
             scale.y = Mathf.Max(transform.localScale.x, transform.localScale.y);
         }
         transform.localScale = scale;
+    }
+
+    private void SpawnDeathParticles(Vector2 spawnPositon)
+    {
+        switch (_layout)
+        {
+            case Layout.Vertical:
+                if (isLeftBound)
+                    _deathParticles = Instantiate(_deathParticlesPrefab, spawnPositon, Quaternion.Euler(-15f,90f,-90f));
+                else
+                {
+                    _deathParticles = Instantiate(_deathParticlesPrefab, spawnPositon, Quaternion.Euler(-165f,-90f,90f));
+                }
+                break;
+            
+            case Layout.Horizontal:
+                _deathParticles = Instantiate(_deathParticlesPrefab, spawnPositon, Quaternion.Euler(-90f,0,0));
+                break;
+        }
     }
 
 #if UNITY_EDITOR
