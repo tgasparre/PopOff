@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUI
   _countdownLength: 3
-  _combatCountdown: {fileID: 7605987875609488357}
+  _combatCountdown: {fileID: 0}
 --- !u!1 &3848035778824159397
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,9 +3801,9 @@ MonoBehaviour:
   _introCanvasGroup: {fileID: 6124982662244701593}
   _miniGameName: {fileID: 7268731061967885115}
   _miniGameDescription: {fileID: 4925818264191046740}
-  _introCountdownTimer: {fileID: 2013161616620896258}
+  _introCountdownTimer: {fileID: 5708260118891636204}
   _miniGameCanvasGroup: {fileID: 7281198362044546583}
-  _miniGameCountdownTimer: {fileID: 2141048230320539053}
+  _miniGameCountdownTimer: {fileID: 5292142440941051971}
   _finishedCanvasGroup: {fileID: 4696127656208596269}
   _finishedEffect: {fileID: 2981127160975182938}
   _resultsCanvasGroup: {fileID: 2612792975801095095}
@@ -4333,17 +4333,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7503118461473184308, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
   m_PrefabInstance: {fileID: 576563546965941024}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7605987875609488357 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2193894235454197563, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
-  m_PrefabInstance: {fileID: 576563546965941024}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91812e694730e19d9cc2350119adceb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CountdownUI
 --- !u!1001 &2928016025178349949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4954,17 +4943,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7503118461473184308, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
   m_PrefabInstance: {fileID: 8826376887998247111}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2013161616620896258 stripped
+--- !u!114 &5708260118891636204 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2193894235454197563, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3839960068435662123, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
   m_PrefabInstance: {fileID: 8826376887998247111}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91812e694730e19d9cc2350119adceb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da7ba109d0d85837a70a870eb75e357, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CountdownUI
+  m_EditorClassIdentifier: Assembly-CSharp::TimerCountdown
 --- !u!1001 &8951802373630965096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5075,14 +5064,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7503118461473184308, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
   m_PrefabInstance: {fileID: 8951802373630965096}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2141048230320539053 stripped
+--- !u!114 &5292142440941051971 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2193894235454197563, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3839960068435662123, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
   m_PrefabInstance: {fileID: 8951802373630965096}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91812e694730e19d9cc2350119adceb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da7ba109d0d85837a70a870eb75e357, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CountdownUI
+  m_EditorClassIdentifier: Assembly-CSharp::TimerCountdown
