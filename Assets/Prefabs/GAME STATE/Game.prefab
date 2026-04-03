@@ -71,6 +71,8 @@ MonoBehaviour:
   - {r: 1, g: 0.41864705, b: 0.72019935, a: 1}
   _playerTypes: 00000000010000000000000001000000
   bypassOnePlayerBlock: 0
+  disablePlayerUi: 1
+  disableCameraShake: 1
 --- !u!114 &1538154858333272104
 MonoBehaviour:
   m_ObjectHideFlags: 0
