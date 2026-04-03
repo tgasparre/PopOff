@@ -230,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 64185289}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.92, y: 4.87, z: 0}
+  m_LocalPosition: {x: 11, y: 3.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740243e0418280a45816b848c99f29ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGamePlacer
-  _delayUntilStartTime: 1
+  _delayUntilStartTime: 5
   _prefab: {fileID: 4497978584956282605, guid: 0cd8639f1b1afb754b46590f8e2d1544, type: 3}
   _maxNumberSpawned: 1
   _spawnPositions:
@@ -421,8 +421,8 @@ MonoBehaviour:
   - {fileID: 636777277}
   - {fileID: 64185290}
   _holdTime: 50
-  _minTimeToSpawn: 1
-  _maxTimeToSpawn: 1
+  _minTimeToSpawn: 5
+  _maxTimeToSpawn: 10
 --- !u!4 &465196578
 Transform:
   m_ObjectHideFlags: 0
@@ -466,7 +466,7 @@ Transform:
   m_GameObject: {fileID: 636777276}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.12, y: -0.97, z: 0}
+  m_LocalPosition: {x: 1.12, y: 0.6199999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1529,7 +1529,7 @@ Transform:
   m_GameObject: {fileID: 2057854460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.78, y: -0.82, z: 0}
+  m_LocalPosition: {x: -9.78, y: 0.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
