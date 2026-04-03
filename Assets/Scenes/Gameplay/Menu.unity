@@ -269,7 +269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 155.9857
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.y
@@ -331,6 +331,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreditsButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 40fae3dac24a01fdd932f9fa9fa464d3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -410,7 +418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 155.9857
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.y
@@ -472,6 +480,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ad48855699d733f39a236e96e6ca8f66, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1408,7 +1424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 42.9124
+      value: 58.0709
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1440,11 +1456,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000022888
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -190
+      value: -182.8
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1466,6 +1482,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f3a8727c7f8fc536f89f37b3319bb489, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2290,11 +2310,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 155.9857
+      value: 144.4913
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 59.1935
+      value: 58.0709
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2352,6 +2372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f3a8727c7f8fc536f89f37b3319bb489, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5040,8 +5064,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50.058628}
-  m_SizeDelta: {x: 207.2917, y: 277.3081}
+  m_AnchoredPosition: {x: -0.000024796, y: -49.7}
+  m_SizeDelta: {x: 244.2524, y: 277.3081}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1858026729
 MonoBehaviour:
@@ -5173,7 +5197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 155.9857
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5235,6 +5259,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ControlsButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f3a8727c7f8fc536f89f37b3319bb489, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5429,6 +5461,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
+    - target: {fileID: 490137617680258769, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.1318054
+      objectReference: {fileID: 0}
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5552,6 +5588,10 @@ PrefabInstance:
     - target: {fileID: 7147530813976146583, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 760
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379414367144815675, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.1318054
       objectReference: {fileID: 0}
     - target: {fileID: 7679658457908975980, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -5688,7 +5728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 155.9857
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 1174298729271783867, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5746,6 +5786,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160439698726926862, guid: a30cb24a2960b66be93a6d68dbe26863, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 75ea6c3689979d7eda950c34763f6868, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
