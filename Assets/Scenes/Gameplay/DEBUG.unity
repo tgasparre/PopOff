@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
   _playersToSpawn: 1
-  _disablePlayerUI: 1
+  _disablePlayerUI: 0
   _playersImmortal: 0
   _playersOneHit: 0
   _playerState: 2

@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Controls;
 
 public interface IActivePlayerTracker
 {
-	public void SpawnPlayers();
+	public void SpawnAllPlayers();
 	public void DestroyPlayers();
 	public void SetPlayerStates(PlayerState state);
 	public PlayerController[] GetPlayers();
@@ -176,25 +176,16 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	
 	#region Player Spawning
 	
-	public void SpawnPlayers()
+	public void SpawnAllPlayers()
 	{
-		foreach (PlayerTrack tracker in _activePlayers)
-		{
-			if (tracker.isDead) continue;
-			LookForPlayerSpawn(tracker.controller.ActivePlayer);
-		}
+		PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
+		spawner.SpawnPlayers(GetAlivePlayers().Select(controller => controller.ActivePlayer).ToArray());
 	}
 	
-	public static void LookForPlayerSpawn(PlayerBase player)
+	public static void SpawnSinglePlayer(PlayerBase player)
 	{
-		PlayerSpawn[] spawns = FindObjectsByType<PlayerSpawn>(FindObjectsSortMode.None);
-		foreach (PlayerSpawn spawn in spawns)
-		{
-			if (player.PlayerIndex == (int)spawn.Type)
-			{
-				spawn.Spawn(player);
-			}
-		}
+		PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
+		spawner.SpawnPlayer(player);
 	}
 	#endregion
 	

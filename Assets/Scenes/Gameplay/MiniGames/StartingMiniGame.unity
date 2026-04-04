@@ -1990,7 +1990,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartingMiniGame
   winningParticlesPrefab: {fileID: 0}
   _miniGameName: Fill your Balloon
-  _miniGameInstructions: 
+  _miniGameInstructions: Press <color=red>Jump</color> to fill your balloon up with
+    air!
   _countdownTimer: 3
   _miniGameTime: 8
   _powerupReward: []
@@ -3433,6 +3434,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4975871641610116170, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _showIndicators
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625967178670997395, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _showIndicators
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625967178670997395, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _randomizeSpawns
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6719747387954283380, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8009291134886158140}
+  - component: {fileID: 5625967178670997395}
   m_Layer: 0
   m_Name: PlayerSpawns
   m_TagString: Untagged
@@ -35,6 +36,20 @@ Transform:
   - {fileID: 4921303131341928772}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5625967178670997395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3919633599095119070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec029c2f7206cc9ea5460d751a6b1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
+  _randomizeSpawns: 1
+  _showIndicators: 1
 --- !u!1 &4162853064641917380
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 0
+  _showIndicators: 1
 --- !u!1 &4759195044320998606
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 1
+  _showIndicators: 1
 --- !u!1 &7536327590012473350
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 2
+  _showIndicators: 1
 --- !u!1 &8268953412604585835
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,3 +233,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawn
   _type: 3
+  _showIndicators: 1

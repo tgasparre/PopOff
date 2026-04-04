@@ -703,9 +703,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlipperyMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: King of the Hill
-  _miniGameInstructions: 
+  _miniGameInstructions: Push others off the platform, be the last one alive
   _countdownTimer: 3
-  _miniGameTime: 30
+  _miniGameTime: 0
   _powerupReward:
   - {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
   - {fileID: 11400000, guid: 4a5b3e06393778474aaafdb3046e82a1, type: 2}
