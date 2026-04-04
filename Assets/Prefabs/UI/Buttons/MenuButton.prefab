@@ -158,6 +158,24 @@ MonoBehaviour:
     effect: {fileID: 11400000, guid: 119a4d69d9f1d71938a91149c5a49659, type: 2}
     onEffectCompleted:
       m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6822473393204407427}
+          m_TargetAssemblyTypeName: EasyTextEffects.TextEffect, EasyTextEffects
+          m_MethodName: StartManualEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ui_pulse
+            m_BoolArgument: 0
+          m_CallState: 2
+    overrideTagEffects: 0
+  - triggerWhen: 1
+    effect: {fileID: 11400000, guid: fd258cf5388d3666397246a8164ab17d, type: 2}
+    onEffectCompleted:
+      m_PersistentCalls:
         m_Calls: []
     overrideTagEffects: 0
   updatesPerSecond: 30
@@ -229,7 +247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 75ea6c3689979d7eda950c34763f6868, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d921d47b310218118968271826ca2cce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -314,7 +332,39 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 6822473393204407427}
           m_TargetAssemblyTypeName: EasyTextEffects.TextEffect, EasyTextEffects
-          m_MethodName: StartManualEffects
+          m_MethodName: StartManualEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ui_inflate
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6822473393204407427}
+          m_TargetAssemblyTypeName: EasyTextEffects.TextEffect, EasyTextEffects
+          m_MethodName: StartManualEffect
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ui_inflate
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6822473393204407427}
+          m_TargetAssemblyTypeName: EasyTextEffects.TextEffect, EasyTextEffects
+          m_MethodName: StopManualEffects
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -324,13 +374,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 9
+  - eventID: 10
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6822473393204407427}
           m_TargetAssemblyTypeName: EasyTextEffects.TextEffect, EasyTextEffects
-          m_MethodName: StartManualEffects
+          m_MethodName: StopManualEffects
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

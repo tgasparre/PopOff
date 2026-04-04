@@ -4,7 +4,6 @@ public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private PIndex _type;
     public PIndex Type => _type;
-    [SerializeField] private bool _showIndicators = true;
     
     public void Spawn(PlayerBase player, bool showIndicators)
     {

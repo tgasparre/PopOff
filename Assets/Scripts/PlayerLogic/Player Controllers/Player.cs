@@ -38,10 +38,19 @@ public class Player : PlayerBase
     public override bool InAir => !_jumpModule.Grounded;
     public void TriggerAttack(int direction) { _animation.TriggerAttack(direction); }
 
+    //animation trigger so it doesn't kill the player again while it's playing the death animation
+    private bool _hasDied = false;
+    public void ResetHasDied() { _hasDied = false; }
+    
     public void TriggerDeath()
     {
+        if (_hasDied) return;
+        
+        Game.CameraShake.DeathShake();
+        AudioManager.PlaySound(AudioTrack.PlayerDeath, 0.1f);
+        
+        _hasDied = true;
         _animation.TriggerDeath();
-        Invoke(nameof(KillPlayer), 0.28f);
     }
 
     public void TriggerUltimate()
@@ -123,12 +132,7 @@ public class Player : PlayerBase
         PlayerHealth -= damage;
         _animation.DamageFlash();
         
-        if (PlayerHealth <= 0)
-        {
-            Game.CameraShake.DeathShake();
-            AudioManager.PlaySound(AudioTrack.PlayerDeath);
-            TriggerDeath();
-        }
+        if (PlayerHealth <= 0) TriggerDeath();
         else
         {
             Game.CameraShake.HitShake();
@@ -142,7 +146,7 @@ public class Player : PlayerBase
         TriggerDeath();
     }
     
-    private void KillPlayer()
+    public void KillPlayer()
     {
         OnDeath(this);
     }
@@ -263,18 +267,6 @@ public class Player : PlayerBase
             yield return new WaitForSeconds(cooldown);
             _freezeMovementCoroutine = null;
         }
-    }
-    
-    //replaced AddHitStun with FreezePlayer instead which makes sure no coroutine is stopped early, disabling movement 
-    [Obsolete("replaced with FreezePlayer")]
-    IEnumerator AddHitStun(float duration)
-    {
-        if (IsFrozen) yield break;
-        
-        FreezePlayerMovement();
-        yield return new WaitForSeconds(duration);
-        UnfreezePlayerMovement();
-        _freezeMovementCoroutine = null;
     }
 }
 

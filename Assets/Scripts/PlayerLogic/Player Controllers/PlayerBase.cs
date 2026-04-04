@@ -40,6 +40,12 @@ public abstract class PlayerBase : MonoBehaviour
         _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
     }
 
+    public void SetPlayerFreeze(bool value)
+    {
+        if (value) FreezePlayer();
+        else UnfreezePlayer();
+    }
+
     public void Spawn(Vector2 pos, bool showIndicators)
     {
         UnfreezePlayer();

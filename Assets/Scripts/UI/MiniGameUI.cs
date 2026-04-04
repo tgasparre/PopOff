@@ -74,7 +74,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
 
     private IEnumerator VerySmallDelay()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSecondsRealtime(.1f);
         CanvasGroupDisplayer.Show(_finishedCanvasGroup);
     }
 
