@@ -168,7 +168,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7306808113293615257}
+  - {fileID: 1624353909176846391}
   - {fileID: 3620043498851396456}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeightUI
   _fillBoard: {fileID: 0}
-  _weightText: {fileID: 4114354076546165417}
+  _weightText: {fileID: 4508348645906966944}
   _weightColors:
   - {r: 0.68235296, g: 0.96862745, b: 1, a: 1}
   - {r: 0.9490196, g: 1, b: 0.54509807, a: 1}
@@ -249,7 +249,7 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!1 &4846560468950245898
+--- !u!1 &5009240808257624122
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,10 +257,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7306808113293615257}
-  - component: {fileID: 4815703873095684554}
-  - component: {fileID: 4114354076546165417}
-  - component: {fileID: 4075543835299017308}
+  - component: {fileID: 1624353909176846391}
+  - component: {fileID: 6074731529306656088}
+  - component: {fileID: 4508348645906966944}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -268,40 +267,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &7306808113293615257
+--- !u!224 &1624353909176846391
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4846560468950245898}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 5009240808257624122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3177607120914992484}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000076293945, y: -12.4}
-  m_SizeDelta: {x: -2.9003, y: -33.4263}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0001545, y: -11.31}
+  m_SizeDelta: {x: 126.04, y: 34.338}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4815703873095684554
+--- !u!222 &6074731529306656088
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4846560468950245898}
+  m_GameObject: {fileID: 5009240808257624122}
   m_CullTransparentMesh: 1
---- !u!114 &4114354076546165417
+--- !u!114 &4508348645906966944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4846560468950245898}
+  m_GameObject: {fileID: 5009240808257624122}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -318,7 +317,7 @@ MonoBehaviour:
   m_text: Default
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8b6e0b5d25290613fbe54c8f210e930a, type: 2}
-  m_sharedMaterial: {fileID: -6357897507189147586, guid: 8b6e0b5d25290613fbe54c8f210e930a, type: 2}
+  m_sharedMaterial: {fileID: 8841131084723157947, guid: 8b6e0b5d25290613fbe54c8f210e930a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -342,8 +341,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33
-  m_fontSizeBase: 33
+  m_fontSize: 31
+  m_fontSizeBase: 31
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -386,27 +385,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4075543835299017308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4846560468950245898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9840f87219df84505803024c796e739d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: EasyTextEffects::EasyTextEffects.TextEffect
-  text: {fileID: 4114354076546165417}
-  usePreset: 0
-  preset: {fileID: 0}
-  tagEffects: []
-  globalEffects:
-  - triggerWhen: 1
-    effect: {fileID: 11400000, guid: 50388ca347498640ca8fd43f3a58ec29, type: 2}
-    onEffectCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-    overrideTagEffects: 0
-  updatesPerSecond: 30

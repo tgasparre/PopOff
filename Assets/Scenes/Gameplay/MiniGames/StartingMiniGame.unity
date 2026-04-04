@@ -3926,6 +3926,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4114354076546165417, guid: ed7e6a7e6ce339f5f8f24cb1c4b8ca40, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4114354076546165417, guid: ed7e6a7e6ce339f5f8f24cb1c4b8ca40, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ceb06ffc874ae1ecf890af232ebf2ccb, type: 2}
+    - target: {fileID: 4114354076546165417, guid: ed7e6a7e6ce339f5f8f24cb1c4b8ca40, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3733608337825674710, guid: ceb06ffc874ae1ecf890af232ebf2ccb, type: 2}
+    - target: {fileID: 4114354076546165417, guid: ed7e6a7e6ce339f5f8f24cb1c4b8ca40, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8245305162155832365, guid: ed7e6a7e6ce339f5f8f24cb1c4b8ca40, type: 3}
       propertyPath: _fillBoard
       value: 
