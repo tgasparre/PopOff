@@ -4,7 +4,7 @@ using UnityEngine;
 public class StartButton : MonoBehaviour
 {
     [SerializeField] private GameObject _joinText;
-    [SerializeField] private CountdownUI _startGameCountdown;
+    [SerializeField] private TimerCountdown _startGameCountdown;
     [SerializeField] private int _defaultStartTime = 3;
     
     [Space]

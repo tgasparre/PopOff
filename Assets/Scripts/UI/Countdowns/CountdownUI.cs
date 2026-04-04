@@ -15,7 +15,7 @@ public abstract class CountdownUI : MonoBehaviour
    
    public bool isRunning { get; protected set; } = false;
    
-   private void Awake()
+   protected void Awake()
    { 
       _canvasGroup = GetComponent<CanvasGroup>();
       _canvasGroup.alpha = 0;
@@ -41,7 +41,7 @@ public abstract class CountdownUI : MonoBehaviour
       _onFinished = null;
    }
 
-   public void StopCountdownNoTrigger()
+   public virtual void StopCountdownNoTrigger()
    {
       if (_coroutine != null) _forceQuit = true;
       _coroutine = null;
@@ -58,10 +58,7 @@ public abstract class CountdownUI : MonoBehaviour
 
    public void DEBUG_StartCountdown()
    {
-      InitializeCountdown(3);
       StartCountdown();
    }
-
-   public abstract void InitializeCountdown(int value);
    protected abstract IEnumerator Countdown(float delay);
 }

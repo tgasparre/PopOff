@@ -8,7 +8,7 @@ public class TimerCountdown : CountdownUI
    [SerializeField] private TextMeshProUGUI _countdownText;
    private int _startingNumber = -1;
    
-   public override void InitializeCountdown(int value)
+   public void InitializeCountdown(int value)
    {
       if (value == -1)
       {
