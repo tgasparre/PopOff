@@ -218,9 +218,7 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     protected virtual void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
-        // Game.IsFrozen = true;
         GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);
-        
         StartCoroutine(ResultsScreen());
         return;
         
