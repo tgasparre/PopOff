@@ -673,6 +673,7 @@ MonoBehaviour:
     JumpHeight: 16.66667
     JumpEndEarlyForce: 0.6
     JumpEndEarlyWindowDuration: 0.15
+  _runningParticles: {fileID: 1539941866320983442}
   _coyoteTimeSettings:
     CoyoteTimeThreshold: 0.1
     CoyoteTimeMaxDistance: 1

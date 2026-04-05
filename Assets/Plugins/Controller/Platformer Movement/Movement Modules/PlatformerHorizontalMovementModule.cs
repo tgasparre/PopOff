@@ -36,7 +36,7 @@ namespace ControllerSystem.Platformer2D
                 {
                     _runningParticles.Play();
                 }
-                else if (!motor.Grounded && _wasGrounded)
+                else if (!motor.Grounded)
                 {
                     _runningParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 }
@@ -144,5 +144,7 @@ namespace ControllerSystem.Platformer2D
             //_runningParticles.transform.localRotation = Quaternion.FromToRotation(Vector2.left, Controller.Input.move.GetValue());
             _runningParticles.Play();
         }
+        
+        
     }
 }
