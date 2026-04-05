@@ -188,17 +188,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7503118461473184308, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
   m_PrefabInstance: {fileID: 1281127871}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &224252584 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2193894235454197563, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
-  m_PrefabInstance: {fileID: 1281127871}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91812e694730e19d9cc2350119adceb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CountdownUI
 --- !u!1001 &294303315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2355,7 +2344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartButton
   _joinText: {fileID: 1803603394}
-  _startGameCountdown: {fileID: 224252584}
+  _startGameCountdown: {fileID: 1281127872}
   _defaultStartTime: 3
   _buttonTop: {fileID: 1501509133}
 --- !u!61 &1061841751
@@ -2759,6 +2748,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
+--- !u!114 &1281127872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3839960068435662123, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
+  m_PrefabInstance: {fileID: 1281127871}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da7ba109d0d85837a70a870eb75e357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimerCountdown
 --- !u!1 &1400880724
 GameObject:
   m_ObjectHideFlags: 0

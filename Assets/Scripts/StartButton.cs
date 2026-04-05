@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class StartButton : MonoBehaviour
 {
     [SerializeField] private GameObject _joinText;
-    [SerializeField] private CountdownUI _startGameCountdown;
+    [SerializeField] private TimerCountdown _startGameCountdown;
     [SerializeField] private int _defaultStartTime = 3;
     
     [Space]
@@ -16,10 +17,12 @@ public class StartButton : MonoBehaviour
 
     private void Awake()
     {
-        _startGameCountdown.gameObject.SetActive(false);
         _startingPos = _buttonTop.transform.position;
         ActivePlayersTracker.Joined += CheckCollision;
-        
+    }
+
+    private void Start()
+    {
         ResetButton();
     }
 

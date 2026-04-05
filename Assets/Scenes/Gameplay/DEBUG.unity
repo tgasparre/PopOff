@@ -166,10 +166,10 @@ MonoBehaviour:
   _playersToSpawn: 2
   _disablePlayerUI: 0
   _playersImmortal: 0
-  _playersOneHit: 1
+  _playersOneHit: 0
   _playerState: 2
   _enteringState: 2
-  _playingState: 1
+  _playingState: 0
 --- !u!1001 &1251484911
 PrefabInstance:
   m_ObjectHideFlags: 0

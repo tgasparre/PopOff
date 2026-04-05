@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7503118461473184308}
   - component: {fileID: 4114346324607996202}
   - component: {fileID: 8782068596082694406}
-  - component: {fileID: -2193894235454197563}
+  - component: {fileID: 3839960068435662123}
   - component: {fileID: 8822360288116573750}
   m_Layer: 5
-  m_Name: Countdown
+  m_Name: TimerCountdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 198.5
+  m_fontSize: 300
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &-2193894235454197563
+--- !u!114 &3839960068435662123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,13 +147,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4704886412541187758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91812e694730e19d9cc2350119adceb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da7ba109d0d85837a70a870eb75e357, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CountdownUI
-  type: 0
+  m_EditorClassIdentifier: Assembly-CSharp::TimerCountdown
   _timescaleSpeed: 1
-  _readyWaitTime: 1.8
-  _goWaitTime: 0.8
+  _countdownText: {fileID: 8782068596082694406}
 --- !u!225 &8822360288116573750
 CanvasGroup:
   m_ObjectHideFlags: 0
