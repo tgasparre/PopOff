@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CombatUI : MonoBehaviour
 {
-    [SerializeField] private int _countdownLength = 3;
     [SerializeField] private ReadyGoCountdown _combatCountdown;
     public CanvasGroup Group { get; private set; }
 

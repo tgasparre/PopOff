@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -16,10 +17,12 @@ public class StartButton : MonoBehaviour
 
     private void Awake()
     {
-        _startGameCountdown.gameObject.SetActive(false);
         _startingPos = _buttonTop.transform.position;
         ActivePlayersTracker.Joined += CheckCollision;
-        
+    }
+
+    private void Start()
+    {
         ResetButton();
     }
 

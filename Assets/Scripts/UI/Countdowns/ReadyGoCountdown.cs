@@ -1,34 +1,31 @@
 using System.Collections;
-using EasyTextEffects;
-using TMPro;
 using UnityEngine;
 
 public class ReadyGoCountdown : CountdownUI
 {
-    [Header("Ready Go Settings")]
+    [Header("Ready Go Settings")] 
+    [SerializeField] private float _showTextDelay = 0.3f;
     [SerializeField] private float _readyWaitTime = 1.8f;
     [SerializeField] private float _goWaitTime = 0.8f;
     [SerializeField] private float _goHoldTime = 0.25f;
-    
-    [Space]
-    [SerializeField] private TextMeshProUGUI _readyText; 
-    [SerializeField] private TextMeshProUGUI _goText;
 
-    private TextEffect _readyEffect;
-    private TextEffect _goEffect;
+    [Space] 
+    [SerializeField] private GameObject _readyText;
+    [SerializeField] private GameObject _goText;
+
+    private CanvasGroup _readyGroup;
+    private CanvasGroup _goGroup;
 
     protected new void Awake()
     {
         base.Awake();
-        _readyEffect = _readyText.GetComponent<TextEffect>();
-        _goEffect = _goText.GetComponent<TextEffect>();
+        _readyGroup = _readyText.GetComponent<CanvasGroup>();
+        _goGroup = _goText.GetComponent<CanvasGroup>();
     }
-
+    
     protected override IEnumerator Countdown(float delay)
     {
-        _readyText.enabled = false;
-        _goText.enabled = false;
-
+        SetActiveAll(false);
         yield return new WaitForSeconds(delay);
         if (_forceQuit)
         {
@@ -37,7 +34,7 @@ public class ReadyGoCountdown : CountdownUI
         }
 
         isRunning = true;
-        ReadyActive();
+       SetActiveDelay(_readyGroup, true);
         yield return new WaitForSeconds(_readyWaitTime * _timescaleSpeed);
         if (_forceQuit)
         {
@@ -45,8 +42,8 @@ public class ReadyGoCountdown : CountdownUI
             yield break;
         }
 
-        _readyText.enabled = false;
-        GoActive();
+        _readyText.SetActive(false);
+        SetActiveDelay(_goGroup, true);
         yield return new WaitForSeconds((_goWaitTime + _goHoldTime) * _timescaleSpeed);
         if (_forceQuit)
         {
@@ -54,27 +51,35 @@ public class ReadyGoCountdown : CountdownUI
             yield break;
         }
 
-        _readyText.enabled = false;
-        _goText.enabled = false;
+        SetActiveAll(false);
         StopCountdown();
     }
 
-    private void ReadyActive()
+    private void SetActiveAll(bool value)
     {
-        _readyText.enabled = true;
-        _readyEffect.StartManualEffects();
+        _readyText.SetActive(value);
+        _goText.SetActive(value);
     }
-    
-    private void GoActive()
+
+    private void SetActiveDelay(CanvasGroup group, bool value)
     {
-        _goText.enabled = true;
-        _goEffect.StartManualEffects();
+        group.alpha = (value) ? 0f : 1f;
+        group.gameObject.SetActive(!group.gameObject.activeSelf);
+        StartCoroutine(Visible());
+        return;
+
+        IEnumerator Visible()
+        {
+            yield return new WaitForSeconds(_showTextDelay);
+            
+            group.alpha = (value) ? 1f : 0f;
+            group.gameObject.SetActive(value);
+        }
     }
 
     public override void StopCountdownNoTrigger()
     {
-        _readyText.enabled = false;
-        _goText.enabled = false;
+        SetActiveAll(false);
         base.StopCountdownNoTrigger();
     }
 }
