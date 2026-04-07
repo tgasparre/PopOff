@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -28,7 +30,9 @@ public class Game : MonoBehaviour
     public Color[] PlayerColors => _playerColors;
     [SerializeField] private PlayerType[] _playerTypes;
     public PlayerType[] PlayerTypes => _playerTypes;
-    
+
+    private const float TIME_LERP_DURATION = 0.6f;
+    private static Coroutine _timescaleLerp; 
     
     public RuntimeAnimatorController GetPlayerAnimation(int index)
     {
@@ -65,8 +69,29 @@ public class Game : MonoBehaviour
         get => Time.timeScale == 0f;
         set
         {
-            Time.timeScale = value ? 0f : 1f;
-            IsPlayersFrozen = value;
+            if (_timescaleLerp != null)
+            {
+                Debug.LogWarning("stopped time lerp");
+                Instance.StopCoroutine(_timescaleLerp);
+            }
+            _timescaleLerp = Instance.StartCoroutine(LerpTimeScale());
+            return;
+
+            IEnumerator LerpTimeScale()
+            {
+                float elapsed = 0f;
+                float start = Time.timeScale;
+                float end = value ? 0f : 1f;
+                IsPlayersFrozen = value;
+                while (elapsed <= TIME_LERP_DURATION)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    Time.timeScale = Mathf.Lerp(start, end, elapsed / TIME_LERP_DURATION);
+                    yield return null;
+                }
+                Time.timeScale = end;
+                _timescaleLerp = null;
+            }
         }
     }
 

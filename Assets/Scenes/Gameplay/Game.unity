@@ -131,9 +131,10 @@ GameObject:
   - component: {fileID: 3617535}
   - component: {fileID: 3617534}
   - component: {fileID: 3617533}
+  - component: {fileID: 3617536}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Climbable
+  m_TagString: PowerupValid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,6 +277,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3617536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509b6438ac08d23a98d3157f934130f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallablePlatform
 --- !u!1 &58780574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1513,9 +1526,10 @@ GameObject:
   - component: {fileID: 1347722562}
   - component: {fileID: 1347722561}
   - component: {fileID: 1347722560}
+  - component: {fileID: 1347722563}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Climbable
+  m_TagString: PowerupValid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1658,6 +1672,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1347722563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347722558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509b6438ac08d23a98d3157f934130f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FallablePlatform
 --- !u!1 &1385059660
 GameObject:
   m_ObjectHideFlags: 0

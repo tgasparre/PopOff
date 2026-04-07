@@ -706,6 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd3bb7e560541c43b6b56b03f3b62e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerCollider: {fileID: 2303718041022767065}
 --- !u!114 &3310566925286634590
 MonoBehaviour:
   m_ObjectHideFlags: 0
