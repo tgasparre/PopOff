@@ -50,17 +50,20 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     protected bool _isPlayingMiniGame { get; private set; }  = false;
     protected PlayerController[] _playerControllers;
-    protected int _alivePlayers;
     protected int _winningPlayerIndex = -1;
 
     private Action _onGameComplete;
     private Coroutine _countdownCoroutine;
+
+    public event Action OnMinigameIntro;
+    public event Action OnMinigameEnd;
 
     /// <summary>
     /// Play the intro animation (display title, countdown to start)
     /// </summary>
     public void Intro(Action onIntroComplete, Action onGameComplete, PlayerController[] alivePlayers)
     {
+        OnMinigameIntro?.Invoke();
         _countdownCoroutine = null;
         _players = new Dictionary<int, PlayerTrack>(alivePlayers.Length);
         foreach (PlayerController controller in alivePlayers)
@@ -71,7 +74,6 @@ public abstract class MiniGameInfo : MonoBehaviour
         _playerControllers = _players.Select(t => t.Value.controller).ToArray();
         AssignWeightClasses(_minigameStats);
 
-        _alivePlayers = alivePlayers.Length;
         _onGameComplete = onGameComplete;
         StartCoroutine(StartCountdown());
         return;
@@ -130,6 +132,8 @@ public abstract class MiniGameInfo : MonoBehaviour
 
     public void End()
     {
+        OnMinigameEnd?.Invoke();
+        
         //apply powerup
         if (_chosenPowerup != null && _winningPlayerIndex is >= 0 and < 4)
         {
@@ -192,36 +196,15 @@ public abstract class MiniGameInfo : MonoBehaviour
     public void TriggerEndMiniGame(int winningIndex)
     {
         _winningPlayerIndex = winningIndex;
-        
+
         if (_winningPlayerIndex is >= 0 and < 4)
-            SpawnWinningParticles(_players[_winningPlayerIndex].controller.PlayerHurtbox.gameObject.transform.position);
-        
-        _onGameComplete.Invoke();
-    }
-
-    /// <summary>
-    /// called when a player dies in a mini-game, runs TriggerEndMiniGame() if only one player is left 
-    /// </summary>
-    /// <param name="player">player who lost</param>
-    public void OnPlayerMiniGameDie(Player player)
-    {
-        _alivePlayers--;
-        _players[player.PlayerIndex].isDeadInMiniGame = true;
-
-        if (_alivePlayers <= 1)
         {
-            //find winner
-            foreach (KeyValuePair<int, PlayerTrack> track in _players)
-            {
-                if (!track.Value.isDeadInMiniGame)
-                {
-                    TriggerEndMiniGame(track.Value.PlayerIndex);
-                    return;
-                }
-            }
-            Debug.LogWarning("no alive player was found, if not DEBUG then we have a problem");
-            TriggerEndMiniGame(_players[0].PlayerIndex); //set player one to win by default 
+            SpawnWinningParticles(_players[_winningPlayerIndex].controller.PlayerHurtbox.gameObject.transform.position);
+            _onGameComplete.Invoke();
+            return;
         }
+
+        throw new Exception("player index out of bounds");
     }
 
     private void SpawnWinningParticles(Vector3 position)
@@ -231,13 +214,11 @@ public abstract class MiniGameInfo : MonoBehaviour
     }
 
     protected abstract void StartMiniGame();
-    protected virtual void OnEndMiniGame() { /* to be inherited */}
+    protected virtual void OnEndMiniGame() { /* to be inherited */ }
 
     protected virtual void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
-        Game.IsFrozen = true;
         GameCanvas.Instance.OnWinMiniGame(_winningPlayerIndex, reward);
-        
         StartCoroutine(ResultsScreen());
         return;
         

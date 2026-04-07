@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         _animator.runtimeAnimatorController = Game.Instance.GetPlayerAnimation(PlayerIndex);
         _render.sortingOrder += PlayerIndex;
         
-        ActivePlayersTracker.LookForPlayerSpawn(ActivePlayer);
+        ActivePlayersTracker.SpawnSinglePlayer(ActivePlayer);
         DontDestroyOnLoad(gameObject);
     }
     public int PlayerIndex => _playerInput.playerIndex;

@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 
-public class UltimateAttackTrigger : MonoBehaviour
+public class PlayerAnimationTrigger : MonoBehaviour
 {
     private CombatInputHandler _combatInputHandler;
+    private Player _player;
 
     private void Awake()
     {
+        _player = GetComponentInParent<Player>();
         _combatInputHandler = GetComponentInParent<CombatInputHandler>();
     }
 
@@ -14,5 +16,11 @@ public class UltimateAttackTrigger : MonoBehaviour
     public void ActivateUltimateAttackHitbox()
     {
         _combatInputHandler.PerformUltimate();
+    }
+
+    //Called by the death animation when it finishes playing
+    public void DeathAnimFinished()
+    {
+        _player.KillPlayer();
     }
 }

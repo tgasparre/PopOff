@@ -77,7 +77,7 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     private static void SetSceneSettings()
     {
         Game.IsFrozen = false;
-        Game.ActivePlayerTracker.SpawnPlayers();
+        Game.ActivePlayerTracker.SpawnAllPlayers();
     }
 
     private SceneReference PickMiniGame()

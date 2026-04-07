@@ -83,7 +83,7 @@ public class StartingMiniGame : MiniGameInfo
             };
             
             _playerControllers[i].CurrentState = PlayerState.Fighting;
-            ActivePlayersTracker.LookForPlayerSpawn(_playerControllers[i].ActivePlayer);
+            ActivePlayersTracker.SpawnSinglePlayer(_playerControllers[i].ActivePlayer);
             if (_playerControllers[i].ActivePlayer is Player player)
             {
                 player.AssignWeightClass(weightClass);

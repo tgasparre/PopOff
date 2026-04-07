@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class MiniGameState : GameState
 {
@@ -27,6 +28,8 @@ public class MiniGameState : GameState
 
     public void StartMiniGame()
     {
+        ActivePlayerTracker.ResetMinigameDeaths();
+        
         //check scene for minigame object
         _currentMiniGame = MiniGameInfo.Instance;
         if (!_currentMiniGame)
@@ -38,7 +41,7 @@ public class MiniGameState : GameState
         Game.IsPlayersFrozen = true;
         GameCanvas.Instance.SetPlayerUIVisibility(false);
         GameUI.SetValues(_currentMiniGame);
-        ActivePlayerTracker.SubscribeMiniGameDeath(_currentMiniGame.OnPlayerMiniGameDie);
+        ActivePlayerTracker.OnPlayerFinishMinigame += _currentMiniGame.TriggerEndMiniGame;
         _currentMiniGame.Intro(OnIntroFinished, OnGameFinished, ActivePlayerTracker.GetAlivePlayers());
         return;
         
@@ -52,13 +55,13 @@ public class MiniGameState : GameState
         
         void OnGameFinished()
         {
-            Game.IsPlayersFrozen = true;
+            Game.IsFrozen = true;
             GameUI.CurrentState = MiniGameUI.UIState.Finished;
             _currentMiniGame.ShowResults(GameUI.DisableAll, () =>
             {
                 _currentMiniGame.End();
+                ActivePlayerTracker.OnPlayerFinishMinigame -= _currentMiniGame.TriggerEndMiniGame;
             });
-            ActivePlayerTracker.SubscribeMiniGameDeath(null);
         }
     }
 
