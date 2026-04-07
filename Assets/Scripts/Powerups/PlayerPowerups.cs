@@ -17,6 +17,7 @@ public class PlayerPowerups : MonoBehaviour
     
     // [Header("Powerup References")]
     // [SerializeField] private GameObject _field;
+    [SerializeField] private ParticleSystem _usePowerupParticles;
 
     private Rigidbody2D _rigidbody2D;
     private Player _player;
@@ -57,6 +58,7 @@ public class PlayerPowerups : MonoBehaviour
         if (HasPower && _canUsePowerup)
         {
             AudioManager.PlaySound(AudioTrack.PowerupThrow);
+            Instantiate(_usePowerupParticles, SpawnPosition, Quaternion.identity);
             
             _currentPower.UsePowerup(this);
             StartCoroutine(PowerupTimer(_currentPower.UseCooldown));

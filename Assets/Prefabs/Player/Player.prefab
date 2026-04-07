@@ -819,6 +819,7 @@ MonoBehaviour:
   _powerupUI: {fileID: 1616644860372550265}
   _radialTimer: {fileID: 4993916331457279436}
   _powerupIcon: {fileID: 3211335041191500044}
+  _usePowerupParticles: {fileID: 3637483192321977864, guid: b85a30908101121418f17ac8b8a66bad, type: 3}
 --- !u!1 &2212485374628104148
 GameObject:
   m_ObjectHideFlags: 0
