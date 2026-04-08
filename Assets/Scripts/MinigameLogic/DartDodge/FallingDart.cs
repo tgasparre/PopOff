@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class FallingDart : MonoBehaviour
 {
-    [SerializeField] private int _damage = 500;
     [SerializeField] private float _lifetime = 1f;
 
     [SerializeField] private bool _hidden = false;
@@ -53,7 +52,7 @@ public class FallingDart : MonoBehaviour
         if (other.CompareTag("Player"))
         {  
             Player hitPlayer = other.GetComponentInParent<Player>();
-            hitPlayer.TakeDamage(_damage);
+            hitPlayer.InstantDeath();
         }
     }
     

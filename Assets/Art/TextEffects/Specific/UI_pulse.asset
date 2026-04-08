@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8a5a04a3b145299afb77db9d03c233, type: 3}
-  m_Name: Wave
-  m_EditorClassIdentifier: EasyTextEffects::EasyTextEffects.Effects.Effect_Move
-  effectTag: 
+  m_Script: {fileID: 11500000, guid: f2676ef4f29b4d6891f834d4489f54da, type: 3}
+  m_Name: UI_pulse
+  m_EditorClassIdentifier: EasyTextEffects::EasyTextEffects.Effects.Effect_Scale
+  effectTag: ui_pulse
   startCharIndex: 0
   charLength: 0
-  animationType: 3
+  animationType: 2
   fixedDuration: 0
-  durationPerChar: 0.6
-  timeBetweenChars: 0.05
-  noDelayForChars: 0
+  durationPerChar: 0.8
+  timeBetweenChars: 0
+  noDelayForChars: 1
   reverseCharOrder: 0
   easingCurve:
     serializedVersion: 2
@@ -36,8 +36,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -47,5 +47,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   clampBetween0And1: 0
   timeType: 1
-  startOffset: {x: 200, y: 500}
-  endOffset: {x: 0, y: 0}
+  startScale: 0.9
+  endScale: 1

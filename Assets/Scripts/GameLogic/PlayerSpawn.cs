@@ -3,12 +3,11 @@ using UnityEngine;
 public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private PIndex _type;
-    public PIndex Type { get => _type; private set => _type = value; }
-    [SerializeField] private bool _showIndicators = true;
+    public PIndex Type => _type;
     
-    public void Spawn(PlayerBase player)
+    public void Spawn(PlayerBase player, bool showIndicators)
     {
-        player.Spawn(transform.position, _showIndicators);
+        player.Spawn(transform.position, showIndicators);
     }
 }
 

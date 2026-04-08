@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class StartingMiniGame : MiniGameInfo
@@ -16,6 +17,9 @@ public class StartingMiniGame : MiniGameInfo
     [SerializeField] private PlayerStats _lightClass;
     [SerializeField] private PlayerStats _defaultClass;
     [SerializeField] private PlayerStats _heavyClass;
+    [Space] 
+    [SerializeField] private ParticleSystem _airPoofParticlesPrefab;
+    private ParticleSystem _airPoofParticles;
 
     private Coroutine _fillingCoroutine;
     private const float SFX_INTERVAL = 0.7f;
@@ -83,11 +87,12 @@ public class StartingMiniGame : MiniGameInfo
             };
             
             _playerControllers[i].CurrentState = PlayerState.Fighting;
-            ActivePlayersTracker.LookForPlayerSpawn(_playerControllers[i].ActivePlayer);
+            ActivePlayersTracker.SpawnSinglePlayer(_playerControllers[i].ActivePlayer);
             if (_playerControllers[i].ActivePlayer is Player player)
             {
                 player.AssignWeightClass(weightClass);
             }
+            _airPoofParticles = Instantiate(_airPoofParticlesPrefab, _playerControllers[i].ActivePlayer.transform.position, quaternion.identity);
         }
         onFinished.Invoke();
     }

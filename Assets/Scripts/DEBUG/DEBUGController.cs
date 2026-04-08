@@ -106,7 +106,7 @@ public class DEBUGController : MonoBehaviour
     private void Joined(PlayerController player)
     {
         player.CurrentState = _playerState;
-        ActivePlayersTracker.LookForPlayerSpawn(player.ActivePlayer);
+        ActivePlayersTracker.SpawnSinglePlayer(player.ActivePlayer);
     }
 }
 

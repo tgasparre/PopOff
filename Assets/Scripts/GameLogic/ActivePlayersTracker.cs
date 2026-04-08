@@ -8,12 +8,13 @@ using UnityEngine.InputSystem.Controls;
 
 public interface IActivePlayerTracker
 {
-	public void SpawnPlayers();
+	public void SpawnAllPlayers();
 	public void DestroyPlayers();
 	public void SetPlayerStates(PlayerState state);
 	public PlayerController[] GetPlayers();
 	public PlayerController[] GetAlivePlayers();
-	public void SubscribeMiniGameDeath(Action<Player> onPlayerDiedInMinigame);
+	public void ResetMinigameDeaths();
+	public event Action<int> OnPlayerFinishMinigame;
 }
 public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 {
@@ -38,26 +39,25 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	{
 		public PlayerController controller;
 		public bool isDead;
+		public bool isDeadInMinigame;
 		public int PlayerIndex => controller.PlayerIndex;
 
 		public PlayerTrack(PlayerController c)
 		{
 			controller = c;
 			isDead = false;
+			isDeadInMinigame = false;
 		}
 	}
 
-	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER];
-	private PlayerTrack[] _activePlayers = Array.Empty<PlayerTrack>();
+	private PlayerTrack[] _players = new PlayerTrack[MAX_PLAYER]; //DO NOT USE TO REFERENCE PLAYERS!
+	
+	private PlayerTrack[] _activePlayers = Array.Empty<PlayerTrack>(); //REFERENCE PLAYERS IN THE GAME
 	private PlayerTrack[] _alivePlayers => _activePlayers.Where(t => !t.isDead).ToArray();
-	public PlayerController[] GetPlayers()
-	{
-		return _activePlayers.Select(tracker => tracker.controller).ToArray(); 
-	}
-	public PlayerController[] GetAlivePlayers()
-	{
-		return _alivePlayers.Select(tracker => tracker.controller).ToArray();
-	}
+	private PlayerTrack[] _aliveMinigamePlayers => _alivePlayers.Where(t => !t.isDeadInMinigame).ToArray();
+	public PlayerController[] GetPlayers() => _activePlayers.Select(tracker => tracker.controller).ToArray();
+	public PlayerController[] GetAlivePlayers() => _alivePlayers.Select(tracker => tracker.controller).ToArray();
+	
 	public int WinningPlayerIndex { get; private set; } = -1;
 	public int joinedPlayerCount { get; private set; } = 0;
 	
@@ -78,11 +78,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	public static event Action JoinEnded;
 	public static event Action<PlayerController> Joined;
 	
-	private Action<Player> _onPlayerDiedInMinigame;
-	public void SubscribeMiniGameDeath(Action<Player> onPlayerDiedInMinigame)
-	{
-		_onPlayerDiedInMinigame = onPlayerDiedInMinigame;
-	}
+	public event Action<int> OnPlayerFinishMinigame;
 
 	private void Awake()
 	{
@@ -176,25 +172,16 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	
 	#region Player Spawning
 	
-	public void SpawnPlayers()
+	public void SpawnAllPlayers()
 	{
-		foreach (PlayerTrack tracker in _activePlayers)
-		{
-			if (tracker.isDead) continue;
-			LookForPlayerSpawn(tracker.controller.ActivePlayer);
-		}
+		PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
+		spawner.SpawnPlayers(GetAlivePlayers().Select(controller => controller.ActivePlayer).ToArray());
 	}
 	
-	public static void LookForPlayerSpawn(PlayerBase player)
+	public static void SpawnSinglePlayer(PlayerBase player)
 	{
-		PlayerSpawn[] spawns = FindObjectsByType<PlayerSpawn>(FindObjectsSortMode.None);
-		foreach (PlayerSpawn spawn in spawns)
-		{
-			if (player.PlayerIndex == (int)spawn.Type)
-			{
-				spawn.Spawn(player);
-			}
-		}
+		PlayerSpawner spawner = FindFirstObjectByType<PlayerSpawner>();
+		spawner.SpawnPlayer(player);
 	}
 	#endregion
 	
@@ -202,12 +189,16 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	{
 		player.FreezePlayer();
 		player.transform.position = _playerJail.position;
+		player.ResetHasDied();
+		
+		//if the players are frozen don't kill them something is loading and they can't move
+		if (Game.IsPlayersFrozen) return; 
 
 		switch (PlayingState.CurrentGameplayState)
 		{
 			case GameplayStates.Combat:
 			{
-				_players[player.PlayerIndex].isDead = true;
+				_activePlayers[player.PlayerIndex].isDead = true;
 				PlayerTrack[] alive = _alivePlayers;
 				switch (alive.Length)
 				{
@@ -224,10 +215,33 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 				break;
 			}
 			case GameplayStates.MiniGame:
-				_onPlayerDiedInMinigame?.Invoke(player);
+			{
+				if (!MiniGameInfo.IsPlayingMiniGame) return; 
+				
+				_activePlayers[player.PlayerIndex].isDeadInMinigame = true;
+				PlayerTrack[] alive = _aliveMinigamePlayers;
+				switch (alive.Length)
+				{
+					case 1:
+						OnPlayerFinishMinigame?.Invoke(alive[0].PlayerIndex);
+						break;
+					case 0:
+						Debug.LogWarning("no alive player was found, if not DEBUG then we have a problem");
+						OnPlayerFinishMinigame?.Invoke(_activePlayers[0].PlayerIndex); //set player one to win by default 
+						break;
+				}
 				break;
+			}
 			default:
 				throw new ArgumentOutOfRangeException();
+		}
+	}
+
+	public void ResetMinigameDeaths()
+	{
+		foreach (PlayerTrack tracker in _activePlayers)
+		{
+			tracker.isDeadInMinigame = false;
 		}
 	}
 

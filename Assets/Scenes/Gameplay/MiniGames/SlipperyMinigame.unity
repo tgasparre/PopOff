@@ -423,6 +423,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TiltingPlatform
   leftSide: {fileID: 2073545471}
   rightSide: {fileID: 1909732465}
+--- !u!1001 &171905128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 792476509750287354}
+    m_Modifications:
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5298
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5298
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5298
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.45146286
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.069554
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3149980760341358318, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_Name
+      value: Minigame Background (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+--- !u!4 &171905129 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 792476508667868027, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+  m_PrefabInstance: {fileID: 171905128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &307431165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -703,9 +777,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlipperyMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: King of the Hill
-  _miniGameInstructions: Push everyone else off the platform!
+  _miniGameInstructions: Push others off the platform, be the last one alive
   _countdownTimer: 3
-  _miniGameTime: 30
+  _miniGameTime: 0
   _powerupReward:
   - {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
   - {fileID: 11400000, guid: 4a5b3e06393778474aaafdb3046e82a1, type: 2}
@@ -1158,6 +1232,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: KillSquares
       objectReference: {fileID: 0}
+    - target: {fileID: 4817181773432756415, guid: 4d73e8b42255d2e73b9403ce95b5f713, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 29.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304090743502463845, guid: 4d73e8b42255d2e73b9403ce95b5f713, type: 3}
+      propertyPath: isLeftBound
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7428403379037953635, guid: 4d73e8b42255d2e73b9403ce95b5f713, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.6
@@ -1514,14 +1596,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TiltingPlatformSensor
   side: 0
+--- !u!4 &792476509750287354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3149980759076015727}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.12, y: 0.84, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 171905129}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3149980759076015727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 792476509750287354}
+  m_Layer: 0
+  m_Name: Minigame Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 998148533}
+  - {fileID: 671235338}
   - {fileID: 1511640671}
   - {fileID: 170758533}
-  - {fileID: 671235338}
   - {fileID: 307431165}
   - {fileID: 490554094}
   - {fileID: 1500229431}
+  - {fileID: 792476509750287354}

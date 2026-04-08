@@ -47,6 +47,7 @@ public class CameraShake : MonoBehaviour
     
     public void Shake(float duration, Vector2 magnitude)
     {
+        if (Game.Instance.disableCameraShake) return;
         StartCoroutine(StartShake(duration, magnitude));
     }
 

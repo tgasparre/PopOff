@@ -34,6 +34,8 @@ public class PlayerUIController : MonoBehaviour
         
         playerUIDisplayer.InitializePlayerUI(activePlayer, playerSprite, _deathSprite);
         ui.Add(playerUIDisplayer);
+        
+        if (Game.Instance.disablePlayerUi) HidePlayerUI();;
         return playerUIDisplayer;
     }
 
@@ -44,6 +46,7 @@ public class PlayerUIController : MonoBehaviour
 
     public void ShowPlayerUI()
     {
+        if (Game.Instance.disablePlayerUi) return;
         CanvasGroupDisplayer.Show(_canvasGroup);
     }
 

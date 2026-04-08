@@ -6,7 +6,7 @@ public static class CombatParameters
     
     public const int BASIC_ATTACK_DMG = 10;
     public const int ULTIMATE_ATTACK_DMG = 20;
-    public const float ATTACK_COOLDOWN = 0.45f;
+    public const float ATTACK_COOLDOWN = 0.32f;
 
     public const float KNOCKBACK_DURATION = 0.2f;
     public const float KNOCKBACK_FORCE = 13f; 
