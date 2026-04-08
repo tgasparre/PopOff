@@ -532,9 +532,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384212766}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.17, y: -0.3745, z: 0}
-  m_LocalScale: {x: 0.8588571, y: 8.471, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.9147596, y: 4.668859, z: 0}
+  m_LocalScale: {x: 0.8701692, y: 8.471, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1013333549}
@@ -2109,8 +2109,8 @@ Transform:
   m_GameObject: {fileID: 1013333548}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.65, y: 3.52, z: 0}
-  m_LocalScale: {x: 5.0019593, y: 2.4190228, z: 2.4190228}
+  m_LocalPosition: {x: 0.04, y: -8.68, z: 0}
+  m_LocalScale: {x: 4.936934, y: 2.4190228, z: 2.4190228}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1780057540}
@@ -4990,9 +4990,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780057539}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2754, y: -4.253, z: 0}
-  m_LocalScale: {x: 9.5961685, y: 0.83395314, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.04430829, y: 0.7903595, z: 0}
+  m_LocalScale: {x: 9.722561, y: 0.83395314, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1013333549}
@@ -5708,9 +5708,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987324328}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.01, y: -0.81, z: 0}
-  m_LocalScale: {x: 0.8588571, y: 8.471, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.3790593, y: 4.233359, z: 0}
+  m_LocalScale: {x: 0.8701692, y: 8.471, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1013333549}
@@ -6496,7 +6496,7 @@ SpriteRenderer:
   m_Size: {x: 40, y: 22.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1660057539 &9223372036854775807
