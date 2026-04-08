@@ -8,6 +8,8 @@ namespace ControllerSystem.Platformer2D
         [SerializeField] private JumpConfig _jumpSettings;
         public JumpConfig Config => _jumpSettings;
         public bool Grounded => motor.Grounded;
+        
+        [SerializeField] private ParticleSystem _runningParticles;
 
         public event Action JumpTriggered;
         
@@ -187,6 +189,8 @@ namespace ControllerSystem.Platformer2D
 
         protected virtual void Jump()
         {
+            _runningParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            
             JumpTriggered?.Invoke();
             
             ResetJumpEndedEarly();

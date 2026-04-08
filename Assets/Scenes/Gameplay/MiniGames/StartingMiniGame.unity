@@ -2026,6 +2026,7 @@ MonoBehaviour:
   _lightClass: {fileID: 11400000, guid: 40b02df8431722740b743a21d8837a91, type: 2}
   _defaultClass: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _heavyClass: {fileID: 11400000, guid: d8b2f865a56e88240b8b3034b5e7ef57, type: 2}
+  _airPoofParticlesPrefab: {fileID: 7387865898627019539, guid: a78b5bd9893640845bfc7f655e714ca7, type: 3}
 --- !u!1 &1979345429
 GameObject:
   m_ObjectHideFlags: 0

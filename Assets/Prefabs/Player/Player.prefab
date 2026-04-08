@@ -673,6 +673,7 @@ MonoBehaviour:
     JumpHeight: 16.66667
     JumpEndEarlyForce: 0.6
     JumpEndEarlyWindowDuration: 0.15
+  _runningParticles: {fileID: 1539941866320983442}
   _coyoteTimeSettings:
     CoyoteTimeThreshold: 0.1
     CoyoteTimeMaxDistance: 1
@@ -818,6 +819,7 @@ MonoBehaviour:
   _powerupUI: {fileID: 1616644860372550265}
   _radialTimer: {fileID: 4993916331457279436}
   _powerupIcon: {fileID: 3211335041191500044}
+  _usePowerupParticles: {fileID: 3637483192321977864, guid: b85a30908101121418f17ac8b8a66bad, type: 3}
 --- !u!1 &2212485374628104148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,7 +1745,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7101634325628782216, guid: 77ff661f578bced4bb5a9c1c4d27e60a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.52
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7101634325628782216, guid: 77ff661f578bced4bb5a9c1c4d27e60a, type: 3}
       propertyPath: m_LocalPosition.y
