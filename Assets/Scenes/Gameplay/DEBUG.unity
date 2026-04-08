@@ -163,10 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0718f9b13da495cb9e11770f40eefdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
-  _playersToSpawn: 2
-  _disablePlayerUI: 0
+  _playersToSpawn: 3
+  _disablePlayerUI: 1
   _playersImmortal: 0
-  _playersOneHit: 0
+  _playersOneHit: 1
   _playerState: 2
   _enteringState: 2
   _playingState: 0
@@ -181,6 +181,66 @@ PrefabInstance:
     - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_Name
       value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: disableCameraShake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: '_playerTypes.Array.data[0]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: '_playerTypes.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[0].b
+      value: 0.8296863
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[0].g
+      value: 0.750384
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[0].r
+      value: 0.14680739
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[1].b
+      value: 0.31177953
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[1].g
+      value: 0.5534885
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[1].r
+      value: 0.9295761
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[2].b
+      value: 0.25661016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[2].g
+      value: 0.8709651
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[2].r
+      value: 0.9033077
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[3].b
+      value: 0.72019935
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[3].g
+      value: 0.41864705
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _playerColors.Array.data[3].r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6616540441250519296, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_LocalPosition.x

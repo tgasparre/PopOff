@@ -67,7 +67,7 @@ public class StartingMiniGame : MiniGameInfo
             _weightUIs[i].IsVisible = true;
         }
         
-        _blowUpBallon.PlayDelayed(1.5f);
+        _blowUpBallon.PlayDelayed(1.2f);
     }
 
     protected override void ShowMiniGameResults(Action onFinished, Powerup reward)
@@ -92,7 +92,7 @@ public class StartingMiniGame : MiniGameInfo
             {
                 player.AssignWeightClass(weightClass);
             }
-            _airPoofParticles = Instantiate(_airPoofParticlesPrefab, _playerControllers[i].ActivePlayer.transform.position, quaternion.identity);
+            _airPoofParticles = Instantiate(_airPoofParticlesPrefab, _playerControllers[i].ActivePlayer.transform.position, Quaternion.identity);
         }
         onFinished.Invoke();
     }

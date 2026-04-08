@@ -13,12 +13,15 @@ public class FallingDart : MonoBehaviour
     private bool _interactable = true;
     private Vector3 _startingPosition;
 
+    private TrailRenderer _trailRenderer;
+
     private void Awake()
     {
         _startingPosition = transform.position;
         _renderer = GetComponentInChildren<SpriteRenderer>();
         _colliders = GetComponents<BoxCollider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _trailRenderer = GetComponent<TrailRenderer>();
         
         ReturnToPool();
     }
@@ -61,6 +64,7 @@ public class FallingDart : MonoBehaviour
         _interactable = value;
         _renderer.enabled = value;
         _rigidbody2D.simulated = value;
+        _trailRenderer.enabled = value;
         foreach (BoxCollider2D c in _colliders)
         {
             c.enabled = value;
