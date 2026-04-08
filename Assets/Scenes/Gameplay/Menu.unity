@@ -5604,6 +5604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5797,6 +5801,10 @@ PrefabInstance:
     - target: {fileID: 3466008242726115994, guid: 516e3cf8d6c7f199589718355735edf1, type: 3}
       propertyPath: m_Name
       value: EventSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3466008242726115994, guid: 516e3cf8d6c7f199589718355735edf1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3612451356532690250, guid: 516e3cf8d6c7f199589718355735edf1, type: 3}
       propertyPath: m_FirstSelected
