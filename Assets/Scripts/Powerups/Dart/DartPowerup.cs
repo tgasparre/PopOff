@@ -10,6 +10,7 @@ public class DartPowerup : Powerup
     public override void UsePowerup(PlayerPowerups powerups)
     {
         powerups.Dart(_dartPrefab, _dartStats);
+        
     }
 
     public override void Expire(PlayerPowerups powerups)
