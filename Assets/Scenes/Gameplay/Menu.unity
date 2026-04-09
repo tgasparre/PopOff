@@ -6556,6 +6556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 3466008242726115994, guid: 516e3cf8d6c7f199589718355735edf1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3612451356532690250, guid: 516e3cf8d6c7f199589718355735edf1, type: 3}
       propertyPath: m_FirstSelected
       value: 
