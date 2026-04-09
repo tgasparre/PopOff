@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 4278354633500698173}
   - component: {fileID: 8245305162155832365}
   - component: {fileID: 4039349124639293451}
+  - component: {fileID: 7630284149555739764}
   m_Layer: 5
   m_Name: weightLabel
   m_TagString: Untagged
@@ -198,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5680899, g: 0.5680899, b: 0.5680899, a: 1}
+  m_Color: {r: 0.23891956, g: 0.30401027, b: 0.5566038, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -246,9 +247,24 @@ CanvasGroup:
   m_GameObject: {fileID: 2014967958303678298}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 0
+  m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &7630284149555739764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014967958303678298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0.12281951, g: 0.17624128, b: 0.3773585, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 0
 --- !u!1 &5009240808257624122
 GameObject:
   m_ObjectHideFlags: 0
