@@ -843,7 +843,7 @@ MonoBehaviour:
   - {fileID: 411690003}
   - {fileID: 1394660060}
   - {fileID: 1851346267}
-  _spawnRate: 0.35
+  _spawnRate: 0.8
   _decreaseRate: 0.1
   _difficultyRate: 3
   _dartFallRate: 0.8
