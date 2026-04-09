@@ -47,8 +47,8 @@ public class TiltingPlatform : MonoBehaviour
     //when num players on one side is greater than the other, tilt the platform
     IEnumerator TiltPlatform(float minigameDuration)
     {
-        float timeElapsed = 0;
-        while (timeElapsed < minigameDuration)
+        // float timeElapsed = 0;
+        while (MiniGameInfo.IsPlayingMiniGame)
         {
             if (tiltCoroutine != null) StopCoroutine(tiltCoroutine);
 
@@ -65,7 +65,7 @@ public class TiltingPlatform : MonoBehaviour
                 tiltCoroutine = StartCoroutine(Tilt(0));
             }
 
-            timeElapsed += Time.deltaTime;
+            // timeElapsed += Time.deltaTime;
             yield return null;
         }
 
