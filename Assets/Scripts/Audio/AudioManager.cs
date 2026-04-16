@@ -21,11 +21,14 @@ public class AudioManager : MonoBehaviour
     private Dictionary<AudioTrack, Audio> _audioDictionary = new Dictionary<AudioTrack, Audio>();
 
     private AudioSource _musicPlayer;
-    [SerializeField] private AudioClip _menuMusic;
-    [SerializeField] private AudioClip _gameMusic;
-    [SerializeField] private AudioClip _minigameMusic;
+    [SerializeField] private LayeredAudio _menuMusic;
+    [SerializeField] private LayeredAudio _gameMusic;
+    [SerializeField] private LayeredAudio _minigameMusic;
+    private MusicPlayer _menuPlayer;
+    private MusicPlayer _gamePlayer;
+    private MusicPlayer _minigamePlayer;
 
-    private Coroutine _crossfadeCoroutine;
+    private MusicPlayer _currentPlayer;
 
     private void Awake()
     {
@@ -50,6 +53,38 @@ public class AudioManager : MonoBehaviour
                 throw new Exception($"Failed to add type {a.track} to AudioDictionary - check that no type duplicates exist");
             }
         }
+
+        GameObject musicSource;
+        
+        musicSource = new GameObject("menu_music");
+        musicSource.transform.parent = transform;
+        _menuPlayer = musicSource.AddComponent<MusicPlayer>();
+        _menuPlayer.LayeredMusic = _menuMusic;
+        
+        musicSource = new GameObject("game_music");
+        musicSource.transform.parent = transform;
+        _gamePlayer = musicSource.AddComponent<MusicPlayer>();
+        _gamePlayer.LayeredMusic = _gameMusic;
+        
+        musicSource = new GameObject("minigame_music");
+        musicSource.transform.parent = transform;
+        _minigamePlayer = musicSource.AddComponent<MusicPlayer>();
+        _minigamePlayer.LayeredMusic = _minigameMusic;
+
+        _currentPlayer = _menuPlayer;
+        
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(4f);
+        SwitchMusic(MusicType.Game);
+        yield return new WaitForSeconds(8f);
+        SwitchMusic(MusicType.Game, 1);
+        yield return new WaitForSeconds(5f);
+        SwitchMusic(MusicType.Game, 0);
+        yield return new WaitForSeconds(5f);
+        SwitchMusic(MusicType.Game);
     }
 
     private void OnDestroy()
@@ -120,42 +155,25 @@ public class AudioManager : MonoBehaviour
     
     #region Music
 
-    public void SwitchMusic(MusicType type)
+    public void SwitchMusic(MusicType type, int level = -1)
     {
-        AudioClip song = type switch
+        MusicPlayer song = type switch
         {
-            MusicType.Menu => _menuMusic,
-            MusicType.Game => _gameMusic,
-            MusicType.Minigame => _minigameMusic,
+            MusicType.Menu => _menuPlayer,
+            MusicType.Game => _gamePlayer,
+            MusicType.Minigame => _minigamePlayer,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 
-        _crossfadeCoroutine ??= StartCoroutine(CrossFadeMusic(song));
-    }
-
-    private IEnumerator CrossFadeMusic(AudioClip newSong)
-    {
-        float elapsed = 0f;
-        float startVolume = _musicPlayer.volume;
-        while (elapsed < CROSS_FADE_TIME)
+        if (_currentPlayer != song)
         {
-            elapsed += Time.unscaledDeltaTime;
-            _musicPlayer.volume = Mathf.Lerp(startVolume, 0f, elapsed / CROSS_FADE_TIME);
-            yield return null;
-        }
-
-        _musicPlayer.volume = 0f;
-        _musicPlayer.clip = newSong;
-
-        elapsed = 0f;
-        while (elapsed < CROSS_FADE_TIME)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            _musicPlayer.volume = Mathf.Lerp(0f, startVolume, elapsed / CROSS_FADE_TIME);
-            yield return null;
+            _currentPlayer.FadeOut();
         }
         
-        _crossfadeCoroutine = null;
+        if (level == -1) song.PlayAll();
+        else song.ChangeLevel(level);
+
+        _currentPlayer = song;
     }
     
     #endregion

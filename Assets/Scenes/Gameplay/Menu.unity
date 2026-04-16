@@ -6521,6 +6521,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _gameMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: 7bc9e4ba9441987998f00266432f2e84, type: 2}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _menuMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: e1fe4efc3ad32a9dd9a0c96bfe36050f, type: 2}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _minigameMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: 03fff88047e60fe46b12a44ba6957385, type: 2}
     - target: {fileID: 724731811040075967, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: _deathDuration
       value: 0.12
