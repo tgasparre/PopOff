@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = System.Random;
 
 public class FallingPlatform : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class FallingPlatform : MonoBehaviour
     
     private const float startInterval = 0.4f;
     private const float endInterval = 0.05f;
+
+    private float _rotationAfterFallForce = 14f;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -25,6 +28,7 @@ public class FallingPlatform : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.AddTorque(UnityEngine.Random.Range(-1, 2) * _rotationAfterFallForce);
         
         //slight delay so player doesn't fall through platform
         yield return new WaitForSeconds(0.2f); 
