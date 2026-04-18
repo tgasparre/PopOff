@@ -3,7 +3,7 @@ public class CombatState : GameState
 {
     public override void EnterState()
     {
-        //TODO -- Play little animation
+        AudioManager.SwitchMusic(MusicType.Game);
         Loader.LoadCombatScene(StartCountdown);
     }
     

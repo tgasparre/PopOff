@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9579bb2fd61de8abe96c84740ab6810c, type: 3}
   m_Name: menu
   m_EditorClassIdentifier: Assembly-CSharp::LayeredAudio
-  _intro: {fileID: 0}
-  _introFadeTime: 1
-  _clips: []
+  _clips:
+  - order: 0
+    clip: {fileID: 8300000, guid: bd0b1ae3f68878c8d8dcf5fb9f7989f4, type: 3}

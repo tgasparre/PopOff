@@ -35,7 +35,8 @@ public class DEBUGController : MonoBehaviour
     
     private IEnumerator Start()
     {
-        StateMachineManager.DEBUG_SetGameState(_enteringState); 
+        StateMachineManager.DEBUG_SetGameState(_enteringState);
+        StartSceneMusic();
         if (_enteringState == GameStates.Playing) PlayingState.DEBUG_SetGamePlayState(_playingState);
         ActivePlayersTracker.JoinEnded += JoinEnded;        
         ActivePlayersTracker.Joined += Joined;        
@@ -107,6 +108,32 @@ public class DEBUGController : MonoBehaviour
     {
         player.CurrentState = _playerState;
         ActivePlayersTracker.SpawnSinglePlayer(player.ActivePlayer);
+    }
+
+    private void StartSceneMusic()
+    {
+        switch (_enteringState)
+        {
+            case GameStates.Playing:
+                switch (_playingState)
+                {
+                    case GameplayStates.Combat:
+                        AudioManager.SwitchMusic(MusicType.Game);
+                        break;
+                    case GameplayStates.MiniGame:
+                        AudioManager.SwitchMusic(MusicType.Minigame);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                break;
+            case GameStates.Menu:
+                AudioManager.SwitchMusic(MusicType.Menu);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }
 

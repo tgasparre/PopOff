@@ -5,6 +5,7 @@ public class MenuState : GameState
        Loader.LoadMenuScene();
        ActivePlayerTracker.DestroyPlayers();
        Game.CanJoin = false;
+       AudioManager.SwitchMusic(MusicType.Menu);
     }
 
     public override void ExitState(GameStates newState)

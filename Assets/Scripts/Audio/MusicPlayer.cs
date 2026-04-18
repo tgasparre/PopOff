@@ -46,6 +46,7 @@ public class MusicPlayer : MonoBehaviour
             source.loop = true;
             source.clip = _layeredAudio.Clips[i].clip;
             source.volume = 0f;
+            source.outputAudioMixerGroup = AudioManager.Instance.MusicMixerGroup;
 
             _sources[i] = new MusicSource
             {
@@ -60,6 +61,21 @@ public class MusicPlayer : MonoBehaviour
         }
     }
 
+    public void StartSong()
+    {
+        foreach (MusicSource source in _sources)
+        {
+            source.source.Stop();
+        }
+        
+        foreach (MusicSource source in _sources)
+        {
+            source.source.Play();
+        }
+        
+        PlayAll();
+    }
+    
     public void PlayAll()
     {
         ChangeLevel(100);

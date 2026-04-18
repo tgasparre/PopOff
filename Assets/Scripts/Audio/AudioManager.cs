@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,7 +12,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public const int NUM_SFX_SOURCE = 8;
-    private const float CROSS_FADE_TIME = 1.25f;
     
     [SerializeField] private GameObject _audioSourcePrefab;
     [SerializeField] private Audio[] _audios;
@@ -20,6 +20,9 @@ public class AudioManager : MonoBehaviour
     private Queue<AudioSettings> _soundQueue = new Queue<AudioSettings>();
     private Dictionary<AudioTrack, Audio> _audioDictionary = new Dictionary<AudioTrack, Audio>();
 
+    [SerializeField] private AudioMixerGroup _musicMixerGroup;
+    public AudioMixerGroup MusicMixerGroup => _musicMixerGroup;
+    
     private AudioSource _musicPlayer;
     [SerializeField] private LayeredAudio _menuMusic;
     [SerializeField] private LayeredAudio _gameMusic;
@@ -72,19 +75,14 @@ public class AudioManager : MonoBehaviour
         _minigamePlayer.LayeredMusic = _minigameMusic;
 
         _currentPlayer = _menuPlayer;
-        
+
+        PauseState.OnPaused += MuffleMusic;
     }
 
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(4f);
-        SwitchMusic(MusicType.Game);
-        yield return new WaitForSeconds(8f);
-        SwitchMusic(MusicType.Game, 1);
-        yield return new WaitForSeconds(5f);
-        SwitchMusic(MusicType.Game, 0);
-        yield return new WaitForSeconds(5f);
-        SwitchMusic(MusicType.Game);
+        yield return new WaitForSeconds(0.2f);
+        SwitchMusic(MusicType.Menu);
     }
 
     private void OnDestroy()
@@ -93,6 +91,8 @@ public class AudioManager : MonoBehaviour
         {
             source.OnSoundFinish -= OnSoundFinish;
         }
+        
+        PauseState.OnPaused -= MuffleMusic;
     }
     
     #region SFX
@@ -155,25 +155,53 @@ public class AudioManager : MonoBehaviour
     
     #region Music
 
-    public void SwitchMusic(MusicType type, int level = -1)
+    public static void SwitchMusic(MusicType type, int level = -1)
+    {
+        Instance.SwitchMusicPlayer(type, level);
+    }
+
+    private void SwitchMusicPlayer(MusicType type, int level = -1)
     {
         MusicPlayer song = type switch
         {
             MusicType.Menu => _menuPlayer,
             MusicType.Game => _gamePlayer,
             MusicType.Minigame => _minigamePlayer,
+            MusicType.None => null,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
-
-        if (_currentPlayer != song)
+        
+        if (song == null)
+        {
+            _currentPlayer.FadeOut();
+            _currentPlayer = null;
+            return;
+        }
+        
+        if (_currentPlayer != null && _currentPlayer != song)
         {
             _currentPlayer.FadeOut();
         }
-        
-        if (level == -1) song.PlayAll();
+
+        if (_currentPlayer == null) song.StartSong();
+        else if (level == -1) song.PlayAll();
         else song.ChangeLevel(level);
 
         _currentPlayer = song;
+    }
+
+    private void MuffleMusic(bool pauseValue)
+    {
+        if (pauseValue)
+        {
+            _musicMixerGroup.audioMixer.SetFloat("lowpass_cutoff", 2020.00f);
+            _musicMixerGroup.audioMixer.SetFloat("volume", -13f);
+        }
+        else
+        {
+            _musicMixerGroup.audioMixer.SetFloat("lowpass_cutoff", 22000.00f);
+            _musicMixerGroup.audioMixer.SetFloat("volume", 0f);
+        }
     }
     
     #endregion
@@ -243,7 +271,8 @@ public enum MusicType
 {
     Menu,
     Game,
-    Minigame
+    Minigame,
+    None
 }
 
 #if UNITY_EDITOR
@@ -255,6 +284,8 @@ public class AudioManagerEditor : Editor
     private SerializedProperty prefabProp;
     private SerializedProperty arrayProp;
 
+    private SerializedProperty musicMixer;
+    
     private SerializedProperty menuMusic;
     private SerializedProperty gameMusic;
     private SerializedProperty minigameMusic;
@@ -263,6 +294,8 @@ public class AudioManagerEditor : Editor
     {
         prefabProp = serializedObject.FindProperty("_audioSourcePrefab");
         arrayProp = serializedObject.FindProperty("_audios");
+        
+        musicMixer = serializedObject.FindProperty("_musicMixerGroup");
         
         menuMusic = serializedObject.FindProperty("_menuMusic");
         gameMusic = serializedObject.FindProperty("_gameMusic");
@@ -281,6 +314,8 @@ public class AudioManagerEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(prefabProp);
+
+        EditorGUILayout.PropertyField(musicMixer);
         
         EditorGUILayout.Space(10f);
         EditorGUILayout.PropertyField(menuMusic);

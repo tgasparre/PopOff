@@ -8,6 +8,7 @@ public class StartingMiniGame : MiniGameInfo
     [Space]
     [SerializeField] private AudioSource _blowUpBallon;
     [SerializeField] private AudioManager.Audio _pressBlowButtonAudio;
+    [SerializeField] private AudioSource _airFillMusic;
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private WeightUI[] _weightUIs;
@@ -58,6 +59,7 @@ public class StartingMiniGame : MiniGameInfo
 
     protected override void StartMiniGame()
     {
+        _airFillMusic.Play();
         //assign jump input to fill 
         for (int i = 0; i < _playerControllers.Length; i++)
         {
@@ -73,6 +75,8 @@ public class StartingMiniGame : MiniGameInfo
     protected override void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
         //TODO fun animation
+        Game.IsFrozen = false;
+        Game.IsPlayersFrozen = true;
         for (int i = 0; i < _playerControllers.Length; i++)
         {
             _weightUIs[i].IsVisible = false;

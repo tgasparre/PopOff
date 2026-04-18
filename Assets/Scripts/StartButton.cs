@@ -92,6 +92,7 @@ public class StartButton : MonoBehaviour
 
     private void StartGame()
     {
+        AudioManager.SwitchMusic(MusicType.None);
         AudioManager.PlaySound(AudioTrack.GameStart);
         
         Game.currentState = GameStates.Playing;

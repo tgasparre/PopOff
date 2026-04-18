@@ -70,7 +70,7 @@ MonoBehaviour:
   - {r: 0.9033077, g: 0.8709651, b: 0.25661016, a: 1}
   - {r: 1, g: 0.41864705, b: 0.72019935, a: 1}
   _playerTypes: 00000000010000000000000001000000
-  bypassOnePlayerBlock: 0
+  bypassOnePlayerBlock: 1
   disablePlayerUi: 0
   disableCameraShake: 0
 --- !u!114 &1538154858333272104
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
   _hitDuration: 0.1
   _hitMagnitude: {x: 0.15, y: 0.15}
-  _deathDuration: 0.1
+  _deathDuration: 0.12
   _deathMagnitude: {x: 0.3, y: 0.3}
 --- !u!1 &2681183732840789442
 GameObject:
@@ -351,14 +351,6 @@ MonoBehaviour:
     _volumeMax: 1
     _pitchMin: 0.9
     _pitchMax: 1.1
-  - name: Minigame Start
-    track: 11
-    _clips:
-    - {fileID: 8300000, guid: b8b2264c0e958bc9eab0cd89903995fe, type: 3}
-    _volumeMin: 0.5
-    _volumeMax: 0.6
-    _pitchMin: 1.2
-    _pitchMax: 1.5
   - name: Minigame End
     track: 12
     _clips:
@@ -378,11 +370,11 @@ MonoBehaviour:
   - name: Game Start
     track: 10
     _clips:
-    - {fileID: 8300000, guid: f2016690211ba1a81841e2369829029f, type: 3}
-    _volumeMin: 0.5
-    _volumeMax: 0.6
-    _pitchMin: 0.9
-    _pitchMax: 1.05
+    - {fileID: 8300000, guid: f7dffb5933acdd486a3b66bbb9aa34b2, type: 3}
+    _volumeMin: 0.7
+    _volumeMax: 0.7
+    _pitchMin: 1
+    _pitchMax: 1
   - name: Powerup Throw
     track: 7
     _clips:
@@ -415,9 +407,26 @@ MonoBehaviour:
     _volumeMax: 0.15
     _pitchMin: 1
     _pitchMax: 2
-  _menuMusic: {fileID: 0}
-  _gameMusic: {fileID: 0}
-  _minigameMusic: {fileID: 0}
+  - name: Countdown
+    track: 16
+    _clips:
+    - {fileID: 8300000, guid: b8b2264c0e958bc9eab0cd89903995fe, type: 3}
+    _volumeMin: 1
+    _volumeMax: 1
+    _pitchMin: 1
+    _pitchMax: 1
+  - name: unused Minigame Start
+    track: 11
+    _clips:
+    - {fileID: 8300000, guid: b8b2264c0e958bc9eab0cd89903995fe, type: 3}
+    _volumeMin: 0.5
+    _volumeMax: 0.6
+    _pitchMin: 1.2
+    _pitchMax: 1.5
+  _musicMixerGroup: {fileID: 24300002, guid: a8328ef9f0edb2751adea4d6228cd423, type: 2}
+  _menuMusic: {fileID: 11400000, guid: e1fe4efc3ad32a9dd9a0c96bfe36050f, type: 2}
+  _gameMusic: {fileID: 11400000, guid: 7bc9e4ba9441987998f00266432f2e84, type: 2}
+  _minigameMusic: {fileID: 11400000, guid: 03fff88047e60fe46b12a44ba6957385, type: 2}
 --- !u!82 &4455664451416948110
 AudioSource:
   m_ObjectHideFlags: 0

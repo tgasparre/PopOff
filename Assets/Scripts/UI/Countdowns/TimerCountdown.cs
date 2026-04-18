@@ -6,6 +6,7 @@ using UnityEngine;
 public class TimerCountdown : CountdownUI
 {
    [SerializeField] private TextMeshProUGUI _countdownText;
+   [SerializeField] private bool _makeSounds = false;
    private int _startingNumber = -1;
    
    public void InitializeCountdown(int value)
@@ -28,6 +29,7 @@ public class TimerCountdown : CountdownUI
 
       isRunning = true;
       float timer = _startingNumber;
+      int oldTimer = (int)timer;
       while (timer >= 0)
       {
          if (_forceQuit)
@@ -36,7 +38,14 @@ public class TimerCountdown : CountdownUI
             yield break;
          }
 
-         _countdownText.text = Mathf.RoundToInt(timer).ToString();
+         int flooredTimer = Mathf.RoundToInt(timer);
+         _countdownText.text = flooredTimer.ToString();
+         if (_makeSounds && flooredTimer != oldTimer)
+         {
+            AudioManager.PlaySound(AudioTrack.Countdown);
+         }
+         oldTimer = flooredTimer;
+         
          timer -= Time.deltaTime * _timescaleSpeed;
          yield return null;
       }
