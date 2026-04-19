@@ -42,6 +42,8 @@ public static class MovementParameters
    public const int heavyDoubleJumps = 1;
    public const float heavyJumpHeight = 16.66667f;
    public const float heavyJumpEndEarlyForce = 0.6f;
+
+   public const float PLATFORM_DROP_TIME = 0.5F;
 }
 
 [System.Serializable]

@@ -843,7 +843,7 @@ MonoBehaviour:
   - {fileID: 411690003}
   - {fileID: 1394660060}
   - {fileID: 1851346267}
-  _spawnRate: 0.35
+  _spawnRate: 0.8
   _decreaseRate: 0.1
   _difficultyRate: 3
   _dartFallRate: 0.8
@@ -4908,6 +4908,10 @@ PrefabInstance:
     - target: {fileID: 4921303131341928772, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.9400005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625967178670997395, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _showIndicators
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6719747387954283380, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x

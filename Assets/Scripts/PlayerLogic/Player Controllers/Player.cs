@@ -78,6 +78,8 @@ public class Player : PlayerBase
 
     private Coroutine _damageCoroutine;
     private Coroutine _freezeMovementCoroutine;
+
+    private bool _canPogo = true;
     
     new void Awake()
     {
@@ -196,8 +198,12 @@ public class Player : PlayerBase
 
     public void Pogo()
     {
+        if (!_canPogo) return;
         _rigidbody2D.AddForce(Vector2.up * CombatParameters.POGO_FORCE, ForceMode2D.Impulse);
+        _canPogo = false;
+        Invoke(nameof(EnablePogo), 0.5f);
     }
+    private void EnablePogo() => _canPogo = true;
 
     public void ResetWeightClass()
     {

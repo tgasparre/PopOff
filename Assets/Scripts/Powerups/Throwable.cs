@@ -54,7 +54,7 @@ public abstract class Throwable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Climbable")) HitGround();
+        if (other.gameObject.CompareTag("Climbable") || other.gameObject.CompareTag("PowerupValid")) HitGround();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
