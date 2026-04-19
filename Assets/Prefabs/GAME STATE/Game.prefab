@@ -424,9 +424,10 @@ MonoBehaviour:
     _pitchMin: 1.2
     _pitchMax: 1.5
   _musicMixerGroup: {fileID: 24300002, guid: a8328ef9f0edb2751adea4d6228cd423, type: 2}
-  _menuMusic: {fileID: 11400000, guid: e1fe4efc3ad32a9dd9a0c96bfe36050f, type: 2}
+  _menuMusic: {fileID: 11400000, guid: 48666400dae68fc5cabc20934e37ffaa, type: 2}
   _gameMusic: {fileID: 11400000, guid: 7bc9e4ba9441987998f00266432f2e84, type: 2}
   _minigameMusic: {fileID: 11400000, guid: 03fff88047e60fe46b12a44ba6957385, type: 2}
+  _gameoverMusic: {fileID: 11400000, guid: 104836c55357832e98053a3806fe1b6f, type: 2}
 --- !u!82 &4455664451416948110
 AudioSource:
   m_ObjectHideFlags: 0

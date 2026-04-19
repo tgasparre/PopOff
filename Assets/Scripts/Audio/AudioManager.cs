@@ -27,11 +27,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private LayeredAudio _menuMusic;
     [SerializeField] private LayeredAudio _gameMusic;
     [SerializeField] private LayeredAudio _minigameMusic;
+    [SerializeField] private LayeredAudio _gameoverMusic;
     private MusicPlayer _menuPlayer;
     private MusicPlayer _gamePlayer;
     private MusicPlayer _minigamePlayer;
+    private MusicPlayer _gameoverPlayer;
 
     private MusicPlayer _currentPlayer;
+    private MusicType _currentType;
 
     private void Awake()
     {
@@ -73,8 +76,13 @@ public class AudioManager : MonoBehaviour
         musicSource.transform.parent = transform;
         _minigamePlayer = musicSource.AddComponent<MusicPlayer>();
         _minigamePlayer.LayeredMusic = _minigameMusic;
+        
+        musicSource = new GameObject("gameover music");
+        musicSource.transform.parent = transform;
+        _gameoverPlayer = musicSource.AddComponent<MusicPlayer>();
+        _gameoverPlayer.LayeredMusic = _gameoverMusic;
 
-        _currentPlayer = _menuPlayer;
+        _currentPlayer = null;
 
         PauseState.OnPaused += MuffleMusic;
     }
@@ -155,39 +163,67 @@ public class AudioManager : MonoBehaviour
     
     #region Music
 
-    public static void SwitchMusic(MusicType type, int level = -1)
+    public static void SwitchMusic(MusicType type, int level = 100)
     {
         Instance.SwitchMusicPlayer(type, level);
     }
 
-    private void SwitchMusicPlayer(MusicType type, int level = -1)
+    private void SwitchMusicPlayer(MusicType type, int level = 100)
     {
         MusicPlayer song = type switch
         {
             MusicType.Menu => _menuPlayer,
             MusicType.Game => _gamePlayer,
             MusicType.Minigame => _minigamePlayer,
+            MusicType.Gameover => _gameoverPlayer,
             MusicType.None => null,
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
         
-        if (_currentPlayer != null && song == null)
+        if (_currentPlayer != null)
         {
-            _currentPlayer.FadeOut();
-            _currentPlayer = null;
-            return;
+            if (song == null) //stop playing songs
+            {
+                StopAllSongs();
+                _currentPlayer = null;
+            }
+            else if (song != _currentPlayer) //fade out current song
+            {
+                _currentPlayer.FadeOut();
+            }
         }
         
-        if (_currentPlayer != null && _currentPlayer != song)
+        //start playing songs
+        if (song != null)
         {
-            _currentPlayer.FadeOut();
+            if (_currentPlayer == null) StartAllSongs();
+            
+            //if the songs are the same song, skip the intro
+            bool skipIntro = song == _currentPlayer 
+                             || (_currentType == MusicType.Game && type == MusicType.Minigame)
+                             || (_currentType == MusicType.Minigame && type == MusicType.Game);
+            song.PlaySong(level, skipIntro);
         }
 
-        if (_currentPlayer == null) song.StartSong();
-        else if (level == -1) song.PlayAll();
-        else song.ChangeLevel(level);
-
         _currentPlayer = song;
+        _currentType = type;
+    }
+
+    private void StopAllSongs()
+    {
+        _gamePlayer.StopSong();
+        _minigamePlayer.StopSong();
+        
+        _menuPlayer.StopSong();
+        _gameoverPlayer.StopSong();
+    }
+    private void StartAllSongs()
+    {
+        _gamePlayer.StartSong();
+        _minigamePlayer.StartSong();
+        
+        _menuPlayer.StartSong();
+        _gameoverPlayer.StartSong();
     }
 
     private void MuffleMusic(bool pauseValue)
@@ -272,6 +308,7 @@ public enum MusicType
     Menu,
     Game,
     Minigame,
+    Gameover,
     None
 }
 
@@ -289,6 +326,7 @@ public class AudioManagerEditor : Editor
     private SerializedProperty menuMusic;
     private SerializedProperty gameMusic;
     private SerializedProperty minigameMusic;
+    private SerializedProperty gameoverMusic;
 
     private void OnEnable()
     {
@@ -300,6 +338,7 @@ public class AudioManagerEditor : Editor
         menuMusic = serializedObject.FindProperty("_menuMusic");
         gameMusic = serializedObject.FindProperty("_gameMusic");
         minigameMusic = serializedObject.FindProperty("_minigameMusic");
+        gameoverMusic = serializedObject.FindProperty("_gameoverMusic");
     }
 
     public override void OnInspectorGUI()
@@ -321,6 +360,7 @@ public class AudioManagerEditor : Editor
         EditorGUILayout.PropertyField(menuMusic);
         EditorGUILayout.PropertyField(gameMusic);
         EditorGUILayout.PropertyField(minigameMusic);
+        EditorGUILayout.PropertyField(gameoverMusic);
         EditorGUILayout.Space(10f);
         
         if (previousSize == -1)

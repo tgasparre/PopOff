@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
-    public const float VOL = 0.9f;
-    public const float FADE_TIME = 0.2f;
+    public const float VOL = 0.85f;
+    public const float FADE_TIME = 0.33f;
     
     private LayeredAudio _layeredAudio;
     public LayeredAudio LayeredMusic
@@ -13,15 +13,12 @@ public class MusicPlayer : MonoBehaviour
         set
         {
             _layeredAudio = value;
-            Initialize();
+            InitializeLayered();
         }
     }
-
     private AudioSource _introSource;
+    private float _introOverlap;
     private MusicSource[] _sources;
-    
-    // private float _introDelay;
-    // private AudioClip _intro;
 
     private void Awake()
     {
@@ -31,10 +28,10 @@ public class MusicPlayer : MonoBehaviour
         _introSource.loop = false;
     }
 
-    private void Initialize()
+    private void InitializeLayered()
     {
-        // (_intro, _introDelay) = _layeredAudio.GetIntro();
-        // _introSource.clip = _intro;
+        _introSource.clip = _layeredAudio.Intro;
+        _introOverlap = _layeredAudio.IntroOverlap;
 
         _sources = new MusicSource[_layeredAudio.ClipLength];
         for (int i = 0; i < _sources.Length; i++)
@@ -51,60 +48,73 @@ public class MusicPlayer : MonoBehaviour
             _sources[i] = new MusicSource
             {
                 order = _layeredAudio.Clips[i].order,
+                volume = _layeredAudio.Clips[i].volume,
                 source = source,
             };
         }
+    }
 
-        foreach (MusicSource source in _sources)
+    public void StopSong()
+    {
+        FadeOut(() =>
         {
-            source.source.Play();
-        }
+            foreach (MusicSource source in _sources)
+            {
+                source.source.Stop();
+            }
+        });
     }
 
     public void StartSong()
     {
         foreach (MusicSource source in _sources)
         {
-            source.source.Stop();
-        }
-        
-        foreach (MusicSource source in _sources)
-        {
+            source.source.volume = 0f;
             source.source.Play();
         }
-        
-        PlayAll();
-    }
-    
-    public void PlayAll()
-    {
-        ChangeLevel(100);
     }
 
-    public void ChangeLevel(int level)
+    public void PlaySong(int level, bool skipIntro)
+    {
+        if (!skipIntro && _introSource.clip != null) StartCoroutine(PlayIntro());
+        else PlayLevel(level);
+        return;
+        
+        IEnumerator PlayIntro()
+        {
+            _introSource.Play();
+            yield return new WaitForSecondsRealtime(_introSource.clip.length - _introOverlap);
+            PlayLevel(level);
+        }
+    }
+
+    private void PlayLevel(int level)
     {
         foreach (MusicSource source in _sources)
         {
-            float volume = source.order <= level ? VOL : 0f; 
+            float volume = source.order <= level ? source.volume : 0f; 
             Fade(source.source, volume);
         }
     }
 
-    public void FadeOut()
+    public void FadeOut(Action completed = null)
     {
-        foreach (MusicSource source in _sources)
+        if (_sources.Length <= 0) return;
+
+        Fade(_sources[0].source, 0f, completed);
+        for (int i = 1; i < _sources.Length; i++)
         {
-            Fade(source.source, 0f);
+            Fade(_sources[i].source, 0f);
         }
     }
 
-    private void Fade(AudioSource source, float target)
+    private void Fade(AudioSource source, float target, Action completed = null)
     {
         if (source.volume == target) return;
-        StartCoroutine(StartFade(source, target));
+        StartCoroutine(StartFade());
         return;
         
-        static IEnumerator StartFade(AudioSource source, float target)
+        IEnumerator StartFade()
         {
             float start = source.volume;
             
@@ -115,12 +125,14 @@ public class MusicPlayer : MonoBehaviour
                 source.volume = Mathf.Lerp(start, target, elapsed / FADE_TIME);
                 yield return null;
             }
+            completed?.Invoke();
         }
     }
 
     private struct MusicSource
     {
         public int order;
+        public float volume;
         public AudioSource source;
     }
 }

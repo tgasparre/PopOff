@@ -5,15 +5,10 @@ public class GameOverState : GameState
 {
     public override void EnterState()
     {
-        // delete objects on stage
-        // stop any player movement
-        // go to end screen
-        // uiHandler.SwitchToEndScreen();
-        
         //TODO -- play animation of winner
         Game.IsFrozen = true;
         GameCanvas.Instance.ShowGameOverScreen();
-       // GameCanvas.Instance.GameOverController.SetWinnerName("s");
+        AudioManager.SwitchMusic(MusicType.Gameover);
     }
 
     public override void ExitState(GameStates newState)

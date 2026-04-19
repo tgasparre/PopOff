@@ -120,6 +120,7 @@ public class GameEditor : Editor
 {
     public override void OnInspectorGUI()
     {
+       
         base.OnInspectorGUI();
         GUI.enabled = Game.currentState == GameStates.Menu && Application.isPlaying;
         if (GUILayout.Button("Start Game"))
@@ -128,6 +129,13 @@ public class GameEditor : Editor
             AudioManager.PlaySound(AudioTrack.GameStart, 0.55f);
         
             Game.currentState = GameStates.Playing;
+        }
+        GUI.enabled = true;
+
+        GUI.enabled = Game.currentState == GameStates.Playing && PlayingState.CurrentGameplayState == GameplayStates.Combat && Application.isPlaying;
+        if (GUILayout.Button("Win Game"))
+        {
+            Game.ActivePlayerTracker.DEBUG_SetWinner();
         }
         GUI.enabled = true;
     }

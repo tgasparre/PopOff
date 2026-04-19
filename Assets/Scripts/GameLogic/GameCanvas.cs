@@ -31,15 +31,24 @@ public class GameCanvas : MonoBehaviour
 
     public static IMiniGameUI MiniGameUI => Instance._miniGameScreen;
 
+    //pause menu button
     public void Unpause()
     {
         StateMachineManager.pauseState.ExitState(GameStates.None);
     }
 
+    //pause menu button
     public void ReturnToMenu()
     {
         EventSystem.current.SetSelectedGameObject(null);
         StateMachineManager.pauseState.ExitState(GameStates.Menu);
+    }
+
+    //gameover button
+    public void ReturnToMenuGameover()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        Game.currentState = GameStates.Menu;
     }
 
     public void Transition(TransitionType transitionType = TransitionType.Menu, Action completed = null)

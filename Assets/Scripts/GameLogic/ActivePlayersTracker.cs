@@ -15,6 +15,8 @@ public interface IActivePlayerTracker
 	public PlayerController[] GetAlivePlayers();
 	public void ResetMinigameDeaths();
 	public event Action<int> OnPlayerFinishMinigame;
+
+	public void DEBUG_SetWinner();
 }
 public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 {
@@ -215,7 +217,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 						Game.currentState = GameStates.GameOver;
 						break;
 					case 0:
-						Debug.LogError("zero players left should only happen if DEBUG!");
+						Debug.LogWarning("zero players left should only happen if DEBUG!");
 						WinningPlayerIndex = 0;
 						Game.currentState = GameStates.GameOver;
 						break;
@@ -272,5 +274,17 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		_players = new PlayerTrack[MAX_PLAYER];
 		_activePlayers = Array.Empty<PlayerTrack>();
 		GameCanvas.Instance.DestroyUI();
+	}
+
+	/// <summary>
+	/// DEBUG method to set the winning index so you can win by pressing an editor button
+	/// </summary>
+	/// <param name="index"></param>
+	public void DEBUG_SetWinner()
+	{
+		#if UNITY_EDITOR
+		WinningPlayerIndex = 0;
+		Game.currentState = GameStates.GameOver;
+		#endif
 	}
 }

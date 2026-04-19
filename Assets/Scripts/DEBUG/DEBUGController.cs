@@ -36,7 +36,6 @@ public class DEBUGController : MonoBehaviour
     private IEnumerator Start()
     {
         StateMachineManager.DEBUG_SetGameState(_enteringState);
-        StartSceneMusic();
         if (_enteringState == GameStates.Playing) PlayingState.DEBUG_SetGamePlayState(_playingState);
         ActivePlayersTracker.JoinEnded += JoinEnded;        
         ActivePlayersTracker.Joined += Joined;        
@@ -45,6 +44,8 @@ public class DEBUGController : MonoBehaviour
         Game.CanJoin = true;
         yield return new WaitUntil(() => Game.PlayerCount == _playersToSpawn);
         Game.CanJoin = false;
+        
+        AudioManager.SwitchMusic(MusicType.None);
     }
 
     private void OnDestroy()

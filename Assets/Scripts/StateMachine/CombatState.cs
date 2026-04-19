@@ -3,13 +3,13 @@ public class CombatState : GameState
 {
     public override void EnterState()
     {
-        AudioManager.SwitchMusic(MusicType.Game);
         Loader.LoadCombatScene(StartCountdown);
     }
     
     private void StartCountdown()
     {
         Game.IsPlayersFrozen = true;
+        AudioManager.SwitchMusic(MusicType.Game);
         GameCanvas.Instance.StartCombatCountdown(() =>
         {
             Game.IsPlayersFrozen = false;
