@@ -35,6 +35,8 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		}
 	}
 
+	public bool FreezeJoin { get; set; } = false;
+
 	private class PlayerTrack
 	{
 		public PlayerController controller;
@@ -106,6 +108,12 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 		{
 			while (_canJoin)
 			{
+				if (FreezeJoin)
+				{
+					yield return null;
+					continue;
+				}
+				
 				if (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame)
 				{
 					TryJoinPlayer(Keyboard.current);

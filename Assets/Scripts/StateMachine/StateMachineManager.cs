@@ -8,7 +8,7 @@ public static class StateMachineManager
     public static readonly PlayingState playingState = new PlayingState();
     public static readonly GameOverState gameOverState = new GameOverState();
 
-    public static GameStates currentState { private set; get; }
+    public static GameStates CurrentState { private set; get; }
     private static GameState _activeState = menuState;
     
     public static void SwitchState(GameStates state)
@@ -36,16 +36,16 @@ public static class StateMachineManager
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
-        currentState = state;
+        CurrentState = state;
     }
 
     private static void SetGameStateTo(GameState state, GameStates type)
     {
         // Debug.Log("switching state: " + state + " --- active state: " + _activeState);
-        if (state != _activeState) _activeState?.ExitState(type);
+        if (CurrentState != GameStates.Pause && state != _activeState) _activeState?.ExitState(type);
         
         _activeState = state;
-        _activeState.EnterState();
+        if (CurrentState != GameStates.Pause) _activeState.EnterState();
     }
     
     /// <summary>
@@ -62,7 +62,7 @@ public static class StateMachineManager
             GameStates.GameOver => gameOverState,
             _ => _activeState
         };
-        currentState = state;
+        CurrentState = state;
     }
 }
 
@@ -71,5 +71,6 @@ public enum GameStates
     Menu,
     Pause, 
     Playing,
-    GameOver
+    GameOver,
+    None
 }

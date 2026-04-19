@@ -9,6 +9,7 @@ public class StartingMiniGame : MiniGameInfo
     [SerializeField] private AudioSource _blowUpBallon;
     [SerializeField] private AudioManager.Audio _pressBlowButtonAudio;
     [SerializeField] private AudioSource _airFillMusic;
+    [SerializeField] private AudioSource _pauseMusic;
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private WeightUI[] _weightUIs;
@@ -53,8 +54,18 @@ public class StartingMiniGame : MiniGameInfo
 
     private void OnPause(bool isPaused)
     {
-        if (isPaused) _blowUpBallon.Pause();
-        else _blowUpBallon.UnPause();
+        if (isPaused)
+        {
+            _blowUpBallon.Pause();
+            _airFillMusic.Pause();
+            _pauseMusic.Play();
+        }
+        else
+        {
+            _blowUpBallon.UnPause();
+            _airFillMusic.UnPause();
+            _pauseMusic.Stop();
+        }
     }
 
     protected override void StartMiniGame()

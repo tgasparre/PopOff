@@ -33,13 +33,13 @@ public class GameCanvas : MonoBehaviour
 
     public void Unpause()
     {
-        Game.currentState = GameStates.Playing;
+        StateMachineManager.pauseState.ExitState(GameStates.None);
     }
 
     public void ReturnToMenu()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        Game.currentState = GameStates.Menu;
+        StateMachineManager.pauseState.ExitState(GameStates.Menu);
     }
 
     public void Transition(TransitionType transitionType = TransitionType.Menu, Action completed = null)

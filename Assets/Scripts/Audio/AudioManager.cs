@@ -171,7 +171,7 @@ public class AudioManager : MonoBehaviour
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
         
-        if (song == null)
+        if (_currentPlayer != null && song == null)
         {
             _currentPlayer.FadeOut();
             _currentPlayer = null;
