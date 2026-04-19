@@ -21,7 +21,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9778364400670da0b85625f9f67a9b1f, type: 3}
   - order: 1
     clip: {fileID: 8300000, guid: e6ea9b9af2da0502398e02c27e0be901, type: 3}
-  - order: 1
+  - order: 2
     clip: {fileID: 8300000, guid: 446a03478344ca1dea841eafd96cd1f1, type: 3}
   - order: 2
     clip: {fileID: 8300000, guid: 35445d7f628e12a6fb1b8f715341532a, type: 3}

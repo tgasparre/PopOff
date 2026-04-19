@@ -2324,7 +2324,7 @@ MonoBehaviour:
   _minigameStats: {fileID: 0}
   _miniGameStartingHealth: 100
   _waitAfterLoadingTime: 0.6
-  _waitForInstructionTime: 1.5
+  _waitForInstructionTime: 1.35
   _waitBeforeSceneLoad: 1
   _blowUpBallon: {fileID: 956242184}
   _pressBlowButtonAudio:
