@@ -9,4 +9,5 @@ public static class Tags
     public const string GameController = @"GameController";
     public const string Climbable = @"Climbable";
     public const string Portal = @"Portal";
+    public const string PowerupValid = @"PowerupValid";
 }
