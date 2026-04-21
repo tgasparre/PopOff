@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740243e0418280a45816b848c99f29ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGamePlacer
-  _delayUntilStartTime: 5
+  _delayUntilStartTime: 1
   _prefab: {fileID: 4497978584956282605, guid: 0cd8639f1b1afb754b46590f8e2d1544, type: 3}
   _maxNumberSpawned: 1
   _spawnPositions:
@@ -2813,7 +2813,7 @@ Transform:
   m_GameObject: {fileID: 2057854460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.83, y: 0.5, z: 0}
+  m_LocalPosition: {x: -4.22, y: -1.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

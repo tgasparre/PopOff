@@ -752,15 +752,12 @@ MonoBehaviour:
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
   _miniGameName: Dart Dodge
   _miniGameInstructions: Avoid the falling darts, be the last one standing
-  _countdownTimer: 3
   _miniGameTime: 0
   _powerupReward:
-  - {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
-  - {fileID: 11400000, guid: 271153daddf6c4b4d92b911550ae29e6, type: 2}
   - {fileID: 11400000, guid: 3af36c234fbdac1138db4a237a44559e, type: 2}
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 200
-  _waitAfterLoadingTime: 0.8
+  _waitAfterLoadingTime: 0.5
   _waitForInstructionTime: 1
   _waitBeforeSceneLoad: 1
   _dartPrefabPool:

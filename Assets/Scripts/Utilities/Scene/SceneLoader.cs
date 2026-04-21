@@ -16,12 +16,20 @@ public interface ISceneLoader
 }
 public class SceneLoader : MonoBehaviour, ISceneLoader 
 {
+    public const bool IEEE_BUILD = true;
+    private int IEEE_index = 0;
+
+    private void Awake()
+    {
+        IEEE_index = 0;
+    }
+
     [Header("Scenes")]
     [SerializeField] private SceneReference _menuScene;
     [SerializeField] private SceneReference _combatScene;
     [SerializeField] private SceneReference _startingMiniGame;
     [SerializeField] private SceneReference[] _miniGameScenes;
-
+    
     private List<int> _unplayedMiniGames = new List<int>();
 
     public bool canLoadScene { get; private set; }  = true;
@@ -82,7 +90,9 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
 
     private SceneReference PickMiniGame()
     {
-        if (_unplayedMiniGames.Count == 0) {_unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList();}
+        if (IEEE_BUILD) return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
+        
+        if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
         int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
         _unplayedMiniGames.Remove(minigameToPlay);
         
