@@ -29,8 +29,6 @@ public abstract class MiniGameInfo : MonoBehaviour
     public string MiniGameName => _miniGameName;
     [SerializeField] [TextArea] private string _miniGameInstructions = "default description";
     public string MiniGameInstructions => _miniGameInstructions;
-    [Space(2)] [SerializeField] private int _countdownTimer = 3;
-    public int CountdownTimer => _countdownTimer;
     [SerializeField] private int _miniGameTime = 15;
     public int MiniGameTime => _miniGameTime;
     public bool HasTimer => _miniGameTime > 0;

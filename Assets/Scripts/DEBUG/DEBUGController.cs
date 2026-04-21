@@ -22,6 +22,7 @@ public class DEBUGController : MonoBehaviour
     }
 
     [SerializeField] private int _playersToSpawn = 1;
+    [SerializeField] private PlayerStats _defaultStats;
     
     [Header("Toggles")]
     [SerializeField] private bool _disablePlayerUI = false;
@@ -101,6 +102,14 @@ public class DEBUGController : MonoBehaviour
             foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
             {
                 player.PlayerHealth = 1;
+            }
+        }
+
+        if (_playerState != PlayerState.StartingMiniGame)
+        {
+            foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+            {
+                player.SetWeightClass(_defaultStats);
             }
         }
     }
