@@ -105,7 +105,7 @@ public class StartingMiniGame : MiniGameInfo
             ActivePlayersTracker.SpawnSinglePlayer(_playerControllers[i].ActivePlayer);
             if (_playerControllers[i].ActivePlayer is Player player)
             {
-                player.AssignWeightClass(weightClass);
+                player.SetWeightClass(weightClass);
             }
             _airPoofParticles = Instantiate(_airPoofParticlesPrefab, _playerControllers[i].ActivePlayer.transform.position, Quaternion.identity);
         }

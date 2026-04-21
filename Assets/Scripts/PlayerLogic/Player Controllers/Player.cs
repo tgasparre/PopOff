@@ -6,15 +6,15 @@ using UnityEngine.InputSystem;
 
 public class Player : PlayerBase
 {
-    [SerializeField] private PlayerStats _defaultStats;
- 
     public event Action<Player> OnDeath;
     public event Action<float> UICallback_PlayerHealthChange;
+    
+    private PlayerStats _defaultStats;
     
     // ===== References =====
     public PlayerPowerups powerups { private set; get; }
     public AttackHurtbox hurtbox { private set; get; }
-    public PlayerStats playerStats { private set; get; }
+    public PlayerStats activePlayerStats { private set; get; }
     public UltimateAttackTracker ultimateAttackTracker { private set; get; }
     public int PlayerHealth
     {
@@ -91,7 +91,7 @@ public class Player : PlayerBase
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _wallModule = GetComponent<PlatformerWallModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
-        ResetWeightClass();
+        //SetWeightClass(DEBUG_stats);
 
         _jumpModule.JumpTriggered += TriggerJump;
         _wallModule.OnWallJump += TriggerWallJump;
@@ -207,14 +207,19 @@ public class Player : PlayerBase
 
     public void ResetWeightClass()
     {
-        if (_defaultStats == null) Debug.LogError("Default Stats should not be null!");
-        else if (playerStats == null) AssignWeightClass(_defaultStats);
-        else AssignWeightClass(playerStats);
+        if (_defaultStats == null) return;
+        AssignWeightClass(_defaultStats);
+    }
+
+    public void SetWeightClass(PlayerStats stats)
+    {
+        _defaultStats = stats;
+        AssignWeightClass(_defaultStats);
     }
     
     public void AssignWeightClass(PlayerStats stats)
     {
-        playerStats = stats;
+        activePlayerStats = stats;
         switch (stats.Type)
         {
             case WeightClassType.Light:
