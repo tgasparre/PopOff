@@ -44,6 +44,15 @@ public class Player : PlayerBase
     
     public void TriggerDeath()
     {
+        if (PlayerIndex == ActivePlayersTracker.IMMORTAL_PLAYER_INDEX)
+        {
+            if (PlayingState.CurrentGameplayState == GameplayStates.Combat)
+            {
+                PlayerHealth = 1;
+                return;
+            }
+        }
+        
         if (_hasDied) return;
         
         Game.CameraShake.DeathShake();

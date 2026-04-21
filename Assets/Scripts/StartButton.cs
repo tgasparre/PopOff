@@ -33,9 +33,19 @@ public class StartButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.transform.CompareTag("Player") && _touchingObject != null) return;
-        _touchingObject = other.gameObject;
-        CheckCollision(null);
+        // if (other.transform.CompareTag("Player") && _touchingObject != null) return;
+        // _touchingObject = other.gameObject;
+        // CheckCollision(null);
+
+        if (other.transform.CompareTag("Player"))
+        {
+            PlayerBase p = other.GetComponentInChildren<PlayerBase>();
+            if (p.PlayerIndex == 0)
+            {
+                _touchingObject = other.gameObject;
+                CheckCollision(null);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

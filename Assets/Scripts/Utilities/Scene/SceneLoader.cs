@@ -92,11 +92,11 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     {
         if (IEEE_BUILD) return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
         
-        if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
-        int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
-        _unplayedMiniGames.Remove(minigameToPlay);
-        
-        return _miniGameScenes[minigameToPlay];
+        // if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
+        // int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
+        // _unplayedMiniGames.Remove(minigameToPlay);
+        //
+        // return _miniGameScenes[minigameToPlay];
     }
 }
 

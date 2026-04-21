@@ -20,6 +20,8 @@ public interface IActivePlayerTracker
 }
 public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 {
+	public const int IMMORTAL_PLAYER_INDEX = 0;
+	
 	public const int MAX_PLAYER = 4;
 	
 	private PlayerInputManager _inputManager;
