@@ -57,18 +57,19 @@ MonoBehaviour:
     _explosionRadius: 2
     _explosionDamage: 20
     _explosionForce: 1000
+  _hitAudio:
+    name: Splat
+    track: 0
+    _clips:
+    - {fileID: 8300000, guid: 48dc9645d18d995e19042ad115a59a7f, type: 3}
+    _volumeMin: 0.4
+    _volumeMax: 0.5
+    _pitchMin: 1
+    _pitchMax: 1.15
   _throwForce: 6
   _style: 0
   _glueImage: {fileID: 21300000, guid: 320661eabd3d244f39780f1db6615eb5, type: 3}
-  expandAudio:
-    name: Growing Sound
-    track: 0
-    _clips:
-    - {fileID: 8300000, guid: d03255ce127e6aa82b2caad4ed14c748, type: 3}
-    _volumeMin: 0.3
-    _volumeMax: 0.4
-    _pitchMin: 1.1
-    _pitchMax: 1.2
+  _particleSystem: {fileID: 0}
 --- !u!212 &5727294018527877714
 SpriteRenderer:
   m_ObjectHideFlags: 0

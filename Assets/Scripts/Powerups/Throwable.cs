@@ -11,6 +11,9 @@ public abstract class Throwable : MonoBehaviour
     [Header("Explosion Settings")]
     [SerializeField] private Explode _explode;
     
+    [Header("Sound Settings")]
+    [SerializeField] private AudioManager.Audio _hitAudio;
+    
     private PowerupStats.PowerupType type;
     private int _damage = 20;
     private float _glueDuration = 1f;
@@ -88,7 +91,7 @@ public abstract class Throwable : MonoBehaviour
 
     protected virtual void HitGround()
     {
-        AudioManager.PlaySound(AudioTrack.PowerupThud);
+        AudioManager.PlaySound(_hitAudio);
         
         if (_explode.CanExplode) StartCoroutine(_explode.TriggerExplode(_lifetime, _renderer, SpawnExplosion));
         else Invoke(nameof(Despawn), _lifetime);

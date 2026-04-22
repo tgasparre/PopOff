@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0718f9b13da495cb9e11770f40eefdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DEBUGController
-  _playersToSpawn: 1
+  _playersToSpawn: 2
   _defaultStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _disablePlayerUI: 0
   _playersImmortal: 0
@@ -351,6 +351,10 @@ PrefabInstance:
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3099421678186531877, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_Spacing
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y

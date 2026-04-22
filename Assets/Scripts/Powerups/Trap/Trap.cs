@@ -11,9 +11,6 @@ public class Trap : Throwable
     
     [Header("Glue Particles")]
     [SerializeField] private ParticleSystem _particleSystem;
-    
-    [Header("Trap Sounds")]
-    [SerializeField] private AudioManager.Audio expandAudio;
 
     private float _growthTime = 0.25f;
     private float _sizePercentage = 2f;
@@ -51,8 +48,6 @@ public class Trap : Throwable
 
     private IEnumerator GrowInSize()
     {
-        AudioManager.PlaySound(expandAudio);
-        
         Vector3 target = transform.localScale * _sizePercentage;
         Vector3 starting = transform.localScale;
         float elapsed = 0f;
