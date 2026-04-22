@@ -21,7 +21,7 @@ public abstract class Throwable : MonoBehaviour
     protected Player _throwingPlayer;
     private int _throwingPlayerIndex => _throwingPlayer.PlayerIndex;
     
-    private SpriteRenderer _renderer;
+    protected SpriteRenderer _renderer;
     private bool _interactable = true;
     private float _interactableTimer = 0.25f;
 

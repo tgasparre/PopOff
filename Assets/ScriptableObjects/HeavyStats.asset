@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HeavyStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   _type: 2
+  _increaseScaleSize: 0.9
   _knockbackMultiplier: 1
   _damageMultiplier: 1
   _parameters:

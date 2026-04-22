@@ -214,6 +214,7 @@ public class Player : PlayerBase
     public void SetWeightClass(PlayerStats stats)
     {
         _defaultStats = stats;
+        transform.localScale = Vector2.one * stats.IncreaseScaleSize;
         AssignWeightClass(_defaultStats);
     }
     

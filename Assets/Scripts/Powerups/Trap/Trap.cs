@@ -7,6 +7,7 @@ public class Trap : Throwable
     [Header("Trap")]
     [SerializeField] private float _throwForce;
     [SerializeField] private TrapStyle _style;
+    [SerializeField] private Sprite _glueImage;
     
     [Header("Trap Sounds")]
     [SerializeField] private AudioManager.Audio expandAudio;
@@ -34,7 +35,8 @@ public class Trap : Throwable
         {
             case TrapStyle.Sticky:
                 _rigidbody2D.bodyType = RigidbodyType2D.Static;
-                StartCoroutine(GrowInSize());
+                // StartCoroutine(GrowInSize());
+                ActivateGlue();
                 break;
             case TrapStyle.Bouncy:
                 _rigidbody2D.sharedMaterial = _bouncyMat;
@@ -59,6 +61,18 @@ public class Trap : Throwable
             yield return null;
         }
         transform.localScale = target;
+    }
+
+    private void ActivateGlue()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3.up), Vector2.down, 10f, Layers.Default);
+        if (hit)
+        {
+            Vector3 temp = transform.position;
+            temp.y = hit.point.y;
+            transform.position = temp;
+        }
+        _renderer.sprite = _glueImage;
     }
 }
 
