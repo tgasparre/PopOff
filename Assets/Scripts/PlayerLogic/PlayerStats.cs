@@ -10,6 +10,9 @@ public class PlayerStats : ScriptableObject
     [SerializeField] [HideInInspector] private WeightClassType _type = WeightClassType.Default;
     public WeightClassType Type => _type;
 
+    [SerializeField] private float _increaseScaleSize = 1f;
+    public float IncreaseScaleSize => _increaseScaleSize;
+
     [SerializeField] [HideInInspector] private float _knockbackMultiplier = WeightParameters.regularKnockbackMultiplier;
     [SerializeField] [HideInInspector] private float _damageMultiplier = WeightParameters.regularDamageMultiplier;
 
@@ -54,6 +57,8 @@ public enum WeightClassType
 [CustomEditor(typeof(PlayerStats))]
 public class PlayerStatsEditor : Editor
 {
+    private SerializedProperty scaleSize;
+    
     private SerializedProperty weightClassType;
     private SerializedProperty parameters;
     private SerializedProperty knockback;
@@ -61,6 +66,8 @@ public class PlayerStatsEditor : Editor
     
     private void OnEnable()
     {
+        scaleSize = serializedObject.FindProperty("_increaseScaleSize");
+        
         weightClassType = serializedObject.FindProperty("_type");
         parameters = serializedObject.FindProperty("_parameters");
         knockback = serializedObject.FindProperty("_knockbackMultiplier");
@@ -72,9 +79,11 @@ public class PlayerStatsEditor : Editor
         EditorGUILayout.ObjectField("Script:", MonoScript.FromScriptableObject((PlayerStats)target), typeof(PlayerStats), false);
         GUI.enabled = true;
         
+        
         PlayerStats stats = target as PlayerStats;
         
         EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(scaleSize);
         EditorGUILayout.PropertyField(weightClassType);
         if (EditorGUI.EndChangeCheck())
         {

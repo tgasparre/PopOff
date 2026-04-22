@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LightStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   _type: 0
+  _increaseScaleSize: 1.15
   _knockbackMultiplier: 1
   _damageMultiplier: 1
   _parameters:

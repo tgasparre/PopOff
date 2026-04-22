@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dart
   _lifetime: 3
-  _bouncyMat: {fileID: 0}
+  _bouncyMat: {fileID: 6200000, guid: 90ad61f1889d6aa7c854b78329e877c1, type: 2}
   _explode:
     _explodePrefab: {fileID: 0}
     _flashTimePercent: 0
