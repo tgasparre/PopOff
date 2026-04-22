@@ -1,6 +1,9 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Game : MonoBehaviour
 {
@@ -50,7 +53,7 @@ public class Game : MonoBehaviour
     
     public static GameStates currentState
     {
-        get => StateMachineManager.currentState;
+        get => StateMachineManager.CurrentState;
         set => StateMachineManager.SwitchState(value);
     }
     
@@ -62,6 +65,12 @@ public class Game : MonoBehaviour
             Instance._activePlayersTracker.CanJoin = value;
             if (!value) Instance._activePlayersTracker.OnEndJoin();
         }
+    }
+
+    //stops the joining process when the game is paused, without calling the end join event
+    public static bool FreezeJoin 
+    {
+        set => Instance._activePlayersTracker.FreezeJoin = value;
     }
 
     public static bool IsFrozen
@@ -129,3 +138,31 @@ public enum PlayerType
     Mouse,
     Dog
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(Game))]
+public class GameEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+       
+        base.OnInspectorGUI();
+        GUI.enabled = Game.currentState == GameStates.Menu && Application.isPlaying;
+        if (GUILayout.Button("Start Game"))
+        {
+            AudioManager.SwitchMusic(MusicType.None);
+            AudioManager.PlaySound(AudioTrack.GameStart, 0.55f);
+        
+            Game.currentState = GameStates.Playing;
+        }
+        GUI.enabled = true;
+
+        GUI.enabled = Game.currentState == GameStates.Playing && PlayingState.CurrentGameplayState == GameplayStates.Combat && Application.isPlaying;
+        if (GUILayout.Button("Win Game"))
+        {
+            Game.ActivePlayerTracker.DEBUG_SetWinner();
+        }
+        GUI.enabled = true;
+    }
+}
+#endif

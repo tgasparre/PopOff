@@ -22,6 +22,7 @@ public class DEBUGController : MonoBehaviour
     }
 
     [SerializeField] private int _playersToSpawn = 1;
+    [SerializeField] private PlayerStats _defaultStats;
     
     [Header("Toggles")]
     [SerializeField] private bool _disablePlayerUI = false;
@@ -35,7 +36,7 @@ public class DEBUGController : MonoBehaviour
     
     private IEnumerator Start()
     {
-        StateMachineManager.DEBUG_SetGameState(_enteringState); 
+        StateMachineManager.DEBUG_SetGameState(_enteringState);
         if (_enteringState == GameStates.Playing) PlayingState.DEBUG_SetGamePlayState(_playingState);
         ActivePlayersTracker.JoinEnded += JoinEnded;        
         ActivePlayersTracker.Joined += Joined;        
@@ -44,6 +45,8 @@ public class DEBUGController : MonoBehaviour
         Game.CanJoin = true;
         yield return new WaitUntil(() => Game.PlayerCount == _playersToSpawn);
         Game.CanJoin = false;
+        
+        AudioManager.SwitchMusic(MusicType.None);
     }
 
     private void OnDestroy()
@@ -101,12 +104,46 @@ public class DEBUGController : MonoBehaviour
                 player.PlayerHealth = 1;
             }
         }
+
+        if (_playerState != PlayerState.StartingMiniGame)
+        {
+            foreach (Player player in FindObjectsByType<Player>(FindObjectsSortMode.None))
+            {
+                player.SetWeightClass(_defaultStats);
+            }
+        }
     }
 
     private void Joined(PlayerController player)
     {
         player.CurrentState = _playerState;
         ActivePlayersTracker.SpawnSinglePlayer(player.ActivePlayer);
+    }
+
+    private void StartSceneMusic()
+    {
+        switch (_enteringState)
+        {
+            case GameStates.Playing:
+                switch (_playingState)
+                {
+                    case GameplayStates.Combat:
+                        AudioManager.SwitchMusic(MusicType.Game);
+                        break;
+                    case GameplayStates.MiniGame:
+                        AudioManager.SwitchMusic(MusicType.Minigame);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                break;
+            case GameStates.Menu:
+                AudioManager.SwitchMusic(MusicType.Menu);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }
 

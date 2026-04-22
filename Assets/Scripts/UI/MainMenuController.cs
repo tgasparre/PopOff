@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
@@ -16,6 +17,12 @@ public class MainMenuController : MonoBehaviour
     private void Awake()
     {
         _joinText.SetActive(false);
+        _startButton.Select();
+    }
+
+    private void Start()
+    {
+        EventSystem.current.SetSelectedGameObject(_startButton.gameObject);
         _startButton.Select();
     }
 

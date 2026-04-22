@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 159.6
+  m_fontSize: 159
   m_fontSizeBase: 245
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -230,6 +230,9 @@ MonoBehaviour:
   _readyWaitTime: 1.8
   _goWaitTime: 0.8
   _goHoldTime: 0.25
+  _readySound: {fileID: 8300000, guid: 59416085d7053245088c5bb1570d1113, type: 3}
+  _goSound: {fileID: 8300000, guid: a942588d3c25154189f1a706dcf86568, type: 3}
+  _finishedSound: {fileID: 8300000, guid: f2016690211ba1a81841e2369829029f, type: 3}
   _readyText: {fileID: 191217366922664624}
   _goText: {fileID: 3874437959256835050}
 --- !u!225 &7313020617121348773

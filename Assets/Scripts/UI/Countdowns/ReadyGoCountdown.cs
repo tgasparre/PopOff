@@ -8,6 +8,10 @@ public class ReadyGoCountdown : CountdownUI
     [SerializeField] private float _readyWaitTime = 1.8f;
     [SerializeField] private float _goWaitTime = 0.8f;
     [SerializeField] private float _goHoldTime = 0.25f;
+    [Space]
+    [SerializeField] private AudioClip _readySound;
+    [SerializeField] private AudioClip _goSound;
+    [SerializeField] private AudioClip _finishedSound;
 
     [Space] 
     [SerializeField] private GameObject _readyText;
@@ -22,7 +26,7 @@ public class ReadyGoCountdown : CountdownUI
         _readyGroup = _readyText.GetComponent<CanvasGroup>();
         _goGroup = _goText.GetComponent<CanvasGroup>();
     }
-    
+
     protected override IEnumerator Countdown(float delay)
     {
         SetActiveAll(false);
@@ -34,7 +38,8 @@ public class ReadyGoCountdown : CountdownUI
         }
 
         isRunning = true;
-       SetActiveDelay(_readyGroup, true);
+        SetActiveDelay(_readyGroup, true);
+        AudioManager.PlaySound(_readySound);
         yield return new WaitForSeconds(_readyWaitTime * _timescaleSpeed);
         if (_forceQuit)
         {
@@ -44,13 +49,15 @@ public class ReadyGoCountdown : CountdownUI
 
         _readyText.SetActive(false);
         SetActiveDelay(_goGroup, true);
+        AudioManager.PlaySound(_goSound);
         yield return new WaitForSeconds((_goWaitTime + _goHoldTime) * _timescaleSpeed);
         if (_forceQuit)
         {
             StopCountdownNoTrigger();
             yield break;
         }
-
+        
+        AudioManager.PlaySound(_finishedSound, volume: 0.8f, pitch: 1.2f);
         SetActiveAll(false);
         StopCountdown();
     }

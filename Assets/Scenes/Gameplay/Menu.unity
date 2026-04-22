@@ -2982,6 +2982,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 574032605}
     m_Modifications:
+    - target: {fileID: 3839960068435662123, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
+      propertyPath: _makeSounds
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4704886412541187758, guid: 2bcc5b6fcecad2064b14578d1537753e, type: 3}
       propertyPath: m_Name
       value: GameStartCountdown
@@ -6910,10 +6914,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -6939,17 +6939,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 724731811040075967, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
-      propertyPath: _deathDuration
-      value: 0.12
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _audios.Array.data[17].name
+      value: Minigame Start Countdown
       objectReference: {fileID: 0}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _audios.Array.data[17]._pitchMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _audios.Array.data[17]._pitchMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _audios.Array.data[17]._volumeMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _audios.Array.data[17]._volumeMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 40943581982874886, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: '_audios.Array.data[17]._clips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b8003a351eaf1374aafdfa6f29e1a76f, type: 3}
     - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_Name
       value: Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 4965981714751721931, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
-      propertyPath: bypassOnePlayerBlock
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6616540441250519296, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_LocalPosition.x
