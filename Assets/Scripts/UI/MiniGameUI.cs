@@ -24,11 +24,13 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     
     [Header("MiniGame State")]
     [SerializeField] private CanvasGroup _miniGameCanvasGroup;
+    [SerializeField] private GameObject _timerBackground;
     [SerializeField] private TimerCountdown _miniGameCountdownTimer;
     
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
     [SerializeField] private TextEffect _finishedEffect;
+    [SerializeField] private TextEffect _finishedEffectBackground;
     
     [Header("Results State")]
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
@@ -60,6 +62,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
                     break;
                 case UIState.Finished:
                     _finishedEffect.StartManualEffects();
+                    _finishedEffectBackground.StartManualEffects();
                     StartCoroutine(VerySmallDelay());
                     break;
                 case UIState.Results:
@@ -110,6 +113,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
         CurrentState = UIState.Introduction;
         _miniGameName.text = info.MiniGameName;
         _miniGameDescription.text = info.MiniGameInstructions;
+        _timerBackground.SetActive(info.HasTimer);
         // _introCountdownTimer.InitializeCountdown(info.CountdownTimer);
         _miniGameCountdownTimer.InitializeCountdown(info.MiniGameTime);
     }
