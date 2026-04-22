@@ -132,7 +132,7 @@ namespace ControllerSystem.Platformer2D
 
         private void FlipParticleTrail()
         {
-            _runningParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            _runningParticles.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
             if (Controller.Input.move.GetValue() == Vector2.left)
             {
                 _runningParticles.transform.rotation =  Quaternion.Euler(-90, 0, 0);
@@ -143,6 +143,7 @@ namespace ControllerSystem.Platformer2D
             }
             //_runningParticles.transform.localRotation = Quaternion.FromToRotation(Vector2.left, Controller.Input.move.GetValue());
             _runningParticles.Play();
+            Debug.Log("Flip particles called");
         }
         
         
