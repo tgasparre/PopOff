@@ -29,7 +29,7 @@ namespace ControllerSystem.Platformer2D
 
         public override void HandleMovement()
         {
-            if (Controller.InputtingHorizontalMovement && (_crouchModule == null || !_crouchModule.Crouching)) // Stop movement if crouching
+            if (Controller.InputtingHorizontalMovement ) //don't stop moving when crouched && (_crouchModule == null || !_crouchModule.Crouching)
             {
                 //only spawn walk particles when on ground
                 if (motor.Grounded && !_wasGrounded)

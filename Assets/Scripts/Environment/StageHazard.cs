@@ -16,7 +16,7 @@ public class StageHazard : MonoBehaviour
             hitPlayer.ApplyHitStun(CombatParameters.HIT_STUN_DURATION);
             Vector2 directionToPlayer = (other.gameObject.transform.position - transform.position).normalized;
             Vector2 finalDirection = new Vector2(directionToPlayer.x, knockbackDirection.y).normalized;
-            hitPlayer.ApplyKnockback(finalDirection, hitPlayer.playerStats.KnockbackMultiplier() * 3.1f);
+            hitPlayer.ApplyKnockback(finalDirection, hitPlayer.activePlayerStats.KnockbackMultiplier() * 3.1f);
             
         }
     }

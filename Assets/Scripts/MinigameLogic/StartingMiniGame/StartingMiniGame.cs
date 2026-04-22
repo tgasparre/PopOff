@@ -8,6 +8,8 @@ public class StartingMiniGame : MiniGameInfo
     [Space]
     [SerializeField] private AudioSource _blowUpBallon;
     [SerializeField] private AudioManager.Audio _pressBlowButtonAudio;
+    [SerializeField] private AudioSource _airFillMusic;
+    [SerializeField] private AudioSource _pauseMusic;
     [Space]
     [SerializeField] private AirFillBoard[] _airFillBoards;
     [SerializeField] private WeightUI[] _weightUIs;
@@ -52,12 +54,23 @@ public class StartingMiniGame : MiniGameInfo
 
     private void OnPause(bool isPaused)
     {
-        if (isPaused) _blowUpBallon.Pause();
-        else _blowUpBallon.UnPause();
+        if (isPaused)
+        {
+            _blowUpBallon.Pause();
+            _airFillMusic.Pause();
+            _pauseMusic.Play();
+        }
+        else
+        {
+            _blowUpBallon.UnPause();
+            _airFillMusic.UnPause();
+            _pauseMusic.Stop();
+        }
     }
 
     protected override void StartMiniGame()
     {
+        _airFillMusic.Play();
         //assign jump input to fill 
         for (int i = 0; i < _playerControllers.Length; i++)
         {
@@ -73,6 +86,8 @@ public class StartingMiniGame : MiniGameInfo
     protected override void ShowMiniGameResults(Action onFinished, Powerup reward)
     {
         //TODO fun animation
+        Game.IsFrozen = false;
+        Game.IsPlayersFrozen = true;
         for (int i = 0; i < _playerControllers.Length; i++)
         {
             _weightUIs[i].IsVisible = false;
@@ -90,7 +105,7 @@ public class StartingMiniGame : MiniGameInfo
             ActivePlayersTracker.SpawnSinglePlayer(_playerControllers[i].ActivePlayer);
             if (_playerControllers[i].ActivePlayer is Player player)
             {
-                player.AssignWeightClass(weightClass);
+                player.SetWeightClass(weightClass);
             }
             _airPoofParticles = Instantiate(_airPoofParticlesPrefab, _playerControllers[i].ActivePlayer.transform.position, Quaternion.identity);
         }

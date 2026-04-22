@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,7 +12,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public const int NUM_SFX_SOURCE = 8;
-    private const float CROSS_FADE_TIME = 1.25f;
     
     [SerializeField] private GameObject _audioSourcePrefab;
     [SerializeField] private Audio[] _audios;
@@ -20,12 +20,21 @@ public class AudioManager : MonoBehaviour
     private Queue<AudioSettings> _soundQueue = new Queue<AudioSettings>();
     private Dictionary<AudioTrack, Audio> _audioDictionary = new Dictionary<AudioTrack, Audio>();
 
+    [SerializeField] private AudioMixerGroup _musicMixerGroup;
+    public AudioMixerGroup MusicMixerGroup => _musicMixerGroup;
+    
     private AudioSource _musicPlayer;
-    [SerializeField] private AudioClip _menuMusic;
-    [SerializeField] private AudioClip _gameMusic;
-    [SerializeField] private AudioClip _minigameMusic;
+    [SerializeField] private LayeredAudio _menuMusic;
+    [SerializeField] private LayeredAudio _gameMusic;
+    [SerializeField] private LayeredAudio _minigameMusic;
+    [SerializeField] private LayeredAudio _gameoverMusic;
+    private MusicPlayer _menuPlayer;
+    private MusicPlayer _gamePlayer;
+    private MusicPlayer _minigamePlayer;
+    private MusicPlayer _gameoverPlayer;
 
-    private Coroutine _crossfadeCoroutine;
+    private MusicPlayer _currentPlayer;
+    private MusicType _currentType;
 
     private void Awake()
     {
@@ -50,6 +59,38 @@ public class AudioManager : MonoBehaviour
                 throw new Exception($"Failed to add type {a.track} to AudioDictionary - check that no type duplicates exist");
             }
         }
+
+        GameObject musicSource;
+        
+        musicSource = new GameObject("menu_music");
+        musicSource.transform.parent = transform;
+        _menuPlayer = musicSource.AddComponent<MusicPlayer>();
+        _menuPlayer.LayeredMusic = _menuMusic;
+        
+        musicSource = new GameObject("game_music");
+        musicSource.transform.parent = transform;
+        _gamePlayer = musicSource.AddComponent<MusicPlayer>();
+        _gamePlayer.LayeredMusic = _gameMusic;
+        
+        musicSource = new GameObject("minigame_music");
+        musicSource.transform.parent = transform;
+        _minigamePlayer = musicSource.AddComponent<MusicPlayer>();
+        _minigamePlayer.LayeredMusic = _minigameMusic;
+        
+        musicSource = new GameObject("gameover music");
+        musicSource.transform.parent = transform;
+        _gameoverPlayer = musicSource.AddComponent<MusicPlayer>();
+        _gameoverPlayer.LayeredMusic = _gameoverMusic;
+
+        _currentPlayer = null;
+
+        PauseState.OnPaused += MuffleMusic;
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SwitchMusic(MusicType.Menu);
     }
 
     private void OnDestroy()
@@ -58,6 +99,8 @@ public class AudioManager : MonoBehaviour
         {
             source.OnSoundFinish -= OnSoundFinish;
         }
+        
+        PauseState.OnPaused -= MuffleMusic;
     }
     
     #region SFX
@@ -120,42 +163,81 @@ public class AudioManager : MonoBehaviour
     
     #region Music
 
-    public void SwitchMusic(MusicType type)
+    public static void SwitchMusic(MusicType type, int level = 100)
     {
-        AudioClip song = type switch
-        {
-            MusicType.Menu => _menuMusic,
-            MusicType.Game => _gameMusic,
-            MusicType.Minigame => _minigameMusic,
-            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
-        };
-
-        _crossfadeCoroutine ??= StartCoroutine(CrossFadeMusic(song));
+        Instance.SwitchMusicPlayer(type, level);
     }
 
-    private IEnumerator CrossFadeMusic(AudioClip newSong)
+    private void SwitchMusicPlayer(MusicType type, int level = 100)
     {
-        float elapsed = 0f;
-        float startVolume = _musicPlayer.volume;
-        while (elapsed < CROSS_FADE_TIME)
+        MusicPlayer song = type switch
         {
-            elapsed += Time.unscaledDeltaTime;
-            _musicPlayer.volume = Mathf.Lerp(startVolume, 0f, elapsed / CROSS_FADE_TIME);
-            yield return null;
-        }
-
-        _musicPlayer.volume = 0f;
-        _musicPlayer.clip = newSong;
-
-        elapsed = 0f;
-        while (elapsed < CROSS_FADE_TIME)
+            MusicType.Menu => _menuPlayer,
+            MusicType.Game => _gamePlayer,
+            MusicType.Minigame => _minigamePlayer,
+            MusicType.Gameover => _gameoverPlayer,
+            MusicType.None => null,
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+        
+        if (_currentPlayer != null)
         {
-            elapsed += Time.unscaledDeltaTime;
-            _musicPlayer.volume = Mathf.Lerp(0f, startVolume, elapsed / CROSS_FADE_TIME);
-            yield return null;
+            if (song == null) //stop playing songs
+            {
+                StopAllSongs();
+                _currentPlayer = null;
+            }
+            else if (song != _currentPlayer) //fade out current song
+            {
+                _currentPlayer.FadeOut();
+            }
         }
         
-        _crossfadeCoroutine = null;
+        //start playing songs
+        if (song != null)
+        {
+            if (_currentPlayer == null) StartAllSongs();
+            
+            //if the songs are the same song, skip the intro
+            bool skipIntro = song == _currentPlayer 
+                             || (_currentType == MusicType.Game && type == MusicType.Minigame)
+                             || (_currentType == MusicType.Minigame && type == MusicType.Game);
+            song.PlaySong(level, skipIntro);
+        }
+
+        _currentPlayer = song;
+        _currentType = type;
+    }
+
+    private void StopAllSongs()
+    {
+        _gamePlayer.StopSong();
+        _minigamePlayer.StopSong();
+        
+        _menuPlayer.StopSong();
+        _gameoverPlayer.StopSong();
+    }
+    private void StartAllSongs()
+    {
+        _gamePlayer.StartSong();
+        _minigamePlayer.StartSong();
+        
+        _menuPlayer.StartSong();
+        _gameoverPlayer.StartSong();
+    }
+
+    private void MuffleMusic(bool pauseValue)
+    {
+        if (pauseValue)
+        {
+            _musicMixerGroup.audioMixer.SetFloat("lowpass_cutoff", 2020.00f);
+            _musicMixerGroup.audioMixer.SetFloat("volume", -13f);
+        }
+        else
+        {
+            _musicMixerGroup.audioMixer.SetFloat("lowpass_cutoff", 22000.00f);
+            _musicMixerGroup.audioMixer.SetFloat("volume", 0f);
+        }
     }
     
     #endregion
@@ -225,7 +307,9 @@ public enum MusicType
 {
     Menu,
     Game,
-    Minigame
+    Minigame,
+    Gameover,
+    None
 }
 
 #if UNITY_EDITOR
@@ -237,18 +321,24 @@ public class AudioManagerEditor : Editor
     private SerializedProperty prefabProp;
     private SerializedProperty arrayProp;
 
+    private SerializedProperty musicMixer;
+    
     private SerializedProperty menuMusic;
     private SerializedProperty gameMusic;
     private SerializedProperty minigameMusic;
+    private SerializedProperty gameoverMusic;
 
     private void OnEnable()
     {
         prefabProp = serializedObject.FindProperty("_audioSourcePrefab");
         arrayProp = serializedObject.FindProperty("_audios");
         
+        musicMixer = serializedObject.FindProperty("_musicMixerGroup");
+        
         menuMusic = serializedObject.FindProperty("_menuMusic");
         gameMusic = serializedObject.FindProperty("_gameMusic");
         minigameMusic = serializedObject.FindProperty("_minigameMusic");
+        gameoverMusic = serializedObject.FindProperty("_gameoverMusic");
     }
 
     public override void OnInspectorGUI()
@@ -263,11 +353,14 @@ public class AudioManagerEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(prefabProp);
+
+        EditorGUILayout.PropertyField(musicMixer);
         
         EditorGUILayout.Space(10f);
         EditorGUILayout.PropertyField(menuMusic);
         EditorGUILayout.PropertyField(gameMusic);
         EditorGUILayout.PropertyField(minigameMusic);
+        EditorGUILayout.PropertyField(gameoverMusic);
         EditorGUILayout.Space(10f);
         
         if (previousSize == -1)

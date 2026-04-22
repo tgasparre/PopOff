@@ -38,8 +38,8 @@ public class AttackHitbox : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
-        _attackDamage = Mathf.RoundToInt(_attackDamage * player.playerStats.DamageMultiplier());
-        _knockbackForce *= player.playerStats.KnockbackMultiplier();
+        _attackDamage = Mathf.RoundToInt(_attackDamage * player.activePlayerStats.DamageMultiplier());
+        _knockbackForce *= player.activePlayerStats.KnockbackMultiplier();
         
         onHitCallback = hitCallback;
     }
