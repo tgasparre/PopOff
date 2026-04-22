@@ -57,6 +57,15 @@ MonoBehaviour:
     _explosionRadius: 3
     _explosionDamage: 20
     _explosionForce: 1000
+  _hitAudio:
+    name: Thud
+    track: 0
+    _clips:
+    - {fileID: 8300000, guid: d17209ef4de2c17e08dc3fc03d6aeeb6, type: 3}
+    _volumeMin: 0.4
+    _volumeMax: 0.5
+    _pitchMin: 0.8
+    _pitchMax: 1.1
   _rotateSpeed: 50
 --- !u!50 &6212190296778516481
 Rigidbody2D:
@@ -74,7 +83,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: c6646cee24ee3ec42bc0a4ffadeeb0f5, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
