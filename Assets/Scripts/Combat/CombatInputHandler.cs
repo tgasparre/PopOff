@@ -161,4 +161,8 @@ public class CombatInputHandler : MonoBehaviour
         _tracker.ResetTracker();
     }
 
+    public void DEBUG_UnlockUltimate()
+    {
+        _tracker.UnlockUltimateAttack();
+    }
 }

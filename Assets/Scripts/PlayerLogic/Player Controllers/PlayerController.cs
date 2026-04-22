@@ -150,6 +150,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void DEBUG_ActivateUltimateAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed && _playerState == PlayerState.Fighting)
+        {
+            _defaultPlayer.DEBUG_UnlockUltimate();
+        }
+    }
+
     private bool DEBUG_toggle = false;
     public void DEBUG_DisableInput(InputAction.CallbackContext context)
     {

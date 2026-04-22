@@ -84,6 +84,7 @@ public class Player : PlayerBase
     private PlatformerJumpModule _jumpModule;
     private PlatformerWallModule _wallModule;
     private IndicatorUI _indicatorUI;
+    private CombatInputHandler _combatInputHandler;
 
     private Coroutine _damageCoroutine;
     private Coroutine _freezeMovementCoroutine;
@@ -100,6 +101,7 @@ public class Player : PlayerBase
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _wallModule = GetComponent<PlatformerWallModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
+        _combatInputHandler = GetComponent<CombatInputHandler>();
         //SetWeightClass(DEBUG_stats);
 
         _jumpModule.JumpTriggered += TriggerJump;
@@ -288,6 +290,11 @@ public class Player : PlayerBase
             yield return new WaitForSeconds(cooldown);
             _freezeMovementCoroutine = null;
         }
+    }
+
+    public void DEBUG_UnlockUltimate()
+    {
+        _combatInputHandler.DEBUG_UnlockUltimate();
     }
 }
 

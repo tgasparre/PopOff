@@ -717,11 +717,11 @@
                 },
                 {
                     "name": "",
-                    "id": "674d7974-1ac8-4283-af82-f56c027758df",
-                    "path": "",
+                    "id": "c080dc5c-f16b-4d25-b694-6ec33d1afa44",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "DEBUG",
                     "isComposite": false,
                     "isPartOfComposite": false
