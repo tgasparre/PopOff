@@ -29,6 +29,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
     [SerializeField] private TextEffect _finishedEffect;
+    [SerializeField] private TextEffect _finishedEffectBackground;
     
     [Header("Results State")]
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
@@ -60,6 +61,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
                     break;
                 case UIState.Finished:
                     _finishedEffect.StartManualEffects();
+                    _finishedEffectBackground.StartManualEffects();
                     StartCoroutine(VerySmallDelay());
                     break;
                 case UIState.Results:
