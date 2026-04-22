@@ -9,6 +9,9 @@ public class Trap : Throwable
     [SerializeField] private TrapStyle _style;
     [SerializeField] private Sprite _glueImage;
     
+    [Header("Glue Particles")]
+    [SerializeField] private ParticleSystem _particleSystem;
+    
     [Header("Trap Sounds")]
     [SerializeField] private AudioManager.Audio expandAudio;
 
@@ -73,6 +76,8 @@ public class Trap : Throwable
             transform.position = temp;
         }
         _renderer.sprite = _glueImage;
+        
+        /* SPAWN PARTICLES HERE */
     }
 }
 
