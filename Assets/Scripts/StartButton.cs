@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class StartButton : MonoBehaviour
 {
-    [SerializeField] private GameObject _joinText;
+    [SerializeField] private GameObject _joinObject;
     [SerializeField] private TimerCountdown _startGameCountdown;
+    [SerializeField] private TimerCountdown _startGameCountdownBackground;
     [SerializeField] private int _defaultStartTime = 3;
     
     [Space]
@@ -64,18 +65,25 @@ public class StartButton : MonoBehaviour
 
         _buttonPressDown ??= StartCoroutine(PressButton());
         
-        _joinText.SetActive(false);
+        _joinObject.SetActive(false);
         _startGameCountdown.gameObject.SetActive(true);
         _startGameCountdown.StartCountdown(StartGame, 0.5f);
+        
+        _startGameCountdownBackground.gameObject.SetActive(true);
+        _startGameCountdownBackground.StartCountdown(StartGame, 0.5f);
     }
     
     private void ResetButton()
     {
         if (_startGameCountdown == null) return;
-        _joinText.SetActive(true);
+        _joinObject.SetActive(true);
         _startGameCountdown.StopCountdownNoTrigger();
         _startGameCountdown.InitializeCountdown(_defaultStartTime);
         _startGameCountdown.gameObject.SetActive(false);
+        
+        _startGameCountdownBackground.StopCountdownNoTrigger();
+        _startGameCountdownBackground.InitializeCountdown(_defaultStartTime);
+        _startGameCountdownBackground.gameObject.SetActive(false);
 
         if (_buttonPressDown != null)
         {

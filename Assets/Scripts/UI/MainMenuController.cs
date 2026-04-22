@@ -12,11 +12,11 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private CanvasGroup _controlsMenu;
     [SerializeField] private CanvasGroup _creditsMenu;
 
-    [SerializeField] private GameObject _joinText;
+    [SerializeField] private GameObject _joinObject;
 
     private void Awake()
     {
-        _joinText.SetActive(false);
+        _joinObject.SetActive(false);
         _startButton.Select();
     }
 
@@ -36,7 +36,7 @@ public class MainMenuController : MonoBehaviour
             Game.IsPlayersFrozen = false;
             Game.CanJoin = true;
             
-            _joinText.SetActive(true);
+            _joinObject.SetActive(true);
         });
     }
 

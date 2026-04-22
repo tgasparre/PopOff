@@ -12,10 +12,10 @@ public class Trap : Throwable
     [Header("Glue Particles")]
     [SerializeField] private ParticleSystem _particleSystem;
 
+    private Collision2D _collision;
+    
     private float _growthTime = 0.25f;
     private float _sizePercentage = 2f;
-
-    private Collision2D _collision;
 
     public override void Throw(GameObject throwingPlayer, PowerupStats powerupStats, int direction)
     {
