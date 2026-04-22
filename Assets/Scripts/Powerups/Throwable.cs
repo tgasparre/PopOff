@@ -54,7 +54,7 @@ public abstract class Throwable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Climbable") || other.gameObject.CompareTag("PowerupValid")) HitGround();
+        if (other.gameObject.CompareTag("Climbable") || other.gameObject.CompareTag("PowerupValid")) HitGround(other);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -86,7 +86,7 @@ public abstract class Throwable : MonoBehaviour
         }
     }
 
-    protected virtual void HitGround()
+    protected virtual void HitGround(Collision2D collision)
     {
         AudioManager.PlaySound(AudioTrack.PowerupThud);
         
