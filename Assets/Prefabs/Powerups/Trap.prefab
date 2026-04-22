@@ -69,7 +69,7 @@ MonoBehaviour:
   _throwForce: 6
   _style: 0
   _glueImage: {fileID: 21300000, guid: 320661eabd3d244f39780f1db6615eb5, type: 3}
-  _particleSystem: {fileID: 7387865898627019539, guid: a78b5bd9893640845bfc7f655e714ca7, type: 3}
+  _particleSystem: {fileID: 7979643276655557754, guid: 00b967696490c3c4fa31d3a27ef94054, type: 3}
 --- !u!212 &5727294018527877714
 SpriteRenderer:
   m_ObjectHideFlags: 0
