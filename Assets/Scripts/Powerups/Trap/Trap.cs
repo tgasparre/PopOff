@@ -11,6 +11,8 @@ public class Trap : Throwable
     
     [Header("Glue Particles")]
     [SerializeField] private ParticleSystem _particleSystem;
+    
+    private ParticleSystem _particlesInstance;
 
     private float _growthTime = 0.25f;
     private float _sizePercentage = 2f;
@@ -73,6 +75,7 @@ public class Trap : Throwable
         _renderer.sprite = _glueImage;
         
         /* SPAWN PARTICLES HERE */
+        _particlesInstance = Instantiate(_particleSystem, transform.position, Quaternion.identity);
     }
 }
 
