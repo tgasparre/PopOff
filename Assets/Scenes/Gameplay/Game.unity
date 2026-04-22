@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGamePlacer
   _delayUntilStartTime: 5
-  _prefab: {fileID: 4497978584956282605, guid: 0cd8639f1b1afb754b46590f8e2d1544, type: 3}
+  _prefab: {fileID: 5801647634358598842, guid: e823aa07d2a034d58966f3e853c830e8, type: 3}
   _maxNumberSpawned: 1
   _spawnPositions:
   - {fileID: 2057854461}
@@ -2122,8 +2122,8 @@ Transform:
   m_GameObject: {fileID: 1440651005}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.57, y: -2.8799, z: 0}
-  m_LocalScale: {x: 0.33574584, y: 3.4744, z: 1}
+  m_LocalPosition: {x: 8.57, y: -2.0363, z: 0}
+  m_LocalScale: {x: 0.33574584, y: 5.1615686, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 804585350}
@@ -2138,7 +2138,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 90ad61f1889d6aa7c854b78329e877c1, type: 2}
+  m_Material: {fileID: 6200000, guid: d5947bf1e409a7c4aa94d71b9e5e04b7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2505,6 +2505,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 592028671386250798, guid: e24bfa39ab3fa7818ba72d2cb8c6e9da, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592028671386250798, guid: e24bfa39ab3fa7818ba72d2cb8c6e9da, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9263606
+      objectReference: {fileID: 0}
+    - target: {fileID: 592028671386250798, guid: e24bfa39ab3fa7818ba72d2cb8c6e9da, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6288387170879373834, guid: e24bfa39ab3fa7818ba72d2cb8c6e9da, type: 3}
       propertyPath: m_Name
       value: Powerup_Collectable
@@ -2556,7 +2568,7 @@ PrefabInstance:
     - target: {fileID: 8707039462799944936, guid: e24bfa39ab3fa7818ba72d2cb8c6e9da, type: 3}
       propertyPath: powerup
       value: 
-      objectReference: {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
+      objectReference: {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
