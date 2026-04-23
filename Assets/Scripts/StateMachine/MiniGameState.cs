@@ -14,7 +14,11 @@ public class MiniGameState : GameState
         } 
         else //all other minigames
         {
-            Loader.LoadMiniGameScene(StartMiniGame);
+            Loader.LoadMiniGameScene(() =>
+            {
+                AudioManager.SwitchMusic(MusicType.Minigame);
+                StartMiniGame();
+            });
         }
 
         return;
@@ -28,8 +32,6 @@ public class MiniGameState : GameState
 
     public void StartMiniGame()
     {
-        AudioManager.SwitchMusic(MusicType.Minigame);
-
         ActivePlayerTracker.ResetMinigameDeaths();
         
         //check scene for minigame object
