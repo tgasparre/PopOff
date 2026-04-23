@@ -236,7 +236,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             _musicMixerGroup.audioMixer.SetFloat("lowpass_cutoff", 22000.00f);
-            _musicMixerGroup.audioMixer.SetFloat("volume", 0f);
+            _musicMixerGroup.audioMixer.SetFloat("volume", 1f);
         }
     }
     

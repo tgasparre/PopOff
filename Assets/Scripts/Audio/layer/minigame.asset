@@ -13,5 +13,17 @@ MonoBehaviour:
   m_Name: minigame
   m_EditorClassIdentifier: Assembly-CSharp::LayeredAudio
   _intro: {fileID: 0}
-  _introFadeTime: 1
-  _clips: []
+  _introOverlap: 0
+  _clips:
+  - order: 0
+    volume: 0.77
+    clip: {fileID: 8300000, guid: a62a70db3476384b9884503222fbe5dc, type: 3}
+  - order: 0
+    volume: 0.85
+    clip: {fileID: 8300000, guid: 91940901fef19a8309d632323e0492d4, type: 3}
+  - order: 0
+    volume: 0.679
+    clip: {fileID: 8300000, guid: 1104acd449f8cd2e686d09be933cf03d, type: 3}
+  - order: 1
+    volume: 0.91
+    clip: {fileID: 8300000, guid: c538e3053a455a8c2a7a2905069bcb2b, type: 3}
