@@ -21,6 +21,6 @@ public class PlayerAnimationTrigger : MonoBehaviour
     //Called by the death animation when it finishes playing
     public void DeathAnimFinished()
     {
-        _player.KillPlayer();
+        //_player.KillPlayer();
     }
 }

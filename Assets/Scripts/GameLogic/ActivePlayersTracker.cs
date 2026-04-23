@@ -201,7 +201,7 @@ public class ActivePlayersTracker : MonoBehaviour, IActivePlayerTracker
 	{
 		player.FreezePlayer();
 		player.transform.position = _playerJail.position;
-		player.ResetHasDied();
+		// player.ResetHasDied();
 		
 		//if the players are frozen don't kill them something is loading and they can't move
 		if (Game.IsPlayersFrozen) return; 

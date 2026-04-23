@@ -29,14 +29,16 @@ public class MapBoundary : MonoBehaviour
        GetComponent<SpriteRenderer>().enabled = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            ContactPoint2D contact = collision.contacts[0];
-            SpawnDeathParticles(contact.point);
+            // ContactPoint2D contact = collision.contacts[0];
+            Vector3 point = collision.gameObject.transform.position;
             
-            collision.gameObject.GetComponentInChildren<AttackHurtbox>().InstantDeath();
+            collision.gameObject.transform.parent.GetComponentInChildren<AttackHurtbox>().InstantDeath();
+            SpawnDeathParticles(point);
+
         }
     }
 

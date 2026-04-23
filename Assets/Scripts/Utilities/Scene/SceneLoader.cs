@@ -22,6 +22,7 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     private void Awake()
     {
         IEEE_index = 0;
+        ObjectPlacer.IsFrozen = false;
     }
 
     [Header("Scenes")]
@@ -90,7 +91,11 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
 
     private SceneReference PickMiniGame()
     {
-        if (IEEE_BUILD) return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
+        if (IEEE_BUILD)
+        {
+            if (IEEE_index == 3) ObjectPlacer.IsFrozen = true;
+            return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
+        }
         
         // if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
         // int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];

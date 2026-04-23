@@ -40,7 +40,7 @@ public class Player : PlayerBase
 
     //animation trigger so it doesn't kill the player again while it's playing the death animation
     private bool _hasDied = false;
-    public void ResetHasDied() { _hasDied = false; }
+    // public void ResetHasDied() { _hasDied = false; }
     
     public void TriggerDeath()
     {
@@ -60,6 +60,15 @@ public class Player : PlayerBase
         
         _hasDied = true;
         _animation.TriggerDeath();
+        
+        StartCoroutine(DeathCountdown());
+        return;
+
+        IEnumerator DeathCountdown()
+        {
+            yield return new WaitForSecondsRealtime(0.452f);
+            KillPlayer();
+        }
     }
 
     public void TriggerUltimate()
@@ -161,6 +170,7 @@ public class Player : PlayerBase
     
     public void KillPlayer()
     {
+        _hasDied = false;
         OnDeath(this);
     }
 

@@ -193,7 +193,7 @@ SpriteRenderer:
   m_Size: {x: 5, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &153682951
@@ -384,7 +384,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 200
-  _waitAfterLoadingTime: 5
+  _waitAfterLoadingTime: 0.5
   _waitForInstructionTime: 0.8
   _waitBeforeSceneLoad: 1
   _coin: {fileID: 153682952}

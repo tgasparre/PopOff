@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eca5e2b3fcbc104e8462c5db6216ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapBoundry
+  isLeftBound: 0
   _layout: 0
   _extend: 0
   _deathParticlesPrefab: {fileID: 2589869727674316214, guid: 399807145df11fe4b8a6b3382503d7f9, type: 3}
@@ -137,7 +138,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
