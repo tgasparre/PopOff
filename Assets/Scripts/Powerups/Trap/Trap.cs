@@ -11,6 +11,8 @@ public class Trap : Throwable
     
     [Header("Glue Particles")]
     [SerializeField] private ParticleSystem _particleSystem;
+    
+    private ParticleSystem _particlesInstance;
 
     private Collision2D _collision;
     
@@ -82,6 +84,7 @@ public class Trap : Throwable
         _renderer.sprite = _glueImage;
         
         /* SPAWN PARTICLES HERE */
+        _particlesInstance = Instantiate(_particleSystem, transform.position, Quaternion.identity);
     }
 }
 
