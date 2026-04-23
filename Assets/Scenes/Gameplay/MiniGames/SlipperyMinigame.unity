@@ -511,7 +511,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 3819760149647759747, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}]
+    m_RemovedComponents:
+    - {fileID: 3819760149647759747, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -817,7 +818,7 @@ MonoBehaviour:
   _miniGameStartingHealth: 100
   _waitAfterLoadingTime: 0.5
   _waitForInstructionTime: 1
-  _waitBeforeSceneLoad: 1
+  _waitBeforeSceneLoad: 0.8
   MainPlatform: {fileID: 170758536}
   startingPlatformParent: {fileID: 490554093}
 --- !u!4 &671235338

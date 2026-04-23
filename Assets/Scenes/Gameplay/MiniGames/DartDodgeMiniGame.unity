@@ -728,7 +728,7 @@ MonoBehaviour:
   _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.5
   _waitForInstructionTime: 1
-  _waitBeforeSceneLoad: 1
+  _waitBeforeSceneLoad: 0.8
   _dartPrefabPool:
   - {fileID: 1638032285}
   - {fileID: 515749531}
