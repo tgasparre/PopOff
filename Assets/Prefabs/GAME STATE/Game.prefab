@@ -95,14 +95,14 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
-  - sceneAsset: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
-  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
+  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
 --- !u!114 &724731811040075967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,8 +425,8 @@ MonoBehaviour:
     _pitchMax: 1
   _musicMixerGroup: {fileID: 24300002, guid: a8328ef9f0edb2751adea4d6228cd423, type: 2}
   _menuMusic: {fileID: 11400000, guid: 48666400dae68fc5cabc20934e37ffaa, type: 2}
-  _gameMusic: {fileID: 11400000, guid: 7bc9e4ba9441987998f00266432f2e84, type: 2}
-  _minigameMusic: {fileID: 11400000, guid: 03fff88047e60fe46b12a44ba6957385, type: 2}
+  _gameMusic: {fileID: 11400000, guid: ce638611ce2c2d395a1be2ad5d6c49b9, type: 2}
+  _minigameMusic: {fileID: 11400000, guid: f7d317451ea88bf1dabfa48dc8fa8f25, type: 2}
   _gameoverMusic: {fileID: 11400000, guid: 104836c55357832e98053a3806fe1b6f, type: 2}
 --- !u!82 &4455664451416948110
 AudioSource:
