@@ -95,14 +95,14 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 013db58c5966165c9a4a610b3e0dc382, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/StartingMiniGame.unity
   _miniGameScenes:
-  - sceneAsset: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
-  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
-  - sceneAsset: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
-    scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
   - sceneAsset: {fileID: 102900000, guid: 16b5d012e5d43ce489c8312e34c7ded3, type: 3}
     scenePath: Assets/Scenes/Gameplay/MiniGames/CoinMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: bc952bc716d86a74db3af300d8a58042, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SlipperyMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 9df19a0beb10c73478347b0e45d9051f, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/SpleefMinigame.unity
+  - sceneAsset: {fileID: 102900000, guid: 46ea2c76ad472934a9780eb306d7a8ab, type: 3}
+    scenePath: Assets/Scenes/Gameplay/MiniGames/DartDodgeMiniGame.unity
 --- !u!114 &724731811040075967
 MonoBehaviour:
   m_ObjectHideFlags: 0

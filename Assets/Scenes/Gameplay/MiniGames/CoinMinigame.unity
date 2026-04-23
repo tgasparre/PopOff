@@ -386,7 +386,7 @@ MonoBehaviour:
   _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.5
   _waitForInstructionTime: 0.8
-  _waitBeforeSceneLoad: 1
+  _waitBeforeSceneLoad: 1.45
   _coin: {fileID: 153682952}
 --- !u!4 &594538744
 Transform:
