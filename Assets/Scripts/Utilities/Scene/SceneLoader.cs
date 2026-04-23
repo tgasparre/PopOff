@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Tymski;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public interface ISceneLoader
@@ -102,6 +103,17 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
         // _unplayedMiniGames.Remove(minigameToPlay);
         //
         // return _miniGameScenes[minigameToPlay];
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
+            {
+                MiniGameInfo.Instance.TriggerEndMiniGame(0);
+            }
+        }
     }
 }
 
