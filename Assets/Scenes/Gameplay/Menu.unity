@@ -4143,9 +4143,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'East Button - <color=yellow>Primary Attack</color>
 
-    West Button - <color=yellow>Secondary Attack</color>
+    West Button -
+    <color=yellow>Secondary Attack</color>
 
-    Left Trigger - <color=yellow>Ultimate Attack</color>
+    Left Trigger - <color=yellow>Ultimate
+    Attack</color>
 
     North Button - <color=yellow>Use Power up</color>'
   m_isRightToLeft: 0
@@ -4513,11 +4515,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'K - <color=yellow>Primary Attack</color>
 
-    N - <color=yellow>Secondary Attack</color>
+    N - <color=yellow>Secondary
+    Attack</color>
 
     J - <color=yellow>Ultimate Attack</color>
 
-    L - <color=yellow>Use Power up</color>'
+    L - <color=yellow>Use
+    Power up</color>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
   m_sharedMaterial: {fileID: 5006805515174670178, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
@@ -5683,11 +5687,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1319070952995340667, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.51
+      value: -7.17
       objectReference: {fileID: 0}
     - target: {fileID: 2369528086836662498, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.23
+      value: -4.99
       objectReference: {fileID: 0}
     - target: {fileID: 3919633599095119070, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_Name
@@ -5695,7 +5699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921303131341928772, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.71
+      value: 6.56
       objectReference: {fileID: 0}
     - target: {fileID: 5625967178670997395, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _showIndicators
@@ -5707,7 +5711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6719747387954283380, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.65
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 8009291134886158140, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5870,6 +5874,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
+    - target: {fileID: 6550107682748105162, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6741507329588444411, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
