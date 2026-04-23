@@ -84,6 +84,7 @@ public class Trap : Throwable
         _renderer.sprite = _glueImage;
         
         /* SPAWN PARTICLES HERE */
+        if (_particleSystem == null) return;
         _particlesInstance = Instantiate(_particleSystem, transform.position, Quaternion.identity);
     }
 }
