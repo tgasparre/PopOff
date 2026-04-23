@@ -117,7 +117,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     public void OnWinMiniGame(int playerIndex, Powerup reward)
     {
         if (playerIndex is > 3 or < 0 || !reward) return;
-        _playerName.text = GameUtils.PlayerNames[playerIndex];
+        _playerName.text = GameUtils.PlayerNames[playerIndex] + " receives a:";
         _rewardText.text = reward.Name;
         _rewardImage.sprite = reward.GetIcon();
         CurrentState = UIState.Results;
