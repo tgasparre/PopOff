@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Tymski;
 using UnityEngine.InputSystem;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public interface ISceneLoader
@@ -24,6 +25,7 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     {
         IEEE_index = 0;
         ObjectPlacer.IsFrozen = false;
+        ObjectPlacer.IsDelayed = false;
     }
 
     [Header("Scenes")]
@@ -95,6 +97,7 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
         if (IEEE_BUILD)
         {
             if (IEEE_index == 3) ObjectPlacer.IsFrozen = true;
+            if (IEEE_index == 2) ObjectPlacer.IsDelayed = true;
             return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
         }
         

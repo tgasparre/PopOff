@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740243e0418280a45816b848c99f29ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MiniGamePlacer
-  _delayUntilStartTime: 3
+  _delayUntilStartTime: 4
   _prefab: {fileID: 5801647634358598842, guid: e823aa07d2a034d58966f3e853c830e8, type: 3}
   _maxNumberSpawned: 1
   _spawnPositions:
