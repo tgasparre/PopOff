@@ -5681,6 +5681,14 @@ PrefabInstance:
       propertyPath: '_audios.Array.data[17]._clips.Array.data[0]'
       value: 
       objectReference: {fileID: 8300000, guid: b8003a351eaf1374aafdfa6f29e1a76f, type: 3}
+    - target: {fileID: 724731811040075967, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _ultimateMagnitude.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 724731811040075967, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
+      propertyPath: _ultimateMagnitude.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1538154858333272104, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: _miniGameScenes.Array.size
       value: 4
