@@ -144,7 +144,10 @@ public class CombatInputHandler : MonoBehaviour
         GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, _ultimateSavedOffset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = ultimateHitbox.GetComponent<AttackHitbox>();
 
-        hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, null);
+        hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, () =>
+        {
+            Game.CameraShake.UltimateShake();
+        });
 
         Destroy(ultimateHitbox, _ultimateHitboxLifetime);
     }
