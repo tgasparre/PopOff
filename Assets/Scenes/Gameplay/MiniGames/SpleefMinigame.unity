@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpleefMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
-  _miniGameName: Spleef
+  _miniGameName: 'Trapeasy Does It  '
   _miniGameInstructions: Survive the falling platforms
   _miniGameTime: 0
   _powerupReward:
@@ -390,6 +390,10 @@ PrefabInstance:
     - target: {fileID: 3149980760341358318, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
       propertyPath: m_Name
       value: Minigame Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819760149647759747, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1983,6 +1987,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1903563706181439477, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2288351612295744104, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2369528086836662498, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.16
@@ -2003,9 +2015,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 6.4
       objectReference: {fileID: 0}
+    - target: {fileID: 4975871641610116170, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _type
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5625967178670997395, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _showIndicators
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625967178670997395, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _randomizeSpawns
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6719747387954283380, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2014,6 +2034,10 @@ PrefabInstance:
     - target: {fileID: 6719747387954283380, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.y
       value: 6.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455051673202284375, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8009291134886158140, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.x

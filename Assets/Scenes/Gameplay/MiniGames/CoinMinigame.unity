@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
-  _miniGameName: Collect the Candy
+  _miniGameName: Sugar Rush
   _miniGameInstructions: Be the first to collect the candy
   _miniGameTime: 0
   _powerupReward:
@@ -385,7 +385,7 @@ MonoBehaviour:
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.5
-  _waitForInstructionTime: 1.5
+  _waitForInstructionTime: 1.35
   _waitBeforeSceneLoad: 1.45
   _coin: {fileID: 153682952}
 --- !u!4 &594538744

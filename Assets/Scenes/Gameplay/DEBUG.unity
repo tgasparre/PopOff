@@ -170,7 +170,7 @@ MonoBehaviour:
   _playersOneHit: 0
   _playerState: 2
   _enteringState: 2
-  _playingState: 1
+  _playingState: 0
 --- !u!1001 &1251484911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,10 +182,6 @@ PrefabInstance:
     - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_Name
       value: Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 1705814946791109472, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6616540441250519296, guid: 19f09bdd91ef2da55a6d86099c90e611, type: 3}
       propertyPath: m_LocalPosition.x

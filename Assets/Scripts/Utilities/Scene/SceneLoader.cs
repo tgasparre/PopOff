@@ -18,7 +18,7 @@ public interface ISceneLoader
 }
 public class SceneLoader : MonoBehaviour, ISceneLoader 
 {
-    public const bool IEEE_BUILD = true;
+    public static readonly bool IEEE_BUILD = true;
     private int IEEE_index = 0;
 
     private void Awake()
@@ -101,11 +101,11 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
             return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
         }
         
-        // if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
-        // int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
-        // _unplayedMiniGames.Remove(minigameToPlay);
-        //
-        // return _miniGameScenes[minigameToPlay];
+        if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
+        int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
+        _unplayedMiniGames.Remove(minigameToPlay);
+        
+        return _miniGameScenes[minigameToPlay];
     }
 
     private void Update()

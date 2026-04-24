@@ -119,6 +119,8 @@ MonoBehaviour:
   _hitMagnitude: {x: 0.15, y: 0.15}
   _deathDuration: 0.12
   _deathMagnitude: {x: 0.3, y: 0.3}
+  _ultimateDuration: 0.135
+  _ultimateMagnitude: {x: 0.5, y: 0.35}
 --- !u!1 &2681183732840789442
 GameObject:
   m_ObjectHideFlags: 0

@@ -643,37 +643,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &103768641
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 103768642}
-  m_Layer: 0
-  m_Name: spawn (23)
-  m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &103768642
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103768641}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1171641299}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &124343127
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HotPotatoMinigGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
-  _miniGameName: Dart Dodge
+  _miniGameName: Dart Party (darty)
   _miniGameInstructions: Avoid the falling darts, be the last one standing
   _miniGameTime: 0
   _powerupReward:
@@ -783,7 +752,6 @@ MonoBehaviour:
   - {fileID: 1571309304}
   - {fileID: 539478903}
   - {fileID: 1836480313}
-  - {fileID: 921025061}
   - {fileID: 305003504}
   - {fileID: 1530058205}
   - {fileID: 1335008067}
@@ -791,11 +759,9 @@ MonoBehaviour:
   - {fileID: 748532589}
   - {fileID: 724705884}
   - {fileID: 740920783}
-  - {fileID: 566966481}
   - {fileID: 1552639083}
   - {fileID: 1252636320}
   - {fileID: 1767675513}
-  - {fileID: 103768641}
   - {fileID: 1829726065}
   - {fileID: 1984603033}
   _hiddenSpawnPoints:
@@ -1005,6 +971,10 @@ PrefabInstance:
     - target: {fileID: 3149980760341358318, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
       propertyPath: m_Name
       value: Minigame Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819760149647759747, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1705,37 +1675,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1171641299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &566966481
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 566966482}
-  m_Layer: 0
-  m_Name: spawn (19)
-  m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &566966482
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566966481}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1171641299}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &568044562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2413,37 +2352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67517bc8403ebec0cb63e5c52ca2aa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FallingDart
---- !u!1 &921025061
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 921025062}
-  m_Layer: 0
-  m_Name: spawn (9)
-  m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &921025062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921025061}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1171641299}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &964914956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2837,7 +2745,6 @@ Transform:
   - {fileID: 1571309305}
   - {fileID: 539478904}
   - {fileID: 1836480314}
-  - {fileID: 921025062}
   - {fileID: 305003505}
   - {fileID: 1530058206}
   - {fileID: 1335008068}
@@ -2845,11 +2752,9 @@ Transform:
   - {fileID: 748532590}
   - {fileID: 724705885}
   - {fileID: 740920784}
-  - {fileID: 566966482}
   - {fileID: 1552639084}
   - {fileID: 1252636321}
   - {fileID: 1767675514}
-  - {fileID: 103768642}
   - {fileID: 1829726066}
   - {fileID: 1984603034}
   m_Father: {fileID: 0}
