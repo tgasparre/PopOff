@@ -4356,9 +4356,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'East Button - <color=yellow>Primary Attack</color>
 
-    West Button - <color=yellow>Secondary Attack</color>
+    West Button -
+    <color=yellow>Secondary Attack</color>
 
-    Left Trigger - <color=yellow>Ultimate Attack</color>
+    Left Trigger - <color=yellow>Ultimate
+    Attack</color>
 
     North Button - <color=yellow>Use Power up</color>'
   m_isRightToLeft: 0
@@ -4577,6 +4579,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652620446}
   m_CullTransparentMesh: 1
+--- !u!1 &1680368178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680368180}
+  - component: {fileID: 1680368179}
+  - component: {fileID: 1680368181}
+  m_Layer: 0
+  m_Name: BuildLogger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1680368179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680368178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6465ae136d9b065e7b42e61f88b08261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildLogger
+--- !u!4 &1680368180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680368178}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1680368181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680368178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9415d88c3c851a54f96d068415432a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroy
 --- !u!1 &1735840294
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,11 +4785,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'K - <color=yellow>Primary Attack</color>
 
-    N - <color=yellow>Secondary Attack</color>
+    N - <color=yellow>Secondary
+    Attack</color>
 
     J - <color=yellow>Ultimate Attack</color>
 
-    L - <color=yellow>Use Power up</color>'
+    L - <color=yellow>Use
+    Power up</color>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
   m_sharedMaterial: {fileID: 5006805515174670178, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
@@ -5980,38 +6041,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 1898119525744052273, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.009741513
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898119525744052273, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898119525744052273, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.3962264
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898119525744052273, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278321253
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946209235745329337, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 421.4716
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946209235745329337, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 75.8896
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946209235745329337, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -2.9999905
-      objectReference: {fileID: 0}
-    - target: {fileID: 1946209235745329337, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 17.058458
-      objectReference: {fileID: 0}
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6096,26 +6125,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 3939726785657983494, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 464.4636
-      objectReference: {fileID: 0}
-    - target: {fileID: 3939726785657983494, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 108.0399
-      objectReference: {fileID: 0}
-    - target: {fileID: 3939726785657983494, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3939726785657983494, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 4100973275088670918, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -112
-      objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6626,3 +6635,4 @@ SceneRoots:
   - {fileID: 1929459860176214616}
   - {fileID: 1061841753}
   - {fileID: 1714411067055245510}
+  - {fileID: 1680368180}

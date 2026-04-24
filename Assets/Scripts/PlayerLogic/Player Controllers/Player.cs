@@ -142,6 +142,7 @@ public class Player : PlayerBase
 
     public void UsePower(InputAction.CallbackContext context)
     {
+        if (_playerInputManager == null) return;
         if (!_playerInputManager.isInputEnabled) return;
         if (context.performed) powerups.UsePower();
     }
