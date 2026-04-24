@@ -5,8 +5,6 @@ using Random = UnityEngine.Random;
 public abstract class ObjectPlacer : MonoBehaviour
 {
     public static bool IsFrozen = false;
-    public static bool IsDelayed = false;
-    private int _additionalDelayedTime = 5;
     
     [SerializeField] private int _delayUntilStartTime = 5;
     
@@ -27,7 +25,6 @@ public abstract class ObjectPlacer : MonoBehaviour
         
         _spawned = new Collectable[_maxNumberSpawned];
         yield return new WaitForSeconds(_delayUntilStartTime);
-        if (IsDelayed) yield return new WaitForSeconds(_additionalDelayedTime);
         _canPlace = true;
         StartPlacing();
     }

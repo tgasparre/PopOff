@@ -385,7 +385,7 @@ MonoBehaviour:
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 200
   _waitAfterLoadingTime: 0.5
-  _waitForInstructionTime: 0.8
+  _waitForInstructionTime: 1.5
   _waitBeforeSceneLoad: 1.45
   _coin: {fileID: 153682952}
 --- !u!4 &594538744

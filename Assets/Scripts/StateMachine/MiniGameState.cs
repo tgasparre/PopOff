@@ -14,6 +14,7 @@ public class MiniGameState : GameState
         } 
         else //all other minigames
         {
+            AudioManager.SwitchMusic(MusicType.Game, level:1);
             Loader.LoadMiniGameScene(() =>
             {
                 AudioManager.SwitchMusic(MusicType.Minigame);

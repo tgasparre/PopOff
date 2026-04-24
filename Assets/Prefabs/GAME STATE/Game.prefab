@@ -347,7 +347,7 @@ MonoBehaviour:
     track: 13
     _clips:
     - {fileID: 8300000, guid: d2c73e4ec3591b041881b9cac4638772, type: 3}
-    _volumeMin: 0.8
+    _volumeMin: 0.929
     _volumeMax: 1
     _pitchMin: 0.9
     _pitchMax: 1.1

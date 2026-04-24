@@ -2322,9 +2322,9 @@ MonoBehaviour:
   _powerupReward: []
   _minigameStats: {fileID: 0}
   _miniGameStartingHealth: 100
-  _waitAfterLoadingTime: 0.6
-  _waitForInstructionTime: 1.35
-  _waitBeforeSceneLoad: 1
+  _waitAfterLoadingTime: 1
+  _waitForInstructionTime: 1.85
+  _waitBeforeSceneLoad: 2
   _blowUpBallon: {fileID: 956242184}
   _pressBlowButtonAudio:
     name: Blow Balloon

@@ -170,7 +170,7 @@ MonoBehaviour:
   _playersOneHit: 0
   _playerState: 2
   _enteringState: 2
-  _playingState: 0
+  _playingState: 1
 --- !u!1001 &1251484911
 PrefabInstance:
   m_ObjectHideFlags: 0
