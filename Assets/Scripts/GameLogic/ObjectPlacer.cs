@@ -6,7 +6,7 @@ public abstract class ObjectPlacer : MonoBehaviour
 {
     public static bool IsFrozen = false;
     
-    [SerializeField] private int _delayUntilStartTime = 5;
+    [SerializeField] protected int _delayUntilStartTime = 5;
     
     [Space]
     [SerializeField] private GameObject _prefab;
