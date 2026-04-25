@@ -6041,10 +6041,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 1738143145263926042, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -401.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2482151640874362965, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6129,22 +6125,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 3879540763133849569, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_text
-      value: glue trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 3879540763133849569, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 70.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4022254610691285545, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_text
-      value: '<color=#E6DE41>Player Name</color> receives a '
-      objectReference: {fileID: 0}
-    - target: {fileID: 4022254610691285545, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_fontSize
-      value: 47.05
-      objectReference: {fileID: 0}
     - target: {fileID: 4175628798866217332, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6185,10 +6165,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 2276573473287355257}
-    - target: {fileID: 8317095946578751525, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
-      propertyPath: m_Spacing
-      value: -2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8653691601613319516, guid: d5346ff30486465ef95bd4a459d7aa1c, type: 3}
       propertyPath: m_Name
       value: Game Canvas

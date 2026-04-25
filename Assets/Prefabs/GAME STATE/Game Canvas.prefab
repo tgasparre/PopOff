@@ -88,8 +88,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -29, y: 55}
-  m_SizeDelta: {x: 647.3, y: 191.8}
+  m_AnchoredPosition: {x: -29, y: 71}
+  m_SizeDelta: {x: 647.3, y: 193.6161}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4533766275364842462
 CanvasRenderer:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_fontSizeMax: 500
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1885,7 +1885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -407, y: -82.32}
+  m_AnchoredPosition: {x: -401.5, y: -82.32}
   m_SizeDelta: {x: 454.0037, y: 164.6406}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2580988197645736896
@@ -1944,7 +1944,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -45.57
+  m_Spacing: -2.5
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2018,7 +2018,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Player Name receives a '
+  m_text: '<color=#E6DE41>Player Name</color> receives a '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
   m_sharedMaterial: {fileID: 5006805515174670178, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
@@ -2670,7 +2670,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Glue Trap
+  m_text: glue trap
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
   m_sharedMaterial: {fileID: 5006805515174670178, guid: fd2e9c881cb00f72c9a55224910578c9, type: 2}
@@ -4206,6 +4206,7 @@ GameObject:
   - component: {fileID: 4132197531366521743}
   - component: {fileID: 2222448319516391107}
   - component: {fileID: 4993353566688537401}
+  - component: {fileID: 4332102345023449422}
   m_Layer: 5
   m_Name: FinishedSplash
   m_TagString: Untagged
@@ -4270,6 +4271,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &4332102345023449422
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7652541062059586813}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b00396451a82443ad9c7db8d00039e99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7681459030104856670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4475,6 +4498,7 @@ MonoBehaviour:
   _miniGameCountdownTimer: {fileID: 5292142440941051971}
   _finishedCanvasGroup: {fileID: 4696127656208596269}
   _finishedEffect: {fileID: 269064027126879780}
+  _finishedAnimator: {fileID: 4332102345023449422}
   _resultsCanvasGroup: {fileID: 2612792975801095095}
   _playerName: {fileID: 4022254610691285545}
   _rewardText: {fileID: 3879540763133849569}
