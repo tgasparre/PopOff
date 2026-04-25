@@ -30,6 +30,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
     [Header("Finished State")]
     [SerializeField] private CanvasGroup _finishedCanvasGroup;
     [SerializeField] private TextEffect _finishedEffect;
+    [SerializeField] private Animator _finishedAnimator;
     
     [Header("Results State")]
     [SerializeField] private CanvasGroup _resultsCanvasGroup;
@@ -60,6 +61,7 @@ public class MiniGameUI : MonoBehaviour, IMiniGameUI
                     CanvasGroupDisplayer.Show(_miniGameCanvasGroup);
                     break;
                 case UIState.Finished:
+                    _finishedAnimator.SetTrigger("Play");
                     _finishedEffect.StartManualEffects();
                     StartCoroutine(VerySmallDelay());
                     break;
