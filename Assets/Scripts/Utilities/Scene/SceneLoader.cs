@@ -108,16 +108,16 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
         return _miniGameScenes[minigameToPlay];
     }
 
-    private void Update()
-    {
-        if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
-            {
-                MiniGameInfo.Instance.TriggerEndMiniGame(0);
-            }
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.pKey.wasPressedThisFrame)
+    //     {
+    //         if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
+    //         {
+    //             MiniGameInfo.Instance.TriggerEndMiniGame(0);
+    //         }
+    //     }
+    // }
 }
 
 public enum SceneType

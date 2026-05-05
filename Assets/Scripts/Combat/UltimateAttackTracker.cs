@@ -28,7 +28,7 @@ public class UltimateAttackTracker : MonoBehaviour
 
     public void OnSuccessfulHit()
     {
-        if (CurrentAttacks == _attackLimitForIEEE) return;
+        if (SceneLoader.IEEE_BUILD) if (CurrentAttacks == _attackLimitForIEEE) return;
         
         CurrentAttacks++;
         if (CurrentAttacks == _attacksNeededForUltimate) UnlockUltimateAttack();

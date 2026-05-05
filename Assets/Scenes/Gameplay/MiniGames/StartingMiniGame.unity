@@ -1696,7 +1696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5584752367169955266, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: _pIndex
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5737282520546826705, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3089,6 +3089,10 @@ PrefabInstance:
     - target: {fileID: 4846003335688891910, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_Name
       value: FillBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584752367169955266, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
+      propertyPath: _pIndex
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5737282520546826705, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_AnchorMax.x

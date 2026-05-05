@@ -143,29 +143,29 @@ public class PlayerController : MonoBehaviour
     
     public void DEBUG_ChangePlayer(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1, 1f)).normalized;
-            _defaultPlayer.ApplyKnockback(randomDirection, CombatParameters.KNOCKBACK_FORCE);
-        }
+        // if (context.performed)
+        // {
+        //     Vector2 randomDirection = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1, 1f)).normalized;
+        //     _defaultPlayer.ApplyKnockback(randomDirection, CombatParameters.KNOCKBACK_FORCE);
+        // }
     }
 
     public void DEBUG_ActivateUltimateAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && _playerState == PlayerState.Fighting)
-        {
-            _defaultPlayer.DEBUG_UnlockUltimate();
-        }
+        // if (context.performed && _playerState == PlayerState.Fighting)
+        // {
+        //     _defaultPlayer.DEBUG_UnlockUltimate();
+        // }
     }
 
     private bool DEBUG_toggle = false;
     public void DEBUG_DisableInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            SetInputEnabled(!DEBUG_toggle);
-            DEBUG_toggle = !DEBUG_toggle;
-        }
+        // if (context.performed)
+        // {
+        //     SetInputEnabled(!DEBUG_toggle);
+        //     DEBUG_toggle = !DEBUG_toggle;
+        // }
     }
     
     #endregion
