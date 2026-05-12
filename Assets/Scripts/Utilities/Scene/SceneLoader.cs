@@ -5,8 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Tymski;
-using UnityEngine.InputSystem;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public interface ISceneLoader
