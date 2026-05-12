@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0757763fe04c3754c8528a04ad4ff33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UltimateAttackTracker
-  _attacksNeededForUltimate: 5
+  _attacksNeededForUltimate: 12
 --- !u!114 &3998949220849115704
 MonoBehaviour:
   m_ObjectHideFlags: 0

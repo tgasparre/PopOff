@@ -36,11 +36,11 @@ public class Dart : Throwable
         _rigidbody2D.linearVelocityX = _direction * _speed * 200 * Time.fixedDeltaTime;
     }
 
-    protected override void HitGround()
+    protected override void HitGround(Collision2D collision)
     {
         _rigidbody2D.simulated = false;
         _boxCollider.enabled = false;
        
-        base.HitGround();
+        base.HitGround(collision);
     }
 }

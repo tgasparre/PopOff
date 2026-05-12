@@ -26,8 +26,8 @@ public class AirFillBoard : MonoBehaviour
     public StartingMiniGame.Weight GetWeight()
     {
         StartingMiniGame.Weight weightClass = StartingMiniGame.Weight.Light;
-        if (FillAmount < 0.66f) weightClass = StartingMiniGame.Weight.Default;
-        if (FillAmount < 0.33f) weightClass = StartingMiniGame.Weight.Heavy;
+        if (FillAmount < 0.7f) weightClass = StartingMiniGame.Weight.Default;
+        if (FillAmount < 0.34f) weightClass = StartingMiniGame.Weight.Heavy;
         return weightClass;
     }
     

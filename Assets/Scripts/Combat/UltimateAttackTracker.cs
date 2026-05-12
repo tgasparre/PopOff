@@ -9,6 +9,8 @@ public class UltimateAttackTracker : MonoBehaviour
     [SerializeField] private int _attacksNeededForUltimate = 5;
     private int _currentAttacks = 0;
 
+    private int _attackLimitForIEEE => _attacksNeededForUltimate - 1;
+
     public int CurrentAttacks
     {
         get => _currentAttacks;
@@ -26,13 +28,16 @@ public class UltimateAttackTracker : MonoBehaviour
 
     public void OnSuccessfulHit()
     {
+        if (SceneLoader.IEEE_BUILD) if (CurrentAttacks == _attackLimitForIEEE) return;
+        
         CurrentAttacks++;
         if (CurrentAttacks == _attacksNeededForUltimate) UnlockUltimateAttack();
         
     }
     
-    private void UnlockUltimateAttack()
+    public void UnlockUltimateAttack()
     {
+        CurrentAttacks = _attacksNeededForUltimate;
         UICallback_OnUltimateAttackChange?.Invoke(_attacksNeededForUltimate, true);
         OnUltimateAttackUnlocked?.Invoke();
     }

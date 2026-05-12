@@ -34,7 +34,7 @@ public class Game : MonoBehaviour
     [SerializeField] private PlayerType[] _playerTypes;
     public PlayerType[] PlayerTypes => _playerTypes;
 
-    private const float TIME_LERP_DURATION = 0.6f;
+    private const float TIME_LERP_DURATION = 0.3f;
     private static Coroutine _timescaleLerp; 
     
     public RuntimeAnimatorController GetPlayerAnimation(int index)

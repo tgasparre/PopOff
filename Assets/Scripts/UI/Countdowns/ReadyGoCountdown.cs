@@ -57,7 +57,7 @@ public class ReadyGoCountdown : CountdownUI
             yield break;
         }
         
-        AudioManager.PlaySound(_finishedSound, volume: 0.8f, pitch: 1.2f);
+        AudioManager.PlaySound(_finishedSound, volume: 0.65f, pitch: 1.2f);
         SetActiveAll(false);
         StopCountdown();
     }

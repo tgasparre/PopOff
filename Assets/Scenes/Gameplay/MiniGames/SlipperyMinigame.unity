@@ -511,7 +511,8 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 3819760149647759747, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}]
+    m_RemovedComponents:
+    - {fileID: 3819760149647759747, guid: c71699d5cb330297a9b9750dcd480f7e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -808,18 +809,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlipperyMiniGame
   winningParticlesPrefab: {fileID: 7839910272244707473, guid: 5ff20fff6bc5b2f4a9de0e9d7ac3e94c, type: 3}
-  _miniGameName: King of the Hill
+  _miniGameName: Seesaw Slide
   _miniGameInstructions: Push others off the platform, be the last one alive
-  _countdownTimer: 3
   _miniGameTime: 0
   _powerupReward:
   - {fileID: 11400000, guid: 4c4e9858dc5a7f190ba0d2d242037b2c, type: 2}
-  - {fileID: 11400000, guid: 4a5b3e06393778474aaafdb3046e82a1, type: 2}
+  - {fileID: 11400000, guid: 40e5bbd3eb9ec08a689c6c841ff79e94, type: 2}
   _minigameStats: {fileID: 11400000, guid: 66fae25d8f5142e679aea533fe5494e5, type: 2}
   _miniGameStartingHealth: 100
-  _waitAfterLoadingTime: 0.8
-  _waitForInstructionTime: 1
-  _waitBeforeSceneLoad: 1
+  _waitAfterLoadingTime: 0.5
+  _waitForInstructionTime: 1.8
+  _waitBeforeSceneLoad: 0.8
   MainPlatform: {fileID: 170758536}
   startingPlatformParent: {fileID: 490554093}
 --- !u!4 &671235338

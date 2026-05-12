@@ -13,6 +13,10 @@ public class CameraShake : MonoBehaviour
     [Header("Player Death Shake")]
     [SerializeField] private float _deathDuration = 0.1f;
     [SerializeField] private Vector2 _deathMagnitude = Vector2.one;
+    
+    [Header("Player Ultimate Attack Shake")]
+    [SerializeField] private float _ultimateDuration = 0.1f;
+    [SerializeField] private Vector2 _ultimateMagnitude = Vector2.one;
 
     private Camera _currentCamera;
     private Vector3 _currentCameraStartingPosition;
@@ -43,6 +47,11 @@ public class CameraShake : MonoBehaviour
     public void DeathShake()
     {
         Shake(_deathDuration, _deathMagnitude);
+    }
+
+    public void UltimateShake()
+    {
+        Shake(_ultimateDuration, _ultimateMagnitude);
     }
     
     public void Shake(float duration, Vector2 magnitude)

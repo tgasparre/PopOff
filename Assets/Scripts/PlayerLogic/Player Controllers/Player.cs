@@ -40,10 +40,19 @@ public class Player : PlayerBase
 
     //animation trigger so it doesn't kill the player again while it's playing the death animation
     private bool _hasDied = false;
-    public void ResetHasDied() { _hasDied = false; }
+    // public void ResetHasDied() { _hasDied = false; }
     
     public void TriggerDeath()
     {
+        // if (PlayerIndex == ActivePlayersTracker.IMMORTAL_PLAYER_INDEX)
+        // {
+        //     if (PlayingState.CurrentGameplayState == GameplayStates.Combat)
+        //     {
+        //         PlayerHealth = 1;
+        //         return;
+        //     }
+        // }
+        
         if (_hasDied) return;
         
         Game.CameraShake.DeathShake();
@@ -51,6 +60,15 @@ public class Player : PlayerBase
         
         _hasDied = true;
         _animation.TriggerDeath();
+        
+        StartCoroutine(DeathCountdown());
+        return;
+
+        IEnumerator DeathCountdown()
+        {
+            yield return new WaitForSecondsRealtime(0.452f);
+            KillPlayer();
+        }
     }
 
     public void TriggerUltimate()
@@ -75,6 +93,7 @@ public class Player : PlayerBase
     private PlatformerJumpModule _jumpModule;
     private PlatformerWallModule _wallModule;
     private IndicatorUI _indicatorUI;
+    private CombatInputHandler _combatInputHandler;
 
     private Coroutine _damageCoroutine;
     private Coroutine _freezeMovementCoroutine;
@@ -91,6 +110,7 @@ public class Player : PlayerBase
         _jumpModule = GetComponent<PlatformerJumpModule>();
         _wallModule = GetComponent<PlatformerWallModule>();
         _horizontalMovementModule = GetComponent<PlatformerHorizontalMovementModule>();
+        _combatInputHandler = GetComponent<CombatInputHandler>();
         //SetWeightClass(DEBUG_stats);
 
         _jumpModule.JumpTriggered += TriggerJump;
@@ -122,6 +142,7 @@ public class Player : PlayerBase
 
     public void UsePower(InputAction.CallbackContext context)
     {
+        if (_playerInputManager == null) return;
         if (!_playerInputManager.isInputEnabled) return;
         if (context.performed) powerups.UsePower();
     }
@@ -150,6 +171,7 @@ public class Player : PlayerBase
     
     public void KillPlayer()
     {
+        _hasDied = false;
         OnDeath(this);
     }
 
@@ -279,6 +301,11 @@ public class Player : PlayerBase
             yield return new WaitForSeconds(cooldown);
             _freezeMovementCoroutine = null;
         }
+    }
+
+    public void DEBUG_UnlockUltimate()
+    {
+        // _combatInputHandler.DEBUG_UnlockUltimate();
     }
 }
 

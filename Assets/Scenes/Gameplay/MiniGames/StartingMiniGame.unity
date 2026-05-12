@@ -416,7 +416,7 @@ Transform:
   m_GameObject: {fileID: 368933565}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.1099997, y: -4.12, z: 0}
+  m_LocalPosition: {x: -3.1099997, y: -4.03, z: 0}
   m_LocalScale: {x: 2.5363, y: 0.5577, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1095,7 +1095,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: fb245078cab362d87bf64e3a2dbbbe56, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.888
+  m_Volume: 0.934
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1224,7 +1224,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 34bf434e4c7d1a8efad4753f8e269b2b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.571
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1696,7 +1696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5584752367169955266, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: _pIndex
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5737282520546826705, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1871,7 +1871,7 @@ Transform:
   m_GameObject: {fileID: 1435772326}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.19, y: -4.12, z: 0}
+  m_LocalPosition: {x: 3.19, y: -4.01, z: 0}
   m_LocalScale: {x: 2.5363, y: 0.5577, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2024,7 +2024,7 @@ Transform:
   m_GameObject: {fileID: 1509591962}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.56, y: -4.06, z: 0}
+  m_LocalPosition: {x: 9.56, y: -4.03, z: 0}
   m_LocalScale: {x: 2.5363, y: 0.5577, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2318,14 +2318,13 @@ MonoBehaviour:
   _miniGameName: Fill your Balloon
   _miniGameInstructions: Press <color=red>Jump</color> to fill your balloon up with
     air!
-  _countdownTimer: 3
   _miniGameTime: 8
   _powerupReward: []
   _minigameStats: {fileID: 0}
   _miniGameStartingHealth: 100
-  _waitAfterLoadingTime: 0.6
-  _waitForInstructionTime: 1.35
-  _waitBeforeSceneLoad: 1
+  _waitAfterLoadingTime: 1
+  _waitForInstructionTime: 1.85
+  _waitBeforeSceneLoad: 2
   _blowUpBallon: {fileID: 956242184}
   _pressBlowButtonAudio:
     name: Blow Balloon
@@ -2333,8 +2332,8 @@ MonoBehaviour:
     _clips:
     - {fileID: 8300000, guid: 1ac603e22dc0b29ea9524830f4f879e9, type: 3}
     - {fileID: 8300000, guid: 85daf633b7a739286833d10ad7d32d28, type: 3}
-    _volumeMin: 0.3
-    _volumeMax: 0.5
+    _volumeMin: 0.262
+    _volumeMax: 0.44
     _pitchMin: 1
     _pitchMax: 1.3
   _airFillMusic: {fileID: 844255533}
@@ -2382,7 +2381,7 @@ Transform:
   m_GameObject: {fileID: 1979345429}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.52, y: -4.21, z: 0}
+  m_LocalPosition: {x: -9.52, y: -4.11, z: 0}
   m_LocalScale: {x: 2.5363, y: 0.5577, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2881,7 +2880,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1319070952995340667, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.4100003
+      value: -3.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903563706181439477, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
+      propertyPath: _type
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1903563706181439477, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _showIndicators
@@ -2901,7 +2904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2369528086836662498, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.04
+      value: -3.89
       objectReference: {fileID: 0}
     - target: {fileID: 3919633599095119070, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_Name
@@ -2917,7 +2920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4975871641610116170, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _type
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4975871641610116170, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _showIndicators
@@ -2937,7 +2940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6719747387954283380, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.79
+      value: -3.73
       objectReference: {fileID: 0}
     - target: {fileID: 7455051673202284375, guid: 8f26ed2eb074fb95c8ed1e3fc2efb798, type: 3}
       propertyPath: _type
@@ -3055,6 +3058,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1461186506978447985, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2350895809669935969, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3082,6 +3089,10 @@ PrefabInstance:
     - target: {fileID: 4846003335688891910, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_Name
       value: FillBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584752367169955266, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
+      propertyPath: _pIndex
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5737282520546826705, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3182,6 +3193,10 @@ PrefabInstance:
     - target: {fileID: 7689521750478938363, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420482406315684237, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
+      propertyPath: m_Value
+      value: 0.206
       objectReference: {fileID: 0}
     - target: {fileID: 8603343440221251871, guid: d3aace820f7dce84c8c0258f5bb2dfff, type: 3}
       propertyPath: m_AnchorMax.y

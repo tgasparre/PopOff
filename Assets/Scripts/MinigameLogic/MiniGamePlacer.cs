@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,7 +9,18 @@ public class MiniGamePlacer : ObjectPlacer
     [SerializeField] private float _holdTime = 5f;
     [SerializeField] private float _minTimeToSpawn = 5f;
     [SerializeField] private float _maxTimeToSpawn = 10f;
-    
+
+    private void Awake()
+    {
+        if (!SceneLoader.IEEE_BUILD)
+        {
+            _delayUntilStartTime = 11;
+            _holdTime = 10f;
+            _minTimeToSpawn = 5f;
+            _maxTimeToSpawn = 10f;
+        } 
+    }
+
     protected override void StartPlacing()
     {
         StartCoroutine(BeginPlace());

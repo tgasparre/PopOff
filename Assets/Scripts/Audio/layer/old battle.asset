@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9579bb2fd61de8abe96c84740ab6810c, type: 3}
+  m_Name: old battle
+  m_EditorClassIdentifier: Assembly-CSharp::LayeredAudio
+  _intro: {fileID: 8300000, guid: f4e2aff845b73b60da893616a6f8309a, type: 3}
+  _clips:
+  - order: 0
+    volume: 0.77
+    clip: {fileID: 8300000, guid: a37c4b61c44a5649e891fbeb2cb802c9, type: 3}
+  - order: 0
+    volume: 0.85
+    clip: {fileID: 8300000, guid: cfb2f9ff1fc8a9a9495ab384a1485a24, type: 3}
+  - order: 0
+    volume: 0.679
+    clip: {fileID: 8300000, guid: 9778364400670da0b85625f9f67a9b1f, type: 3}
+  - order: 1
+    volume: 0.85
+    clip: {fileID: 8300000, guid: e6ea9b9af2da0502398e02c27e0be901, type: 3}
+  - order: 2
+    volume: 0.786
+    clip: {fileID: 8300000, guid: 446a03478344ca1dea841eafd96cd1f1, type: 3}
+  - order: 2
+    volume: 0.85
+    clip: {fileID: 8300000, guid: 35445d7f628e12a6fb1b8f715341532a, type: 3}

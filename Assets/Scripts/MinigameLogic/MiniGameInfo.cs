@@ -29,7 +29,7 @@ public abstract class MiniGameInfo : MonoBehaviour
     public string MiniGameName => _miniGameName;
     [SerializeField] [TextArea] private string _miniGameInstructions = "default description";
     public string MiniGameInstructions => _miniGameInstructions;
-    [SerializeField] private int _miniGameTime = 15;
+    [SerializeField] private int _miniGameTime = 0;
     public int MiniGameTime => _miniGameTime;
     public bool HasTimer => _miniGameTime > 0;
     [SerializeField] private Powerup[] _powerupReward = Array.Empty<Powerup>();

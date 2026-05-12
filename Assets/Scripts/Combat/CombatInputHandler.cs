@@ -43,7 +43,7 @@ public class CombatInputHandler : MonoBehaviour
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
     {
-        if (!InputManager.isInputEnabled) return;
+        if (_player == null || !InputManager.isInputEnabled) return;
         if (UltimateAttackEnabled)
         {
             Vector3 attackDirection;
@@ -55,7 +55,7 @@ public class CombatInputHandler : MonoBehaviour
 
     public void OnPrimaryAttack(InputAction.CallbackContext context)
     {
-        if (!InputManager.isInputEnabled) return;
+        if (_player == null || !InputManager.isInputEnabled) return;
         if (context.performed)
         {
             Vector3 attackDirection;
@@ -68,7 +68,7 @@ public class CombatInputHandler : MonoBehaviour
 
     public void OnSecondaryAttack(InputAction.CallbackContext context)
     {
-        if (!InputManager.isInputEnabled) return;
+        if (_player == null || !InputManager.isInputEnabled) return;
         if (context.performed)
         {
             Vector3 attackDirection;
@@ -144,7 +144,10 @@ public class CombatInputHandler : MonoBehaviour
         GameObject ultimateHitbox = Instantiate(ultimateHitboxPrefab, _ultimateSavedOffset, Quaternion.identity, transform);
         AttackHitbox hitboxScript = ultimateHitbox.GetComponent<AttackHitbox>();
 
-        hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, null);
+        hitboxScript.SpawnHitbox(_player, AttackHitbox.HitboxType.Ultimate, () =>
+        {
+            Game.CameraShake.UltimateShake();
+        });
 
         Destroy(ultimateHitbox, _ultimateHitboxLifetime);
     }
@@ -161,4 +164,8 @@ public class CombatInputHandler : MonoBehaviour
         _tracker.ResetTracker();
     }
 
+    public void DEBUG_UnlockUltimate()
+    {
+        _tracker.UnlockUltimateAttack();
+    }
 }

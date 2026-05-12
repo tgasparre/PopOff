@@ -16,12 +16,21 @@ public interface ISceneLoader
 }
 public class SceneLoader : MonoBehaviour, ISceneLoader 
 {
+    public static readonly bool IEEE_BUILD = false;
+    private int IEEE_index = 0;
+
+    private void Awake()
+    {
+        IEEE_index = 0;
+        ObjectPlacer.IsFrozen = false;
+    }
+
     [Header("Scenes")]
     [SerializeField] private SceneReference _menuScene;
     [SerializeField] private SceneReference _combatScene;
     [SerializeField] private SceneReference _startingMiniGame;
     [SerializeField] private SceneReference[] _miniGameScenes;
-
+    
     private List<int> _unplayedMiniGames = new List<int>();
 
     public bool canLoadScene { get; private set; }  = true;
@@ -61,6 +70,8 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
     
     public void LoadMenuScene(Action sceneLoaded = null)
     {
+        ObjectPlacer.IsFrozen = false;
+        
         LoadSceneTransition(_menuScene, sceneLoaded);
     }
 
@@ -82,12 +93,29 @@ public class SceneLoader : MonoBehaviour, ISceneLoader
 
     private SceneReference PickMiniGame()
     {
-        if (_unplayedMiniGames.Count == 0) {_unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList();}
+        if (IEEE_BUILD)
+        {
+            if (IEEE_index == 3) ObjectPlacer.IsFrozen = true;
+            return _miniGameScenes[(IEEE_index++)%_miniGameScenes.Length];
+        }
+        
+        if (_unplayedMiniGames.Count == 0) { _unplayedMiniGames = Enumerable.Range(0, _miniGameScenes.Length).ToList(); }
         int minigameToPlay = _unplayedMiniGames[Random.Range(0, _unplayedMiniGames.Count)];
         _unplayedMiniGames.Remove(minigameToPlay);
         
         return _miniGameScenes[minigameToPlay];
     }
+
+    // private void Update()
+    // {
+    //     if (Keyboard.current.leftShiftKey.isPressed && Keyboard.current.pKey.wasPressedThisFrame)
+    //     {
+    //         if (PlayingState.CurrentGameplayState == GameplayStates.MiniGame)
+    //         {
+    //             MiniGameInfo.Instance.TriggerEndMiniGame(0);
+    //         }
+    //     }
+    // }
 }
 
 public enum SceneType
